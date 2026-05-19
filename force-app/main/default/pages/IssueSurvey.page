@@ -1,0 +1,290 @@
+<apex:page controller="IssueSurveyController">
+ <apex:includeScript value="/support/console/37.0/integration.js"/>
+     
+    <apex:sectionHeader title="Survey" subtitle="I-{!issueObj.CaseNumber__c}"/>   
+    <apex:form id="frm">
+        <script>
+            function requiredQuestion(){
+                var questionRequiredVal = document.getElementById("{!$Component.frm:questionRequired}").value;
+                var saveErrorVal = document.getElementById("{!$Component.frm:saveError}").value;
+                if(saveErrorVal != true && saveErrorVal != 'true'){
+                    if(questionRequiredVal == true || questionRequiredVal == 'true'){
+                        if (confirm('Mandatory questions remain to be answered.  Click OK to confirm termination Or Cancel to go back to survey')) {
+                            terminateReason();                        
+                        } 
+                    }else{
+                        terminateReason();      
+                    } 
+                }                               
+            }
+            
+            function closeCurrentTab() {
+                //First find the ID of the current tab to close it
+                sforce.console.getEnclosingTabId(closeSubtab);
+            }
+          
+            
+            var closeSubtab = function closeSubtab(result) {
+                //Now that we have the tab ID, we can close it
+                var tabId = result.id;
+                sforce.console.closeTab(tabId);
+            };
+            
+            function CloseSurveyTab() {
+                var saveErrorVal = document.getElementById("{!$Component.frm:saveError}").value;
+                if(saveErrorVal != true && saveErrorVal != 'true'){
+                    sforce.console.getEnclosingTabId(closeSubtab);
+                }
+            }
+            
+            function CloseSurveyCancelTab() {                
+                var errorCheck = document.getElementById("{!$Component.frm:cancelPan:messagePbCancel}");
+                if(errorCheck.innerHTML != null && errorCheck.innerHTML == ''){
+                     sforce.console.getEnclosingTabId(closeSubtab);
+                }                
+            }
+        
+        </script>
+        <style>
+            .colorBorder{
+                border-left:2px solid #ff0000;
+            }
+            
+            .RequiredSurvey {
+                  background-color: #004A7F;
+                  -webkit-border-radius: 10px;
+                  border-radius: 10px;
+                  border: none;
+                  color: #FFFFFF;
+                  cursor: pointer;
+                  display: inline-block;
+                  font-family: Arial;
+                  font-size: 20px;
+                  padding: 5px 10px;
+                  text-align: center;
+                  text-decoration: none;
+                }
+                @-webkit-keyframes glowing {
+                  0% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+                  50% { background-color: #FF0000; -webkit-box-shadow: 0 0 40px #FF0000; }
+                  100% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+                }
+                
+                @-moz-keyframes glowing {
+                  0% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
+                  50% { background-color: #FF0000; -moz-box-shadow: 0 0 40px #FF0000; }
+                  100% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
+                }
+                
+                @-o-keyframes glowing {
+                  0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+                  50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
+                  100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+                }
+                
+                @keyframes glowing {
+                  0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+                  50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
+                  100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+                }
+                
+                .RequiredSurvey{
+                  -webkit-animation: glowing 1500ms infinite;
+                  -moz-animation: glowing 1500ms infinite;
+                  -o-animation: glowing 1500ms infinite;
+                  animation: glowing 1500ms infinite;
+                }
+        </style>
+        
+        <apex:outputPanel id="outerPanel">
+            <apex:inputHidden id="questionRequired" value="{!questionRequired}"/>
+           
+             <apex:inputHidden id="saveError" value="{!saveError}" />            
+             <apex:pageBlock id="cancelPan" rendered="{!cancelScreen}"  title="Please select a survey{!if(endSurveyType == 'Cancel',' cancellation reason',' termination reason')}">
+                <apex:pageMessages id="messagePbCancel"></apex:pageMessages> 
+                <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton value="Previous" immediate="true" status="status1" rendered="{!If(endSurveyType == 'Cancel',false,true)}" action="{!previousTerminate}"/>
+                    <apex:commandButton value="Save" status="status1" rendered="{!If(endSurveyType == 'Cancel',true,false)}" action="{!saveReason}" reRender="messagePbCancel" oncomplete="CloseSurveyCancelTab(); return false;"/>
+                    <apex:commandButton value="Save" status="status1" rendered="{!If(endSurveyType == 'Cancel',false,true)}" action="{!customSaveSurvey}" reRender="messagePbCancel" oncomplete="CloseSurveyCancelTab(); return false;"/>
+                    <apex:commandButton value="Close" onclick="closeCurrentTab(); return false;"/>
+                </apex:pageBlockButtons>
+                <table style="width:100%">
+                    <tr>
+                        <td style="text-align:right; width:200px;">
+                            <apex:outputLabel value="{!if(endSurveyType == 'Cancel','Survey Cancel Reason','Survey Termination Reason')}"></apex:outputLabel>
+                        </td>
+                        <td class="colorBorder">
+                            <apex:inputField value="{!issueObjNew.Survey_Cancel_Reason__c}"/>                       
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height:10px;"></td>
+                    </tr> 
+                    <tr>
+                        <td style="text-align:right; width:200px;">
+                            <apex:outputLabel value="Comments"></apex:outputLabel>
+                        </td>
+                        <td>
+                             <apex:inputField id="issueComment" value="{!issueObj.Survey_Cancel_Comments__c}" style="width:100%;height:120px;"/>
+                        </td>
+                    </tr>
+                 </table>
+                <apex:pageBlockSection collapsible="true" columns="1">
+                   <apex:inputField label="" value="{!issueObjNew.SurveyHiddenReason__c }" style="display:none;"/>
+                </apex:pageBlockSection> 
+             </apex:pageBlock>
+               
+            <apex:pageBlock rendered="{!mainScreen}">
+                <apex:pageMessages id="messagePb1"></apex:pageMessages>
+                <apex:pageBlockButtons location="bottom">
+                    <apex:commandButton value="{!If(issueObj.Survey__c == 'Required' && !isSurveyOffered,'Start ','Update ')}Survey" action="{!StartSurvey}" status="status1" rendered="{!multiSurvey || !IQOSSurvey}" styleClass="{!if(isSurveyOffered || !multiSurvey,'','RequiredSurvey')}"/>
+                    <apex:commandButton value="{!If(issueObj.Survey__c == 'Required' && !isIQOSSurveyOffered,'Start ','Update ')}Survey IQOS APE" action="{!StartSurveySection}" status="status1" rendered="{!IQOSSurvey}" styleClass="{!if(isIQOSsurveyOffered || !multiSurvey,'','RequiredSurvey')}"/>
+                    <apex:commandButton value="Cancel Survey" action="{!CancelSurvey}" rendered="{!If(issueObj.Survey__c == 'Required',true,false)}"/>
+                    <apex:commandButton value="Close" onclick="closeCurrentTab(); return false;"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection >
+                    <apex:pageBlockTable value="{!surveyNameList}" var="suv">
+                        <apex:column headerValue="Survey List">
+                             <apex:OutputText value="{!suv}" />
+                        </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection>        
+            </apex:pageBlock>       
+        
+            <apex:outputPanel id="innerPanel" rendered="{!surveyScreen}">
+                 <apex:actionFunction name="nextRoute" action="{!nextRoute}" reRender="pb1,pbEnd" status="status1" >       
+                    <apex:param value="" name="startingPoint" id="nextV1" /> 
+                 </apex:actionFunction>
+                 
+                 <apex:actionFunction name="preRoute" action="{!preRoute}" reRender="pb1,pbEnd" status="status1" >       
+                        <apex:param value="" name="startingPoint" id="nextV2" /> 
+                 </apex:actionFunction>
+                 
+                 <apex:actionFunction name="requiredQuestionValidation" action="{!requiredQuestionValidation}" reRender="questionRequired,messagePb,saveError">       
+                        <apex:param value="" name="questionId" id="nextV3" /> 
+                 </apex:actionFunction>
+                 
+                 <apex:actionFunction name="SaveSurvey" action="{!SaveSurvey}" reRender="saveError,messagePb">       
+                        <apex:param value="" name="questionId" id="nextV4" /> 
+                 </apex:actionFunction>
+                 
+                 <apex:actionFunction name="terminateReason" action="{!TerminateSurvey}"/>
+                 <apex:outputPanel id="pbEnd" style="width:100%">
+                     <apex:pageBlock id="pbEnd1" rendered="{!If(StartIndex == null || StartIndex == '',true,false)}">
+                         <apex:pageBlockButtons location="top" style="Padding-left:200px;">
+                             <apex:commandButton value="Previous" status="status1" action="{!previousEnd}"/>
+                             <apex:commandButton value="Submit Survey" id="end2" status="status1"  action="{!SaveSurvey}" reRender="saveError,messagePb" oncomplete="CloseSurveyTab();return false;"/>
+                         </apex:pageBlockButtons>
+                         <table style="width:100%">
+                            <tr>
+                                <td align="center">
+                                     <h2 style="font-size:1.3em;">
+                                         Survey has been completed, please click on 'Submit Survey' button. 
+                                     </h2>
+                                 </td>
+                            </tr>
+                            <tr>
+                                <td style="height:10px;"></td>
+                            </tr> 
+                         </table>
+                         
+                     </apex:pageBlock>
+                 </apex:outputPanel>   
+                 <apex:repeat value="{!SurveyQuestionIds}"  var="ques">
+                    <apex:repeat value="{!wrpList[ques]}" var="quesSeq" id="rp">
+                         <apex:outputPanel id="pb1" style="width:100%">                                                   
+                             <apex:pageBlock id="pb2" rendered="{!If(quesSeq.surveyQuestionId  == StartIndex,true,false)}">                 
+                                  <apex:pageMessages id="messagePb"></apex:pageMessages>
+                                   <apex:outputPanel rendered="{!if(quesSeq.surveyQuestionId != null && quesSeq.surveyQuestionId != '',true,false)}" id="questPanel"> 
+                                                         
+                                        <table style="width:100%">
+                                            <tr>
+                                                <td align="center">
+                                                    <h2 style="font-size:1.3em;">
+                                                        <b>Survey Name : {!quesSeq.questionMap.Survey__r.Survey_Name__c}</b>
+                                                    </h2>
+                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:10px;"></td>
+                                            </tr>    
+                                            <tr>
+                                                <td>
+                                                    <h2 style="font-size:1.3em;">
+                                                        <b> <span style="color:#ff0000;display:{!if(quesSeq.questionMap.Question_Required__c,'inline','none')}">*</span>Question : </b>
+                                                    
+                                                     
+                                                   <apex:outputLabel value="{!quesSeq.questionMap.QuestionFromText__c}">
+                                                   </apex:outputLabel>
+                                                   </h2>
+                                                   <br/> <br/>
+                                                    
+                                                </td>
+                                            </tr>
+                                            <br/> 
+                                            <tr>
+                                                <td>
+                                                    <table style="width:100%">
+                                                        <tr>
+                                                            <td width="50%" valign="top">
+                                                                 <apex:pageBlock title="Answer Choice(s)">
+                                                                     <apex:pageBlockSection columns="1" id="RepeatSection" >                
+                                                                     <apex:outputPanel rendered="{!If(quesSeq.questionMap.QuestionFrom__r.Type__c='Single Choice',true,false)}"> 
+                                                                         <apex:selectRadio value="{!quesSeq.seletedRadio}" layout="pageDirection" id="itemSelectList" style="font-size:1.2em">
+                                                                              <apex:selectOptions value="{!quesSeq.radioAnsList}"/>
+                                                                          </apex:selectRadio>                                                         
+                                                                     </apex:outputPanel>   
+                                                                             
+                                                                     <apex:repeat value="{!quesSeq.ansMap}" var="ans" rendered="{!If(quesSeq.questionMap.QuestionFrom__r.Type__c !='Single Choice',true,false)}"> 
+                                                                       <apex:outputPanel rendered="{!If(quesSeq.questionMap.QuestionFrom__r.Type__c=='Comment',true,false)}"  style="font-size:1.2em">                                                            
+                                                                            <apex:OutputText value="{!ans.qtn.AnswerText__c}" style="width:100%;height:200px;"/>
+                                                                       </apex:outputPanel>
+                                                                       <apex:outputPanel rendered="{!If(quesSeq.questionMap.QuestionFrom__r.Type__c='Multiple Choice',true,false)}"  style="font-size:1.2em"> 
+                                                                            <apex:inputCheckbox selected="{!ans.radioCheckBtn}"/>
+                                                                            {!ans.qtn.AnswerText__c}                                              
+                                                                      </apex:outputPanel>                             
+                                                                     </apex:repeat>
+                                                                     <br/>
+                                                                     </apex:pageBlockSection>
+                                                                 </apex:pageBlock>
+                                                            </td>
+                                                            <td  width="50%" valign="top">
+                                                                 <apex:pageBlock title="Comment">
+                                                                     <apex:inputTextarea style="width:100%;height:120px;" value="{!quesSeq.questionComment}"  />
+                                                                     <apex:inputhidden id="texthide1" /> 
+                                                                 </apex:pageBlock>                                            
+                                                            </td>
+                                                        </tr>
+                                                    </table>                                    
+                                                </td>
+                                            </tr> 
+                                        </table>
+                                    </apex:outputPanel>
+                                   <apex:outputPanel rendered="{!if(quesSeq.surveyQuestionId == null || quesSeq.surveyQuestionId == '',true,false)}" style="text-align:center;">
+                                       <b>Survey has been Completed, Please click on End Survey button to save the survey. </b>
+                                   </apex:outputPanel> 
+                                   <apex:pageBlockButtons rendered="{!if(quesSeq.surveyQuestionId != null,true,false)}">                                                           
+                                        <input type="button" class="btn"  value="Previous"  onclick="preRoute('{!quesSeq.surveyQuestionId}')" style="display:{!if(preButton[quesSeq.surveyQuestionId] != null && preButton[quesSeq.surveyQuestionId],'inline','none')}"/>
+                                        <input type="button" class="btn"  value="Next"  onclick="nextRoute('{!quesSeq.surveyQuestionId}')"/>
+                                        <apex:commandButton value="End Survey" id="end1" status="status1" action="{!requiredQuestionValidation}" reRender="questionRequired,messagePb,saveError"   oncomplete="requiredQuestion()"/>
+                                        <apex:commandButton value="Close" onclick="closeCurrentTab(); return false;"/>
+                                    </apex:pageBlockButtons>                                    
+                              </apex:pageBlock>                      
+                          </apex:outputPanel>            
+                    </apex:repeat>     
+                </apex:repeat>
+            </apex:outputPanel>
+        </apex:outputPanel>   
+         <apex:actionstatus id="status1">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                       height: 100%;opacity:0.65;width:100%;"> 
+                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">Loading...</span>
+                    </div>
+                </div>
+            </apex:facet>
+         </apex:actionstatus>
+     </apex:form>
+</apex:page>

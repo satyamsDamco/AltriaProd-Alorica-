@@ -1,0 +1,169 @@
+<apex:page standardController="Reimbursement__c" extensions="ReimbursementEditController" title="Reimbursement" action="{!validationBeforeReimbursement}" id="pg" name="Reimbursement" label="Reimbursement" >
+   <apex:includeScript value="/support/console/37.0/integration.js" />
+    <apex:form id="formId">
+    <script>         
+        function SetTabTitleReimbursement() {
+            sforce.console.getEnclosingTabId(function(result) {
+               var reimbursementId = '{!reimbursement.id}';
+               if(reimbursementId != null && reimbursementId != '' && reimbursementId != 'null'){
+                   sforce.console.setTabTitle('RN-'+'{!reimbursement.Name}', result.id);
+               }
+               sforce.console.setTabLink();
+            });
+         }
+        
+        var pageLoad = window.onload;
+        
+        window.onload = function() {
+            if (pageLoad) {
+                    pageLoad();
+            }
+            SetTabTitleReimbursement();
+        } 
+        
+        function CloseReimbursementTab() {
+            var reimbursementId = '{!reimbursement.id}';
+            
+            if(reimbursementId == null || reimbursementId == '' || reimbursementId == 'null'){
+                sforce.console.getEnclosingTabId(closeSubtabVar);
+            }else{
+                CancelRedirect();                           
+            } 
+        } 
+        var closeSubtabVar = function closeSubtab(result) {
+            //Now that we have the tab ID, we can close it
+            var tabId = result.id;
+            sforce.console.closeTab(tabId);
+        };
+        
+        function checkConsole() {
+            var isCon;
+            if (typeof(srcUp) == 'function') {
+                isCon = false; //yes in console
+            } else {
+                isCon = true;
+            }
+            document.getElementById("{!$Component.pg:formId:varHolder}").value = isCon;
+            passValue();
+        }
+        
+        function isAllowedVC(){
+            var oldType = '{!reimbursement.Reimbursement_Type__c}';
+            var isVirtualCard = document.getElementById("{!$Component.pg:formId:pgBlock:pgBlkSecId:reim:reim2}").value;
+            if(isVirtualCard == 'Virtual Card'){
+                if('{!issue.Contact.Email}' == '' || '{!issue.Contact.Email_Verified__c}' == 'false'){
+               		alert('A Verified Email address is required to request Virtual Card');
+                    document.getElementById("{!$Component.pg:formId:pgBlock:pgBlkSecId:reim:reim2}").value = oldType;
+                }
+            }
+        }
+    </script>
+        <apex:sectionHeader subtitle="{!reimbursement.Name}" title="Reimbursement"/> 
+        <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
+        <apex:actionFunction name="passValue" action="{!assignValue}" rerender="formId" />
+        <apex:inputHidden id="varHolder" value="{!inConsole}" />
+  	    <apex:pageBlock id="pgBlock"> 
+            <apex:pageMessages id="messages"/>
+            <apex:pageblockSection columns="2" id="pgBlkSecId">  
+                <apex:pageBlockSectionItem id="IssueName">               
+                    <apex:outputLabel value="Issue Name"></apex:outputLabel>
+                    <apex:outputfield value="{!Issue.CaseNumber__c}"  />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="chequeAmt">               
+                    <apex:outputLabel value="Check Amount"></apex:outputLabel>
+                    <apex:inputfield id="amount" value="{!reimbursement.Cheque_Amount__c}" />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="reim">               
+                    <apex:outputLabel value="Reimbursement Type" id="reim1" ></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.Reimbursement_Type__c}" id="reim2" onchange="isAllowedVC();"/>                    
+                </apex:pageBlockSectionItem>              
+                <apex:pageBlockSectionItem id="IssueId" rendered="false"> 
+                    <apex:inputfield value="{!Issue.id}" id="Issue_Id" />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="IssueId1" rendered="false">
+                    <apex:inputfield value="{!reimbursement.Issue__c}" id="Issue_Id1" />                    
+                </apex:pageBlockSectionItem>
+               <apex:pageBlockSectionItem id="Consumer"> 
+                    <apex:outputLabel value="Consumer" id="Consumer1" ></apex:outputLabel>
+                    <apex:outputtext value="{!consumername}" id="Consumer2" />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="Purchase"> 
+                    <apex:outputLabel value="Purchase Price" id="pp" ></apex:outputLabel>
+                    <apex:outputText value="{!purchasePrice}" />                  
+                </apex:pageBlockSectionItem>
+                <apex:inputHidden />
+                <apex:outputField value="{!issue.Contact.Email}" />
+                <apex:outputField value="{!issue.Contact.Email_Verified__c}" />
+                <apex:pageBlockSectionItem id="FirstName" rendered="{!showReimbAddtl}" >               
+                    <apex:outputLabel value="First Name"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.First_Name__c}"  />  
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="StreetAddress" rendered="{!showReimbAddtl}">               
+                    <apex:outputLabel value="Street Address / Address1"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.Street_Address__c}"  />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="LastName" rendered="{!showReimbAddtl}">               
+                    <apex:outputLabel value="Last Name"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.Last_Name__c}"  />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="AptLot" rendered="{!showReimbAddtl}">               
+                    <apex:outputLabel value="Apt / Lot"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.Apt_Lot__c}"  />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="City" rendered="{!showReimbAddtl}">               
+                    <apex:outputLabel value="City / Locality"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.City__c}"  />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="State" rendered="{!showReimbAddtl}">               
+                    <apex:outputLabel value="State / Province"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.State__c}"  />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="ZipCode" rendered="{!showReimbAddtl}">               
+                    <apex:outputLabel value="Zip Code / Postal Code"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.Zip_Code__c}"  />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="TransfertoAltriaDate" rendered="{!showReimbAddtl}">               
+                    <apex:outputLabel value="Transfer to Altria Date"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.Transfer_to_Altria_Date__c}"  />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="AltriaFileName" rendered="{!showReimbAddtl}">               
+                    <apex:outputLabel value="Altria File Name"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.Altria_File_Name__c}"  />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="WirecardFileName" rendered="{!showReimbAddtl}">               
+                    <apex:outputLabel value="File Name"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.File_Name__c}"  />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="WirecardShipDate" rendered="{!showReimbAddtl}">               
+                    <apex:outputLabel value="Ship Date"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.Ship_Date__c}"  />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="EcountID" rendered="{!showReimbAddtl}">               
+                    <apex:outputLabel value="Ecount ID"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.Ecount_ID__c}"  />                    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="CardNumber" rendered="{!showReimbAddtl}">               
+                    <apex:outputLabel value="Card Number"></apex:outputLabel>
+                    <apex:inputfield value="{!reimbursement.Card_Number__c}"  />                    
+                </apex:pageBlockSectionItem>
+                               
+            </apex:pageblockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" status="status1" id="saveBtn" action="{!submit}" reRender="saveBtn,messages" />
+                <apex:commandButton value="Cancel" reRender="dummy" onclick="CloseReimbursementTab();return false" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>  
+        <apex:actionstatus id="status1">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                       height: 100%;opacity:0.65;width:100%;"> 
+                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">Loading...</span>
+                    </div>
+                </div>
+            </apex:facet>
+         </apex:actionstatus>
+    </apex:form>   
+    <script>checkConsole();</script>
+</apex:page>

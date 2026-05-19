@@ -1,0 +1,420 @@
+<apex:page standardController="Survey__c" extensions="SurveyConfigurationController" id="pg">
+    <apex:sectionHeader title="Survey Configuration" subtitle="{!surveyObj.Survey_Name__c}"/>
+     <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+    <apex:form id="fm1">
+        <script>
+        	function availableQuestionData(){
+                var questionId =  document.getElementById('pg:fm1:pBlock:questionsection:leftQuestion').value;
+                if(questionId == null || questionId == '' || questionId == '0')
+                    questionId = '0';
+                 Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.SurveyConfigurationController.questionLeftChange}',
+                        questionId,
+                        function(result, event){                 
+                            if (event.status){   
+                             ClearQuestion();  
+                             ClearAnswer(); 
+                             $('#leftAnswer').find('option').remove();
+                             $('#leftAnswer').append('<option value="0" selected="selected">--Select Answer--</option>');
+                             if(result.quesObj.Id != null && result.quesObj.Id != '' && result.quesObj.Id != undefined){
+                                 var answerData = result.leftAnswerOptionsValue; 
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QId').value = result.quesObj.Id;
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionId').value = result.quesObj.Name;
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionName').value = result.quesObj.Question__c;
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionType').value = result.quesObj.Type__c ;
+                                                                                                  
+                                 if(result.quesObj.PMQuestionID__c != null && result.quesObj.PMQuestionID__c != '' && result.quesObj.PMQuestionID__c != undefined)
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionPMId').value = result.quesObj.PMQuestionID__c;
+                                 else
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionPMId').value = '';
+                                     
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QSeq').value = '';
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QStart').checked = false;
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QReq').checked = false;
+                                 if('{!surveyObj.Section__c}'){
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QSec').value = '';
+                                 }
+                                 
+                                 for (var a=0;a<answerData.length; a++){
+                                      var valueAnswer = answerData[a].nameObj;
+                                      
+                                      if(valueAnswer != null && valueAnswer.trim()  != ''){
+                                            $('<option>').val(answerData[a].idObj).text(valueAnswer).appendTo($('#leftAnswer'));
+                                     } 
+                                 } 
+                             }
+                             configData('');                             
+                         }
+                    }, 
+                    {escape: false}
+                );            
+            }
+        	
+            function selectedQuestionData(){
+                var questionId =  document.getElementById('pg:fm1:pBlock:questionsection:rightQuestion').value;
+                if(questionId == null || questionId == '' || questionId == '0')
+                    questionId = '0';
+                var surveyId = '{!surveyObj.id}';    
+                   Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.SurveyConfigurationController.questionRightChange}',
+                        questionId,surveyId,
+                        function(result, event){                 
+                            if (event.status){   
+                             ClearQuestion();  
+                             ClearAnswer();   
+                             $('#leftAnswer').find('option').remove();
+                             $('#leftAnswer').append('<option value="0" selected="selected">--Select Answer--</option>');
+                             if(result.quesObj.Id != null && result.quesObj.Id != '' && result.quesObj.Id != undefined){
+                                 
+                                 var answerData = result.leftAnswerOptionsValue; 
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QId').value = result.quesObj.Id;
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionId').value = result.quesObj.Name;
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionName').value = result.quesObj.Question__c;
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionType').value = result.quesObj.Type__c ;
+                                                                                                  
+                                 if(result.quesObj.PMQuestionID__c != null && result.quesObj.PMQuestionID__c != '' && result.quesObj.PMQuestionID__c != undefined)
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionPMId').value = result.quesObj.PMQuestionID__c;
+                                 else
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionPMId').value = '';
+                                    
+                                 
+                                 if(result.surveyCongObj.Id != null && result.surveyCongObj.Id != '' && result.surveyCongObj.Id != undefined){
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QSeq').value = result.surveyCongObj.Question_Sequence__c;
+                                     if('{!surveyObj.Section__c}'){
+                                     	document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QSec').value = result.surveyCongObj.Section__c;
+                                     }
+                                     if(result.surveyCongObj.Starting_Question__c == true || result.surveyCongObj.Starting_Question__c == 'true'){
+                                         document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QStart').checked = true;
+                                     }else{
+                                         document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QStart').checked = false;
+                                     }
+                                     
+                                     if(result.surveyCongObj.Question_Required__c == true || result.surveyCongObj.Question_Required__c == 'true'){
+                                         document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QReq').checked = true;
+                                     }else{
+                                         document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QReq').checked = false;
+                                     }
+                                     
+                                 }else{
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QSeq').value = '';
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QStart').checked = false;
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QReq').checked = false;
+                                     if('{!surveyObj.Section__c}'){
+                                     	document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QSec').value = '';	
+                                     }
+                                 }
+                                 
+                                 
+                                                                           
+                                 for (var a=0;a<answerData.length; a++){
+                                      var valueAnswer = answerData[a].nameObj;
+                                      
+                                      if(valueAnswer != null && valueAnswer.trim()  != ''){
+                                            $('<option>').val(answerData[a].idObj).text(valueAnswer).appendTo($('#leftAnswer'));
+                                     } 
+                                 } 
+                             }
+                         }
+                         configData(questionId);
+                         relaodFunction();
+                    }, 
+                    {escape: false}
+                );            
+            }
+        	
+            function answerSelected(ele){
+                var leftAnswer =  document.getElementById('leftAnswer').value;
+                
+                if(leftAnswer == null || leftAnswer == '' || leftAnswer == '0')
+                    leftAnswer = '0';
+                 Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.SurveyConfigurationController.SelectedAnswerChange}',
+                        leftAnswer,
+                        function(result, event){                 
+                            if (event.status){  
+                             console.log(result.answObj);
+                             if(result.answObj.Id != null && result.answObj.Id != '' && result.answObj.Id != undefined){
+                                 
+                                 document.getElementById('pg:fm1:pBlock:dataPb:ansSection:AId').value = result.answObj.Id;
+                                 document.getElementById('pg:fm1:pBlock:dataPb:ansSection:answerId').value = result.answObj.Name;
+                                 //document.getElementById('pg:fm1:pBlock:dataPb:ansSection:answerName').value = result.answObj.Answer__c;
+                                 $('.answerName')[0].value = result.answObj.Answer__c;
+                                                                                                  
+                                 if(result.answObj.PMAnswerID__c != null && result.answObj.PMAnswerID__c != '' && result.answObj.PMAnswerID__c != undefined)
+                                     document.getElementById('pg:fm1:pBlock:dataPb:ansSection:answerPMId').value = result.answObj.PMAnswerID__c;
+                                 else
+                                     document.getElementById('pg:fm1:pBlock:dataPb:ansSection:answerPMId').value = '';
+                                     
+                                 document.getElementById('pg:fm1:pBlock:dataPb:ansSection:ASeq').value = '';
+                                 document.getElementById('pg:fm1:pBlock:dataPb:ansSection:sId').value = '';
+                                 document.getElementById('pg:fm1:pBlock:dataPb:ansSection:AComm').checked = false;
+                                 document.getElementById('pg:fm1:pBlock:dataPb:ansSection:AEnd').checked = false;
+                                 
+                             }else{
+                                  ClearAnswer();
+                             }
+                         }
+                    }
+                );
+            }
+            
+            function deleteCongAnswer(congId){
+                 var retVal = confirm("Do you want to delete this record?");
+                if( retVal == true ){
+                    deleteAnswer(congId);
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            
+            function EditCongAnswer(congId){
+                if(congId == null || congId == '' || congId == '0')
+                    congId = '0';
+                 Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.SurveyConfigurationController.SelectedAnswerEdit}',
+                        congId,
+                        function(result, event){                 
+                            if (event.status){  
+                             if(result.Id != null && result.Id != '' && result.Id != undefined){
+                                 document.getElementById('pg:fm1:pBlock:dataPb:ansSection:sId').value = result.Id;                                  
+                                 document.getElementById('pg:fm1:pBlock:dataPb:ansSection:AId').value = result.Answer__c;
+                                 document.getElementById('pg:fm1:pBlock:dataPb:ansSection:answerId').value = result.Answer__r.Name;
+                                 document.getElementById('pg:fm1:pBlock:dataPb:ansSection:answerName').value = result.AnswerText__c;
+                                 document.getElementById('pg:fm1:pBlock:dataPb:ansSection:NextQuestion').value = result.QuestionTo__c;                                                                 
+                                                                                                  
+                                 if(result.PMAnswerID__c != null && result.PMAnswerID__c != '' && result.PMAnswerID__c != undefined)
+                                     document.getElementById('pg:fm1:pBlock:dataPb:ansSection:answerPMId').value = result.PMAnswerID__c;
+                                 else
+                                     document.getElementById('pg:fm1:pBlock:dataPb:ansSection:answerPMId').value = '';
+                                     
+                                 document.getElementById('pg:fm1:pBlock:dataPb:ansSection:ASeq').value = result.Answer_Sequence__c;
+                                 
+                                 if(result.CommentRequired__c == true || result.CommentRequired__c == 'true'){
+                                     document.getElementById('pg:fm1:pBlock:dataPb:ansSection:AComm').checked = true;
+                                 }else{
+                                     document.getElementById('pg:fm1:pBlock:dataPb:ansSection:AComm').checked = false;
+                                 }
+                                 
+                                 if(result.End_Question__c == true || result.End_Question__c == 'true'){
+                                      document.getElementById('pg:fm1:pBlock:dataPb:ansSection:AEnd').checked  = true;
+                                 }else{
+                                      document.getElementById('pg:fm1:pBlock:dataPb:ansSection:AEnd').checked  = false;
+                                 }
+                                 
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QId').value = result.QuestionFrom__c;
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionId').value = result.QuestionFrom__r.Name;
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionName').value = result.QuestionFromText__c;
+                                 document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionType').value = result.QuestionFrom__r.Type__c ;
+                                                                                                  
+                                 if(result.PMQuestionID__c != null && result.PMQuestionID__c != '' && result.PMQuestionID__c != undefined)
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionPMId').value = result.PMQuestionID__c;
+                                 else
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionPMId').value = '';
+                                     
+                                 if(result.Question_Sequence__c != null && result.Question_Sequence__c != '' && result.Question_Sequence__c != undefined)
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QSeq').value = result.Question_Sequence__c;
+                                 else
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QSeq').value = '';
+                                     
+                                 if(result.Starting_Question__c == true || result.Starting_Question__c == 'true'){
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QStart').checked = true;
+                                 }else{
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QStart').checked = false;
+                                 }
+                                 
+                                 if(result.Question_Required__c == true || result.Question_Required__c == 'true'){
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QReq').checked = true;
+                                 }else{
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QReq').checked = false;
+                                 }
+                                 
+                                 if((result.Section__c != null && result.Section__c != '' && result.Section__c != undefined) && '{!surveyObj.Section__c}'){
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QSec').value = result.Section__c;
+                                 }else{
+                                     document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QSec').value = '';
+                                 }
+                                 
+                             }else{
+                                 ClearAnswer();
+                                 ClearQuestion();
+                             }
+                         }
+                    }, 
+                    {escape: false}
+                );
+                return false;
+            }
+            
+            function ClearAnswer(){
+                document.getElementById('pg:fm1:pBlock:dataPb:ansSection:answerId').value = '';
+                document.getElementById('pg:fm1:pBlock:dataPb:ansSection:answerName').value = '';
+                document.getElementById('pg:fm1:pBlock:dataPb:ansSection:answerPMId').value = '';
+                document.getElementById('pg:fm1:pBlock:dataPb:ansSection:AId').value = '';
+                document.getElementById('pg:fm1:pBlock:dataPb:ansSection:sId').value = '';
+                document.getElementById('pg:fm1:pBlock:dataPb:ansSection:ASeq').value = '';
+                document.getElementById('pg:fm1:pBlock:dataPb:ansSection:AComm').checked = false;
+                document.getElementById('pg:fm1:pBlock:dataPb:ansSection:AEnd').checked = false;
+                document.getElementById('pg:fm1:pBlock:dataPb:ansSection:NextQuestion').value = '';
+            }
+            
+            function ClearQuestion(){
+                document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionId').value = '';
+                document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionName').value = '';
+                document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionType').value = '';
+                document.getElementById('pg:fm1:pBlock:quesPB:quesSection:questionPMId').value = '';
+                document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QId').value = '';
+                document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QSeq').value = '';
+                document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QStart').checked = false;
+                document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QReq').checked = false;
+                if('{surveyObj.Section__c}'){
+                	document.getElementById('pg:fm1:pBlock:quesPB:quesSection:QSec').value = '';    	
+                }
+            }
+            
+        	function deleteCongQuestion(){
+                 var retVal = confirm("Do you want to delete this Question?");
+                if( retVal == true ){
+                    deleteQuestion();
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            $(document).ready(function(){
+                $('.saveConfig').click(function() {
+                    saveConfiguration();
+                });
+                
+                $('.clearQuestion').click(function() {
+                    clearQuestion();
+                });
+                
+                $('.deleteConfig').click(function() {
+                    deleteCongQuestion();
+                });
+            });
+            
+            function relaodFunction(){
+                $('.saveConfig').click(function() {
+                    saveConfiguration();
+                });
+                
+                $('.clearQuestion').click(function() {
+                    clearQuestion();
+                });
+                
+                $('.deleteConfig').click(function() {
+                    deleteCongQuestion();
+                });            
+            }
+            function reloadQuestion(){
+                var errorCheck = document.getElementById("{!$Component.fm1:pBlock:mesg}");
+                if(errorCheck.innerHTML != null && errorCheck.innerHTML == ''){
+                     reloadQuestionData();
+                }               
+            } 
+        </script>
+        <apex:pageBlock id="pBlock">
+            <apex:actionFunction name="configData" action="{!configData}" reRender="dataPb">
+                <apex:param name="questionId" value=""/>
+            </apex:actionFunction>
+            <apex:actionFunction name="deleteAnswer" action="{!deleteAnswer}" oncomplete="reloadQuestion()">
+                <apex:param name="CongId" value=""/>
+            </apex:actionFunction>
+            <apex:actionFunction name="deleteQuestion" action="{!removeConfiguration}" reRender="pBlock"/>
+            <apex:actionFunction name="clearQuestion" action="{!clear}" reRender="pBlock"/>
+            <apex:actionFunction name="saveConfiguration" action="{!saveConfiguration}" reRender="mesg" oncomplete="reloadQuestion()"/>
+            <apex:actionFunction name="reloadQuestionData" reRender="leftQuestion,rightQuestion" oncomplete="reloadQuestionData1()"/>
+            <apex:actionFunction name="reloadQuestionData1" action="{!refreshQuestion}" reRender="pBlock" oncomplete="reloadQuestionData2()"/>
+            <apex:actionFunction name="reloadQuestionData2" oncomplete="selectedQuestionData()"/>
+            <apex:pageBlockButtons location="Top">
+                <a href="#" class="btn clearQuestion" style="text-decoration:none;padding:3px"> Clear </a>
+                <a href="#" class="btn saveConfig" style="text-decoration:none;padding:3px"> Save </a>
+                <a href="#" class="btn deleteConfig" style="text-decoration:none;padding:3px"> Remove Question </a>
+                <apex:commandButton action="{!redirectSurvey}" value="Back to Survey"/>
+            </apex:pageBlockButtons>
+            <apex:pageMessages id="mesg"></apex:pageMessages>
+            <apex:pageBlockSection title="Question Section" columns="2" id="questionsection">
+                <apex:selectList size="5" style="width:300px" id="leftQuestion" label="Available Question" onchange="availableQuestionData()">
+                    <apex:selectOptions value="{!leftQuestionOptionsValue}"></apex:selectOptions>
+                </apex:selectList>
+                <apex:selectList size="5" value="{!SelectedQuestionRight}" style="width:300px" label="Selected Question"  id="rightQuestion"  onchange="selectedQuestionData()">
+                    <apex:selectOptions value="{!rightQuestionOptionsValue}"></apex:selectOptions>
+                </apex:selectList>
+            </apex:pageBlockSection>
+             <apex:pageBlock id="quesPB">  
+                <apex:pageBlockSection id="quesSection" title="Question" columns="1" showHeader="false">
+                    <apex:inputText disabled="true" label="Question Id" id="questionId"/>
+                    <apex:inputText disabled="true" style="width:100%;height:40px;" id="questionName" label="Question Name"/>
+                    <apex:inputText disabled="true" label="Question Type" id="questionType"/>
+                    <apex:inputText disabled="true" label="PMQuestionID"  id="questionPMId"/> 
+                    <apex:inputText value="{!questionSeq}" style="border-left:2px solid #c00" id="QSeq" label="Question Sequence"/> 
+                    <apex:inputCheckbox value="{!questionStartQ}" id="QStart" label="Starting Question"/>  
+                    <apex:inputCheckbox value="{!questionRequired}" id="QReq" label="Question Required"/>
+                    <apex:selectList value="{!questionSection}" id="QSec" label="Section" rendered="{!surveyObj.Section__c}" size="1">
+                   		<apex:selectOptions value="{!section}"/>
+           			</apex:selectList>
+                    <apex:inputHidden value="{!newSurveyCong.QuestionFrom__c}" id="QId"/>            
+                </apex:pageBlockSection> 
+             </apex:pageBlock> 
+            <apex:pageBlockSection title="Answer Section" columns="3" id="answerSection">
+                <apex:pageBlockSectionItem id="answerLeftblock">
+                    <apex:outputLabel value="Available Answer"></apex:outputLabel>
+                     <select id="leftAnswer" style="width:175px;" onchange="answerSelected(this);"></select>
+                </apex:pageBlockSectionItem> 
+            </apex:pageBlockSection>
+            <apex:pageBlock id="dataPb">
+                <apex:pageBlockButtons location="top">
+                    <a href="#" onclick="ClearAnswer()" class="btn" style="text-decoration:none;padding:3px"> Clear </a>
+                </apex:pageBlockButtons>                 
+                <apex:pageBlockSection showHeader="false" columns="1" id="ansSection">
+                    <apex:inputText disabled="true" label="Answer Id" id="answerId"/>
+                    <apex:inputText disabled="true" style="width:100%;height:40px;" id="answerName" styleClass="answerName" label="Answer Name"/>
+                    <apex:inputText disabled="true" label="PMAnswerID"  id="answerPMId"/> 
+                    <apex:inputField value="{!newSurveyCong.Answer_Sequence__c}" style="border-left:2px solid #c00" id="ASeq"/> 
+                    <apex:inputField value="{!newSurveyCong.CommentRequired__c}" id="AComm"/>  
+                    <apex:inputField value="{!newSurveyCong.End_Question__c}" id="AEnd"/>
+                    <apex:selectList size="1" value="{!newSurveyCong.QuestionTo__c}" style="width:300px"  id="NextQuestion" label="Next Question">
+                        <apex:selectOptions value="{!NextQuestionOptionsValue}"></apex:selectOptions>
+                    </apex:selectList>                    
+                    <apex:inputHidden value="{!newSurveyCong.Answer__c}" id="AId"/>
+                    <apex:inputHidden value="{!congId}" id="sId"/>                  
+                    <apex:pageBlockTable value="{!newSurveyCongList}" var="surCong" id="pbTable">
+                         <apex:column headerValue="Edit  /  Delete" width="10%">
+                              <a href="#" onclick="EditCongAnswer('{!surCong.id}')">Edit</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+                              <a href="#" onclick="deleteCongAnswer('{!surCong.id}')">Delete</a>
+                         </apex:column> 
+                         <apex:column headerValue="Survey Configuration Id" width="10%">
+                              <apex:outputText value="{!surCong.Name}"/>
+                         </apex:column>                        
+                         <apex:column headerValue="Answer Id" width="10%">
+                              <apex:outputText value="{!surCong.AnswerID__c}"/>
+                         </apex:column>
+                         <apex:column headerValue="Answer" width="10%">
+                              <apex:outputText value="{!surCong.AnswerText__c}"/>
+                         </apex:column>
+                         <apex:column headerValue="PM AnswerID" width="10%">
+                              <apex:outputText value="{!surCong.PMAnswerID__c}"/>
+                         </apex:column>
+                         <apex:column headerValue="Answer Sequence" width="10%">
+                              <apex:outputText value="{!surCong.Answer_Sequence__c}"/>
+                         </apex:column>
+                         <apex:column headerValue="Next Question" width="10%">
+                              <apex:outputText value="{!surCong.QuestionTo__r.Question__c}"/>
+                         </apex:column>
+                         <apex:column headerValue="Comment Required" width="10%">
+                              <apex:outputText value="{!If(surCong.CommentRequired__c,'Yes','No')}"/>
+                         </apex:column>
+                         <apex:column headerValue="End Question" width="10%">
+                              <apex:outputText value="{!if(surCong.End_Question__c,'Yes','No')}"/>
+                         </apex:column>
+                         <apex:column headerValue="Section" width="10%">
+                              <apex:outputText value="{!surCong.Section__c}"/>
+                         </apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageBlockSection> 
+            </apex:pageBlock>         
+        </apex:pageBlock>    
+    </apex:form>
+</apex:page>

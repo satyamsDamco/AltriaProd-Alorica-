@@ -1,0 +1,250 @@
+<apex:page controller="ManualBrandHierarchyUploadController" id="mainPage" tabStyle="Manual_Integration__tab" sidebar="false">
+    <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" /> 
+    <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" /> 
+
+    <apex:includeScript value="{!URLFOR($Resource.GridViewScroll, '/gridviewScroll.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.GridViewScroll, '/GridviewScroll.css')}"/>
+    <script type="text/javascript"> 
+    $(document).ready(function() {
+        gridviewScroll(); 
+    }); 
+    var w = $(window).width() - 100;
+    function gridviewScroll() {
+            var head1 = $('#mainPage\\:pageform\\:mainPB\\:mainPBS\\:mainPBT').find('thead').html();
+            $(head1).find('tr').addClass('GridviewScrollHeader');
+            var body1 = $('#mainPage\\:pageform\\:mainPB\\:mainPBS\\:mainPBT').find('tbody').html();
+            $(body1).find('tr').addClass('GridviewScrollItem');
+            $('#mainPage\\:pageform\\:mainPB\\:mainPBS\\:mainPBT').html(head1 + body1);
+            $('#mainPage\\:pageform\\:mainPB\\:mainPBS\\:mainPBT').find('tr').addClass('GridviewScrollItem');
+            gridView1 = $('#mainPage\\:pageform\\:mainPB\\:mainPBS\\:mainPBT').gridviewScroll({
+                width: w,
+                height: 400
+            });
+            
+            var head2 = $('#mainPage\\:pageform\\:mainPB\\:mainPBS1\\:mainPBT1').find('thead').html();
+            $(head2).find('tr').addClass('GridviewScrollHeader');
+            var body2 = $('#mainPage\\:pageform\\:mainPB\\:mainPBS1\\:mainPBT1').find('tbody').html();
+            $(body2).find('tr').addClass('GridviewScrollItem');
+            $('#mainPage\\:pageform\\:mainPB\\:mainPBS1\\:mainPBT1').html(head2 + body2);
+            $('#mainPage\\:pageform\\:mainPB\\:mainPBS1\\:mainPBT1').find('tr').addClass('GridviewScrollItem');
+            gridView2 = $('#mainPage\\:pageform\\:mainPB\\:mainPBS1\\:mainPBT1').gridviewScroll({
+                width: w,
+                height: 400
+            }); 
+      }
+</script> 
+   <apex:form id="pageform">
+      <apex:sectionHeader title="Upload Brand Hierarchy data from CSV file"/>
+      <apex:pagemessages />
+      <apex:pageBlock mode="Ediit" id="mainPB">
+             <!--  Component to allow user to upload file from local machine -->
+             <center>
+              <apex:inputFile value="{!contentFile}" filename="{!nameFile}" /> 
+              <apex:commandButton action="{!ReadFile}" value="Upload File" id="theButton" style="width:70px;"/>
+              <apex:commandButton action="{!brandHierarchyChange}" value="Upload Brand Hierarchy Changes" id="theButtonUpdate" disabled="{!errordata}" rendered="{!newRecords.size >0 || deactiveRecords.size>0}" style="width:200px;"/>   
+             </center>  
+  
+      <!-- After the user clicks the 'Upload File' button, this section displays the inserted data -->
+      <apex:pageBlockSection title="New Records" id="mainPBS"> 
+          <apex:pageBlockTable value="{!newRecords}" var="acc" id="mainPBT" rendered="{!newRecords.size>0}">
+              <apex:column headerValue="Action">
+                  <apex:outputText value="{!acc.Requested}"/>
+              </apex:column>
+               <apex:column headerValue="Missing data in file" style="{!IF(acc.MissingDataError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!If(acc.MissingDataError,'Missing Data','')}" />
+              </apex:column>
+              <apex:column headerValue="Duplicate in file" style="{!IF(acc.dupliacteErrorFile,'background:#FFFF7F','background:none')}">
+                  <apex:outputText value="{!If(acc.dupliacteErrorFile,'Duplicate Data','')}" />
+              </apex:column>
+              <apex:column headerValue="Duplicate in salesforce" style="{!IF(acc.dupliacteErrorData,'background:#B2B2FF','background:none')}">
+                  <apex:outputText value="{!If(acc.dupliacteErrorData,'Duplicate Data','')}" />
+              </apex:column>
+             <apex:column headerValue="VantiveId" >
+                  <apex:outputText value="{!acc.VantiveId}"/>
+              </apex:column>          
+              <apex:column headerValue="PmBrandCode">
+                  <apex:outputText value="{!acc.PmBrandCode}"/>
+              </apex:column>
+              <apex:column headerValue="ShortCut">
+                  <apex:outputText value="{!acc.ShortCut}"/>
+              </apex:column>
+              <apex:column headerValue="ProductLineCode"  style="{!IF(acc.ProductLineError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!acc.ProductLineCode}" />
+              </apex:column>
+              <apex:column headerValue="BrandCode" style="{!IF(acc.BrandCodeError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!acc.BrandCode}"/>
+              </apex:column>
+              <apex:column headerValue="UPC">
+                  <apex:outputText value="{!acc.UPC}"/>
+              </apex:column>
+              <apex:column headerValue="Taste" style="{!IF(acc.TasteError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!acc.Taste}"/>
+              </apex:column>
+              <apex:column headerValue="Length" style="{!IF(acc.LengthError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!acc.Length}"/>
+              </apex:column>
+              <apex:column headerValue="Packaging" style="{!IF(acc.PackagingError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!acc.Packaging}"/>
+              </apex:column>
+              <apex:column headerValue="Flavor" style="{!IF(acc.FlavorError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!acc.Flavor}"/>
+              </apex:column>
+              <apex:column headerValue="Filter" style="{!IF(acc.FilterError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!acc.Filter}"/>
+              </apex:column>
+              <apex:column headerValue="PaperType" style="{!IF(acc.PaperTypeError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!acc.PaperType}"/>
+              </apex:column>
+               <apex:column headerValue="Cut" style="{!IF(acc.cutError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!acc.Cut}"/>
+              </apex:column>
+              <apex:column headerValue="BrandSasCode">
+                  <apex:outputText value="{!acc.BrandSasCode}"/>
+              </apex:column>
+              <apex:column headerValue="BrandMMCode">
+                  <apex:outputText value="{!acc.BrandMMCode}"/>
+              </apex:column>
+              <apex:column headerValue="ProductDesc">
+                  <apex:outputText value="{!acc.ProductDesc}"/>
+              </apex:column>
+              <apex:column headerValue="ProductType">
+                  <apex:outputText value="{!acc.ProductType}"/>
+              </apex:column>
+              <apex:column headerValue="PriceCategory">
+                  <apex:outputText value="{!acc.PriceCategory}"/>              
+              </apex:column>
+              <apex:column headerValue="LicenseGroup">
+                  <apex:outputText value="{!acc.LicenseGroup}"/>
+              </apex:column>
+              <apex:column headerValue="UnitsPerPack">
+                  <apex:outputText value="{!acc.UnitsPerPack}"/>
+              </apex:column>
+              <apex:column headerValue="BrandStatus">
+                  <apex:outputText value="{!acc.BrandStatus}"/>
+              </apex:column>
+              <apex:column headerValue="BrandClassification">
+                  <apex:outputText value="{!acc.BrandClassification}"/>
+              </apex:column>
+              <apex:column headerValue="PackType">
+                  <apex:outputText value="{!acc.PackType}"/>              
+              </apex:column>
+              <apex:column headerValue="ReportingBrandFamily">
+                  <apex:outputText value="{!acc.ReportingBrandFamily}"/>              
+              </apex:column>
+              <apex:column headerValue="PickUpPolicyWeeks">
+                  <apex:outputText value="{!acc.PickUpPolicyWeeks}"/>              
+              </apex:column>
+              <apex:column headerValue="UstDateType">
+                  <apex:outputText value="{!acc.UstDateType}"/>              
+              </apex:column>
+              <apex:column headerValue="ActiveFlag">
+                  <apex:outputText value="{!acc.ActiveFlag}"/>              
+              </apex:column>
+               <apex:column headerValue="" style="width:20px;">
+                              
+              </apex:column>
+          </apex:pageBlockTable> 
+      </apex:pageBlockSection>
+      <apex:pageBlockSection title="DeActive Records" id="mainPBS1">
+          <apex:pageBlockTable value="{!deactiveRecords}" id="mainPBT1" var="acc" rendered="{!deactiveRecords.size>0}">
+              <apex:column headerValue="Action">
+                  <apex:outputText value="{!acc.Requested}"/>
+              </apex:column>
+               <apex:column headerValue="Missing data in file" style="{!IF(acc.MissingDataError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!If(acc.MissingDataError,'Missing Data','')}" />
+              </apex:column>
+              <apex:column headerValue="Duplicate in file" style="{!IF(acc.dupliacteErrorFile,'background:#FFFF7F','background:none')}">
+                  <apex:outputText value="{!If(acc.dupliacteErrorFile,'Duplicate Data','')}" />
+              </apex:column>
+              <apex:column headerValue="BrandHierarchyCode" style="{!IF(acc.NameError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!acc.Name}"/>
+              </apex:column>
+              <apex:column headerValue="VantiveId" >
+                  <apex:outputText value="{!acc.VantiveId}" />
+              </apex:column>          
+              <apex:column headerValue="PmBrandCode">
+                  <apex:outputText value="{!acc.PmBrandCode}" />
+              </apex:column>
+              <apex:column headerValue="ShortCut">
+                  <apex:outputText value="{!acc.ShortCut}"/>
+              </apex:column>
+               <apex:column headerValue="ProductLineCode">
+                  <apex:outputText value="{!acc.ProductLineCode}"/>
+              </apex:column>
+              <apex:column headerValue="BrandCode">
+                  <apex:outputText value="{!acc.BrandCode}"/>
+              </apex:column>
+              <apex:column headerValue="UPC">
+                  <apex:outputText value="{!acc.UPC}"/>
+              </apex:column>
+              <apex:column headerValue="Taste">
+                  <apex:outputText value="{!acc.Taste}"/>
+              </apex:column>
+              <apex:column headerValue="Length">
+                  <apex:outputText value="{!acc.Length}"/>
+              </apex:column>
+              <apex:column headerValue="Packaging">
+                  <apex:outputText value="{!acc.Packaging}"/>
+              </apex:column>
+              <apex:column headerValue="Flavor">
+                  <apex:outputText value="{!acc.Flavor}"/>
+              </apex:column>
+              <apex:column headerValue="Filter">
+                  <apex:outputText value="{!acc.Filter}"/>
+              </apex:column>
+              <apex:column headerValue="PaperType">
+                  <apex:outputText value="{!acc.PaperType}"/>
+              </apex:column>
+               <apex:column headerValue="Cut">
+                  <apex:outputText value="{!acc.Cut}"/>
+              </apex:column>
+              <apex:column headerValue="BrandSasCode">
+                  <apex:outputText value="{!acc.BrandSasCode}"/>
+              </apex:column>
+              <apex:column headerValue="BrandMMCode">
+                  <apex:outputText value="{!acc.BrandMMCode}"/>
+              </apex:column>
+              <apex:column headerValue="ProductDesc">
+                  <apex:outputText value="{!acc.ProductDesc}"/>
+              </apex:column>
+              <apex:column headerValue="ProductType">
+                  <apex:outputText value="{!acc.ProductType}"/>
+              </apex:column>
+              <apex:column headerValue="PriceCategory">
+                  <apex:outputText value="{!acc.PriceCategory}"/>              
+              </apex:column>
+              <apex:column headerValue="LicenseGroup">
+                  <apex:outputText value="{!acc.LicenseGroup}"/>
+              </apex:column>
+              <apex:column headerValue="UnitsPerPack">
+                  <apex:outputText value="{!acc.UnitsPerPack}"/>
+              </apex:column>
+              <apex:column headerValue="BrandStatus">
+                  <apex:outputText value="{!acc.BrandStatus}"/>
+              </apex:column>
+              <apex:column headerValue="BrandClassification">
+                  <apex:outputText value="{!acc.BrandClassification}"/>
+              </apex:column>
+              <apex:column headerValue="PackType">
+                  <apex:outputText value="{!acc.PackType}"/>              
+              </apex:column>
+              <apex:column headerValue="ReportingBrandFamily">
+                  <apex:outputText value="{!acc.ReportingBrandFamily}"/>              
+              </apex:column>
+              <apex:column headerValue="PickUpPolicyWeeks">
+                  <apex:outputText value="{!acc.PickUpPolicyWeeks}"/>              
+              </apex:column>
+              <apex:column headerValue="UstDateType">
+                  <apex:outputText value="{!acc.UstDateType}"/>              
+              </apex:column>
+              <apex:column headerValue="ActiveFlag">
+                  <apex:outputText value="{!acc.ActiveFlag}"/>              
+              </apex:column>
+               <apex:column headerValue="" style="width:20px;">
+                              
+              </apex:column>
+          </apex:pageblocktable> 
+       </apex:pageBlockSection>
+      </apex:pageBlock>       
+   </apex:form>   
+</apex:page>

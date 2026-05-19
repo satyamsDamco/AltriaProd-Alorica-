@@ -1,0 +1,253 @@
+<apex:page standardController="Natural_Language__c" extensions="IHNLAssociationListController" id="pg" sidebar="false" showHeader="false">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css"/>  
+     <apex:includeScript value="/support/console/37.0/integration.js" /> 
+    <apex:form id="frm" >
+    <script>
+     window.onload=function () { 
+           if('{!issueHierId}' != null && '{!issueHierId}' != ''){
+              onSelectionPopulateData();                  
+           }
+      }
+    
+    function onSelectionPopulateData(){
+         var availablereason1;
+          var productLine = document.getElementById('pg:frm:pb1:pbs:pgBlSectionItem1:productLineId').value;
+          var issueType = document.getElementById('pg:frm:pb1:pbs:pgBlSectionItem2:issueTypeId').value;
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.IHNLAssociationListController.natLangList}',
+                productLine,issueType,
+                function(result, event){
+                    if (event.status) {
+                       
+                        availablereason1=result;
+                        $( "#natlangHtml" ).autocomplete({
+                            source: availablereason1
+                        });
+                        
+                   }
+                    
+                },
+                 {buffer: false, escape: false, timeout: 30000}
+            );
+    }
+    
+    function IssueHierList(){   
+        showError(); 
+        var NatLangName =  document.getElementById("natlangHtml").value.trim();
+        document.getElementById("pg:frm:pb1:pbs1:natLangValue").value = NatLangName;
+        IssueList();            
+    }
+    function knowArticleList(){   
+        showError(); 
+        var NatLangName =  document.getElementById("natlangHtml").value.trim();
+        document.getElementById("pg:frm:pb1:pbs1:natLangValue").value = NatLangName;
+        KnowledgeArticle();         
+    }
+    var newWinNL=null;      
+    function urlOpener(articleID){
+       var url = '/apex/ArticleInfo?id='+articleID;       
+       var winMain=window.opener;
+       if (null==winMain){
+           winMain=window.parent.opener;
+       }
+       
+       winMain.open(url, 'Popup1','height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');       
+    }
+    function CloseWindow(){
+    
+       var winMain=window.opener;
+       if (null==winMain){
+           winMain=window.parent.opener;
+       }
+       winMain.closeLookupPopupNL1();
+    }
+    function closePopup(){
+        window.top.close();
+    }
+    
+        
+      function getIssueHierId(issueHierId,issueHierCode, groupCode, classificationCode,productlineCode,issueTypeCode,reasonCode,causeCode){
+        console.log(issueHierId+' , '+issueHierCode+' , '+groupCode+' , '+classificationCode+' , '+productlineCode+' , '+issueTypeCode+' , '+reasonCode+' , '+causeCode);
+         document.getElementById("pg:frm:issueHierId").value = issueHierId;
+         
+         document.getElementById("pg:frm:issueHierCode").value = issueHierCode;
+         document.getElementById("pg:frm:groupCode").value = groupCode;
+         document.getElementById("pg:frm:classificationCode").value = classificationCode;
+         document.getElementById("pg:frm:productlineCode").value = productlineCode;
+         document.getElementById("pg:frm:issueTypeCode").value = issueTypeCode;
+         document.getElementById("pg:frm:reasonCode").value = reasonCode;
+         document.getElementById("pg:frm:causeCode").value = causeCode;
+     }
+        
+    function showError(){
+          var productLine = document.getElementById('pg:frm:pb1:pbs:pgBlSectionItem1:productLineId').value;
+          var issueType = document.getElementById('pg:frm:pb1:pbs:pgBlSectionItem2:issueTypeId').value;
+          var nlValue = document.getElementById('natlangHtml').value;
+          
+          if(productLine =='' || productLine  == 'null' ||  productLine  == '0'){
+               alert('Please fill the Product Line, Issue Type and NL');              
+               return false;
+          }else if((issueType == '' || issueType == '0') && (nlValue == '')){
+              alert('Please fill the Issue Type and Natural Language');              
+              return false;          
+          }else if((issueType != '' && issueType != '0') && (nlValue == '')){
+              alert('Please fill the Natural Language.');              
+              return false;          
+          }
+          return true;
+     }    
+        
+         <!-- show the popup on submit button when not selecting radio button-->
+       function submitData(){
+          if(showError()){
+              var d=document.getElementById("pg:frm:issueHierId").value;
+              if(d==''){
+                   alert('Please search the Issue Hierarchy.');
+                   return false;
+              }
+          }else{
+              return false;
+          }
+                     
+          var d=document.getElementById("pg:frm:issueHierId").value;
+          var winMain=window.opener;           
+           
+           if (null==winMain){
+              winMain=window.parent.opener;
+           }
+             
+           var ele=winMain.document.getElementById('{!$CurrentPage.parameters.idfield}');
+           ele.value=d;
+           
+           ele=winMain.document.getElementById('{!$CurrentPage.parameters.issueHierCode}');
+           ele.value=document.getElementById("pg:frm:issueHierCode").value;
+           
+           ele=winMain.document.getElementById('{!$CurrentPage.parameters.groupCode}');
+           ele.value=document.getElementById("pg:frm:groupCode").value;
+           
+           ele=winMain.document.getElementById('{!$CurrentPage.parameters.classificationCode}');
+           ele.value=document.getElementById("pg:frm:classificationCode").value;
+           
+           ele=winMain.document.getElementById('{!$CurrentPage.parameters.issueTypeCode}');
+           ele.value=document.getElementById('pg:frm:issueTypeCode').value;
+           
+           ele=winMain.document.getElementById('{!$CurrentPage.parameters.reasonCode}');
+           ele.value=document.getElementById('pg:frm:reasonCode').value;
+           
+           ele=winMain.document.getElementById('{!$CurrentPage.parameters.causeCode}');
+           ele.value=document.getElementById('pg:frm:causeCode').value;
+                                 
+           
+           CloseWindow();
+        }
+
+         var openSuccess = function openSuccess(result) {
+                //Report whether we succeeded in opening the subtab
+               
+                if (result.success == true) {
+                    //alert('subtab successfully opened');
+                } else {
+                    //alert('subtab cannot be opened');
+                }
+            };    
+</script>  
+
+  
+        <apex:pageBlock id="pb1"> 
+            <apex:actionFunction name="IssueList" action="{!IssueHierList}" reRender="op1,op2,table2"/>
+            <apex:actionFunction name="IssueOnloadList" action="{!IssueHierarchyDataOnLoad}" reRender="op1,op2,table2"/>
+            <apex:actionFunction name="KnowledgeArticle" action="{!knowledgeArticleList}" reRender="op1,op2,table1"/>
+            <apex:actionFunction name="resetData" action="{!reset}" reRender="pb1"/>
+            
+             <apex:pageBlockButtons id="pbb1" location="Top">
+                       <apex:actionStatus id="saveStatus">
+                            <apex:facet name="start">
+                                <apex:outputpanel >
+                                <apex:commandButton value="Searching..."  disabled="true"/>
+                                <apex:commandButton value="Searching..."  disabled="true"/>
+                                </apex:outputpanel> 
+                            </apex:facet> 
+                            <apex:facet name="stop">
+                                   <apex:outputpanel >                           
+                                   <apex:pageMessages id="showmsg"></apex:pageMessages>
+                                   
+                                   <p id="ShowIH1" class ="btn" onclick="return IssueHierList();">Show Issue Hierarchy</p>
+                                   <p id="ShowKA1" class ="btn" onclick="return knowArticleList();">Show Knowledge Article</p> 
+                                       <br/><br/>
+                                   <p id="refresh" class ="btn" onclick="return resetData();">Reset</p>    
+                                   <p id="submit" class ="btn" onclick="return submitData();">Submit</p>
+                                   <p id="close" class ="btn" onclick="closePopup();">Close</p>                              
+                                </apex:outputpanel>
+                            </apex:facet>
+                    </apex:actionStatus>                                     
+                </apex:pageBlockButtons>
+             <apex:pageBlockSection id="pbs" columns="2">   
+                     <apex:pageBlockSectionItem id="pgBlSectionItem1">
+                         <apex:outputLabel value="Product Line"></apex:outputLabel>                        
+                         <apex:selectList id="productLineId" value="{!selectedProductLine}"  style="width:175px;border-left:2px solid #FF0000;" size="1" >
+                             <apex:selectOptions value="{!productLineList}"/>
+                        </apex:selectList>
+                     </apex:pageBlockSectionItem>
+                     <apex:pageBlockSectionItem id="pgBlSectionItem2">
+                            <apex:outputLabel value="Issue Type"></apex:outputLabel>
+                            <apex:selectList id="issueTypeId" value="{!selectedIssueType}"  style="width:175px;border-left:2px solid #FF0000;" size="1" onchange="onSelectionPopulateData();">
+                                  <apex:selectOptions value="{!issueTypeList}"/>
+                            </apex:selectList>
+                     </apex:pageBlockSectionItem>
+             </apex:pageBlockSection> 
+            <apex:pageBlockSection id="pbs1" columns="1">                      
+                     <apex:pageBlockSectionItem id="pbsi1">
+                        <apex:outputLabel value="Natural Language Name"></apex:outputLabel>                       
+                         <input ng-model="q" name="natlangHtml" value="{!natlangHtml}" placeholder="Find available Natural Lang..." id="natlangHtml" style="Width:450px;" onfocus="this.select()" type="text" />
+                         <input name="idValue" id="idValue" type="hidden"/>
+                </apex:pageBlockSectionItem>
+                <apex:inputHidden id="natLangValue" value="{!natlang}"/>
+                <apex:inputHidden id="artID" value="{!ArticleID}"/>
+            </apex:pageBlockSection>     
+            
+            <apex:pageBlockSection columns="2">
+                <apex:outputpanel id="op1">                                     
+                        <apex:pageBlockTable id="table2" value="{!ihnlList}" var="eachRecord" rendered="{!If(ihnlList.size>0,true,false)}">
+                            <apex:column >
+                                <input type="radio" name="issueHier" id="{!eachRecord.issuehierarchyObj.id}" value="{!eachRecord.issuehierarchyObj.id}" onclick="getIssueHierId('{!eachRecord.issuehierarchyObj.id}', '{!eachRecord.issuehierarchyObj.Name}','{!eachRecord.groupName}','{!eachRecord.classification}','{!eachRecord.issuehierarchyObj.Product_Line__r.Name}','{!eachRecord.issuetype}','{!eachRecord.reason}','{!eachRecord.cause}')" />
+                            </apex:column>
+                            <apex:column value="{!eachRecord.issuehierarchyObj.Group__r.Description__c}" headerValue="Group"/>
+                            <apex:column value="{!eachRecord.issuehierarchyObj.Classification__r.Description__c}" headerValue="Classification"/>
+                            <apex:column value="{!eachRecord.issuehierarchyObj.Product_Line__r.Name}" headerValue="Product Line"/>
+                            <apex:column value="{!eachRecord.issuehierarchyObj.Issue_Type__r.Description__c}" headerValue="Issue Type"/>
+                            <apex:column value="{!eachRecord.issuehierarchyObj.Reason__r.Description__c}" headerValue="Reason" />
+                            <apex:column value="{!eachRecord.issuehierarchyObj.Cause__r.Description__c }" headerValue="Cause"/> 
+                            <apex:column headerValue="Natural Language">
+                                <apex:variable value="{!1}" var="rowNum"/>
+                                <apex:repeat value="{!eachRecord.nlDataList}" var="nlVal">
+                                    <apex:outputText value="{!nlVal}"></apex:outputText>
+                                    <apex:outputText value=", " rendered="{!eachRecord.nlSize >1 && rowNum < eachRecord.nlSize}"></apex:outputText> 
+                                    <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                                </apex:repeat>
+                            </apex:column>
+                        </apex:pageblockTable>             
+                </apex:outputpanel>
+                <apex:outputpanel id="op2">                                                   
+                       <apex:pageBlockTable id="table1" value="{!knowledgeList}" var="a" rendered="{!If(knowledgeList.size>0,true,false)}"> 
+                           <apex:column headerValue="Knowledge Article">
+                               <a href="#" onclick="urlOpener('{!a.articleId}');">{!a.titleWithSpace}</a>
+                           </apex:column>
+                    </apex:pageBlockTable>            
+              </apex:outputpanel>
+            </apex:pageBlockSection>            
+        </apex:pageBlock>
+         <apex:inputHidden id="issueHierId" value="{!issueHierId}"/>
+          <apex:inputHidden id="issueHierCode"/>
+          <apex:inputHidden id="groupCode"/>
+          <apex:inputHidden id="classificationCode"/>
+          <apex:inputHidden id="productlineCode"/>
+          <apex:inputHidden id="issueTypeCode"/> 
+          <apex:inputHidden id="reasonCode"/>
+          <apex:inputHidden id="causeCode"/>            
+    </apex:form>
+   
+</apex:page>

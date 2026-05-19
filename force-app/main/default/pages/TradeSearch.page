@@ -1,0 +1,599 @@
+<apex:page standardController="Contact" extensions="TradeSearchController" tabstyle="Contact" showheader="true" sidebar="false" id="page1">
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"/>   
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+    <apex:includeScript value="/support/console/37.0/integration.js"/>
+    <apex:form id="fm1">
+        <style>
+            .text-uppercase {
+                text-transform:uppercase;
+            }
+        </style>
+        <script type="text/javascript">
+             window.onload = function() {
+                 getPrimaryTabId();
+                 SetTabTitleTrade();
+             };
+             function SetTabTitleTrade() {
+                sforce.console.getEnclosingTabId(function(result) {
+                   sforce.console.setTabTitle('Trade Customer Search', result.id);
+                });
+            } 
+             
+             function getPrimaryTabId(){
+				  document.cookie = 'apex__tranid={!tranid}; SameSite=None; Secure; path=/';
+                  sforce.console.getEnclosingPrimaryTabId(DisableTabCloseTrueWithId);
+             }
+             var DisableTabCloseTrueWithId = function DisableTabCloseTrueWithId(result) {
+                var primaryTabId = result.id;
+                sforce.console.disableTabClose(false, primaryTabId);
+             }  
+            
+           
+            
+        function openPrimaryTabTrade(val){
+        
+           if(val == 'No Contact'){ 
+               sforce.console.getEnclosingPrimaryTabId(openSubtabTrade);
+           }else{
+           
+                sforce.console.getEnclosingPrimaryTabId(function openSubtabTrade1(result) {
+                    //Now that we have the primary tab ID, we can open a new subtab in it
+                    var primaryTabId = result.id;
+                    var CustomerId = val; 
+                    
+                    if(result.id != 'null' && result.id !=  null){
+                         sforce.console.openSubtab(primaryTabId , '/apex/ConsumerDetailPage?id='+CustomerId, true, 'Trade'+CustomerId, null,  openSuccess, 'Trade');
+                    }else{
+                       sforce.console.openPrimaryTab(null, '/apex/ConsumerDetailPage?id='+CustomerId, true, 'Trade'+CustomerId, null,  openSuccess, 'Trade');
+                    }
+                });
+            }    
+        }
+        
+       
+        
+        var openSubtabTrade = function openSubtab(result) {
+            var tranid= '{!tranid}';
+            var parameters ='';
+            var comName;   
+            var DBA;
+            var zip;
+            var phone;
+            var agentName;
+            var accountNo;
+            var retail;
+            var email;
+            var fSphone;
+            var territory;
+            var issueNo;
+            var custType = '{!selectedCustomerType}';
+            var custType1 = '{!selectedCustomerTypeId}';
+            
+            var studyID;
+            var partID;
+            var blindCode;
+            var resCom;
+            var resLoc;
+            var proFlavType;
+            var rName;
+            
+            if(custType == "{!$Label.Wholesaler}"){ 
+                accountNo = document.getElementById("{!$Component.fm1:pb:pbs:f6}").value;
+                comName = document.getElementById("{!$Component.fm1:pb:pbs:f2}").value;
+                if(document.getElementById("{!$Component.fm1:pb:pbs:f3}").value != ''){
+                    DBA = document.getElementById("{!$Component.fm1:pb:pbs:f3}").value;
+                }else{
+                    DBA = document.getElementById("{!$Component.fm1:pb:pbs:f2}").value;
+                }
+                zip = document.getElementById("{!$Component.fm1:pb:pbs:f4}").value;
+                phone = document.getElementById("{!$Component.fm1:pb:pbs:f5}").value;
+                issueNo = document.getElementById("{!$Component.fm1:pb:pbs:f11}").value;
+                
+            }
+            if(custType == "{!$Label.Retailer}"){
+                retail = document.getElementById("{!$Component.fm1:pb:pbs:f7}").value;
+                comName = document.getElementById("{!$Component.fm1:pb:pbs:f21}").value;
+                if(document.getElementById("{!$Component.fm1:pb:pbs:f31}").value != ''){
+                    DBA = document.getElementById("{!$Component.fm1:pb:pbs:f31}").value;
+                }else{
+                    DBA = document.getElementById("{!$Component.fm1:pb:pbs:f21}").value;
+                }
+                zip = document.getElementById("{!$Component.fm1:pb:pbs:f41}").value;
+                phone = document.getElementById("{!$Component.fm1:pb:pbs:f51}").value;
+                issueNo = document.getElementById("{!$Component.fm1:pb:pbs:f12}").value;
+            }
+            if(custType == "{!$Label.Field_Sales_Force}"){
+                 agentName = document.getElementById("{!$Component.fm1:pb:pbs:f8}").value;
+                 email = document.getElementById("{!$Component.fm1:pb:pbs:f9}").value;
+                 fSphone = document.getElementById("{!$Component.fm1:pb:pbs:f13}").value;
+                 territory = document.getElementById("{!$Component.fm1:pb:pbs:f15}").value;
+                 issueNo = document.getElementById("{!$Component.fm1:pb:pbs:f14}").value;
+            }
+            
+            if(custType == "{!$Label.Research_Panelist}"){
+                studyID = document.getElementById("{!$Component.fm1:pb:pbs:r1}").value;
+                partID = document.getElementById("{!$Component.fm1:pb:pbs:r2}").value;
+                blindCode = document.getElementById("{!$Component.fm1:pb:pbs:r3}").value;
+                resCom = document.getElementById("{!$Component.fm1:pb:pbs:r4}").value;
+                resLoc = document.getElementById("{!$Component.fm1:pb:pbs:r5}").value;
+                proFlavType = document.getElementById("{!$Component.fm1:pb:pbs:r7}").value;
+                rName = document.getElementById("{!$Component.fm1:pb:pbs:r8}").value;
+            }
+        
+         if(custType != null && custType != '' && custType1 != null && custType1 != ''){
+                parameters = parameters +    '&custType='+custType;
+                parameters = parameters +    '&custType1='+custType1;
+                if(issueNo != null && issueNo != '' && issueNo != 'null')
+                parameters = parameters +    '&issueNo='+issueNo;
+                
+                if(comName != null && comName != '' && comName != 'null')
+                parameters = parameters +    '&comName='+comName;
+                
+                if(DBA != null && DBA != '' && DBA != 'null')
+                parameters = parameters +    '&DBA='+DBA;
+                
+                if(phone != null && phone != '' && phone != 'null')
+                parameters = parameters +    '&phone='+phone;
+                
+                if(accountNo != null && accountNo != '' && accountNo != 'null')
+                parameters = parameters +    '&accountNo='+accountNo;
+                
+                if(retail != null && retail != '' && retail != 'null')
+                parameters = parameters +    '&retail='+retail;
+                
+                if(territory != null && territory != '' && territory != 'null')
+                parameters = parameters +    '&territory='+territory;
+            
+                if(fSphone != null && fSphone != '' && fSphone != 'null')
+                parameters = parameters +    '&fSphone='+fSphone;
+            
+                if(phone != null && phone != '' && phone != 'null')
+                parameters = parameters +    '&phone='+phone;
+                
+                  if(agentName != null && agentName != '' && agentName != 'null')
+                parameters = parameters +    '&agentName='+agentName;
+            
+                if(email != null && email != '' && email != 'null')
+                parameters = parameters +    '&email='+email;
+                
+                 if(zip != null && zip != '' && zip != 'null')
+                parameters = parameters +    '&zip='+zip;
+            
+                if(studyID != null && studyID != '' && studyID != 'null')
+                parameters = parameters +    '&studyID='+studyID;
+                
+                if(partID != null && partID != '' && partID != 'null')
+                parameters = parameters +    '&partID='+partID;
+            
+                if(blindCode != null && blindCode != '' && blindCode != 'null')
+                parameters = parameters +    '&blindCode='+blindCode;
+            
+                if(resCom != null && resCom != '' && resCom != 'null')
+                parameters = parameters +    '&resCom='+resCom;
+            
+                if(resLoc != null && resLoc != '' && resLoc != 'null')
+                parameters = parameters +    '&resLoc='+resLoc;
+            
+                if(proFlavType != null && proFlavType != '' && proFlavType != 'null')
+                parameters = parameters +    '&proFlavType='+proFlavType;
+            
+                if(rName != null && rName != '' && rName != 'null')
+                parameters = parameters +    '&rName='+rName;
+
+            }    
+                
+            if(result.id !=   null && result.id != 'null')
+                sforce.console.openSubtab(result.id, '/apex/ConsumerEntry?x=x'+parameters , true, 'New Trade Customer', null, openSuccess, 'Trade');
+            else
+                sforce.console.openPrimaryTab(null , '/apex/ConsumerEntry?x=x'+parameters , true, 'New Trade Customer', null, openSuccess, 'Trade');
+        }
+       
+        function openPrimaryTabIssue(){
+              sforce.console.getEnclosingPrimaryTabId(openSubtabIssue);
+        }
+        
+        var openSubtabIssue = function openSubtab(result) {
+            
+            var issue = document.getElementById("{!$Component.fm1:issueNum}").value;
+            var pageNumber = 0;
+            if(issue == null || issue == 'null'){
+                pageNumber = 1;
+                document.getElementById("{!$Component.fm1:issueNum}").value = 1;
+            }else{
+                pageNumber = issue;
+                document.getElementById("{!$Component.fm1:issueNum}").value = issue +1;
+            }
+            
+            var conid = '{!tranObj.Contact__c}';
+            var parameters ='';
+            var comName;   
+            var DBA;
+            var zip;
+            var phone;
+            var agentName;
+            var accountNo;
+            var retail;
+            var email;
+            var fSphone;
+            var territory;
+            var issueNo;
+            var custType = '{!selectedCustomerType}';
+            var custType1 = '{!selectedCustomerTypeId}';
+            if(custType == "{!$Label.Wholesaler}"){ 
+                accountNo = document.getElementById("{!$Component.fm1:pb:pbs:f6}").value;
+                comName = document.getElementById("{!$Component.fm1:pb:pbs:f2}").value;
+                if(document.getElementById("{!$Component.fm1:pb:pbs:f3}").value != ''){
+                    DBA = document.getElementById("{!$Component.fm1:pb:pbs:f3}").value;
+                }else{
+                    DBA = document.getElementById("{!$Component.fm1:pb:pbs:f2}").value;
+                }
+                zip = document.getElementById("{!$Component.fm1:pb:pbs:f4}").value;
+                phone = document.getElementById("{!$Component.fm1:pb:pbs:f5}").value;
+                issueNo = document.getElementById("{!$Component.fm1:pb:pbs:f11}").value;
+                
+            }
+            if(custType == "{!$Label.Retailer}"){
+                retail = document.getElementById("{!$Component.fm1:pb:pbs:f7}").value;
+                comName = document.getElementById("{!$Component.fm1:pb:pbs:f21}").value;
+                if(document.getElementById("{!$Component.fm1:pb:pbs:f31}").value != ''){
+                    DBA = document.getElementById("{!$Component.fm1:pb:pbs:f31}").value;
+                }else{
+                    DBA = document.getElementById("{!$Component.fm1:pb:pbs:f21}").value;
+                }
+                zip = document.getElementById("{!$Component.fm1:pb:pbs:f41}").value;
+                phone = document.getElementById("{!$Component.fm1:pb:pbs:f51}").value;
+                issueNo = document.getElementById("{!$Component.fm1:pb:pbs:f12}").value;
+            }
+            if(custType == "{!$Label.Field_Sales_Force}"){
+                 agentName = document.getElementById("{!$Component.fm1:pb:pbs:f8}").value;
+                 email = document.getElementById("{!$Component.fm1:pb:pbs:f9}").value;
+                 fSphone = document.getElementById("{!$Component.fm1:pb:pbs:f13}").value;
+                 territory = document.getElementById("{!$Component.fm1:pb:pbs:f15}").value;
+                 issueNo = document.getElementById("{!$Component.fm1:pb:pbs:f14}").value;
+            }
+        
+         if(custType != null && custType != '' && custType1 != null && custType1 != ''){
+                parameters = parameters +    '&custType='+custType;
+                parameters = parameters +    '&custType1='+custType1;
+                if(issueNo != null && issueNo != '' && issueNo != 'null')
+                parameters = parameters +    '&issueNo='+issueNo;
+                
+                if(comName != null && comName != '' && comName != 'null')
+                parameters = parameters +    '&comName='+comName;
+                
+                if(DBA != null && DBA != '' && DBA != 'null')
+                parameters = parameters +    '&DBA='+DBA;
+                
+                if(phone != null && phone != '' && phone != 'null')
+                parameters = parameters +    '&phone='+phone;
+                
+                if(accountNo != null && accountNo != '' && accountNo != 'null')
+                parameters = parameters +    '&accountNo='+accountNo;
+                
+                if(retail != null && retail != '' && retail != 'null')
+                parameters = parameters +    '&retail='+retail;
+                
+                if(territory != null && territory != '' && territory != 'null')
+                parameters = parameters +    '&territory='+territory;
+            
+                if(fSphone != null && fSphone != '' && fSphone != 'null')
+                parameters = parameters +    '&fSphone='+fSphone;
+            
+                if(phone != null && phone != '' && phone != 'null')
+                parameters = parameters +    '&phone='+phone;
+                
+                  if(agentName != null && agentName != '' && agentName != 'null')
+                parameters = parameters +    '&agentName='+agentName;
+            
+                if(email != null && email != '' && email != 'null')
+                parameters = parameters +    '&email='+email;
+                
+                 if(zip != null && zip != '' && zip != 'null')
+                parameters = parameters +    '&zip='+zip;
+            } 
+            
+            if(conid != null && conid != 'null' && conid != ''){
+                
+                if(result.id !=   null && result.id != 'null')
+                    sforce.console.openSubtab(result.id, '/apex/IssueEntryPage?pageNumber='+pageNumber+'&contid='+conid , true, 'New  Issue', null, openSuccess, 'NewIssueSearch'+pageNumber);
+                else
+                    sforce.console.openPrimaryTab(null , '/apex/IssueEntryPage?pageNumber='+pageNumber+'&contid='+conid, true, 'New  Issue', null, openSuccess, 'NewIssueSearch'+pageNumber);
+            }else{
+          
+                if(result.id !=   null && result.id != 'null')
+                    sforce.console.openSubtab(result.id, '/apex/IssueEntryPage?pageNumber='+pageNumber+parameters  , true, 'New  Issue', null, openSuccess, 'NewIssueSearch'+pageNumber);
+                else
+                    sforce.console.openPrimaryTab(null , '/apex/IssueEntryPage?pageNumber='+pageNumber+parameters , true, 'New  Issue', null, openSuccess, 'NewIssueSearch'+pageNumber);
+             }
+        }
+       
+        var CustomerName;    
+        var CustomerId;
+    
+        function openCustomer(id, Name){
+             CustomerName = Name;
+             CustomerId =  id;
+             openCustomerData();                          
+        }
+        
+        
+        function openCustomerData(){            
+            sforce.console.getEnclosingPrimaryTabId(openSubtabCustomer);        
+        }
+        
+        
+        var openSubtabCustomer = function openSubtab(result) {
+            if(result.id !=null && result.id != 'null')
+                sforce.console.openSubtab(result.id, '/apex/ConsumerEntry?from=search&id='+CustomerId , true, CustomerName, null, openSuccess, 'Trade');
+            else
+                sforce.console.openPrimaryTab(null , '/apex/ConsumerEntry?from=search&id='+CustomerId , true, CustomerName, null, openSuccess, 'Trade'); 
+        }        
+        
+        var openSuccess = function openSuccess(result) {
+                //Report whether we succeeded in opening the subtab
+                if (result.success == true) {
+                     CustomerName = '';
+                     CustomerId =  '';                    
+                } else {                   
+                }
+        };
+        
+         var subTabSearch = '';
+         function currentTabRefresh() {
+            //First find the ID of the current tab to refresh it
+            sforce.console.getEnclosingTabId(refreshCurrentTab);
+         }
+         var refreshCurrentTab = function refreshSubtab(result){
+            var subTabId = result.id;
+            if(subTabSearch == subTabId || subTabSearch.trim() == ''){
+                subTabSearch = ''; 
+                RefreshContact();
+            }
+         }
+        
+        var onFocusedSubtabCallback = function (result) {
+            subTabSearch =  result.id;            
+            document.getElementById("{!$Component.fm1:pb:btn:refresh}").click();
+                        
+        };  
+        sforce.console.onFocusedSubtab(onFocusedSubtabCallback);           
+  </script>
+  <script> 
+            $(document).ready(function(){
+                $('#page1\\:fm1\\:pb\\:pbs\\:f2').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $('#page1\\:fm1\\:pb\\:pbs\\:f3').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $('#page1\\:fm1\\:pb\\:pbs\\:f21').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $('#page1\\:fm1\\:pb\\:pbs\\:f31').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $('#page1\\:fm1\\:pb\\:pbs\\:f8').change(function(){
+                    this.value = this.value.toUpperCase();
+                });
+                
+                $('#page1\\:fm1\\:pb\\:pbs\\:r1').change(function(){
+                    this.value = this.value.toUpperCase();
+                });
+                
+                $('#page1\\:fm1\\:pb\\:pbs\\:r2').change(function(){
+                    this.value = this.value.toUpperCase();
+                });
+                
+                $('#page1\\:fm1\\:pb\\:pbs\\:r3').change(function(){
+                    this.value = this.value.toUpperCase();
+                });
+                
+                $('#page1\\:fm1\\:pb\\:pbs\\:r4').change(function(){
+                    this.value = this.value.toUpperCase();
+                });
+                
+                $('#page1\\:fm1\\:pb\\:pbs\\:r5').change(function(){
+                    this.value = this.value.toUpperCase();
+                });
+                
+                $('#page1\\:fm1\\:pb\\:pbs\\:r6').change(function(){
+                    this.value = this.value.toUpperCase();
+                });
+                
+                $('#page1\\:fm1\\:pb\\:pbs\\:r7').change(function(){
+                    this.value = this.value.toUpperCase();
+                });
+                
+                $('#page1\\:fm1\\:pb\\:pbs\\:r8').change(function(){
+                    this.value = this.value.toUpperCase();
+                });
+                
+             }); 
+         </script>
+ 
+        <apex:inputHidden id="issueNum" />    
+        <apex:pageBlock id="pb" title="Trade Customer Search" >
+            <apex:pageMessages id="messagePb"></apex:pageMessages>
+            <div role="alert" style="display:none;" id="errorMessages"></div>  
+            <apex:actionFunction name="RefreshContact" action="{!RefreshTradeContact}"/>
+            <apex:actionFunction name="GetFieldTrade" action="{!onCTISearch}"/>
+            <apex:actionFunction name="TradeSearch"  action="{!TradeSearch}" rerender="messagePb"/>
+            <apex:pageBlockButtons id="btn">
+                <apex:commandButton value="Search" action="{!TradeSearch}" id="btn1" disabled="{!If(selectedCustomerType != null || selectedCustomerType  != '' ,false,true)}"/>
+                <apex:commandButton value="New Issue"  onclick="openPrimaryTabIssue();return false" id="btn2" disabled="{!If(selectedCustomerType != null || selectedCustomerType  != '' ,false,true)}"/>
+                <apex:commandButton value="{!If(tranObj.Contact__c == null ,'New Trade Customer','Trade Customer')}" onclick="openPrimaryTabTrade('{!If(tranObj.Contact__c == null, 'No Contact',tranObj.Contact__c)}');return false" disabled="{!isTradeBtnVisible}" id="btn3" />
+                <apex:commandButton value="Clear" action="{!Clear}" id="btn4" disabled="{!If(tranObj.Contact__c == null ,false,true)}"/>
+                <apex:commandButton value="Refresh" onclick="currentTabRefresh(); return false" id="refresh" style="visibility: hidden;"/>
+            </apex:pageBlockButtons>
+           
+            <apex:pageBlockSection showHeader="true" columns="1" id="pbs">
+                 <apex:outputPanel id="customerTypeblock">
+                     <apex:panelGrid columns="2" border="0" id="pan1" styleClass="tableStyle" width="33%" columnClasses="colStyle1,colStyle2" rowClasses="rowstyle">                                            
+                         <apex:outputLabel value="Customer Type"></apex:outputLabel>                     
+                         <apex:selectList value="{!selectedCustomerTypeId}" id="f1" style="width:175px;" size="1">
+                             <apex:selectOptions value="{!customerTypeList}"/>
+                             <apex:actionSupport event="onchange" action="{!changeCustomerType}" rerender="op1,op2,op3" oncomplete="GetFieldTrade();"/>
+                         </apex:selectList> 
+                     </apex:panelGrid>                  
+                 </apex:outputPanel>
+                        
+                <apex:outputPanel id="op1" rendered="{!selectedCustomerType  != null && selectedCustomerType == $Label.Wholesaler }">
+                    <apex:panelGrid columns="6" border="0" id="pang1" styleClass="tableStyle" width="100%" columnClasses="colStyle1,colStyle2,colStyle3,colStyle4,colStyle5,colStyle6" rowClasses="rowstyle">       
+                        <apex:outputText >Company Name</apex:outputText>
+                        <apex:inputText value="{!conObj.Company_Name__c}" id="f2" styleClass="text-uppercase"/>
+                        <apex:outputText > DBA Name</apex:outputText>
+                        <apex:inputText value="{!conObj.DBA_Name__c}" id="f3" styleClass="text-uppercase"/>
+                        <apex:outputText >Zip Code/ Postal Code</apex:outputText>
+                        <apex:inputText value="{!conObj.Zip_Code__c}" id="f4" />
+                        <apex:outputText >Phone</apex:outputText>
+                        <apex:inputText value="{!conObj.Phone}" id="f5"/>
+                        <apex:outputText >Account #</apex:outputText>
+                        <apex:inputText value="{!conObj.Account_No__c}" id="f6"/>
+                        
+                        <apex:outputText >Issue #</apex:outputText>
+                  <apex:inputText value="{!issueid}" id="f11"/>
+                  
+                        <apex:outputLabel ></apex:outputLabel>
+                        <apex:outputLabel ><br/><br/><br/></apex:outputLabel>
+                        
+                    </apex:panelGrid> 
+                </apex:outputPanel>
+                <apex:outputPanel id="op2" rendered="{!selectedCustomerType  != null && selectedCustomerType == $Label.Retailer }">
+                    <apex:panelGrid columns="6" border="0" id="pang2" styleClass="tableStyle" width="100%" columnClasses="colStyle1,colStyle2,colStyle3,colStyle4,colStyle5,colStyle6" rowClasses="rowstyle">       
+                        <apex:outputText >Company Name</apex:outputText>
+                        <apex:inputText value="{!conObj.Company_Name__c}" id="f21" styleClass="text-uppercase"/>
+                        <apex:outputText > DBA Name</apex:outputText>
+                        <apex:inputText value="{!conObj.DBA_Name__c}" id="f31" styleClass="text-uppercase"/>
+                        <apex:outputText >Zip Code/ Postal Code</apex:outputText>
+                        <apex:inputText value="{!conObj.Zip_Code__c}" id="f41" />
+                        <apex:outputText >Phone</apex:outputText>
+                        <apex:inputText value="{!conObj.Phone}" id="f51"/>                        
+                        <apex:outputText >Retail Control #</apex:outputText>
+                        <apex:inputText value="{!conObj.Retail_control__c}" id="f7"/>
+                        
+                        <apex:outputText >Issue #</apex:outputText>
+                  <apex:inputText value="{!issueid}" id="f12"/>
+                   
+                   <apex:outputLabel ></apex:outputLabel>
+                        <apex:outputLabel ></apex:outputLabel>
+                        <apex:outputLabel ></apex:outputLabel>
+                        <apex:outputLabel ><br/><br/><br/></apex:outputLabel>
+                        
+                    </apex:panelGrid> 
+                </apex:outputPanel>
+                
+                <apex:outputPanel id="op3" rendered="{!selectedCustomerType  != null && selectedCustomerType == $Label.Field_Sales_Force }">
+                    <apex:panelGrid columns="6" border="0" id="pang3" styleClass="tableStyle" width="100%" columnClasses="colStyle1,colStyle2,colStyle3,colStyle4,colStyle5,colStyle6" rowClasses="rowstyle">       
+                        <apex:outputText >FSF Agent Name</apex:outputText>
+                        <apex:inputText value="{!conObj.Company_Name__c}" id="f8" styleClass="text-uppercase"/>
+                        <apex:outputText >FSF Email</apex:outputText>
+                        <apex:inputText value="{!conObj.Email}" id="f9" />
+                        <apex:outputText >FSF Phone</apex:outputText>
+                        <apex:inputText value="{!conObj.Phone}" id="f13"/>
+                        <apex:outputText >FSF Territory #</apex:outputText>
+                        <apex:inputText value="{!conObj.Territory__c}" id="f15"/>
+                   
+                        <apex:outputText >Issue #</apex:outputText>
+                       <apex:inputText value="{!issueid}" id="f14"/>
+                        <apex:outputLabel ></apex:outputLabel>
+                        <apex:outputLabel ></apex:outputLabel>
+                        <apex:outputLabel ></apex:outputLabel>
+                        <apex:outputLabel ><br/><br/><br/></apex:outputLabel>
+                        
+                     </apex:panelGrid> 
+                </apex:outputPanel>
+                
+                <apex:outputPanel id="op4" rendered="{!selectedCustomerType  != null && selectedCustomerType == $Label.Research_Panelist }">
+                    <apex:panelGrid columns="6" border="0" id="pang4" styleClass="tableStyle" width="100%" columnClasses="colStyle1,colStyle2,colStyle3,colStyle4,colStyle5,colStyle6" rowClasses="rowstyle">       
+                        <apex:outputText >Study ID</apex:outputText>
+                        <apex:inputText value="{!conObj.Study_ID__c}" id="r1" styleClass="text-uppercase"/>
+                        <apex:outputText >Participant ID</apex:outputText>
+                        <apex:inputText value="{!conObj.Participant_ID__c}" id="r2" styleClass="text-uppercase"/>
+                        <apex:outputText >Blinding Code</apex:outputText>
+                        <apex:inputText value="{!conObj.Blinding_Code__c}" id="r3" styleClass="text-uppercase"/>
+                        <apex:outputText >Research Company</apex:outputText>
+                        <apex:inputText value="{!conObj.Research_Company__c}" id="r4" styleClass="text-uppercase"/>
+                   
+                        <apex:outputText >Research Location</apex:outputText>
+                        <apex:inputText value="{!conObj.Research_Location__c}" id="r5" styleClass="text-uppercase"/>
+                        <apex:outputText >Research Panelist ID</apex:outputText>
+                        <apex:inputText value="{!conObj.Research_Panelist_ID__c}" id="r6" styleClass="text-uppercase"/>
+                        <apex:outputText >Project Flavor/Type</apex:outputText>
+                        <apex:inputText value="{!conObj.Project_Flavor_Type__c}" id="r7" styleClass="text-uppercase"/>
+                        <apex:outputText >Name</apex:outputText>
+                        <apex:inputText value="{!conObj.Research_Panelist_Name__c}" id="r8" styleClass="text-uppercase"/>
+                        <apex:outputText >Issue #</apex:outputText>
+                        <apex:inputText value="{!issueid}" id="r9"/>
+                        
+                        
+                        <apex:outputLabel ></apex:outputLabel>
+                        <apex:outputLabel ></apex:outputLabel>
+                        <apex:outputLabel ></apex:outputLabel>
+                        <apex:outputLabel ><br/><br/><br/></apex:outputLabel>
+                        
+                     </apex:panelGrid> 
+                </apex:outputPanel>
+                     
+                </apex:pageBlockSection>
+           </apex:pageBlock>        
+            <apex:pageBlock title="Search Result"  id="pb2"  rendered="{!If(conlst.size>0,true,false)}">
+            <apex:pageBlockTable value="{!conlst}" var="c" id="pbt1">
+                <apex:column headerValue="Local Records">
+                    <input type="radio" name="chosen" onClick="return openCustomer('{!c.id}','{!c.Name}');"/>
+                </apex:column>
+                <apex:column headerValue="Customer ID">
+                         <apex:OutputText value="{!c.CustomerID__c}"  label="CustomerID"/>
+                </apex:column>
+                <apex:column headerValue="Customer Type" rendered="{!selectedCustomerType == null || selectedCustomerType  == ''}">
+                    <apex:OutputText value="{!c.CustomerType__c}" />
+                </apex:column>
+                <apex:column headerValue="{!If(selectedCustomerType == $Label.Field_Sales_Force,'FSF Agent Name','Company Name')}" rendered="{!selectedCustomerType != $Label.Research_Panelist}">
+                    <apex:OutputText value="{!c.Company_Name__c}" />
+                </apex:column>
+                <apex:column headerValue="DBA Name" rendered="{!If((selectedCustomerType == $Label.Field_Sales_Force || selectedCustomerType == $Label.Research_Panelist),false,true)}">
+                         <apex:OutputText value="{!c.DBA_Name__c}" />
+                  </apex:column>
+                   <apex:column headerValue="Account #" rendered="{!selectedCustomerType == $Label.Wholesaler}">
+                         <apex:OutputText value="{!c.Account_No__c}" />
+                  </apex:column>
+                  <apex:column headerValue="Retail Control" rendered="{!selectedCustomerType == $Label.Retailer}">
+                         <apex:OutputText value="{!c.Retail_control__c}" />
+                  </apex:column>
+                  <apex:column headerValue="{!if(selectedCustomerType == $Label.Field_Sales_Force,'FSF Phone','Phone')}" rendered="{!selectedCustomerType != $Label.Research_Panelist}">
+                         <apex:OutputText value="{!c.Phone}" />
+                  </apex:column>
+                  <apex:column headerValue="FSF Email" rendered="{!selectedCustomerType == $Label.Field_Sales_Force}">
+                         <apex:OutputText value="{!c.Email}" />
+                  </apex:column>
+                  <apex:column headerValue="FSF Territory" rendered="{!selectedCustomerType == $Label.Field_Sales_Force}">
+                         <apex:OutputText value="{!c.Territory__c}" />
+                  </apex:column>
+                  <apex:column headerValue="Zip" rendered="{!selectedCustomerType != $Label.Field_Sales_Force && selectedCustomerType != $Label.Research_Panelist}">
+                          <apex:OutputText value="{!c.Zip_Code__c}"/>
+                  </apex:column>
+                  
+                  <!-- Research Panelist -->
+                  <apex:column headerValue="Study Id" rendered="{!selectedCustomerType == $Label.Research_Panelist}">
+                          <apex:OutputText value="{!c.Study_ID__c}"/>
+                  </apex:column>
+                  
+                  <apex:column headerValue="Participant Id" rendered="{!selectedCustomerType == $Label.Research_Panelist}">
+                          <apex:OutputText value="{!c.Participant_ID__c}"/>
+                  </apex:column>
+                  
+                  <apex:column headerValue="Research Company" rendered="{!selectedCustomerType == $Label.Research_Panelist}">
+                          <apex:OutputText value="{!c.Research_Company__c}"/>
+                  </apex:column>
+                  
+                  <apex:column headerValue="Name" rendered="{!selectedCustomerType == $Label.Research_Panelist}">
+                          <apex:OutputText value="{!c.Research_Panelist_Name__c}"/>
+                  </apex:column>
+                    
+           </apex:pageBlockTable>           
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

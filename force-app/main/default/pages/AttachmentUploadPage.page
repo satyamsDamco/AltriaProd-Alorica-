@@ -1,0 +1,61 @@
+<apex:page standardController="Attachment" extensions="AttachmentUpload">
+    <apex:includeScript value="/support/console/37.0/integration.js"/>
+    <script>
+        function CloseTab() {
+           
+           var attachment = '{!attachment.id}'; 
+            if(attachment== null || attachment== '' || attachment== 'null'){
+                 sforce.console.getEnclosingTabId(closeSubtab);
+            }else{
+                CancelRedirect();            
+            }  
+        }
+        
+        
+        var closeSubtab = function closeSubtab(result) {
+            //Now that we have the tab ID, we can close it
+            var tabId = result.id;
+            sforce.console.closeTab(tabId);
+        };
+        
+        function updateAttachmentCall(){
+            updateAttachment();
+        } 
+
+    </script>
+  
+  <apex:form enctype="multipart/form-data" id="frm">
+      <apex:sectionHeader title="Attachment Upload" rendered="{!attachment.id==NULL}"/>
+    <apex:sectionHeader title="Edit Attachment" rendered="{!attachment.id!=NULL}}"/>
+        <apex:pageBlock >
+<apex:pageMessages />
+
+      <apex:pageBlockButtons >
+        <apex:actionFunction name="CancelRedirect" action="{!cancelButton}"/>
+         <apex:actionFunction name="updateAttachment" action="{!updateAttachment}" />
+        <apex:commandButton action="{!upload}" value="Upload" rendered="{!attachment.id==NULL}"/>
+<!--         <apex:commandButton value="Save" action="{!updateAttachment}" rendered="{!attachment.id!=NULL}"/> -->
+        <apex:commandButton value="Save" onclick="updateAttachmentCall();return false" rendered="{!attachment.id!=NULL}"/>
+          <apex:commandButton value="Cancel" onclick="CloseTab();return false;"/>
+<!--         <apex:commandButton value="Cancel"  action="{!cancelButton}" rendered="{!attachment.id!=NULL}"/> -->
+        
+      </apex:pageBlockButtons>
+    
+      <apex:pageBlockSection title="Attachment" collapsible="false" columns="1" id="block1">
+        <apex:pageBlockSectionItem rendered="{!attachment.id==null}">
+          <apex:outputLabel value="File" for="file"/>
+          <apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" id="file"/>
+        </apex:pageBlockSectionItem>
+          <apex:inputField value="{!attachment.name}" rendered="{!attachment.id!=null}"/>
+
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Comment" for="description"/>
+          <apex:inputField value="{!attachment.description}" id="description" style="width:100%;height:120px"/>
+           
+        </apex:pageBlockSectionItem>   Note: Max. length 500 characters.
+    
+      </apex:pageBlockSection>
+
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

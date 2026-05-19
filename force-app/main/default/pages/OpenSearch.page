@@ -1,0 +1,25 @@
+<apex:page tabStyle="Contact">
+    <apex:includeScript value="/support/console/37.0/integration.js"/>
+    
+    <script>
+         window.onload = function() {
+                 OpenConsumerSearch();
+             }; 
+        
+               
+        function OpenConsumerSearch() {
+            sforce.console.openPrimaryTab(null, '/apex/DNISSearchPage', true, 'DNIS Search', openSuccess, 'DNIS Search');
+        } 
+        
+        var openSuccess = function openSuccess(result) {
+            //Report whether we succeeded in opening the subtab
+            if (result.success == true) {
+                //alert('tab successfully opened');
+            } else {
+                //alert('tab cannot be opened');
+            }
+        };
+       
+        
+    </script>
+</apex:page>

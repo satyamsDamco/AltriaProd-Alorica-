@@ -1,0 +1,410 @@
+<apex:page showHeader="false">
+
+<apex:variable var="deploymentId" value="5723D0000004Daf" />
+<apex:variable var="orgId" value="00D3D000000DTrs" /> <!-- Altria DevData-->
+<apex:variable var="buttonId" value="5733D0000004DSl" /> <!--Proactive Chat -->
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script> 
+
+<script language="JavaScript" type="text/javascript">
+    (function() {
+        function handlePageLoad() {
+            var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+            document.getElementById('prechatForm').setAttribute('action',
+            decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+        } 
+        if (window.addEventListener) {
+                window.addEventListener('load', handlePageLoad, false);
+            } 
+                else { window.attachEvent('onload', handlePageLoad, false);
+            }
+    })();
+
+    function alphaOnly(event) {
+        var key = event.keyCode;
+        return ((key >= 65 && key <= 90) || (key >= 35 && key <= 40) || key == 8 || key==32 || key==189 ||key==9 || key==46);
+    };
+  
+</script>
+
+<html style="display:none !important;">
+<head>
+    <script src="/educator/static/111213/js/perf/stub.js" type="text/javascript"></script>
+    <link class="user" href="/educator/sCSS/40.0/sprites/1498159010000/Theme3/default/gc/zen-componentsCompatible.css" rel="stylesheet" type="text/css" />
+    <link class="user" href="/educator/sCSS/40.0/sprites/1498159010000/Theme3/default/gc/elements.css" rel="stylesheet" type="text/css" />
+    <link class="user" href="/educator/sCSS/40.0/sprites/1498159010000/Theme3/default/gc/common.css" rel="stylesheet" type="text/css" />
+    <link class="user" href="/educator/sCSS/40.0/sprites/1497971282000/Theme3/gc/dStandard.css" rel="stylesheet" type="text/css" />
+    <link class="user" href="/educator/sCSS/40.0/sprites/1498570601000/Theme3/00DJ0000003OaqN/005J0000006PW58/gc/dCustom0.css" rel="stylesheet" type="text/css" />
+    <link class="user" href="/educator/sCSS/40.0/sprites/1498159010000/Theme3/default/gc/extended.css" rel="stylesheet" type="text/css" />
+    <link class="user" href="/educator/sCSS/40.0/sprites/1498159010000/Theme3/default/gc/setup.css" rel="stylesheet" type="text/css" />
+    <script src="/educator/jslibrary/1500054742000/sfdc/NetworkTracking.js" type="text/javascript"></script>
+    <script>try{ NetworkTracking.init('/educator/_ui/networks/tracking/NetworkTrackingServlet', 'network', '066J00000002QWj'); }catch(x){}try{ NetworkTracking.logPageView();}catch(x){}
+    </script>
+    <script type="text/javascript">
+        //<![CDATA[
+        try{(function(){var w=self,l,p,o;if(w&&top){for(;w!==top&&(p=w.parent)&&p!==w&&(o=p.location)&&o.protocol===(l=w.location).protocol&&(o.host===l.host||(p.document&&p.document.domain===w.document.domain));w=p);if(w!==top)throw "";}({f:function(){document.documentElement?document.documentElement.style.display="":(!this.a&&(this.a=10),this.a<1E5&&(window.sfdcRetryShowWindow=this)&&setTimeout("sfdcRetryShowWindow.f()",this.a),this.a*=2)}}.f())})();}catch(e){if(top!==self)top.location=location;else throw e;}//]]>
+    </script>
+</head>
+
+<body> 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script> 
+
+<script language="JavaScript" type="text/javascript">
+    (function() {
+    function handlePageLoad() {
+    var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");
+    document.getElementById('prechatForm').setAttribute('action',
+    decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));
+    } if (window.addEventListener) {
+        window.addEventListener('load', handlePageLoad, false);
+    } else { window.attachEvent('onload', handlePageLoad, false);
+    }})();
+
+    function alphaOnly(event) {
+        var key = event.keyCode;
+        return ((key >= 65 && key <= 90) || (key >= 35 && key <= 40) || key == 8 || key==32 || key==189 ||key==9 || key==46);
+    };
+</script>
+
+<style type="text/css">
+  body,td{color:#4c4b4a}
+  table{width:400px;}
+  .cb-header{background-color:#221f1f;padding:0 10px; height: 44px}
+  .cb-header img{width: 114px;margin-top: 11px;margin-left: 11px}
+  h3{font-size:18px;display:block;text-align:justify}
+  input[type="text"]{font-size:14px;border-radius:0;background-color:#faf9f7;border-color:#e5e2e0;padding-top:5px;padding-bottom:5px;box-shadow:none;border:1px solid #ccc;width:99%}
+  .cb-red-color{color:#c13145}
+  .cb-required:after{content:"*";position:absolute;color:#c13145;font-size:1em;margin-left:3px}
+  label{width:max-content;float:left;margin-bottom:0;line-height:30px}
+  label[for="Category"]{width:100%}
+  .control-input{margin-bottom:7px;width:73%;float:right}
+  .control-input.category{width:99%;float:right}
+  form table{margin:0 15px}
+  select{padding-top:5px;padding-bottom:5px;border:1px solid #ccc;background-color:#faf9f7;width:100%;border-radius:0}
+  input[type="submit"]{background-color:#0a9ee9;background:-webkit-gradient(linear,left top,left bottom,from(#0a9ee9),to(#0884e3));background:-webkit-linear-gradient(top,#0a9ee9 0%,#0884e3 100%);background:-moz-linear-gradient(top,#0a9ee9 0%,#0884e3 100%);background:-ms-linear-gradient(top,#0a9ee9 0%,#0884e3 100%);color:#fff;font-family:HelveticaNeueBold,"Helvetica Neue Bold",Helvetica,Arial,sans-serif;text-shadow:0 -1px 0 rgba(0,0,0,0.3);padding:12px 32px;font-size:14px;border-radius:0;border:0;font-weight:700}
+  input[type="submit"]:hover,input[type="submit"]:focus,input[type="submit"]:active{cursor:pointer;color:#fff;background-color:#087bc4;border-color:transparent;background-image:none}
+  .blank_row{height: 10px !important;background-color: #FFFFFF;}
+  .popup
+{
+    position:absolute;
+    z-index:501;
+    top: 10%;
+    left: 15%;
+    bottom:10%;    
+    width: 70%;
+    padding: 6px;
+}
+.popupbackground
+{
+    position:absolute;
+    z-index: 500;
+    top:0px;
+    left:0px;
+    width: 100%;
+    height: 100%;
+}
+</style>
+
+<form method='post' id='prechatForm' style="heigth: 100;width: 100;">
+  <table>
+    <tr class="blank_row">
+      <td colspan="3"></td>
+    </tr>
+    <tr>
+      <td align="center">
+        <h3>Thank you for contacting our Consumer Response Center. Please fill in the details below to start your chat session.</h3>
+      </td>
+    </tr>
+    <tr class="blank_row">
+      <td colspan="3"></td>
+    </tr>
+    <tr>
+      <td>
+        <label for="Prefix" class="cb-required">Prefix</label>
+        <div class="control-input">
+          <select name="liveagent.prechat:3 Prefix" id="Prefix"  class="drop_list" required="true" title="Please select a Prefix." >
+            <option value="">Please select a Prefix.</option>
+            <option value="Mr.">Mr.</option>
+            <option value="Ms.">Ms.</option>
+            <option value="Mrs.">Mrs.</option>
+          </select>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="firstName" class="cb-required">First Name:</label>
+        <div class="control-input">
+          <input  type="text" name="liveagent.prechat:2 First Name" id="FirstName" title="Please enter your First Name." 
+              onkeydown="return alphaOnly(event);" required="true"/>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="lastName" class="cb-required">Last Name:</label>
+        <div class="control-input">
+          <input  type="text" name="liveagent.prechat:4 Last Name" id="LastName" required="true" title="Please ensure that your entry for Last Name is at least 2 characters long."
+                  onkeydown="return alphaOnly(event);" />
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="Street Address" class="cb-required">Street Address:</label>
+        <div class="control-input">
+          <input  type="text" name="liveagent.prechat:5 Street Address" id="StreetAddress" required="true" title="Please enter your Street Address." />
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="APT/Suite/Other" >APT/Suite/Other:</label>
+        <div class="control-input">
+          <input  type="text" name="liveagent.prechat:7 APT/Suite/Other" id="APT/Suite/Other" title="APT/Suite/Other is optional" /> 
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="Zip Code" class="cb-required">ZIP CODE:</label>
+        <div class="control-input">
+          <input type="text" title="Please enter your ZIP Code, it must be 5 numbers long; examples: 04007 or 75116." 
+              name="liveagent.prechat:8 Zip Code" id="Zipcode" required="true" />
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="Date of Birth" class="cb-required">Date of Birth:</label>
+        <div class="control-input">
+          <input type="date" placeholder="mm/dd/yyyy"
+              name="liveagent.prechat:6 Date of Birth" id="DateofBirth" 
+              style="border: 1px solid rgb(204, 204, 204); border-image: none; padding-top: 5px; 
+                  padding-bottom: 5px; font-size: 14px; background-color: rgb(250, 249, 247);"/> 
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label style="line-height: 0px;">Format: mm/dd/yyyy</label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="control-input">
+          <h1>
+              Tobacco is an age restricted product. By providing your date of birth, you are certifying that you are of legal age to purchase tobacco in your locality.
+          </h1>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="Reason or Question" class="cb-required">Reason or Question:</label>
+      </td>
+    </tr>
+<!--    <tr>
+      <td>
+        <div>
+          <input type="text" name="liveagent.prechat:Reason or Question" id="Reason or Question" required="true" />
+        </div>
+      </td>
+    </tr> -->
+    <tr>
+      <td>
+        <textarea name="liveagent.prechat:9 Reason or Question" id="Reason or Question" required="true" cols="80%" rows="3" maxlength="500"></textarea>
+      </td>
+    </tr>
+    <tr class="blank_row">
+      <td colspan="3"></td>
+    </tr>
+    <tr>
+      <td>
+      <label class="cb-red-color"><strong>* = Required</strong></label>
+      <div>
+        <br />
+        <br />
+        <p>We will record, use, and retain the information you provide and the communications within the chat for the purposes of assisting you and improving our services. By continuing and using chat, you consent to this use of your personal information.</p>
+
+      </div>
+      <div align="right">
+        <input type="submit" value="CHAT NOW" class="chat_button" id="prechat_submit" onclick="setName();" />
+      </div>
+      </td>
+    </tr>
+    <tr class="blank_row">
+      <td colspan="3"></td>
+    </tr>
+    <tr>
+      <td style="font-size: 100%;">
+        <h2 style="font-size: small;">
+          Our Consumer Response Center is available:<br/>
+          Monday through Friday from 9 a.m. to 7 p.m. EST.<br/>
+          Call 1-800-852-5847 for additional assistance.
+        </h2>
+      </td>
+    </tr>
+  </table>
+    
+    <!-- Used to set the visitor's name for the agent in the Console -->
+    <input type="hidden" name="liveagent.prechat.name" id="prechat_field_name" />
+    <!-- prechat.save: Save prechat details to custom field to the Live Chat Transcript record. -->
+    <input type="hidden" name="liveagent.prechat:1 " value="" />
+    <input type="hidden" name="liveagent.prechat.save:3 Prefix" value="Prefix__c" />
+    <input type="hidden" name="liveagent.prechat.save:2 First Name" value="First_Name__c" />
+    <input type="hidden" name="liveagent.prechat.save:4 Last Name" value="Last_Name__c" />
+    <input type="hidden" name="liveagent.prechat.save:5 Street Address" value="Street_Address__c" />
+    <input type="hidden" name="liveagent.prechat.save:7 APT/Suite/Other" value="Apt_Suite_Other__c" />
+    <input type="hidden" name="liveagent.prechat.save:8 Zip Code" value="Zip_Code__c" />
+    <input type="hidden" name="liveagent.prechat.save:6 Date of Birth" value="Date_of_Birth_in_String__c" />
+    <input type="hidden" name="liveagent.prechat.save:9 Reason or Question" value="Reason_or_Question__c" />
+
+  <!-- based on https://help.salesforce.com/articleView?id=000206551&type=1&language=en_US -->
+  <!-- Set the visitor's name for the agent in the Console to first and last name provided by the customer -->
+  <!-- script type='text/javascript' src='https://c.la1c1.salesforceliveagent.com/content/g/js/32.0/prechat.js'></script>
+    -->
+
+  <script type="text/javascript" src="https://c.la3-c1cs-phx.salesforceliveagent.com/content/g/js/42.0/deployment.js">
+  </script>
+  <script>
+    function getAge(dateString) {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() <= birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+    function setName() {
+        ePre = document.getElementById("Prefix");
+        if(ePre.selectedIndex == 0)
+        {
+            ePre.setCustomValidity("Please select a Prefix.");
+        }
+        else {
+            ePre.setCustomValidity("");
+        }
+        
+        eFn = document.getElementById("FirstName");
+        if(eFn.value == ""){
+            eFn.placeholder = "Please enter your First Name.";
+            eFn.setCustomValidity("Please enter your First Name.");
+        }
+        else {
+            eFn.setCustomValidity("");
+        }
+        
+        eLn = document.getElementById("LastName");
+        if(eLn.value == ""){
+            eLn.placeholder = "Please enter your Last Name.";
+            eLn.setCustomValidity("Please ensure that your entry for Last Name is at least 2 characters long.");
+        }
+        else {
+            var reGoodLast = /^(\D{2,})$/;
+            if (!reGoodLast.test(eLn.value)) {
+                eLn.setCustomValidity("Please ensure that your entry for Last Name is at least 2 characters long.");
+            }
+            else {
+                eLn.setCustomValidity("");
+            }
+        }
+        
+        eSA = document.getElementById("StreetAddress");
+        if(eSA.value == "") {
+            eSA.placeholder = "Please enter your Street Address.";
+            eSA.setCustomValidity("Please enter your Street Address.");
+        }
+        else {
+            eSA.setCustomValidity("");
+        }
+        
+        eZc = document.getElementById("Zipcode");
+        if(eZc.value == "") {
+            eZc.placeholder = "Please enter your ZIP Code.";
+            eZc.setCustomValidity("Please enter your ZIP Code, it must be 5 numbers long; examples: 04007 or 75116.");
+        }
+        else {
+            var reGoodZip = /^(\d{5})$/;
+            if(!reGoodZip.test(eZc.value)) {
+                eZc.setCustomValidity("Please enter your ZIP Code, it must be 5 numbers long; examples: 04007 or 75116.");
+            }
+            else {
+                eZc.setCustomValidity("");
+            }
+        }
+        
+        eBd = document.getElementById("DateofBirth");
+        // Internet Explorer 6-11
+        var isIE = /*@cc_on!@*/false || !!document.documentMode;
+        // Edge 20+
+        var isEdge = !isIE && !!window.StyleMedia;
+        // Chrome 1 - 71
+        var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+        var date = new Date();
+        console.log(date);
+        console.log(eBd.value);
+        console.log('Birthdate: ' + eBd.value);
+        console.log('Age: ' + getAge(eBd.value));
+        if(eBd.value == "" ) {
+            eBd.placeholder = "mm/dd/yyyy";
+            eBd.setCustomValidity("Please enter your Date of Birth in mm/dd/yyyy format.");
+        }else if(getAge(eBd.value)<= 20){
+            if(isEdge == true){
+                alert("According to federal law, you are underage. You can find information regarding Altria’s Policies, Practices, and Positions on our website.");
+                eBd.setCustomValidity("According to federal law, you are underage. You can find information regarding Altria’s Policies, Practices, and Positions on our website.");
+                }
+            else{
+                 eBd.setCustomValidity("According to federal law, you are underage. You can find information regarding Altria’s Policies, Practices, and Positions on our website.");
+                }
+        }
+        else {
+            if((!!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)) ||
+              (typeof InstallTrigger !== 'undefined') ||
+              (!(/*@cc_on!@*/false || !!document.documentMode) && !!window.StyleMedia) ||
+                navigator.userAgent.match(/Android/i)
+                 || navigator.userAgent.match(/webOS/i)
+                 || navigator.userAgent.match(/iPhone/i)
+                 || navigator.userAgent.match(/iPad/i)
+                 || navigator.userAgent.match(/iPod/i)
+                 || navigator.userAgent.match(/BlackBerry/i)
+                 || navigator.userAgent.match(/Windows Phone/i)
+                                ) {
+                eBd.setCustomValidity("");
+            }
+            else {
+                // Fixed -  RITM2754075 2023-07-03
+                var reGoodDate = "/^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/";
+                if(!reGoodDate.test(eBd.value)) {
+                    eBd.setCustomValidity("Please select your date of birth from the calendar or enter it in mm/dd/yyyy format.");
+                }
+                else {
+                    eBd.setCustomValidity("");
+                }
+            }
+        }
+ 
+        
+        eRQ = document.getElementById("Reason or Question");
+        if(eRQ.value == "") {
+            eRQ.placeholder = "Please enter your Reason or Question.";
+            eRQ.setCustomValidity("Please enter your Reason or Question.");
+        }
+        else {
+            eRQ.setCustomValidity("");
+        }
+        document.getElementById("prechat_field_name").value =
+                document.getElementById("FirstName").value;
+    }
+    
+     
+  </script>
+</form>
+
+</body>
+</html>
+</apex:page>

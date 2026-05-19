@@ -1,0 +1,47 @@
+<apex:page standardController="Case" extensions="IssueSurveyListController" sidebar="false">    
+    <apex:includeScript value="/support/console/37.0/integration.js"/>
+    <apex:form id="frm">
+         <script type="text/javascript">          
+            function CloseTabList() {
+               if('{!ReviewPage}' == 'false'){ 
+                   sforce.console.getEnclosingTabId(closeSubtab);
+               }else{
+                   window.close();
+               }
+            }
+            
+            
+            var closeSubtab = function closeSubtab(result) {
+                //Now that we have the tab ID, we can close it
+                var tabId = result.id;
+                sforce.console.closeTab(tabId);
+            }; 
+            
+        </script>
+        <apex:pageBlock title="Survey">           
+           <apex:outputPanel rendered="{!(IssueSurvyeList.size <=0)}">
+               No records to display
+           </apex:outputPanel> 
+           
+           <apex:pageBlockButtons rendered="{!(IssueSurvyeList.size >0)}">
+               <apex:commandButton action="{!previous}"  value="Previous" rendered="{!hasPrevious}"/>
+               <apex:commandButton action="{!next}" rendered="{!hasNext}" value="Next"/>
+               <apex:commandButton value="Close" onclick="CloseTabList(); return false;"/>               
+           </apex:pageBlockButtons>
+           <apex:pageBlockTable value="{!IssueSurvyeList}" var="sn" rendered="{!(IssueSurvyeList.size >0)}">
+               <apex:column headerValue="Survey Name">
+                   &nbsp;&nbsp;<apex:OutputText value="{!sn.Survey_Name__c}"/>
+               </apex:column>
+               <apex:column headerValue="Question">
+                    <apex:OutputText value="{!sn.QuestionText__c}"/>
+               </apex:column>
+               <apex:column headerValue="Answer">
+                    <apex:OutputText value="{!sn.AnswerText__c }"/>
+               </apex:column>               
+               <apex:column headerValue="Comments">
+                    <apex:OutputText value="{!sn.Comment__c}"/>
+               </apex:column>            
+           </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

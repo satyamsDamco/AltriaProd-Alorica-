@@ -1,0 +1,32 @@
+<apex:page standardController="Hot_Zip__c" extensions="HotZipController">
+    <apex:includeScript value="/support/console/37.0/integration.js"/>
+    <script>
+    function CloseTab() {
+               sforce.console.getEnclosingTabId(closeSubtab);
+            }
+            var closeSubtab = function closeSubtab(result) {
+                var tabId = result.id;
+                sforce.console.closeTab(tabId);
+            };
+	</script>
+    <apex:form >    
+        <apex:pageBlock title="Hot Zips">
+            <apex:pageBlockButtons >
+           		<apex:commandButton value="Close" onclick="CloseTab();return false;"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:outputField value="{!hz.Zip_Code_Documentation__c}" label="" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Consumer Information">
+                <apex:outputText value="{!conObj.FirstName}" />
+                <apex:outputText value="{!conObj.LastName}" />
+                <apex:outputText value="{!conObj.Street_Address__c}" />
+                <apex:outputText value="{!conObj.Apt_Lot__c}" />
+                <apex:outputText value="{!conObj.Zip_Code__c}" />
+                <apex:outputText value="{!conObj.State__c}" />
+                <apex:outputText value="{!conObj.Phone}" label="Telephone" />
+                <apex:outputText value="{!conObj.OtherPhone}" label="Alternate Telephone" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

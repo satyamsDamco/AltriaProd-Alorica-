@@ -1,0 +1,12 @@
+<apex:page >
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>
+      Our Consumer Response Center is available:<br/>
+      Monday through Friday from 9 a.m. to 7 p.m. EST.<br/>
+      Call 1-800-852-5847 for additional assistance.
+      
+ 
+  </h1>
+  
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

@@ -1,0 +1,421 @@
+<apex:page standardController="Issue_Hierarchy__c" extensions="IssueHierarchyController" sidebar="false" id="pg" showHeader="false" docType="html-5.0">
+  
+    <apex:stylesheet value="{!$Resource.AutoCompleteCSSmin}"/><!--using static resource-->
+    <apex:stylesheet value="{!$Resource.AutoCompleteThemeCssmin}"/><!--using static resource-->
+    <apex:stylesheet value="https://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css"/>  <!--show Reason list as picklist formate] -->
+    
+    <apex:includeScript value="{!URLFOR($Resource.Issue_Hierarchy_Resource, 'Issue_hierarchy/jQuerymin.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.Issue_Hierarchy_Resource, 'Issue_hierarchy/color.js')}"/>   
+    <apex:includeScript value="{!URLFOR($Resource.Issue_Hierarchy_Resource, 'Issue_hierarchy/AutoCompleteJQmin.js')}"/>
+
+    <apex:includeScript value="https://code.jquery.com/ui/1.11.4/jquery-ui.js" />    
+    
+   <script type="text/javascript">
+      window.onload=function () { 
+           if('{!issueHierId}' != null && '{!issueHierId}' != ''){
+              onSelectionPopulateData('onload');
+              
+           }else{ 
+           
+               var productLine = document.getElementById('pg:frm1:pb1:pageblSection1:pgBlSectionItem1:productLineId').value;
+               if(productLine != null && productLine != '' && productLine != '0'){
+                   onSelectionPopulateData('product');
+               }     
+           } 
+      }
+      
+      function escapeMetaCharacters(inputString){
+          var metaCharacters = ["\'"];         
+          var metaLength = metaCharacters.length;
+          
+          for (var i = 0 ; i < metaLength ; i++){
+              if(inputString.includes(metaCharacters[i])){
+                  inputString = inputString.replace(metaCharacters[i],"\\"+metaCharacters[i]);
+              }
+          }
+          return inputString;
+      }           
+       
+      function onSelectionPopulateData(evt){
+          
+          var productLine = document.getElementById('pg:frm1:pb1:pageblSection1:pgBlSectionItem1:productLineId').value;
+          var issueType = document.getElementById('pg:frm1:pb1:pageblSection1:pgBlSectionItem2:issueTypeId').value;
+          var reason = document.getElementById('reason').value;
+          var cause = document.getElementById('cause').value;
+          
+          var metaCharacters = ["\'"];         
+          var metaLength = metaCharacters.length;
+          var CauseVal = 'true';
+          var ReasonVal = 'true';
+          
+          if(evt != 'onload')
+              document.getElementById("pg:frm1:issueHierId").value = '';
+          
+          if(evt == 'product'){
+              issueType = '0';
+              reason = '';
+              document.getElementById('reason').value = '';
+              document.getElementById('cause').value = '';
+              document.getElementById('pg:frm1:pb1:pageblSection1:pgBlSectionItem2:issueTypeId').value =  '0';
+              cause  = '';
+          }
+             
+          if(cause == null || cause == '')
+            cause =  '0';
+          else{
+              for (var i = 0 ; i < metaLength  ; i++){
+                  if(cause.includes(metaCharacters[i])){
+                      cause = cause.replace(metaCharacters[i],"\\"+metaCharacters[i]);
+                  }
+              }
+          }
+          
+          if(reason == null || reason == '')
+            reason =  '0';
+          else{  
+              for (var i = 0 ; i < metaLength ; i++){
+                  if(reason.includes(metaCharacters[i])){
+                      reason = reason.replace(metaCharacters[i],"\\"+metaCharacters[i]);
+                  }
+              }
+          }
+          
+            
+              
+          var availablereason1;
+       
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.IssueHierarchyController.getReasonStatic}',
+                productLine,issueType,cause,'{!customerRecType}', 
+                function(result, event){
+                    if (event.status) {
+                       
+                        availablereason1=result;
+                        $( "#reason" ).autocomplete({
+                            source: availablereason1
+                        });
+                        
+                        if(result.length == 0){
+                            CauseVal = 'false';
+                            restTable();
+                            alert('Select Valid Cause');
+                            return false;
+                        }else{
+                        
+                            $("#reasonList").find("option").remove();
+                            $("#reasonList").append('<option value="0" selected="selected">--Select--</option>');
+                        }
+                       
+                        for (var a=0;a<result.length; a++){ 
+                             var valueReason = result[a];
+                                if(valueReason != null && valueReason != ''){
+                                    
+                                    var isExist = !!$("#reasonList option").filter(function() {
+                                        return $(this).attr('value').toLowerCase() === valueReason.toLowerCase();
+                                    }).length;
+                                   
+                                    if (!isExist){
+                                        $('<option>').val(valueReason).text(valueReason).appendTo($("#reasonList"));
+                                    }
+                               }
+                        }
+                   }    
+                },
+                 {buffer: false, escape: false, timeout: 30000}
+            );
+            
+            var availablecause1;
+            
+             Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.IssueHierarchyController.getCauseStatic}',
+                    productLine, issueType, reason,'{!customerRecType}',
+                    function(result, event){
+                        if (event.status) {
+                            
+                            
+                            availablecause1=result;
+                            
+                            $( "#cause" ).autocomplete({
+                                source: availablecause1
+                            });
+                            
+                            if(result.length == 0){
+                                ReasonVal = 'false';
+                                restTable();
+                                alert('Select Valid Reason');
+                                return false;
+                            }else{                            
+                                $('#causeList').find('option').remove();
+                                $('#causeList').append('<option value="0" selected="selected">--Select--</option>');
+                                
+                                if(evt != 'issue' && CauseVal != 'false'){
+                                     updateIssueType(reason, cause, 'test');
+                                }
+                            }
+                            for (var a=0;a<result.length; a++){ 
+                                 var valueCause = result[a];
+                                
+                                    if(valueCause != null && valueCause != ''){
+                                        var isExist = !!$('#causeList option').filter(function() {
+                                            return $(this).attr('value').toLowerCase() === valueCause.toLowerCase();
+                                        }).length;
+                                       
+                                        if (!isExist){
+                                            $('<option>').val(result[a]).text(result[a]).appendTo($('#causeList'));
+                                        }
+                                   }
+                            }
+                       }    
+                    },
+                     {buffer: false, escape: false, timeout: 30000}
+             );
+             
+                          
+             if(evt != 'issue' && reason == '0' && cause == '0'){
+                 updateIssueType(reason, cause, 'test');
+             }
+      }     
+       
+     
+      <!-- show data related to classification ,issue type,cause,reason-->
+      function functionSearch(){
+        
+        showError('search');
+        var filtervar2 = document.getElementById('cause').value;
+        var filtervar3 = document.getElementById('reason').value;
+        var bool=false;      
+        
+        IssueHierarchyFun(filtervar2 ,filtervar3);
+        
+      }
+      <!-- show the popup on submit button when not selecting radio button-->
+       function submitData(){
+          var d=document.getElementById("pg:frm1:issueHierId").value;
+           if(d==''){
+               alert('Please search the Issue Hierarchy.');
+               return false;
+           }
+           showError('submit');           
+          var d=document.getElementById("pg:frm1:issueHierId").value;
+           var winMain=window.opener;           
+           
+           if (null==winMain){
+              winMain=window.parent.opener;
+           }
+             
+           var ele=winMain.document.getElementById('{!$CurrentPage.parameters.idfield}');
+           ele.value=d;
+           
+           ele=winMain.document.getElementById('{!$CurrentPage.parameters.issueHierCode}');
+           ele.value=document.getElementById("pg:frm1:issueHierCode").value;
+           
+           ele=winMain.document.getElementById('{!$CurrentPage.parameters.groupCode}');
+           ele.value=document.getElementById("pg:frm1:groupCode").value;
+           
+           ele=winMain.document.getElementById('{!$CurrentPage.parameters.classificationCode}');
+           ele.value=document.getElementById("pg:frm1:classificationCode").value;
+           
+           ele=winMain.document.getElementById('{!$CurrentPage.parameters.issueTypeCode}');
+           ele.value=document.getElementById('pg:frm1:issueTypeCode').value;
+           
+           ele=winMain.document.getElementById('{!$CurrentPage.parameters.reasonCode}');
+           ele.value=document.getElementById('pg:frm1:reasonCode').value;
+           
+           ele=winMain.document.getElementById('{!$CurrentPage.parameters.causeCode}');
+           ele.value=document.getElementById('pg:frm1:causeCode').value;
+                                 
+           
+           CloseWindow();
+        }
+        /* Ends Here */
+        
+     function showError(type){
+          var productLine = document.getElementById('pg:frm1:pb1:pageblSection1:pgBlSectionItem1:productLineId').value;
+          var issueType = document.getElementById('pg:frm1:pb1:pageblSection1:pgBlSectionItem2:issueTypeId').value;
+          var reason = document.getElementById('reason').value;
+          var cause = document.getElementById('cause').value;  
+          
+          if(productLine =='' || productLine  == 'null' ||  productLine  == '0'){
+               alert('Please fill the Product Line, Issue Type, Reason and Cause.');              
+               return false;
+          }else if((issueType == '' || issueType == '0') && (reason == '') && (cause == '')){
+              alert('Please fill the Issue Type, Reason and Cause.');              
+              return false;          
+          }else if((issueType != '' && issueType != '0') && (reason == '') && (cause == '')){
+              alert('Please fill the Reason and Cause.');              
+              return false;          
+          }else if((issueType == '' || issueType == '0') && (reason == '') && (cause != '')){
+              alert('Please fill the Issue Type and Reason.');              
+              return false;          
+          }else if((issueType == '' || issueType == '0') && (reason != '') && (cause == '')){
+              alert('Please fill the Issue Type and Cause.');              
+              return false;          
+          }else if(issueType == '' || issueType == '0'){
+              alert('Please fill the Issue Type.');              
+              return false;          
+          }else if(reason == ''){
+              alert('Please fill the Reason.');              
+              return false;          
+          }else if(cause == ''){
+              alert('Please fill the Cause.');              
+              return false;          
+          }
+          
+         /* if(type == 'submit'){
+              var d=document.getElementById("pg:frm1:issueHierId").value;
+           
+               if(d==''){
+                   alert('Please select the Issue Hierarchy.');
+                   
+                   return false;
+                }
+          }  */
+     }
+    
+    /* for closing the popup window after populating the field values */
+    
+    function CloseWindow(){
+    
+       var winMain=window.opener;
+       if (null==winMain){
+           winMain=window.parent.opener;
+       }
+       winMain.closeLookupPopup1();
+    }
+    
+     function getIssueHierId(issueHierId,issueHierCode, groupCode, classificationCode,productlineCode,issueTypeCode,reasonCode,causeCode){
+         
+         document.getElementById("pg:frm1:issueHierId").value = issueHierId;
+         
+         document.getElementById("pg:frm1:issueHierCode").value = issueHierCode;
+         document.getElementById("pg:frm1:groupCode").value = groupCode;
+         document.getElementById("pg:frm1:classificationCode").value = classificationCode;
+         document.getElementById("pg:frm1:productlineCode").value = productlineCode;
+         document.getElementById("pg:frm1:issueTypeCode").value = issueTypeCode;
+         document.getElementById("pg:frm1:reasonCode").value = reasonCode;
+         document.getElementById("pg:frm1:causeCode").value = causeCode;
+    }
+    
+    function closePopup(){
+        window.top.close();
+    }
+    
+    function reset1(){
+        document.getElementById('cause').value = '';
+        document.getElementById('reason').value= '';
+        $('#causeList').find('option').remove();
+        $("#reasonList").find('option').remove();
+        var bool=false; 
+         var productLine = document.getElementById('pg:frm1:pb1:pageblSection1:pgBlSectionItem1:productLineId').value;
+         if(productLine != null && productLine != '' && productLine != '0'){
+           onSelectionPopulateData('product');
+        }  
+    }
+          
+  </script>    
+   
+    <apex:form id="frm1">       
+            <apex:actionFunction name="IssueHierarchyFun" action="{!getIssueHierarchyData}"  reRender="resultPanel,pgu" status="saveStatus">
+                <apex:param name="firstParam"  value="" />
+                <apex:param name="secondParam"  value="" />
+            </apex:actionFunction>
+            
+             <apex:actionFunction name="updateIssueType" action="{!issueTypeListData}"  reRender="issueTypeId,pgu" status="saveStatus">
+                <apex:param name="firstParam"  value="" />
+                <apex:param name="secondParam"  value="" />
+                 <apex:param name="productParam"  value="" />
+            </apex:actionFunction>
+            
+            <apex:actionFunction name="resetData" action="{!reset}" oncomplete="reset1()" reRender="issueHierId,pgu,productLineId,issueTypeId,pgBlSectionItem3,pgBlSectionItem4" status="saveStatus" />
+            <apex:actionFunction name="filterFun" status="filter"/>
+            <apex:actionFunction name="restTable"  action="{!restTable}" reRender="pgu,table,issueHierId"/>
+            
+            <apex:pageBlock title="" mode="edit" id="pb1"> 
+                <apex:pageBlockButtons id="pbb1" location="bottom">
+                       <apex:actionStatus id="saveStatus">
+                            <apex:facet name="start">
+                                <apex:outputpanel >
+                                <apex:commandButton value="Searching..."  disabled="true"/>
+                                <apex:commandButton value="Searching..."  disabled="true"/>
+                                </apex:outputpanel> 
+                            </apex:facet> 
+                            <apex:facet name="stop">
+                                    <apex:outputpanel >                           
+                                   <apex:pageMessages id="showmsg"></apex:pageMessages>
+                                   <p id="refresh" class ="btn" onclick="return resetData();">Reset</p>
+                                   <p id="Search" class ="btn" onclick="return functionSearch();">Search</p>
+                                   <p id="submit" class ="btn" onclick="return submitData();">Submit</p >
+                                   <p id="close" class ="btn" onclick="closePopup();">Close</p>                              
+                                </apex:outputpanel>
+                            </apex:facet>
+                    </apex:actionStatus>                                     
+                </apex:pageBlockButtons> 
+                <apex:pageBlockSection title="Issue Hierarchy Search"/>
+                <!-- show fields on page-->
+           <apex:pageBlockSection id="pageblSection1">           
+                    <apex:pageBlockSectionItem id="pgBlSectionItem1">
+                        <apex:outputLabel value="Product Line"></apex:outputLabel>                        
+                         <apex:selectList id="productLineId" value="{!selectedProductLine}"  style="width:175px;border-left:2px solid #FF0000;" size="1" >
+                             <apex:selectOptions value="{!productLineList}"/>
+                             <apex:actionSupport event="onchange" reRender="issueTypeId,pgBlSectionItem3,pgBlSectionItem4" action="{!onChangeproductLine}" oncomplete="onSelectionPopulateData('product')"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>                    
+                    
+                    <apex:pageBlockSectionItem id="pgBlSectionItem2">
+                        <apex:outputLabel value="Issue Type"></apex:outputLabel>
+                        <apex:selectList id="issueTypeId" value="{!selectedIssueType}"  style="width:175px;border-left:2px solid #FF0000;" size="1" onchange="onSelectionPopulateData('issue')">
+                              <apex:selectOptions value="{!issueTypeList}"/>
+                        </apex:selectList>
+                   </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem id="pgBlSectionItem3">
+                        <apex:outputLabel value="Reason"></apex:outputLabel>
+                        
+                        <div style="position:relative;width:200px;height:20px;border:0;padding:0;margin:0;">
+                            <select id="reasonList" style="position:absolute;top:0px;left:0px;width:200px; height:20px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('reason').value=this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;onSelectionPopulateData('reason');">
+                            </select>
+                            <input ng-model="q" name="reason" value="{!reasonStr}" placeholder="Find available reason..." id="reason" style="position:absolute;top:0px;left:0px;width:180px;width:177px\9;#width:177px;height:17px; height:15px\9;#height:18px;border-top:1px solid #556;border-bottom:1px solid #556;border-left:2px solid #FF0000;" onfocus="this.select()" type="text" onblur="onSelectionPopulateData('reason');" />
+                            <input name="idValue" id="idValue" type="hidden"/>
+                       </div>
+                    
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem id="pgBlSectionItem4">
+                        <apex:outputLabel value="Cause"></apex:outputLabel>
+                        <div style="position:relative;width:200px;height:20px;border:0;padding:0;margin:0;">
+                            <select id="causeList" style="position:absolute;top:0px;left:0px;width:200px; height:20px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('cause').value=this.options[this.selectedIndex].text; document.getElementById('idValuecause').value=this.options[this.selectedIndex].value;onSelectionPopulateData('cause');">
+                            </select>
+                            <input ng-model="q" name="cause" value="{!causeStr}" placeholder="Find available cause..." id="cause" style="position:absolute;top:0px;left:0px;width:180px;width:177px\9;#width:177px;height:17px; height:15px\9;#height:18pxborder-top:1px solid #556;border-bottom:1px solid #556;border-left:2px solid #FF0000;" onfocus="this.select()" type="text" onblur="onSelectionPopulateData('cause');" />
+                            <input name="idValuecause" id="idValuecause" type="hiddencause"/>
+                       </div>                    
+                    </apex:pageBlockSectionItem> 
+                    
+                </apex:pageBlockSection>   
+             </apex:pageBlock> 
+             
+             <!-- show grid on the basis of reason and cause-->
+           <apex:outputpanel id="pgu" >   
+               <apex:pageBlock id="inlinetablesec">                                                      
+                    <apex:pageBlockTable id="table" value="{!issueHierList}" var="eachRecord" rendered="{!If(issueHierList.size >0,true,false)}">
+                        <apex:column >
+                            <input type="radio" name="issueHier" id="{!eachRecord.issuehierarchyObj.Id}" value="{!eachRecord.issuehierarchyObj.Id}" onclick="getIssueHierId(this.id, '{!eachRecord.issuehierarchyObj.Name}','{!eachRecord.groupName}','{!eachRecord.classification}','{!eachRecord.issuehierarchyObj.Product_Line__r.Name}','{!eachRecord.issuetype}','{!eachRecord.reason}','{!eachRecord.cause}')" />
+                        </apex:column>
+                        <apex:column value="{!eachRecord.issuehierarchyObj.Group__r.Description__c}" headerValue="Group"/>
+                        <apex:column value="{!eachRecord.issuehierarchyObj.Classification__r.Description__c}" headerValue="Classification"/>
+                        <apex:column value="{!eachRecord.issuehierarchyObj.Product_Line__r.Name}" headerValue="Product Line"/>
+                        <apex:column value="{!eachRecord.issuehierarchyObj.Issue_Type__r.Description__c}" headerValue="Issue Type"/>
+                        <apex:column value="{!eachRecord.issuehierarchyObj.Reason__r.Description__c}" headerValue="Reason" />
+                        <apex:column value="{!eachRecord.issuehierarchyObj.Cause__r.Description__c }" headerValue="Cause"/> 
+                    </apex:pageblockTable>             
+              </apex:pageBlock>
+          </apex:outputpanel>
+          <apex:inputHidden id="issueHierId" value="{!issueHierId}"/>
+          <apex:inputHidden id="issueHierCode"/>
+          <apex:inputHidden id="groupCode"/>
+          <apex:inputHidden id="classificationCode"/>
+          <apex:inputHidden id="productlineCode"/>
+          <apex:inputHidden id="issueTypeCode"/> 
+          <apex:inputHidden id="reasonCode"/>
+          <apex:inputHidden id="causeCode"/>            
+    </apex:form>
+</apex:page>

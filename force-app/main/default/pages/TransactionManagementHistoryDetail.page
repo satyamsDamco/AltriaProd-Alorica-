@@ -1,0 +1,47 @@
+<apex:page standardController="Transaction_Management_History__c" id="tmhdetail">
+     <apex:includeScript value="/support/console/37.0/integration.js" /> 
+    <apex:sectionHeader title="Transaction Management History Detail" subtitle="{!Transaction_Management_History__c.Name}" />
+    <apex:form >
+        <script>        
+            function SetTabTitleCorrespondence() {
+                sforce.console.getEnclosingTabId(function(result) {
+                   sforce.console.setTabTitle('CSR-'+'{!Transaction_Management_History__c.Name}', result.id);
+                   sforce.console.setTabLink();
+                   
+                });
+            }
+            
+            var pageLoad = window.onload;
+            window.onload = function() {
+                if (pageLoad) {
+                        pageLoad();
+                }
+                SetTabTitleCorrespondence();
+            }   
+        </script>
+        <apex:pageBlock mode="detail ">
+            <apex:pageBlockSection >
+                <apex:outputField value="{!Transaction_Management_History__c.Name}"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Transaction_Management_Id__c}"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Customer_Id__c}"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Operating_Company__c}"/>
+                <!--<apex:outputField value="{!Transaction_Management_History__c.Customer__c}"/>-->
+                <apex:outputField value="{!Transaction_Management_History__c.First_Name__c}"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Last_Name__c}"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Service_Request_Code__c}"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Service_Group_Code__c}"/>
+                
+                <apex:outputField value="{!Transaction_Management_History__c.Issue_Id__c}"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Amount__c}" label="Reimbursement Amount"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Update_Reason__c}" label="Issue Update Reason"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Status__c}" label="Survey Status"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Survey_Termination_Reason__c}"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Letter_Type__c}"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Package_Code__c}"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Comments__c}"/>
+                <apex:outputField value="{!Transaction_Management_History__c.Disposition__c}"/>
+                <apex:outputField value="{!Transaction_Management_History__c.CreatedByName__c}" />
+            </apex:pageBlockSection>
+            </apex:pageBlock>
+    </apex:form>
+</apex:page>

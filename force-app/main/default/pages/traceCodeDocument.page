@@ -1,0 +1,37 @@
+<apex:page standardController="Product_Line__c">
+    <apex:includeScript value="/support/console/37.0/integration.js" /> 
+    <apex:sectionHeader title="{!Product_Line__c.name}"/>
+    <script>
+        window.onload = function() {
+              SetTabTitle();
+              
+        };  
+        function SetTabTitle() {
+            sforce.console.getEnclosingTabId(function(result) {
+               sforce.console.setTabTitle('Trace Code -'+'{!Product_Line__c.name}', result.id);
+               sforce.console.setTabLink();
+            });
+         }
+         
+        function CloseTab() {
+            sforce.console.getEnclosingTabId(closeSubtab);
+        }        
+        var closeSubtab = function closeSubtab(result) {
+            //Now that we have the tab ID, we can close it
+            var tabId = result.id;
+            sforce.console.closeTab(tabId);
+        };
+    </script>
+
+  <apex:form >
+    <apex:pageBlock title="Trace Code Detail" mode="View">
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Close" onclick="CloseTab();return false;"/>
+        </apex:pageBlockButtons>
+
+        <apex:outputPanel >
+            <apex:outputText value="{!Product_Line__c.Documents__c}" escape="false"></apex:outputText>                 
+        </apex:outputPanel>         
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,7 @@
+# SFDX debug logs and generated files
+.sfdx/tools/debug/logs/
+.sfdx/fileResponses/
+.sfdx/tools/260/apex.db
+
+# VS Code (optional - remove if you want to track these)
+# .vscode/

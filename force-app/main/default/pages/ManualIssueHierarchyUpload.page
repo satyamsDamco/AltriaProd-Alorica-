@@ -1,0 +1,232 @@
+<apex:page controller="ManualIssueHierarchyUploadController" id="mainPage" tabStyle="Manual_Integration__tab" sidebar="false">
+    <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" /> 
+    <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" /> 
+
+    <apex:includeScript value="{!URLFOR($Resource.GridViewScroll, '/gridviewScroll.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.GridViewScroll, '/GridviewScroll.css')}"/>
+    <script type="text/javascript"> 
+    $(document).ready(function() {
+        gridviewScroll(); 
+    }); 
+    var w = $(window).width() - 100;
+    function gridviewScroll() {
+            var head1 = $('#mainPage\\:pageform\\:mainPB\\:mainPBS\\:mainPBT').find('thead').html();
+            $(head1).find('tr').addClass('GridviewScrollHeader');
+            var body1 = $('#mainPage\\:pageform\\:mainPB\\:mainPBS\\:mainPBT').find('tbody').html();
+            $(body1).find('tr').addClass('GridviewScrollItem');
+            $('#mainPage\\:pageform\\:mainPB\\:mainPBS\\:mainPBT').html(head1 + body1);
+            $('#mainPage\\:pageform\\:mainPB\\:mainPBS\\:mainPBT').find('tr').addClass('GridviewScrollItem');
+            gridView1 = $('#mainPage\\:pageform\\:mainPB\\:mainPBS\\:mainPBT').gridviewScroll({
+                width: w,
+                height: 400
+            });
+            
+            var head2 = $('#mainPage\\:pageform\\:mainPB\\:mainPBS1\\:mainPBT1').find('thead').html();
+            $(head2).find('tr').addClass('GridviewScrollHeader');
+            var body2 = $('#mainPage\\:pageform\\:mainPB\\:mainPBS1\\:mainPBT1').find('tbody').html();
+            $(body2).find('tr').addClass('GridviewScrollItem');
+            $('#mainPage\\:pageform\\:mainPB\\:mainPBS1\\:mainPBT1').html(head2 + body2);
+            $('#mainPage\\:pageform\\:mainPB\\:mainPBS1\\:mainPBT1').find('tr').addClass('GridviewScrollItem');
+            gridView2 = $('#mainPage\\:pageform\\:mainPB\\:mainPBS1\\:mainPBT1').gridviewScroll({
+                width: w,
+                height: 400
+            }); 
+      }
+</script> 
+   <apex:form id="pageform">
+      <apex:sectionHeader title="Upload data from CSV file"/>
+      <apex:pagemessages />
+      <apex:pageBlock mode="Ediit" id="mainPB">
+             <!--  Component to allow user to upload file from local machine -->
+             <center>
+              <apex:inputFile value="{!contentFile}" filename="{!nameFile}" /> 
+              <apex:commandButton action="{!ReadFile}" value="Upload File" id="theButton" style="width:70px;"/>
+              <apex:commandButton action="{!issueHierarchyChange}" value="Upload Issue Hierarchy Changes" id="theButtonUpdate" disabled="{!errordata}" rendered="{!newRecords.size >0 || deactiveRecords.size>0}" style="width:200px;"/>
+             </center>  
+  
+      <!-- After the user clicks the 'Upload File' button, this section displays the inserted data -->
+      <apex:pageBlockSection title="New Records" id="mainPBS" > 
+          <apex:pageBlockTable value="{!newRecords}" style="width:100%" var="acc" id="mainPBT" rendered="{!newRecords.size>0}"> 
+              <apex:column headerValue="Action">
+                  <apex:outputText value="{!acc.Requested}"/>
+              </apex:column>
+              <apex:column headerValue="Missing data in file" style="{!IF(acc.MissingDataError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!If(acc.MissingDataError,'Missing Data','')}" />
+              </apex:column>
+              <apex:column headerValue="Duplicate/New Data in file" style="{!IF(acc.dupliacteErrorFile,'background:#FFFF7F','background:none')}">
+                  <apex:outputText value="{!If(acc.dupliacteErrorFile,'Duplicate Data','')}" />
+              </apex:column>
+              <apex:column headerValue="Duplicate/New Data in salesforce" style="{!IF(acc.dupliacteErrorData,'background:#B2B2FF','background:none')}">
+                  <apex:outputText value="{!If(acc.dupliacteErrorData,'Duplicate Data','')}" />
+              </apex:column>
+              <apex:column headerValue="Classification" style="{!IF(acc.ClassificationError,'background:#8CDD81','background:none')}">
+                  <apex:outputText value="{!acc.Classification}"/>
+              </apex:column>
+              <apex:column headerValue="Product Line"   style="{!IF(acc.ProductLineError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!acc.ProductLine}"/>
+              </apex:column>          
+              <apex:column headerValue="Issue Type"  style="{!IF(acc.IssueTypeError,'background:#66CD00','background:none')}">
+                  <apex:outputText value="{!acc.IssueType}" />
+              </apex:column>
+              <apex:column headerValue="Group"  style="{!IF(acc.GroupError,'background:#66CD00','background:none')}">
+                  <apex:outputText value="{!acc.GroupVal}" />
+              </apex:column>
+               <apex:column headerValue="Reason"   style="{!IF(acc.ReasonError,'background:#66CD00','background:none')}">
+                  <apex:outputText value="{!acc.Reason}"/>
+              </apex:column>
+              <apex:column headerValue="Cause" style="{!IF(acc.CauseError,'background:#66CD00','background:none')}">
+                  <apex:outputText value="{!acc.Cause}"  />
+              </apex:column>
+              <apex:column headerValue="Cause ID">
+                  <apex:outputText value="{!acc.CauseID}"/>
+              </apex:column>
+              <apex:column headerValue="RptCategory">
+                  <apex:outputText value="{!acc.RptCategory}"/>
+              </apex:column>
+              <apex:column headerValue="ActiveFlag">
+                  <apex:outputText value="{!acc.ActiveFlag}"/>
+              </apex:column>
+              <apex:column headerValue="EscalateFlag">
+                  <apex:outputText value="{!acc.EscalateFlag}"/>
+              </apex:column>
+              <apex:column headerValue="IssueAssociation">
+                  <apex:outputText value="{!acc.IssueAssociation}"/>
+              </apex:column>
+              <apex:column headerValue="Rollup">
+                  <apex:outputText value="{!acc.Rollup}"/>
+              </apex:column>
+              <apex:column headerValue="Factory Controllable Flag">
+                  <apex:outputText value="{!acc.FactoryControllableFlag}"/>
+              </apex:column>
+               <apex:column headerValue="Pqrb Rtp Category (Reporting Grouping)">
+                  <apex:outputText value="{!acc.PqrbRtpCategory}"/>
+              </apex:column>
+              <apex:column headerValue="Visible">
+                  <apex:outputText value="{!acc.Visible}"/>
+              </apex:column>
+              <apex:column headerValue="Select">
+                  <apex:outputText value="{!acc.SelectVal}"/>
+              </apex:column>
+              <apex:column headerValue="ProductReturnLevel">
+                  <apex:outputText value="{!acc.ProductReturnLevel}"/>
+              </apex:column>
+              <apex:column headerValue="AlertDistribution">
+                  <apex:outputText value="{!acc.AlertDistribution}"/>
+              </apex:column>
+              <apex:column headerValue="AlcsInvestigationLevel">
+                  <apex:outputText value="{!acc.AlcsInvestigationLevel}"/>              
+              </apex:column>
+              <apex:column headerValue="ManfInvestigationLevel">
+                  <apex:outputText value="{!acc.ManfInvestigationLevel}"/>
+              </apex:column>
+              <apex:column headerValue="ThresholdWithManfInfo">
+                  <apex:outputText value="{!acc.ThresholdWithManfInfo}"/>
+              </apex:column>
+              <apex:column headerValue="ThresholdWithProdDescOnly">
+                  <apex:outputText value="{!acc.ThresholdWithProdDescOnly}"/>
+              </apex:column>
+              <apex:column headerValue="SurveyRequirements">
+                  <apex:outputText value="{!acc.SurveyRequirements}"/>
+              </apex:column>
+              <apex:column headerValue="Display Flag">
+                  <apex:outputText value="{!acc.DisplayFlag}"/>              
+              </apex:column>
+               <apex:column headerValue="" style="width:20px;">
+                              
+              </apex:column>
+          </apex:pageBlockTable> 
+      </apex:pageBlockSection>
+      <apex:pageBlockSection title="DeActive Records" id="mainPBS1">
+          <apex:pageBlockTable value="{!deactiveRecords}" id="mainPBT1" var="acc" rendered="{!deactiveRecords.size>0}">
+              <apex:column headerValue="Requested">
+                  <apex:outputText value="{!acc.Requested}"/>
+              </apex:column>
+              <apex:column headerValue="Missing data in file" style="{!IF(acc.MissingDataError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!If(acc.MissingDataError,'Missing Data','')}" />
+              </apex:column>
+              <apex:column headerValue="Duplicate/New Data in file" style="{!IF(acc.dupliacteErrorFile,'background:#FFFF7F','background:none')}">
+                  <apex:outputText value="{!If(acc.dupliacteErrorFile,'Duplicate Data','')}" />
+              </apex:column>
+              <apex:column headerValue="Issue Hierarchy" style="{!IF(acc.NameError,'background:#ffb3b3','background:none')}">
+                  <apex:outputText value="{!acc.Name}" />
+              </apex:column>
+              <apex:column headerValue="Classification">
+                  <apex:outputText value="{!acc.Classification}"/>
+              </apex:column>
+              <apex:column headerValue="Product Line">
+                  <apex:outputText value="{!acc.ProductLine}"/>
+              </apex:column>          
+              <apex:column headerValue="Issue Type">
+                  <apex:outputText value="{!acc.IssueType}"/>
+              </apex:column>
+              <apex:column headerValue="Group">
+                  <apex:outputText value="{!acc.GroupVal}"/>
+              </apex:column>
+               <apex:column headerValue="Reason">
+                  <apex:outputText value="{!acc.Reason}"/>
+              </apex:column>
+              <apex:column headerValue="Cause">
+                  <apex:outputText value="{!acc.Cause}"/>
+              </apex:column>
+              <apex:column headerValue="Cause ID">
+                  <apex:outputText value="{!acc.CauseID}"/>
+              </apex:column>
+              <apex:column headerValue="RptCategory">
+                  <apex:outputText value="{!acc.RptCategory}"/>
+              </apex:column>
+              <apex:column headerValue="ActiveFlag">
+                  <apex:outputText value="{!acc.ActiveFlag}"/>
+              </apex:column>
+              <apex:column headerValue="EscalateFlag">
+                  <apex:outputText value="{!acc.EscalateFlag}"/>
+              </apex:column>
+              <apex:column headerValue="IssueAssociation">
+                  <apex:outputText value="{!acc.IssueAssociation}"/>
+              </apex:column>
+              <apex:column headerValue="Rollup">
+                  <apex:outputText value="{!acc.Rollup}"/>
+              </apex:column>
+              <apex:column headerValue="Factory Controllable Flag">
+                  <apex:outputText value="{!acc.FactoryControllableFlag}"/>
+              </apex:column>
+               <apex:column headerValue="Pqrb Rtp Category">
+                  <apex:outputText value="{!acc.PqrbRtpCategory}"/>
+              </apex:column>
+              <apex:column headerValue="Visible">
+                  <apex:outputText value="{!acc.Visible}"/>
+              </apex:column>
+              <apex:column headerValue="Select">
+                  <apex:outputText value="{!acc.SelectVal}"/>
+              </apex:column>
+              <apex:column headerValue="ProductReturnLevel">
+                  <apex:outputText value="{!acc.ProductReturnLevel}"/>
+              </apex:column>
+              <apex:column headerValue="AlertDistribution">
+                  <apex:outputText value="{!acc.AlertDistribution}"/>
+              </apex:column>
+              <apex:column headerValue="AlcsInvestigationLevel">
+                  <apex:outputText value="{!acc.AlcsInvestigationLevel}"/>              
+              </apex:column>
+              <apex:column headerValue="ManfInvestigationLevel">
+                  <apex:outputText value="{!acc.ManfInvestigationLevel}"/>
+              </apex:column>
+              <apex:column headerValue="ThresholdWithManfInfo">
+                  <apex:outputText value="{!acc.ThresholdWithManfInfo}"/>
+              </apex:column>
+              <apex:column headerValue="ThresholdWithProdDescOnly">
+                  <apex:outputText value="{!acc.ThresholdWithProdDescOnly}"/>
+              </apex:column>
+              <apex:column headerValue="SurveyRequirements">
+                  <apex:outputText value="{!acc.SurveyRequirements}"/>
+              </apex:column>
+              <apex:column headerValue="Display Flag">
+                  <apex:outputText value="{!acc.DisplayFlag}"/>              
+              </apex:column>
+               <apex:column headerValue="" style="width:20px;">
+                              
+              </apex:column>
+          </apex:pageblocktable> 
+       </apex:pageBlockSection>
+      </apex:pageBlock>       
+   </apex:form>   
+</apex:page>

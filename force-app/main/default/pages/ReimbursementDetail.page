@@ -1,0 +1,71 @@
+<apex:page standardController="Reimbursement__c" extensions="ReimbursementDetailController">
+    <apex:includeScript value="/support/console/37.0/integration.js"/>
+    <apex:form id="formId">
+        <script type="text/javascript">
+             function SetTabTitleReimbursement() {
+                    sforce.console.getEnclosingTabId(function(result) {
+                       sforce.console.setTabTitle('RN-'+'{!reimbursement.Name}', result.id);
+                       sforce.console.setTabLink();
+                    });
+                 }
+                
+                var pageLoad = window.onload;
+                
+                window.onload = function() {
+                    if (pageLoad) {
+                            pageLoad();
+                    }
+                    SetTabTitleReimbursement();
+                    if('{!isAllowedToEdit}' == 'false'){
+                        alert('Cannot edit the reimbursement record.')
+                    }
+                } 
+            function checkConsole() {
+                var isCon;
+                if (typeof(srcUp) == 'function') {
+                    isCon = false; //yes in console
+                } else {
+                    isCon = true;
+                }
+                document.getElementById("{!$Component.formId:varHolder}").value = isCon;
+                passValue();
+        	}
+        </script>
+        <apex:sectionHeader subtitle="{!reimbursement.Name}" title="Reimbursement"/>
+        <apex:actionFunction name="passValue" action="{!assignValue}" rerender="formId" />
+        <apex:inputHidden id="varHolder" value="{!inConsole}" />
+        <apex:pageBlock id="pgBlock" mode="detail"> 
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Edit" action="{!edit}" disabled="{!!isAllowedToEdit}" rendered="{!tranid != null && tranid != ''}"/>
+            </apex:pageBlockButtons>
+            <apex:pageblockSection columns="2" id="pgBlkSecId"> 
+                <apex:outputfield value="{!reimbursement.IssueID__c}" label="Issue Name" />                                                                                        
+                <apex:outputfield value="{!reimbursement.Cheque_Amount__c}" />
+                <apex:outputfield value="{!reimbursement.Reimbursement_Type__c}" />                                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Consumer"/>
+                    <apex:outputText value="{!consumerName}"/>  
+                </apex:pageBlockSectionItem>   
+               	<apex:outputfield value="{!reimbursement.Purchase_Price__c}" />
+                <apex:inputHidden />
+                <apex:outputfield value="{!reimbursement.Consumer__r.Email}" />
+                <apex:outputfield value="{!reimbursement.Consumer__r.Email_Verified__c}" />
+                <apex:outputfield value="{!reimbursement.First_Name__c}" rendered="{!showReimbAddtl}"/>
+                <apex:outputfield value="{!reimbursement.Street_Address__c}" rendered="{!showReimbAddtl}"/>
+                <apex:outputfield value="{!reimbursement.Last_Name__c}" rendered="{!showReimbAddtl}"/>
+                <apex:outputfield value="{!reimbursement.Apt_Lot__c}" rendered="{!showReimbAddtl}"/>
+                <apex:outputfield value="{!reimbursement.City__c}" rendered="{!showReimbAddtl}"/>
+                <apex:outputfield value="{!reimbursement.State__c}" rendered="{!showReimbAddtl}"/>
+                <apex:outputfield value="{!reimbursement.Zip_Code__c}" rendered="{!showReimbAddtl}"/>
+                <apex:outputfield value="{!reimbursement.Transfer_to_Altria_Date__c}" rendered="{!showReimbAddtl}"/>
+                <apex:outputfield value="{!reimbursement.Altria_File_Name__c}" rendered="{!showReimbAddtl}"/>
+               	<apex:outputfield value="{!reimbursement.File_Name__c}" rendered="{!showReimbAddtl}"/>
+                <apex:outputfield value="{!reimbursement.Ship_Date__c}" rendered="{!showReimbAddtl}"/>
+                <apex:outputfield value="{!reimbursement.Ecount_ID__c}" rendered="{!showReimbAddtl}"/>
+                <apex:outputfield value="{!reimbursement.Card_Number__c}" rendered="{!showReimbAddtl}"/>
+                <apex:outputfield value="{!reimbursement.Status__c}" />                                                  
+            </apex:pageblockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <script>checkConsole();</script>
+</apex:page>

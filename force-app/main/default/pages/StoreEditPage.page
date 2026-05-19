@@ -1,0 +1,174 @@
+<apex:page id="page1" standardController="Store__c" docType=" html-5.0"   extensions="StoreEditController" >
+    
+    <apex:includeScript value="/support/console/37.0/integration.js"/>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css"/>
+    
+
+    <apex:sectionHeader id="storeHeader" title="Store Edit" subtitle="Store New"/>    
+    <apex:form id="form1" > 
+    <script> 
+    /* script to get the list of store names */ 
+    var availableTags =new Array();
+    <apex:repeat value="{!customStoreNameList}" var="rec">     
+        availableTags.push("{!rec.Name}");
+   
+    </apex:repeat>
+    
+    /* gloal function to bind the store name list to html input tag */
+    $(function () { 
+        $( "#storeNameHtml" ).autocomplete({source:availableTags});   
+    } );  
+    
+    /* function to prevent the page for refresh */
+    function loadAuto(){      
+    }
+    
+    /* js function called on click of save and new button. 
+     it get store name value from html input and assign it to name field of store object */
+    function passStoreNewSave(){    
+        var storeName =  document.getElementById('storeNameHtml').value.trim(); 
+       
+        document.getElementById('page1:form1:block1:section1:storeNameApex').value =  storeName;
+    }
+    
+    /* js function called on click of save button. it called different action function according to the check conditons 
+     and get store name value from html input and assign it to name field of store object */
+    function passStoreNew(){ 
+        
+        //RITM2147263
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        document.getElementsByTagName('body')[0].style = 'overflow: hidden';
+        document.getElementById('el_loading').style.display = 'block';
+        
+        var storeName =  document.getElementById("storeNameHtml").value.trim();
+         
+        document.getElementById('page1:form1:block1:section1:storeNameApex').value = storeName; 
+        if(storeName==''|| document.getElementById('page1:form1:block1:section1:sectionItem1:storeTypeSelected').value=='--Select Store Type--')
+        {
+           
+            reRenderFunction();
+        }
+        else
+        {   
+            nonRerenderFunction();       
+        } 
+    }
+    
+        function SetTabTitleStore() {
+            sforce.console.getEnclosingTabId(function(result) {
+               var storeid = '{!store.id}';  
+               if(storeid != null && storeid != '' && storeid != 'null'){
+                   sforce.console.setTabTitle('S-'+'{!store.Name}', result.id);
+               }
+               sforce.console.setTabLink();
+            });
+         }
+        
+        var pageLoad = window.onload;
+        
+        window.onload = function() {
+            if (pageLoad) {
+                    pageLoad();
+            }
+            SetTabTitleStore();
+        } 
+            
+        function closeCancelTab() {
+            var storeid = '{!store.id}'; 
+            
+            if(storeid == null || storeid == '' || storeid == 'null'){
+                 sforce.console.getEnclosingTabId(closeSubtab);
+            }else{
+                CancelRedirect();
+                //sforce.console.getEnclosingPrimaryTabId(openSubtabStore);                
+            } 
+           
+        }
+        
+        
+        var closeSubtab = function closeSubtab(result) {
+            //Now that we have the tab ID, we can close it
+            var tabId = result.id;
+            sforce.console.closeTab(tabId);
+        };
+        
+        
+        var primaryTabIdmain = ''; 
+         var openSubtabStore= function openSubtabStore(result) {
+            primaryTabIdmain= result.id;            
+            sforce.console.getEnclosingTabId(getSubtab);
+        };
+        
+        var getSubtab = function getSubtab(result) {
+            var tabId = result.id;
+            var storeid = '{!store.id}';            
+           
+             if(primaryTabIdmain !=   null && primaryTabIdmain != '' && primaryTabIdmain != 'null')
+                sforce.console.openSubtab(primaryTabIdmain, '/apex/StoreDetail?id='+storeid, true, storeid, tabId);
+            else
+                sforce.console.openPrimaryTab(null , '/apex/StoreDetail?id='+storeid, true, storeid, tabId);                
+            
+        };
+    </script>        
+        <apex:pageBlock mode="edit" id="block1">              
+            <apex:pageMessages id="message"/>
+             <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
+            <!-- different action function call on click of save button -->
+             <apex:actionFunction id="reRenderFunction" action="{!submitStore}" name="reRenderFunction" reRender="block1" />
+            <apex:actionFunction id="nonRerenderFunction" action="{!submitStore}" name="nonRerenderFunction" />
+            <apex:actionFunction name="getCityState" action="{!getCityState}" reRender="message,City,State"/>
+                      
+            <apex:pageBlockButtons >
+                
+              	<apex:commandButton id="Save"  value="Save"  onclick="passStoreNew()" oncomplete="loadAuto()"/>
+                <!-- 10/30/19 JD: RITM0052177 - SCR 19-10-18 Stores - Allow Only 1 Per Issue ver 1.0 
+              	<apex:commandButton id="SaveNew"  value="Save & New" onclick="passStoreNewSave()"  action="{!saveNew}" oncomplete="loadAuto()" reRender="block1" />
+				-->
+              	<apex:commandButton id="Cancel" value="Cancel" onclick="closeCancelTab();return false;"/>
+            </apex:pageBlockButtons> 
+            
+            <apex:pageBlockSection id="section1" columns="1">                  
+                
+                <!-- section item to show the drop down list of store -->
+                <apex:pageBlockSectionItem id="sectionItem1" >
+                    <apex:outputLabel value="Store Type"></apex:outputLabel> 
+                    <apex:selectList id="storeTypeSelected"  label="Store Type" style="text-align:left;border-left:3px solid #c00"  size="1" value="{!selectedStoreType}" >
+                        <apex:selectOptions value="{!StoreType}" /> 
+                    </apex:selectList>    
+                </apex:pageBlockSectionItem>
+                
+                <!-- section item to enter store name which is HTML input field with autofill feature -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Store Name"></apex:outputLabel>                       
+                    <input style="text-align:left;"  id="storeNameHtml" type="text" value="{!store.Store_Name__c}"/>   
+                    <script>
+                     $( "#storeNameHtml" ).autocomplete({source:availableTags}); 
+                     </script>             
+                </apex:pageBlockSectionItem>                  
+                
+                <apex:inputField id="Address1"  value="{!store.Store_Address1__c}" />
+                <apex:inputField id="Address2" value="{!store.Store_Address2__c}"/>
+                <apex:inputText id="City"  value="{!store.Store_City__c}" disabled="{!cityStateDisabled}"/>
+                <apex:inputText id="State"  value="{!store.Store_State__c}" disabled="{!cityStateDisabled}"/>
+                <apex:inputField id="Zip" value="{!store.Store_Zip__c}" onchange="getCityState();"/>
+                <apex:inputField id="Comments"  value="{!store.Store_Comment__c}" style="width:100%;height:120px;"/>
+                <apex:inputHidden id="storeNameApex" value="{!store.Store_Name__c}" />
+                
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock> 
+        
+        <!-- RITM2147263 -->
+    	 <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                       height: 100%;opacity:0.65;width:100%;display:none;"> 
+             <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                 <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                 <span class="waitingDescription">Loading...</span>
+             </div>
+        </div>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,3 @@
+<apex:page controller="ChatConsumerSearchController" sidebar="false" action="{!redirectCustomerSearch}">
+  
+</apex:page>

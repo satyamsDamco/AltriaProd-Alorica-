@@ -1,0 +1,37 @@
+<apex:page standardController="Issue_Adjustment__c" extensions="IssueAdjustmentReviewController" id="page1" sidebar="false">
+    <apex:form id="frm">       
+       <apex:pageBlock title="Issue Adjustment Review">  
+           <apex:pageBlockButtons >
+               <apex:commandButton action="{!previous}"  value="Previous" rendered="{!hasPrevious}"/>
+               <apex:commandButton action="{!next}" rendered="{!hasNext}" value="Next"/>
+           </apex:pageBlockButtons>
+          
+           <apex:pageBlockSection collapsible="false" columns="1" showHeader="false">
+                <apex:selectList id="product" value="{!selectedReviewType}"  style="width:175px;" size="1" label="Reviewed/Not Reviewed filter">
+                     <apex:selectOptions value="{!ReviewList}"/>
+                     <apex:actionSupport event="onchange" action="{!ViewData}"/>
+                 </apex:selectList> 
+           </apex:pageBlockSection>
+           <apex:pageBlockSection columns="1" title="No Record found" rendered="{!(IssueReviewList.size <=0)}">
+                No records to display
+           </apex:pageBlockSection> 
+           <apex:pageBlockTable value="{!IssueReviewList}" var="ir" rendered="{!(IssueReviewList.size >0)}"  id="theaddrs" styleClass="tablesorter" headerClass="header">
+              <apex:column width="30%">
+                   <apex:facet name="header">
+                       <apex:commandLink action="{!ViewData}" value="Issue Number{!IF(sortExpression=='IssueNumber__c',IF(sortDirection='a','▼','▲'),'')}">
+                           <apex:param value="IssueNumber__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                       </apex:commandLink>
+                   </apex:facet>
+                   &nbsp;&nbsp;<apex:OutputLink value="apex/IssueAdjustmentReviewDetail?id={!ir.Issue__c}&issueAdjust={!ir.id}&ReviewType={!selectedReviewType}">{!ir.IssueNumber__c}</apex:outputLink>
+               </apex:column>
+               <apex:column headerValue="Adjustment Instructions"  width="35%">
+                    <apex:OutputText value="{!ir.Adjustment_Instructions__c}"/>
+               </apex:column> 
+               <apex:column headerValue="Review Comments"  width="35%" rendered="{!selectedReviewType ==  'Reviewed'}">
+                    <apex:OutputText value="{!ir.Comment__c}"/>
+               </apex:column>       
+           </apex:pageBlockTable>
+           <br/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,39 @@
+<apex:page id="page1" standardController="Store__c" docType=" html-5.0" extensions="StoreDetailController" >
+ <apex:includeScript value="/support/console/37.0/integration.js" />
+  <apex:sectionHeader id="storeHeader" title="Store" subtitle="{!store.Name}"/>   
+    <apex:form id="form1" >
+     <script type="text/javascript">
+         function SetTabTitleStore() {
+                sforce.console.getEnclosingTabId(function(result) {
+                   sforce.console.setTabTitle('S-'+'{!store.Name}', result.id);
+                   sforce.console.setTabLink();
+                });
+             }
+            
+            var pageLoad = window.onload;
+            
+            window.onload = function() {
+                if (pageLoad) {
+                        pageLoad();
+                }
+                SetTabTitleStore();
+            }  
+        </script>        
+      <apex:pageBlock mode="detail" id="block1" >
+        <apex:pageMessages ></apex:pageMessages>
+            <apex:pageBlockButtons >
+              <apex:commandButton id="Edit" action="{!editStore}"  value="Edit" rendered="{!tranid != null}"/>
+             </apex:pageBlockButtons>
+           <apex:pageBlockSection id="section1" columns="1">
+             <apex:outputField id="StoreType" label="Store Type" value="{!store.Store_Type__r.Description__c}" />
+             <apex:outputField id="StoreName" label="Store Name" value="{!store.Store_Name__c}"/>
+             <apex:outputField id="Address1" label="Store Address1" value="{!store.Store_Address1__c}"  />
+             <apex:outputField id="Address2" label="Store Address2" value="{!store.Store_Address2__c}"/>
+             <apex:outputField id="City" label="Store City" value="{!store.Store_City__c}"/>
+             <apex:outputField id="State" label="Store State" value="{!store.Store_State__c}"/>
+             <apex:outputField id="Zip" label="Store Zip" value="{!store.Store_Zip__c}"/>
+             <apex:outputField id="Comments" label="Store Comments" value="{!store.Store_Comment__c}"/>
+            </apex:pageBlockSection>
+         </apex:pageBlock> 
+       </apex:form>
+</apex:page>

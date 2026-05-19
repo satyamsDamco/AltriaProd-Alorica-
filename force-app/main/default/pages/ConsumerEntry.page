@@ -1,0 +1,696 @@
+<apex:page docType="html-5.0" standardController="Contact" extensions="ConsumerEntryController" id="pg">
+   <meta http-equiv="X-UA-Compatible" content="IE=11" />
+   <apex:includeScript value="/support/console/37.0/integration.js"/>   
+   <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"/>   
+   <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+    
+   <apex:sectionHeader title="{!if(Customershow,'Consumer Edit','Trade Customer Edit')}" subtitle="{!contact.CustomerID__c}" rendered="{!contact.id!=NULL && fromPage == null}"/>
+   <apex:sectionHeader title="{!if(Customershow,'New Consumer','New Trade Customer')}"  rendered="{!contact.id==NULL && fromPage == null}"/>
+   <apex:sectionHeader title="{!if(Customershow,'Consumer Detail','Trade Customer Detail')}" subtitle="{!contact.CustomerID__c}" rendered="{!contact.id!=NULL && fromPage != null && fromPage == 'search'}"/>
+   
+    <apex:form id="fm" >
+     <style>
+            .text-uppercase {
+                text-transform:uppercase;
+            }
+        </style>
+    <script type="text/javascript">
+      var $j = jQuery.noConflict();
+      ErrorText='';      
+      
+      function alertAgeVerify(){
+        alert('Please age verify the consumer after Birthdate change.');
+      }
+        function CloseTabCustomer() {
+           var conid = '{!conObj.id}'; 
+           var fromPage = '{!fromPage}';
+            if(conid == null || conid == '' || conid== 'null' || fromPage == 'search'){
+                 sforce.console.getEnclosingTabId(closeSubtab);
+            }else{
+                CancelRedirect();
+                //sforce.console.getEnclosingPrimaryTabId(openSubtabCustomer);                
+            }   
+        }
+        
+        
+        var closeSubtab = function closeSubtab(result) {
+            //Now that we have the tab ID, we can close it
+            var tabId = result.id;
+            sforce.console.closeTab(tabId);
+        };
+        
+         var primaryTabIdmain = ''; 
+         var openSubtabCustomer= function openSubtabCustomer(result) {
+            primaryTabIdmain= result.id;            
+            sforce.console.getEnclosingTabId(getSubtabCustomer);
+        };
+        
+        var getSubtabCustomer= function getSubtabCustomer(result) {
+            var tabId = result.id;
+            var conid= '{!conObj.id}';          
+           
+             if(primaryTabIdmain !=   null && primaryTabIdmain != '' && primaryTabIdmain != 'null')
+                sforce.console.openSubtab(primaryTabIdmain, '/apex/ConsumerDetailPage?id='+conid, true, conid, tabId);
+            else
+                sforce.console.openPrimaryTab(null , '/apex/ConsumerDetailPage?id='+conid, true, conid, tabId);                
+            
+        }; 
+        
+        function readableCityState(){
+             
+            var country = document.getElementById("{!$Component.fm:pb:pbs1:country}");
+            var country1 = document.getElementById("{!$Component.fm:pbs2:pbsA:country1}");
+            
+            if(country != 'null' && country != null){            
+                if(country.value == '' || country.value == 'United States'){
+                    document.getElementById("{!$Component.fm:pb:pbs1:city}").disabled = true; 
+                    document.getElementById("{!$Component.fm:pb:pbs1:state}").disabled = true;
+                }else{
+                    document.getElementById("{!$Component.fm:pb:pbs1:city}").disabled = false; 
+                    document.getElementById("{!$Component.fm:pb:pbs1:state}").disabled = false;
+                }
+            }
+            if(country1 != 'null' && country1 != null){            
+                if(country1.value == '' || country1.value == 'United States'){
+                    document.getElementById("{!$Component.fm:pbs2:pbsA:city1}").disabled = true; 
+                    document.getElementById("{!$Component.fm:pbs2:pbsA:state1}").disabled = true;
+                }else{
+                    document.getElementById("{!$Component.fm:pbs2:pbsA:city1}").disabled = false; 
+                    document.getElementById("{!$Component.fm:pbs2:pbsA:state1}").disabled = false;
+                }
+            }              
+        }
+        
+        function blankCityState(){            
+            document.getElementById("{!$Component.fm:pb:pbs1:city}").value = '';
+            document.getElementById("{!$Component.fm:pb:pbs1:state}").value = '';
+            document.getElementById("{!$Component.fm:pb:pbs1:zip}").value = '';                
+        }
+        
+        function blankCityState1(){            
+            document.getElementById("{!$Component.pbs2:pbsA:city1}").value = '';
+            document.getElementById("{!$Component.pbs2:pbsA:state1}").value = '';
+            document.getElementById("{!$Component.pbs2:pbsA:zip1}").value = '';                
+        }
+        
+        function changebleForCountry(){
+            if('{!contact.id}' != null && '{!contact.id}' != ''){
+                
+                if(document.getElementById("{!$Component.fm:pb:pbs1:country }") != null && document.getElementById("{!$Component.fm:pb:pbs1:country }") != 'null')
+                    document.getElementById("{!$Component.fm:pb:pbs1:country }").disabled = true;
+                if(document.getElementById("{!$Component.fm:pb:pbsA:country1 }") != null && document.getElementById("{!$Component.fm:pb:pbsA:country1 }") != 'null')    
+                    document.getElementById("{!$Component.fm:pb:pbsA:country1 }").disabled = true;  
+            }else{
+                if(document.getElementById("{!$Component.fm:pb:pbs1:country }") != null && document.getElementById("{!$Component.fm:pb:pbs1:country }") != 'null')
+                    document.getElementById("{!$Component.fm:pb:pbs1:country }").disabled = false;
+                if(document.getElementById("{!$Component.fm:pb:pbsA:country1 }") != null && document.getElementById("{!$Component.fm:pb:pbsA:country1 }") != 'null')    
+                    document.getElementById("{!$Component.fm:pb:pbsA:country1 }").disabled = false; 
+            }               
+        }
+        
+        function assignContact(){
+             var strconfirm = true;
+             if (strconfirm == true){
+                 return true;
+             }else{
+                 return false;
+             }
+        }
+        window.onload = onLoadFunctionCall;
+    
+         $j(document).ready(function(){
+              updateCalYearPicker();  
+                 $j("#apt").change(function(){
+                    alert("The text has been changed.");
+                });
+                if(document.getElementById("{!$Component.pg:fm:pbs2:pbsA:zip1}")){
+                    getCityDataTrade();
+                }
+            });
+            
+            function updateCalYearPicker(){
+                var currentTime = new Date();
+                var year = currentTime.getFullYear();
+                $j("#calYearPicker").html('');
+                for(var i = 1910; i <= year;  i++){
+                    $j("#calYearPicker").append("<option value='"+ i +"'>" + i + "</option>")
+                }  
+            }
+            
+    
+            function onLoadFunctionCall(){
+                hidingLink();
+                changebleForCountry();
+                readableCityState();
+                showProductReturnAlert();
+            }
+        	function showProductReturnAlert(){
+            var val = document.getElementById("{!$Component.fm:pbsearch:pbs:ProductReturnRequired}").checked;
+             
+            if(val !== "undefined"){
+                if(val){
+                	alert('Product Return is required for all reimbursements for this consumer.');
+                }
+                
+            }
+           
+        }
+           function zipValid(val){
+               if(val != null && val != '' && val.length >4){
+                   getCityData();
+               }else{
+                   document.getElementById("{!$Component.fm:pb:pbs1:city}").value = '';
+                   document.getElementById("{!$Component.fm:pb:pbs1:state}").value = '';
+               }
+           }
+            
+            function hidingLink(){
+                var tds = document.getElementsByTagName("div");
+                for (var i = 0; i<tds.length; i++) {       
+                   if (tds[i].className == "pShowMore") {
+                      
+                       var data = tds[i].innerHTML;
+                       var EditLink = data.split('|');
+                      
+                       tds[i].innerHTML = EditLink[1];                   
+                   }
+                   if(tds[i].className == "listRelatedObject caseBlock"){
+                       var data = tds[i];
+                       var tableVal = data.getElementsByTagName('table');
+                       if(tableVal.length >1){
+                           var table = tableVal[1];
+                           for (var r = 0, n = table.rows.length; r < n; r++) {
+                                for (var c = 0, m = table.rows[r].cells.length; c < m; c++) {
+                                    var cellValue = table.rows[r].cells[c];
+                                    
+                                    var aLink = cellValue.getElementsByTagName("a");
+                                    if(aLink.length == 1){
+                                        
+                                        var innerVal = cellValue.innerHTML;
+                                        var splitVal = innerVal.split('">'); 
+                                        var splitVal1 = splitVal[1].split('</');
+                                        cellValue.innerHTML = splitVal1[0];                                     
+                                   }                                
+                               }
+                           } 
+                       }                 
+                    }
+                }
+                
+           }
+           
+        
+           
+        function copyCompanyName(ele, dba){
+            document.getElementById(dba).value = ele;
+        }    
+        function resetAddressVerify(ele){
+            var currValue = ele.value;
+            var prevValue = '';
+            
+            if(ele.id == 'pg:fm:pb:pbs1:add' && document.getElementById("pg:fm:pb:str1") != null && document.getElementById("pg:fm:pb:str1") != ''){
+                prevValue = document.getElementById("pg:fm:pb:str1").value;
+            }
+            if(ele.id == 'pg:fm:pb:pbs1:apt' && document.getElementById("pg:fm:pb:str2") != null  && document.getElementById("pg:fm:pb:str2") != ''){
+                prevValue = document.getElementById("pg:fm:pb:str2").value;
+            }
+            if(ele.id == 'pg:fm:pb:pbs1:zip' && document.getElementById("pg:fm:pb:str3") !=  null  && document.getElementById("pg:fm:pb:str3") != ''){
+                prevValue = document.getElementById("pg:fm:pb:str3").value;
+            }
+            if(currValue != prevValue){
+                if(document.getElementById("{!$Component.fm:pb:pbs1:chkAddress1}") != null){
+                    document.getElementById("{!$Component.fm:pb:pbs1:chkAddress1}").checked = false;
+                }
+                if(document.getElementById("{!$Component.fm:pb:pbs1:chkAddress}") != null){
+                    document.getElementById("{!$Component.fm:pb:pbs1:chkAddress}").checked = false;
+                }
+            }
+            if(currValue != null && currValue != ''){
+                if(ele.id == 'pg:fm:pb:pbs1:add'){
+                    document.getElementById("pg:fm:pb:str1").value = currValue;
+                }
+                if(ele.id == 'pg:fm:pb:pbs1:apt'){
+                    document.getElementById("pg:fm:pb:str2").value = currValue;
+                }
+                if(ele.id == 'pg:fm:pb:pbs1:zip'){
+                    document.getElementById("pg:fm:pb:str3").value = currValue;
+                }
+            }else{
+                if(ele.id == 'pg:fm:pb:pbs1:add'){
+                    document.getElementById("pg:fm:pb:str1").value = '';
+                }
+                if(ele.id == 'pg:fm:pb:pbs1:apt'){
+                    document.getElementById("pg:fm:pb:str2").value = '';
+                }
+                if(ele.id == 'pg:fm:pb:pbs1:zip'){
+                    document.getElementById("pg:fm:pb:str3").value = '';
+                }
+
+            }
+            
+            
+        }   
+   		
+        function chkEmail(){
+            var email = document.getElementById("{!$Component.fm:pb:pbs2:em:email}").value;
+            if(email == ''){
+            	alert('Email Verified can only be checked if there is an Email address');
+                document.getElementById("{!$Component.fm:pb:pbs2:chkEmail}").checked = false;
+            }
+        }
+        
+        function resetEmailVerification(){
+        	document.getElementById("{!$Component.fm:pb:pbs2:chkEmail}").checked = false;    
+        }
+        
+
+        
+    </script>
+   <script> 
+        function changeToUppercase(obj)
+        {
+            obj.value = obj.value.toUpperCase();
+        }
+        
+
+        
+        $j(document).ready(function(){
+            $j('#pg\\:fm\\:pb\\:pbs\\:f1').change(function(){
+                this.value = this.value.toUpperCase();
+            }); 
+            
+            $j('#pg\\:fm\\:pb\\:pbs\\:f2').change(function(){
+                this.value = this.value.toUpperCase();
+            }); 
+            
+            $j('#pg\\:fm\\:pb\\:pbs1\\:add').change(function(){
+                this.value = this.value.toUpperCase();
+            }); 
+            
+            $j('#pg\\:fm\\:pb\\:pbs1\\:city').change(function(){
+                this.value = this.value.toUpperCase();
+            }); 
+            
+            $j('#pg\\:fm\\:pb\\:pbs1\\:apt').change(function(){
+                this.value = this.value.toUpperCase();
+            }); 
+            
+            $j('#pg\\:fm\\:pb\\:pbs1\\:state').change(function(){
+                this.value = this.value.toUpperCase();
+            }); 
+            
+            $j('#pg\\:fm\\:pb\\:pbs1\\:zip').change(function(){
+                this.value = this.value.toUpperCase();
+            });
+            
+            $j('#pg\\:fm\\:pbs2\\:pbsA\\:state1').change(function(){
+                this.value = this.value.toUpperCase();
+            }); 
+            
+            $j('#pg\\:fm\\:pbs2\\:pbsA\\:zip1').change(function(){
+                this.value = this.value.toUpperCase();
+            }); 
+            
+            $j('#pg\\:fm\\:pbs2\\:pbsA\\:str').change(function(){
+                this.value = this.value.toUpperCase();
+            }); 
+            
+            $j('#pg\\:fm\\:pbs2\\:pbsA\\:city1').change(function(){
+                this.value = this.value.toUpperCase();
+            }); 
+            
+            $j('#pg\\:fm\\:pbs2\\:pbsA\\:apt').change(function(){
+                this.value = this.value.toUpperCase();
+            }); 
+            
+            $j('#pg\\:fm\\:pbs2\\:pbsT\\:compName').change(function(){
+                this.value = this.value.toUpperCase();
+            }); 
+            
+            $j('#pg\\:fm\\:pbs2\\:pbsT\\:DBA').change(function(){
+                this.value = this.value.toUpperCase();
+            });
+            
+            $j('#pg\\:fm\\:pbs2\\:pbsT\\:Comp').change(function(){
+                this.value = this.value.toUpperCase();
+            });
+            
+            $j('#pg\\:fm\\:pbs2\\:pbsT\\:studID').change(function(){
+                this.value = this.value.toUpperCase();
+            });
+            $j('#pg\\:fm\\:pbs2\\:pbsT\\:partID').change(function(){
+                this.value = this.value.toUpperCase();
+            });
+            $j('#pg\\:fm\\:pbs2\\:pbsT\\:billCode').change(function(){
+                this.value = this.value.toUpperCase();
+            });
+            $j('#pg\\:fm\\:pbs2\\:pbsC\\:resCom').change(function(){
+                this.value = this.value.toUpperCase();
+            });
+            $j('#pg\\:fm\\:pbs2\\:pbsC\\:resLoc').change(function(){
+                this.value = this.value.toUpperCase();
+            });
+            $j('#pg\\:fm\\:pbs2\\:pbsC\\:rname').change(function(){
+                this.value = this.value.toUpperCase();
+            });
+
+            $j('#pg\\:fm\\:pbs2\\:pbsC\\:rAdd').change(function(){
+                this.value = this.value.toUpperCase();
+            });
+            
+        });
+        
+        function callSaveAction() {
+            
+            //RITM2147263
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            document.getElementsByTagName('body')[0].style = 'overflow: hidden';
+            document.getElementById('el_loading').style.display = 'block';
+            
+            callSave();
+		}
+    </script>
+    <style type="text/css">
+        .actionColumn {display:none; visibility:hidden}
+    </style>
+        <!-- Consumer Edit Screen start here --> 
+        <apex:pageBlock rendered="{!Customershow && fromPage == null}" mode="Edit" id="pb">
+        <apex:variable value="{!isNotEditable}" var="isNotEditableVar" />
+        
+        <apex:inputHidden id="str1" value="{!contact.Street_Address__c}"/>
+        <apex:inputHidden id="str2" value="{!contact.Apt_Lot__c}"/>
+        <apex:inputHidden id="str3" value="{!contact.Zip_Code__c}"/>
+
+            <apex:actionFunction name="getCityData" action="{!getcitystate}" rerender="state,city,mg"/>
+            <apex:actionFunction name="getCurrCountry" action="{!getCurrCountry}"/>
+            <apex:actionFunction name="countryChanged" action="{!getCurrCountry}" oncomplete="blankCityState()"/>
+             <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
+            <apex:actionFunction name="streetChanged" action="{!streetChanged}" rerender="pbs1"/>
+            <apex:actionfunction name="callSave" action="{!save}"/>
+            
+            <apex:pageMessages id="mg"></apex:pageMessages>
+            <apex:pageBlockButtons id="pgBlckBtn">
+                <apex:commandButton value="Assign Consumer" onclick="return assignContact()" action="{!assignContactTransaction}" rendered="{!If(fromPage != null && fromPage == 'search',true,false)}"/>
+                <apex:commandButton value="Save" id="saveBtn" onclick="callSaveAction()" rendered="{!If(fromPage == null ,true,false)}" reRender="saveBtn,mg"/>
+                <apex:commandButton value="Verify Address" id="addressButton" action="{!getaddressverified}" rendered="{!If(contact.Country__c == $Label.Country && fromPage == null,true,false)}"/>
+                <apex:commandButton value="Cancel" onclick="CloseTabCustomer(); return false;"/>
+            </apex:pageBlockButtons>
+            
+           <apex:pageBlockSection title="Consumer Information" id="pbs">       
+                 <apex:selectList value="{!selectedCustomerTypeId}" id="f12" style="width:175px;" size="1" label="Customer Type">
+                     <apex:selectOptions value="{!customerTypeList}"/>
+                     <apex:actionSupport event="onchange" action="{!changeCustomerType}" rerender="pbs1,fm, ageVerifyId"/>
+                 </apex:selectList>
+              
+                <apex:inputField value="{!contact.Salutation}" label="Prefix"/>
+                <apex:inputField value="{!contact.FirstName}" required="false" id="f1" styleClass="text-uppercase"  style="border-left:3px solid #c00;"/>
+                <apex:inputField value="{!contact.Suffix__c}"/>
+                <apex:inputField value="{!contact.LastName}" styleClass="text-uppercase" required="false" id="f2" style="border-left:3px solid #c00"/>
+                <apex:outputField value="{!contact.Repeat_Complainer__c}"  />
+                <apex:inputcheckbox value="{!contact.DoNotUse__c}" disabled="{!isNotEditableVar}"/>
+               <!--Edit Page-->
+               <apex:inputcheckbox value="{!contact.ConsumerProductReturnRequired__c}" id="ProductReturnRequired1"  Label="Product Return Required" disabled="{!isNotEditableVar}"/>               
+                
+				
+
+            </apex:pageBlockSection>
+            
+           <apex:pageBlockSection title="Address" id="pbs1" >
+               
+               <apex:inputField value="{!contact.Street_Address__c}" styleClass="text-uppercase"  style="border-left:3px solid #c00" id="add" onblur="resetAddressVerify(this);" onkeyup="resetAddressVerify(this);" onchange="changeToUppercase(this);streetChanged();" />
+                <apex:inputText value="{!contact.City__c}" styleClass="text-uppercase" disabled="{!readOnlyCityState}" id="city"/>
+               <apex:inputField value="{!contact.Apt_Lot__c}" styleClass="text-uppercase" id="apt" onblur="resetAddressVerify(this);"  onkeyup="resetAddressVerify(this);" onchange="changeToUppercase(this);streetChanged();"/>     
+                <apex:inputText value="{!contact.State__c}" styleClass="text-uppercase" disabled="{!readOnlyCityState}" id="state" />
+                <apex:inputField value="{!contact.Zip_Code__c}" required="false" onkeyup="zipValid(this.value);resetAddressVerify(this);"  styleClass="text-uppercase" onblur="resetAddressVerify(this);" onchange="changeToUppercase(this);getCityData();streetChanged();" id="zip" style="border-left:3px solid #c00"/>  
+                <apex:inputField value="{!contact.Country__c}" id="country" >
+                    <apex:actionSupport event="onchange" rerender="pbs1,fm" oncomplete="countryChanged();readableCityState();resetAddressVerify();streetChanged();"/>
+                </apex:inputField>
+                 <apex:outputField value="{!contact.Address_Verified__c}" id="chkAddress" rendered="{!If(contact.Country__c == $Label.Country,true,false)}"/>
+                  <apex:inputField value="{!contact.Verify_Address__c}" id="chkAddress1" label="Consumer Verify Address" rendered="{!If(contact.Country__c == $Label.Country,true,false)}"/> 
+                </apex:pageBlockSection>
+               
+                <apex:pageBlockSection title="Contact Information" id="pbs2">
+                <apex:inputField value="{!contact.Phone}" label="Telephone"/>
+                <apex:inputField value="{!contact.OtherPhone}" label="Alternate Telephone"/>
+                <apex:inputField value="{!contact.MobilePhone}" label="Mobile Phone"/>
+                <apex:outputLabel ></apex:outputLabel>
+                <apex:pageBlockSectionItem id="em">
+                    <apex:outputLabel value="Email Address" for="email" />
+                    <apex:inputField value="{!contact.Email}" id="email" onchange="resetEmailVerification();"/> 
+                </apex:pageBlockSectionItem>
+                    <apex:inputField value="{!contact.Email_Verified__c}" label="Email Verified" id="chkEmail" onchange="chkEmail();"/>
+            </apex:pageBlockSection> 
+               
+            <apex:outputPanel id="op3" >
+                 <apex:pageBlockSection title="Birthdate" id="pbs3" rendered="{!contact.CustomerType__c==$Label.CustomerType}">
+                    <apex:pageBlockSectionItem rendered="{!dobEditable}">
+                        <apex:outputLabel value="Date Of Birth"/>   
+                        <apex:inputField value="{!contact.Birthdate1__c}" onclick="updateCalYearPicker();" onchange="alertAgeVerify();"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!NOT(dobEditable)}">
+                        <apex:outputLabel value="Date Of Birth"/>
+                        <apex:outputField value="{!contact.Birthdate1__c}"/>
+                    </apex:pageBlockSectionItem>
+                     <!--  <apex:inputField value="{!contact.Birthdate1__c}" label="Date Of Birth" onclick="updateCalYearPicker();"/>--> 
+                   
+                 </apex:pageBlockSection>
+               
+                 <apex:pageBlockSection title="Age Verification" id="pbs4" rendered="{!if(isAgeVerificationReq && contact.CustomerType__c==$Label.CustomerType, true, false)}">
+                     <apex:inputField value="{!contact.AVF_GIID_Received__c}"/>
+                     <apex:outputField value="{!contact.Age_Verification_Source__c}"/>
+                 </apex:pageBlockSection>
+             </apex:outputPanel>
+        
+        </apex:pageBlock>
+        
+        <!-- RITM2147263 -->
+             <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                       height: 100%;opacity:0.65;width:100%;display:none;">
+                 <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                     <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                     <span class="waitingDescription">Loading...</span>
+                 </div>
+            </div>
+        <!-- Consumer Edit Screen end here -->
+        
+        <!-- Trade Edit Start here-->
+        <apex:pageBlock rendered="{!!Customershow && fromPage == null}" id="pbs2" mode="Edit">
+            <apex:actionFunction name="getCityDataTrade" action="{!getcitystate}" rerender="state1,city1,mg1"/>
+            <apex:actionFunction name="getCurrCountry" action="{!getCurrCountry}"/>
+            <apex:actionFunction name="countryChanged" action="{!getCurrCountry}" oncomplete="blankCityState1()"/>
+             <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
+            <apex:pageMessages id="mg1"></apex:pageMessages>
+            
+            <apex:pageBlockButtons id="pgBlckBtn">
+                <apex:commandButton value="Assign Trade Customer" onclick="return assignContact()" action="{!assignContactTransaction}" rendered="{!If(fromPage != null && fromPage == 'search',true,false)}"/>
+                <apex:commandButton value="Save" action="{!save}" rendered="{!If(fromPage == null ,true,false)}"/>
+                <apex:commandButton value="Cancel" onclick="CloseTabCustomer(); return false;"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection title=" Trade Information" id="pbsT"> 
+                <apex:inputText value="{!contact.CustomerType__c}"  disabled="true"/>
+                <apex:inputField value="{!contact.Company_Name__c}" styleClass="text-uppercase" onblur="copyCompanyName(this.value,'{!$Component.DBA}')" style="border-left:3px solid #c00" id="Comp" rendered="{!contact.CustomerType__c ==$Label.Wholesaler ||contact.CustomerType__c  ==$Label.Retailer}" />            
+                <apex:inputField value="{!contact.DBA_Name__c}" styleClass="text-uppercase"  style="border-left:3px solid #c00" id="DBA" rendered="{!contact.CustomerType__c  ==$Label.Wholesaler ||contact.CustomerType__c  ==$Label.Retailer}" />
+                <apex:inputField label="Account #" value="{!contact.Account_No__c}" id="Acc" rendered="{!contact.CustomerType__c    ==$Label.Wholesaler}"/>
+                <apex:inputField value="{!contact.Retail_control__c}"  id="Ret" rendered="{!contact.CustomerType__c ==$Label.Retailer}"/>
+                <apex:inputField value="{!contact.Company_Name__c}" styleClass="text-uppercase"  style="border-left:3px solid #c00" id="compName" label="FSF Agent Name" rendered="{!contact.CustomerType__c   ==$Label.Field_Sales_Force}"/>
+                
+                <!-- Reseach Panelist Section -->
+                <apex:inputText value="{!contact.Research_Panelist_ID__c}" id="respanID" label="Research Panelist ID" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" disabled="true" styleClass="text-uppercase"/>
+                
+                <apex:inputField label="Participant ID" value="{!contact.Participant_ID__c}" id="partID" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" styleClass="text-uppercase"/>
+                
+                <apex:inputField label="Study ID" value="{!contact.Study_ID__c}" id="studID" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"  styleClass="text-uppercase"  style="border-left:3px solid #c00" />
+                
+                <apex:inputField label="Blinding Code" value="{!contact.Blinding_Code__c}" id="billCode" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" styleClass="text-uppercase"/>
+            </apex:pageBlockSection>
+           
+            
+            <apex:pageBlockSection title="Address" id="pbsA" rendered="{!contact.CustomerType__c ==$Label.Wholesaler||contact.CustomerType__c   ==$Label.Retailer}">
+                <apex:inputField value="{!contact.Street_Address__c}" styleClass="text-uppercase" id="str"  />
+                <apex:inputField value="{!contact.Apt_Lot__c}"  label="{!If(contact.CustomerType__c ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer ,'Apt/Lot','Ste/Lot')}" styleClass="text-uppercase" id="apt" />
+                <apex:inputField value="{!contact.Zip_Code__c}" id="zip1" required="false" styleClass="text-uppercase" onblur="getCityDataTrade();" onchange="getCityDataTrade();" />
+                <apex:inputText value="{!contact.City__c}" styleClass="text-uppercase" disabled="{!readOnlyCityState}"  id="city1"/>
+                <apex:inputText value="{!contact.State__c}" styleClass="text-uppercase"  disabled="{!readOnlyCityState}" id="state1"/>
+                <apex:inputField value="{!contact.Country__c}" id="country1" >
+                  <apex:actionSupport event="onchange" rerender="pbsA,fm" oncomplete="countryChanged();readableCityState();"/>
+                </apex:inputField>
+            </apex:pageBlockSection> 
+             
+             <apex:pageBlockSection title="Contact Information" id="pbsC"> 
+             <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!If(contact.CustomerType__c == $Label.Field_Sales_Force,'FSF Phone','Phone')}" for="phone"  rendered="{!contact.CustomerType__c != $Label.Research_Panelist}"/>
+                <apex:inputField value="{!contact.Phone}" style="border-left:3px solid #c00" rendered="{!contact.CustomerType__c !=NULl && contact.CustomerType__c != $Label.Research_Panelist }" id="phone"/>
+            </apex:pageBlockSectionItem>
+               <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!If(contact.CustomerType__c == $Label.Field_Sales_Force,'FSF Email','Email')}" for="email" rendered="{!contact.CustomerType__c != $Label.Research_Panelist}"/>
+                    <apex:inputField value="{!contact.Email}" id="email"  rendered="{!contact.CustomerType__c  != NULl && contact.CustomerType__c != $Label.Research_Panelist}"/>
+              </apex:pageBlockSectionItem>
+            
+            <!-- Reseach Panelist Section -->
+            <apex:inputText value="{!contact.Research_Company__c}" id="resCom" label="Research Company" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" styleClass="text-uppercase"/>
+            
+            <apex:inputText value="{!contact.Research_Location__c}" id="resLoc" label="Research Location" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" styleClass="text-uppercase"/>
+            
+            <apex:inputField value="{!contact.Salutation}" id="prefix" label="Prefix" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+            
+            <apex:inputText value="{!contact.Research_Panelist_Name__c}" id="rname" label="Name" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" styleClass="text-uppercase"/>
+            
+           <apex:inputField value="{!contact.Research_Panelist_Address__c}" id="rAdd" label="Address" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" styleClass="text-uppercase"/>
+                
+            <apex:outputLabel ></apex:outputLabel>
+            </apex:pageBlockSection>
+              
+             <apex:pageBlockSection title="Other Information" id="pbsO">
+                  <apex:inputField value="{!contact.Territory__c}" style="border-left:3px solid #c00" rendered="{!contact.CustomerType__c ==$Label.Field_Sales_Force}"/>
+                 <apex:inputField value="{!contact.Direct_Purchase__c}"  rendered="{!contact.CustomerType__c == $Label.Wholesaler}"/>
+                 <apex:inputField value="{!contact.Store__c}"  rendered="{!contact.CustomerType__c == $Label.Wholesaler}"/>                 
+                 <apex:inputField value="{!contact.Hours_of_operation__c}"  rendered="{!contact.CustomerType__c == $Label.Wholesaler||contact.CustomerType__c == $Label.Retailer}"/>
+                 <apex:inputField value="{!contact.ALSD_Rep__c}"  rendered="{!contact.CustomerType__c == $Label.Wholesaler||contact.CustomerType__c== $Label.Retailer}"/>
+                 
+                 <!-- Reseach Panelist Section -->
+                <apex:inputText value="{!contact.Participation_Date__c}" id="partDate" label="Participation Date" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" styleClass="text-uppercase"/>
+                
+                <apex:inputText value="{!contact.Project_Flavor_Type__c}" id="proFlaType" label="Project Flavor/Type" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" styleClass="text-uppercase"/>
+                
+                <apex:inputField value="{!contact.Customer_Has_Product__c}" id="custHasProd" label="Customer Has Product" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" styleClass="text-uppercase"/>
+                
+                <apex:inputField value="{!contact.Research_Panelist_Notes__c}" id="resPanNotes" label="Customer Notes" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" styleClass="text-uppercase"/>
+            </apex:pageBlockSection>
+        
+        </apex:pageBlock> 
+        <!-- Trade Edit End here -->
+        
+        <!-- Consumer Show Start here -->
+        <apex:pageBlock rendered="{!Customershow && fromPage != null && fromPage == 'search'}" mode="Edit" id="pbSearch">
+            <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
+            <apex:pageMessages id="mg"></apex:pageMessages>
+            <apex:pageBlockButtons id="pgBlckBtn">
+                <apex:commandButton value="Assign Consumer" onclick="return assignContact()" action="{!assignContactTransaction}" rendered="{!If(fromPage != null && fromPage == 'search',true,false)}"/>
+                <apex:commandButton value="Cancel" onclick="CloseTabCustomer(); return false;"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection title="Consumer Information" id="pbs">
+                <apex:outputField value="{!contact.CustomerType__c}" id="type"/>
+                <apex:outputField value="{!contact.Salutation}" Label="Prefix"/>
+                <apex:outputField value="{!contact.FirstName}"/>
+                <apex:outputField value="{!contact.Suffix__c}"/>
+                <apex:outputField value="{!contact.LastName}" /> 
+                <apex:outputField value="{!contact.Repeat_Complainer__c}" />                 
+               	<apex:outputField value="{!contact.DoNotUse__c}"  />
+                
+				<apex:inputcheckbox value="{!contact.ConsumerProductReturnRequired__c}" id="ProductReturnRequired" disabled="true" Label="Product Return Required" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Address" id="pbs1">
+               <apex:outputField value="{!contact.Street_Address__c}"/>
+               <apex:outputField value="{!contact.City__c}"/>
+               <apex:outputField value="{!contact.Apt_Lot__c}"/> 
+               <apex:outputField value="{!contact.State__c}"/>  
+               <apex:outputField value="{!contact.Zip_Code__c}"/>
+               <apex:outputField value="{!contact.Country__c}" id="country"/> 
+               <apex:outputField value="{!contact.Address_Verified__c}" rendered="{!If(contact.Country__c == $Label.Country,true,false)}"/>
+               <apex:outputField value="{!contact.Verify_Address__c}" label="Consumer Verify Address" rendered="{!If(contact.Country__c == $Label.Country,true,false)}"/>
+           </apex:pageBlockSection>
+               
+           <apex:pageBlockSection title="Contact Information" id="pbs2">
+                <apex:outputField value="{!contact.Phone}" label="Telephone"/>
+                <apex:outputField value="{!contact.OtherPhone}" label="Alternate Telephone"/>
+                <apex:outputField value="{!contact.MobilePhone}" label="Mobile Phone"/>
+                <apex:outputLabel ></apex:outputLabel>
+                <apex:outputField value="{!contact.Email}" label="Email Address"/> 
+                <apex:outputField value="{!contact.Email_Verified__c}" label="Email Verified"/>
+            </apex:pageBlockSection> 
+               
+            <apex:outputPanel id="op3">
+                <apex:pageBlockSection title="Birthdate" id="pbs3" rendered="{!contact.CustomerType__c==$Label.CustomerType}">                    
+                    <apex:outputText value="{0,date,MM/dd/yyyy}" label="Date Of Birth"> 
+                        <apex:param value="{!contact.Birthdate1__c}" /> 
+                    </apex:outputText>                    
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="Age Verification" id="pbs4" rendered="{!if(isAgeVerificationReq && contact.CustomerType__c==$Label.CustomerType, true, false)}">                    
+                     <apex:outputField value="{!contact.AVF_GIID_Received__c}"/>
+                     <apex:outputField value="{!contact.Age_Verification_Source__c}"/>
+                </apex:pageBlockSection>
+            </apex:outputPanel>                     
+        </apex:pageBlock>
+        <!-- Consumer Show Screen End here -->
+        
+        <!-- Trade Show Screen Start here-->
+        <apex:pageBlock rendered="{!!Customershow && fromPage != null && fromPage == 'search'}" id="pbs2Search" mode="Edit">
+            <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
+            <apex:pageMessages id="mg1"></apex:pageMessages>
+            
+            <apex:pageBlockButtons id="pgBlckBtn">
+                <apex:commandButton value="Assign Trade Customer" onclick="return assignContact()" action="{!assignContactTransaction}" rendered="{!If(fromPage != null && fromPage == 'search',true,false)}"/>
+                <apex:commandButton value="Cancel" onclick="CloseTabCustomer(); return false;"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection title=" Trade Information" id="pbsT" >
+                <apex:outputField value="{!contact.CustomerType__c}" />
+                <apex:outputField value="{!contact.Company_Name__c}" rendered="{!contact.CustomerType__c  ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer}" />            
+                <apex:outputField value="{!contact.DBA_Name__c}" rendered="{!contact.CustomerType__c ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer}"/>
+                <apex:outputField value="{!contact.Account_No__c}" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler}"/>
+                <apex:outputField value="{!contact.Retail_control__c}" rendered="{!contact.CustomerType__c   ==$Label.Retailer}"/>
+                <apex:outputField value="{!contact.Company_Name__c}" label="Agent Name" rendered="{!contact.CustomerType__c  ==$Label.Field_Sales_Force}"/>  
+
+                <!-- Reseach Panelist Section -->
+                <apex:outputField value="{!contact.Research_Panelist_ID__c}" id="respanID" label="Research Panelist ID" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField label="Participant ID" value="{!contact.Participant_ID__c}" id="partID" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField label="Study ID" value="{!contact.Study_ID__c}" id="studID" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" />
+                
+                <apex:outputField label="Billing Code" value="{!contact.Blinding_Code__c}" id="billCode" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                </apex:pageBlockSection>           
+            
+            <apex:pageBlockSection title="Address" id="pbsA" rendered="{!contact.CustomerType__c ==$Label.Wholesaler||contact.CustomerType__c   ==$Label.Retailer}">
+                <apex:outputField value="{!contact.Street_Address__c}" />
+                <apex:outputField value="{!contact.Apt_Lot__c}" label="{!If(contact.CustomerType__c ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer ,'Apt/Lot','Ste/Lot')}" />
+                <apex:outputField value="{!contact.Zip_Code__c}" />
+                <apex:outputField value="{!contact.City__c}" />
+                <apex:outputField value="{!contact.State__c}" /> 
+                <apex:outputField value="{!contact.Country__c}" id="country1" />
+            </apex:pageBlockSection> 
+                
+            <apex:pageBlockSection title="Contact Information" id="pbsC">                 
+                <apex:outputField value="{!contact.Phone}" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer}"/>
+                <apex:outputField value="{!contact.Phone}" Label="FSF Phone" rendered="{!contact.CustomerType__c ==$Label.Field_Sales_Force}"/>
+                <apex:outputField value="{!contact.Email}" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer}"/>
+                <apex:outputField value="{!contact.Email}" label="FSF Email" rendered="{!contact.CustomerType__c ==$Label.Field_Sales_Force}"/>    
+
+                <!-- Reseach Panelist Section -->
+                <apex:outputField value="{!contact.Research_Company__c}" id="resCom" label="Research Company" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField value="{!contact.Research_Location__c}" id="resLoc" label="Research Location" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField value="{!contact.Salutation}" id="prefix" label="Prefix" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" />
+                
+                <apex:outputField value="{!contact.Research_Panelist_Name__c}" id="rname" label="Name" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField value="{!contact.Research_Panelist_Address__c}" id="rAdd" label="Address" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+            </apex:pageBlockSection>
+              
+             <apex:pageBlockSection title="Other Information" id="pbsO">
+                <apex:outputField value="{!contact.Direct_Purchase__c}" rendered="{!contact.CustomerType__c == $Label.Wholesaler}"/>
+                <apex:outputField value="{!contact.Store__c}"  rendered="{!contact.CustomerType__c ==$Label.Wholesaler}"/>
+                <apex:outputField value="{!contact.Territory__c}" rendered="{!contact.CustomerType__c  ==$Label.Field_Sales_Force}"/>
+                <apex:outputField value="{!contact.Hours_of_operation__c}" rendered="{!contact.CustomerType__c ==$Label.Wholesaler||contact.CustomerType__c   ==$Label.Retailer}"/>
+                <apex:outputField value="{!contact.ALSD_Rep__c}" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler||contact.CustomerType__c    ==$Label.Retailer}"/>
+                
+                <!-- Reseach Panelist Section -->
+                <apex:outputField value="{!contact.Participation_Date__c}" id="partDate" label="Participation Date" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField value="{!contact.Project_Flavor_Type__c}" id="proFlaType" label="Project Flavor/Type" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField value="{!contact.Customer_Has_Product__c}" id="custHasProd" label="Customer Has Product" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField value="{!contact.Research_Panelist_Notes__c}" id="resPanNotes" label="Customer Notes" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+            </apex:pageBlockSection>        
+        </apex:pageBlock>
+        <!-- Trade Show Screen End here -->    
+    </apex:form>
+    <apex:relatedList list="Cases" pageSize="100"  rendered="{!If(contact.id== null,false,true)}"/>
+</apex:page>

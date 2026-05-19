@@ -1,0 +1,23 @@
+<!--
+<apex:page standardController="FAQ__kav" showHeader="false" sidebar="false">
+ <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        
+    function closePopup(){
+        window.top.close();
+    }
+    </script>
+<apex:form >
+ <apex:pageBlock >
+     <apex:pageBlockButtons >
+            <apex:commandButton value="Close" onclick="closePopup();"/>
+     </apex:pageBlockButtons>
+     <apex:sectionHeader title="{!FAQ__kav.Title}"/>
+     <apex:pageBlockSection columns="1">
+         <apex:outputField value="{!FAQ__kav.Article_Summary__c}"/>
+     </apex:pageBlockSection>
+ </apex:pageBlock>
+  </apex:form>
+</apex:page>
+-->
+<apex:page ></apex:page>

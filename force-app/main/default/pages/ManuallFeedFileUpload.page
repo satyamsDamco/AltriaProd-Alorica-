@@ -1,0 +1,36 @@
+<apex:page controller="ManualFeedFileUploadController">
+    <apex:form >
+        <apex:pageMessages ></apex:pageMessages>
+    	<apex:pageBlock >
+        	
+                <center>   
+                <table style="padding-top:25px">
+                <tr>
+                <td>
+                    <apex:outputLabel value="Select Hierarchy"></apex:outputLabel>
+                </td>
+                <td style="padding-left:30px;">
+                    
+                    <apex:selectList id="SelectOption" value="{!option}" size="1">
+                        <apex:selectOption itemValue="--None--" itemLabel="--None--"/>
+                        <apex:selectOption itemValue="Brand Hierarchy" itemLabel="Brand Hierarchy"/>
+                        <apex:selectOption itemValue="Issue Hierarchy" itemLabel="Issue Hierarchy"/>
+                        
+                    </apex:selectList> 
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr height="30px">
+                    <td colspan="2" style="text-align:center;margin-top:30px;">                                         
+                       <apex:commandButton value="Confirm" action="{!UploadPage}"/>
+                    </td>    
+                </tr>
+                </table>
+                </center>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

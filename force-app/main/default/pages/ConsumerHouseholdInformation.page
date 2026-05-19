@@ -1,0 +1,126 @@
+<apex:page standardController="Contact" extensions="ConsumerDetailController">
+    
+    <apex:form >
+        <apex:pageBlock >
+            <!-- Consumer Information Section -->
+            <apex:pageBlockSection title="Consumer Information" id="pb13">
+                <apex:outputField value="{!contact.CustomerType__c}" id="type"/>
+                <apex:outputField value="{!contact.Salutation}" label="Prefix"/>
+                <apex:outputField value="{!contact.FirstName}"/>
+                <apex:outputField value="{!contact.Suffix__c}"/>
+                <apex:outputField value="{!contact.LastName}"/>
+                <apex:outputField value="{!contact.Repeat_Complainer__c}"/>
+                <apex:outputField value="{!contact.DoNotUse__c}"/>    
+                <apex:inputCheckbox value="{!contact.ConsumerProductReturnRequired__c}" id="ProductReturnRequired" disabled="true" label="Product Return Required"/>
+            </apex:pageBlockSection>
+                        
+            <!-- Address Section -->
+            <apex:pageBlockSection title="Address" id="pb12">
+                <apex:outputField value="{!contact.Street_Address__c}"/>
+                <apex:outputField value="{!contact.City__c}"/>
+                <apex:outputField value="{!contact.Apt_Lot__c}"/> 
+                <apex:outputField value="{!contact.State__c}"/>  
+                <apex:outputField value="{!contact.Zip_Code__c}"/>
+                <apex:outputField value="{!contact.Country__c}" id="country"/> 
+                <apex:outputField value="{!contact.Address_Verified__c}" rendered="{!If(contact.Country__c == $Label.Country, true, false)}"/>
+                <apex:outputField value="{!contact.Verify_Address__c}" label="Consumer Verify Address" rendered="{!If(contact.Country__c == $Label.Country, true, false)}"/>
+            </apex:pageBlockSection>
+                     
+            <!-- Contact Information Section -->
+            <apex:pageBlockSection title="Contact Information">
+                <apex:outputField value="{!contact.Phone}" label="Telephone"/>
+                <apex:outputField value="{!contact.OtherPhone}" label="Alternate Telephone"/>
+                <apex:outputField value="{!contact.MobilePhone}" label="Mobile Phone"/>
+                <apex:outputLabel ></apex:outputLabel>
+                <apex:outputField value="{!contact.Email}" label="Email Address"/>
+                <apex:outputField value="{!contact.Email_Verified__c}" label="Email Verified"/>
+            </apex:pageBlockSection>
+                 
+            <!-- Birthdate Section -->
+            <apex:pageBlockSection title="Birthdate" rendered="{!contact.CustomerType__c == $Label.CustomerType}" id="bdayId">
+                <apex:outputText value="{0,date,MM/dd/yyyy}" label="Date Of Birth">
+                    <apex:param value="{!contact.Birthdate1__c}"/>
+                </apex:outputText>
+            </apex:pageBlockSection>  
+                 
+            <!-- Age Verification Section -->
+            <apex:pageBlockSection title="Age Verification">
+                <apex:outputField value="{!contact.AVF_GIID_Received__c}"/>
+                <apex:outputField value="{!contact.Age_Verification_Source__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+   <apex:form >
+	 <apex:pageBlock id="caseListId1" title="Issues">
+                <apex:pageBlockTable value="{!cases}" var="c" rendered="{!NOT(ISNULL(cases))}" rows="100">
+            
+				<apex:column >
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!toggleSort}" value="Issue Number {!IF(sortExpression == 'CaseNumber__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort10">
+                            <apex:param value="CaseNumber__c" name="column" assignTo="{!sortExpression}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                    <apex:outputText >{!c.CaseNumber__c}</apex:outputText>
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!toggleSort}" value="Brand Code {!IF(sortExpression == 'Brandcode__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort1">
+                            <apex:param value="Brandcode__c" name="column" assignTo="{!sortExpression}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                           <apex:outputText value="{!c.Brandcode__c}" />
+                </apex:column>
+                <apex:column value="{!c.Product_Line__c}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!toggleSort}" value="Product Line {!IF(sortExpression == 'Product_Line__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort2">
+                            <apex:param value="Product_Line__c" name="column" assignTo="{!sortExpression}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!c.Classificationtxt__c}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!toggleSort}" value="Classification {!IF(sortExpression == 'Classificationtxt__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort3">
+                            <apex:param value="Classificationtxt__c" name="column" assignTo="{!sortExpression}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!c.Reasontxt__c}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!toggleSort}" value="Reason {!IF(sortExpression == 'Reasontxt__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort4">
+                            <apex:param value="Reasontxt__c" name="column" assignTo="{!sortExpression}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!c.Causetxt__c}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!toggleSort}" value="Cause {!IF(sortExpression == 'Causetxt__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort5">
+                            <apex:param value="Causetxt__c" name="column" assignTo="{!sortExpression}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!c.CreatedDate}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!toggleSort}" value="Date/Time Opened {!IF(sortExpression == 'CreatedDate', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort6">
+                            <apex:param value="CreatedDate" name="column" assignTo="{!sortExpression}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!c.Reimbchk__c}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!toggleSort}" value="Reimbursement {!IF(sortExpression == 'Reimbchk__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort7">
+                            <apex:param value="Reimbchk__c" name="column" assignTo="{!sortExpression}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column value="{!c.Survey__c}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!toggleSort}" value="Survey {!IF(sortExpression == 'Survey__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort8">
+                            <apex:param value="Survey__c" name="column" assignTo="{!sortExpression}" />
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+        	</apex:pageBlockTable>
+    	</apex:pageBlock>
+     </apex:form>
+    
+</apex:page>

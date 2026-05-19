@@ -1,0 +1,9 @@
+<apex:page standardController="Case" sidebar="false" showHeader="false">
+   
+    <style type="text/css">
+        .actionColumn {display:none; visibility:hidden}
+        .bFilterView {display:none; visibility:hidden}
+        .fewerMore{display:none; visibility:hidden}
+    </style>
+    <apex:ListViews type="case" />
+</apex:page>

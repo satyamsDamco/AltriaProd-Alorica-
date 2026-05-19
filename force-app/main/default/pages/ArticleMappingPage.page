@@ -1,0 +1,275 @@
+<apex:page id="page" standardController="Natural_Language__c" extensions="ArticleMappingController">
+<apex:form id="form1">
+    <apex:sectionHeader title="Article Mapping" />
+    
+    
+    <script>
+       
+  
+   function toggleEnableDisable(enableDisable){  	
+        var allButtons = document.getElementsByTagName('input');   
+        //alert(enableDisable);      
+        for(var i=0;i<allButtons.length;i++){
+            if(allButtons[i].id.indexOf('SvButton') > -1){                
+                if(enableDisable){
+                    allButtons[i].disabled = true;
+                    allButtons[i].value = 'Saving';
+                    allButtons[i].className = 'btnDisabled';
+                    //alert(allButtons[i].id);
+                }
+                else{
+                    allButtons[i].disabled = false;
+                    allButtons[i].value = 'Save'};
+                    allButtons[i].className = 'btn';
+                }
+           
+            if(allButtons[i].id.indexOf('cancel') > -1){
+                if(enableDisable){
+                    allButtons[i].disabled = true;
+                    allButtons[i].value = 'Saving';
+                    allButtons[i].className = 'btnDisabled';
+                }
+                else{
+                    allButtons[i].disabled = false;
+                    allButtons[i].value = '.Cancel';
+                    allButtons[i].className = 'btn';
+                }
+            }
+        }
+        }
+    
+    </script>  
+    
+    <style>
+         div.pbBody
+         {
+             margin: 0 !important;
+             padding: 0 !important;
+         }
+         
+         .bPageBlock, .individualPalette .bPageBlock
+         {
+             border: none;
+             background: none;
+         }
+         
+         html .calendarTable, body .calendarTable
+         {
+             font-size: 11px !important;
+         }
+         /*    fieldset
+        {
+            margin: 1em 0px;
+            padding: 1em;
+            border: 1px solid #ccc;
+        }
+    */
+         fieldset.register label
+         {
+             display: block;
+         }
+         
+         legend
+         {
+             font-size: 1.1em;
+             font-weight: 600;
+             padding: 2px 4px 4px 4px;
+         }
+         
+         .container
+         {
+             overflow: auto;
+             height: 200px;
+             align: bottom;
+         }
+         .bPageBlock
+         {
+             background: transparent !important;
+         }
+         .cellAlign td div, .cellAlign th div, .cellAlign td, .cellAlign th
+         {
+             -moz-border-radius: 3px;
+             -webkit-border-radius: 3px;
+             -khtml-border-radius: 3px;
+             border-radius: 3px;
+         }
+         .headerRow
+         {
+             border: none;
+         }
+         .headerRow div
+         {
+             background-color: rgb(71,71,71);
+             color: white;
+             width: 84px;
+             height: 54px;
+             padding: 3px;
+         }
+         a.blackLink
+         {
+             -moz-border-radius: 3px;
+             -webkit-border-radius: 3px;
+             -khtml-border-radius: 3px;
+             border-radius: 3px;
+             background-color: rgb(71,71,71);
+             color: white !important;
+             font-weight: bold;
+             padding: 2px 12px 2px 12px;
+             margin: 2px;
+         }
+         .cellAlign th a
+         {
+             color: white !important;
+         }
+         .headerRow .date
+         {
+             font-size: 9px;
+        }
+     </style> 
+    
+    <apex:pageBlock id="pageBlock" mode="edit">
+        <apex:outputPanel id="outputDummy">
+            <apex:pagemessages ></apex:pagemessages>
+        </apex:outputPanel>
+            <apex:pageBlockButtons location="bottom" id="pbuttonSection">
+                <apex:commandButton reRender="pageBlockSection2" id="SvButton" value="Save" action="{!saveMe}" />
+                <apex:commandButton action="{!cancel}" id="cancel" value="Cancel" immediate="true"/>
+            </apex:pageBlockButtons>
+        
+        
+             <apex:pageBlockSection title="Natural Language:" columns="1" id="naturallanguage">
+             
+                 <apex:inputField id="quesText" value="{!natlangObj.Natural_Language__c}"/>
+                 
+             </apex:pageBlockSection>
+             
+            <apex:outputPanel id="answerPanel1" layout="none"> 
+            <apex:outputPanel id="answerPanel" >
+             <apex:pageBlockSection title="Article:" columns="3" id="articleSection" rendered="{!ArticleHidePanel}">
+                  <apex:outputPanel id="multiselectPanelArticle" layout="block" styleClass="duelingListBox">
+                    <table class="layout">
+                      <tbody>
+                        <tr>
+                          <td class="selectCell">
+                             
+                            <select id="{!$Component.multiselectPanelArticle}:leftList" 
+                              class="multilist" multiple="multiple" size="8" 
+                              style="width:300px" title="{!tooltipArticle}">
+                              <apex:repeat value="{!leftArticleOptionsValue}" var="option">
+                                <option value="{!option.value}">{!option.label}</option>
+                              </apex:repeat>
+                            </select>
+                          </td>
+                          <td class="buttonCell">
+                            <apex:outputPanel layout="block" styleClass="text">Add</apex:outputPanel>
+                            <apex:outputPanel layout="block" styleClass="text">
+                              <apex:outputLink value="javascript:moveSelectedOptions('{!$Component.multiselectPanelArticle}:leftList', 
+                                  '{!$Component.multiselectPanelArticle}:rightList', '{!$Component.leftArticleHidden}', 
+                                  '{!$Component.rightArticleHidden}','Answer');"
+                                id="btnAnswerRight" >
+                                <apex:image value="/s.gif" alt="Add" styleClass="rightArrowIcon"
+                                  title="Add" />
+                              </apex:outputLink>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="block" styleClass="text">
+                              <apex:outputLink value="javascript:moveSelectedOptions('{!$Component.multiselectPanelArticle}:rightList', 
+                                  '{!$Component.multiselectPanelArticle}:leftList', '{!$Component.rightArticleHidden}', 
+                                  '{!$Component.leftArticleHidden}','Answer');"
+                                id="btnAnswerLeft">
+                                <apex:image value="/s.gif" alt="Remove"
+                                  styleClass="leftArrowIcon" title="Remove" />
+                              </apex:outputLink>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="block" styleClass="duelingText">Remove</apex:outputPanel>
+                          </td>
+                          <td class="selectCell">
+                          
+                            <select id="{!$Component.multiselectPanelArticle}:rightList" 
+                              class="multilist" multiple="multiple" size="8" 
+                              style="width: 300px;border: 1px solid #000000;border-Left: 2px solid #FF0000;">
+                              <apex:repeat value="{!rightArticleOptionsValue}" var="option">
+                                <option value="{!option.value}">{!option.label}</option>
+                              </apex:repeat>
+                            </select>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <apex:inputHidden value="{!leftArticleOptionsHidden}" id="leftArticleHidden" />
+                    <apex:inputHidden value="{!rightArticleOptionsHidden}" id="rightArticleHidden" />
+                  </apex:outputPanel>
+             </apex:pageBlockSection>     
+           </apex:outputPanel>  
+            </apex:outputPanel>          
+         <script type="text/javascript">
+            if (!buildOutputString) {
+              // Create a string from the content of a listbox
+              var buildOutputString = function(listBox, hiddenInput) {
+                var str = '';
+                if(listBox != null){
+                    for ( var x = 0; x < listBox.options.length; x++) {
+                      str += encodeURIComponent(listBox.options[x].value) + '&'
+                          + encodeURIComponent(listBox.options[x].text) + '&';
+                    }
+                    str.length--;
+            
+                    hiddenInput.value = str.slice(0, -1);
+                }
+              }
+            }
+        
+            if (!moveSelectedOptions) {
+              // Move the selected options in the idFrom listbox to the idTo
+              // listbox, updating the corresponding strings in idHdnFrom and
+              // idHdnTo
+              var moveSelectedOptions = function(idFrom, idTo, idHdnFrom, idHdnTo, type) {
+                listFrom = document.getElementById(idFrom);
+                listTo = document.getElementById(idTo);
+                for ( var x = 0; x < listTo.options.length; x++) {
+                  listTo.options[x].selected = false;
+                }
+        
+                for ( var x = 0; x < listFrom.options.length; x++) {
+                  if (listFrom.options[x].selected == true) {
+                    listTo.appendChild(listFrom.options[x]);
+                    x--;
+                  }
+                }
+        
+                listTo.focus();
+                buildOutputString(listFrom, document.getElementById(idHdnFrom));
+                buildOutputString(listTo, document.getElementById(idHdnTo));
+                   
+               var selectedFields = document.getElementById('page:form1:pageBlock:articleSection:rightArticleHidden');
+                   if(selectedFields.value != '' && selectedFields.value.length >0 ){
+                        var allButtons = document.getElementsByTagName('input');   
+                            for(var i=0;i<allButtons.length;i++){
+                                if(allButtons[i].id.indexOf('SvButton') > -1){
+                                        allButtons[i].disabled = false;
+                                        allButtons[i].className = 'btn';
+                                }
+                        }
+                   }else{
+                       var allButtons = document.getElementsByTagName('input');   
+                            for(var i=0;i<allButtons.length;i++){
+                                if(allButtons[i].id.indexOf('SvButton') > -1){ 
+                                       allButtons[i].disabled = true;
+                                        allButtons[i].className = 'btnDisabled';
+                                }
+                           }
+                            
+                      }
+                  
+                 }
+            }
+        // initialize the string representations
+            buildOutputString(document.getElementById('{!$Component.multiselectPanelArticle}:leftList'), 
+                document.getElementById('{!$Component.leftArticleHidden}'));
+            buildOutputString(document.getElementById('{!$Component.multiselectPanelArticle}:rightList'), 
+                document.getElementById('{!$Component.rightArticleHidden}'));
+                
+              
+         </script>                               
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

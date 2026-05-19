@@ -1,0 +1,69 @@
+<apex:page standardController="Reimbursement__c" extensions="ReimbursementHistoryController">
+    <apex:includeScript value="/support/console/37.0/integration.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"/>
+    <apex:includeScript value="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" />
+    <script>
+    function CloseTab() {
+               sforce.console.getEnclosingTabId(closeSubtab);
+            }
+            var closeSubtab = function closeSubtab(result) {
+                var tabId = result.id;
+                sforce.console.closeTab(tabId);
+            };
+    </script>
+    <script type="text/javascript">
+    	j$ = jQuery.noConflict();
+        j$(document).ready(function () {
+            j$('[id$=rhTable]').DataTable( {
+                "bSort" : false,
+                "bPaginate": false,
+                "bFilter": false,
+                "bInfo": false,
+                "scrollY": 250,
+                "scrollX": true
+            } );
+        });
+	</script>
+    <style>
+		.tabTable{
+ 			hover {background-color: #f5f5f5;};
+        	height: 200px;
+        }  
+        
+        div.dataTables_wrapper {
+            width: 1300px;
+            margin: 0 auto;
+        }
+    </style>
+	<apex:form >
+        <apex:pageBlock title="Reimbursement History">
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Close" onclick="CloseTab();return false;" />
+                </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:pageBlockTable value="{!reimbHist}" var="r" id="rhTable"> 
+                        <apex:column value="{!r.IssueID__c}"/>
+                        <apex:column value="{!r.Issue__r.CreatedDate}" headerValue="Issue Created Date" />
+			            <apex:column value="{!r.CreatedDate}" headerValue="Reimbursement Created Date"/>
+                        <apex:column value="{!r.Cheque_Amount__c}" headerValue="Amount"/>
+                        <apex:column value="{!r.Ship_Date__c}"/>
+                        <apex:column value="{!r.First_Name__c}" />
+                        <apex:column value="{!r.Last_Name__c}"/>
+                        <apex:column value="{!r.Street_Address__c}"/>
+                        <apex:column value="{!r.Apt_Lot__c}"/>
+                        <apex:column value="{!r.City__c}"/>
+                        <apex:column value="{!r.State__c}"/>
+                        <apex:column value="{!r.Zip_Code__c}"/>
+                        <apex:column value="{!r.CustomerID__c}"/>
+                        <apex:column value="{!r.OpCo__c}"/>
+                        <apex:column value="{!r.Consumer__r.AVF_GIID_Received__c}" headerValue="Age Verified"/>
+                        <apex:column value="{!r.Transfer_to_Altria_Date__c}"/>
+                        <apex:column value="{!r.Altria_File_Name__c}"/>
+                        <apex:column value="{!r.File_Name__c}"/>
+                        <apex:column value="{!r.Ecount_ID__c}"/>
+                        <apex:column value="{!r.Card_Number__c}" headerValue="Check / Card Number"/>
+                    </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>    
+</apex:page>

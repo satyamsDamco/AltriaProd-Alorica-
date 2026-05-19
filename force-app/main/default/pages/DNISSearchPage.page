@@ -1,0 +1,93 @@
+<apex:page controller="DNISSearchController" sidebar="false" action="{!searchOnLoad}"> 
+   <apex:includeScript value="/support/console/37.0/integration.js"/>
+    <apex:form >
+     <script type="text/javascript">
+           window.onload = function() {
+                 SetTabTitleDNIS();
+                 getPrimaryTabId();
+                 closingTab();
+                
+             };
+            
+             function SetTabTitleDNIS() {
+                document.cookie = "apex__tranid= ; expires = Wed, 01 Jan 2020 00:00:00 GMT; path=/";
+                sforce.console.getEnclosingTabId(function(result) {
+                   sforce.console.setTabTitle('DNIS Search', result.id);
+                });
+             } 
+             
+            function getPrimaryTabId(){
+                  sforce.console.getEnclosingPrimaryTabId(DisableTabCloseTrueWithId);
+            }
+        
+            var DisableTabCloseTrueWithId = function DisableTabCloseTrueWithId(result) {
+                var primaryTabId = result.id;
+                sforce.console.disableTabClose(false, primaryTabId);
+            }
+            
+             function testDisableTabCloseFalseWithoutId() {
+                sforce.console.disableTabClose(false, false);
+             }
+             
+             var onEnclosingPrimaryTabClose = function (result) {
+                localStorage.removeItem('firstLoad');
+             };
+             
+             function closingTab(){
+                //Add a listener to handle the closing of the enclosing primary tab 
+                sforce.console.getEnclosingPrimaryTabId(function (result) { 
+                    if (result.id) {
+                        sforce.console.addEventListener(sforce.console.ConsoleEvent.CLOSE_TAB,
+                        onEnclosingPrimaryTabClose, { tabId : result.id });
+                    } else {
+                        
+                    }
+                });
+             }
+        </script>
+        <style>
+            .bPageBlock .labelCol{
+                text-align:left;
+            }
+            .bPageBlock .detailList .labelCol {
+                width: 6%;
+            }
+            .bPageBlock .detailList .dataCol {
+                width: 22%;
+            }
+            .add-tab-btn{
+                display:none; visibility:hidden;
+            }
+            .x-tab-strip-close{
+                display:none; visibility:hidden;
+            }
+        </style> 
+        <apex:pageBlock >  
+            <apex:pageMessages id="showmsg"></apex:pageMessages>
+                <center>   
+                <table style="padding-top:25px">
+                <tr>
+                <td>
+                    <apex:outputLabel value="Operating Company"></apex:outputLabel>
+                </td>
+                <td style="padding-left:30px;">
+                     <apex:selectList id="opSelected" required="true" style="text-align:left;border-left:3px solid #FF0000" size="1" value="{!opCompany}" >
+                        <apex:selectOptions value="{!opCompanyList}" /> 
+                    </apex:selectList>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr height="30px">
+                    <td colspan="2" style="text-align:center;margin-top:30px;">                                         
+                       <apex:commandButton value="Select" action="{!search}" reRender="showmsg" />
+                    </td>    
+                </tr>
+                </table>
+                </center>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

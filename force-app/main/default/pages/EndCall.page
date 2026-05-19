@@ -1,0 +1,72 @@
+<apex:page standardController="Transaction_Management__c"  extensions="EndCallController" sidebar="False" id="pg" showHeader="false">
+    <apex:includeScript value="/support/console/37.0/integration.js"/>
+    <apex:form id="frm1">
+        <script>            
+            function closeCancelTab() {
+              sforce.console.getEnclosingTabId(closeSubtab1);
+            }  
+            var closeSubtab1 = function closeSubtab1(result) {
+                //Now that we have the tab ID, we can close it
+                var tabId = result.id;
+                sforce.console.closeTab(tabId);
+            };
+           
+           function closeAllTab() { 
+              var errorCheck = document.getElementById("{!$Component.frm1:EndCallBlock:message}");  
+              
+              if(errorCheck.innerHTML != null && errorCheck.innerHTML == '')
+                sforce.console.getEnclosingPrimaryTabId(closeSubtab);
+           } 
+           var tabIdName = ''; 
+           var closeSubtab = function closeSubtab(result) {
+                //Now that we have the tab ID, we can close it
+                var tabId = result.id;
+                sforce.console.closeTab(tabId); 
+                testDisableTabCloseFalseWithoutId(tabId);                
+           };
+           
+           function testDisableTabCloseFalseWithoutId(tabId) {
+               tabIdName = tabId;
+               sforce.console.disableTabClose(false, tabId,displayResultsCallback);
+           }
+           
+           function displayResultsCallback(result){
+               sforce.console.openPrimaryTab(tabIdName , '/apex/DNISSearchPage', true, 'DNIS Search', openSuccess, 'DNIS Search');
+           }
+            
+            var openSuccess = function openSuccess(result) {
+                //Report whether we succeeded in opening the subtab
+                if (result.success == true) {
+                    //alert('tab successfully opened');
+                } else {
+                    //alert('tab cannot be opened');
+                }
+            };   
+        </script>
+        <apex:pageBlock title="End Call"  id="EndCallBlock">
+            <apex:pageMessages id="message"></apex:pageMessages>
+            <apex:pageBlockButtons id="btn">
+                    <apex:commandButton Value="Save" action="{!customSave}" status="loadingstatus" id="saveBtn" disabled="{!isError}" reRender="message,saveBtn"  oncomplete="closeAllTab();return false;"/>
+                    <apex:commandButton Value="Cancel" onclick="closeCancelTab();return false;"/>               
+            </apex:pageBlockButtons>
+             <apex:pageBlockSection title="End Call Reason" columns="1">
+                <apex:inputField value="{!tranObj.Disposition__c}" required="True" />
+                <apex:inputField value="{!tranObj.Comments__c}"  required="true" style="width:100%;height:120px;"/>
+                <apex:inputHidden value="{!tranObj.Id}" id="theHiddenInput" />                
+            </apex:pageBlockSection>            
+        </apex:pageBlock>
+        
+        <!-- RITM2147263 -->
+        <apex:actionstatus id="loadingstatus">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                       height: 100%;opacity:0.65;width:100%;"> 
+                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">Loading...</span>
+                    </div>
+                </div>
+            </apex:facet>
+         </apex:actionstatus>
+    </apex:form>
+</apex:page>

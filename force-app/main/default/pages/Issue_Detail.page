@@ -1,0 +1,610 @@
+<apex:page StandardController="Case" extensions="IssueDetailController" sidebar="false" id="pg">
+    <apex:includeScript value="/support/console/37.0/integration.js" /> 
+    <apex:form id="frm"> 
+        <apex:sectionHeader title="Issue Detail" subtitle="{!case.CaseNumber__c}" />   
+        
+        
+        <script>   
+        
+        
+        function SetTabIssueDetailTitle() {
+            sforce.console.getEnclosingTabId(function(result) {
+                sforce.console.setTabTitle('I-'+'{!case.CaseNumber__c}', result.id);
+                sforce.console.setTabLink();
+                
+            });
+        }
+        function surveyApplicable(){
+            var isSurveyApplicable = '{!isSurveyApplicable}';
+            var tranCurrent = "{!currentTran}";
+            if(isSurveyApplicable == 'Required' && tranCurrent != null && tranCurrent != ''){
+                if("{!customerRecType}" == 'consumer'){
+                    alert('Consumer eligible for survey');
+                }else{
+                    alert('Trade Customer eligible for survey');
+                }
+            }
+        }            
+        var pageLoad = window.onload;
+        
+        window.onload = function() {
+            if (pageLoad) {
+                pageLoad();
+            }
+            
+            SetTabIssueDetailTitle();
+            surveyApplicable();
+            
+        } 
+        
+        function reimbursement(){
+            if('{!custId}' == null || '{!custId}' == ''){
+                alert('Please create Consumer record before Reimbursement.');    
+            }else if('{!customertype}' != 'CONSUMER'){
+                alert('Cannot create reimbursement for Non-Consumer type Customer.');
+            }else if('{!country}' != 'United States'){
+                alert('Cannot create reimbursement for International Consumer.');
+            }else if('{!case.Issue_Type__c}' != null && '{!case.Issue_Type__c}' != 'Complaints'){
+                alert('Reimbursements only allowed for complaint issues');
+            }else if('{!isReimbursed}' == 'true'){
+                alert('Reimbursement already created');
+            }/*else if('{!isAgeVerified}' == 'false'){
+                    alert('Cannot create reimbursement. Consumer age is not verified.');
+                }*/else{
+                    sforce.console.getEnclosingPrimaryTabId(openSubtabReimb);   
+                }
+        }
+        
+        var openSubtabReimb = function openSubtabReimbursement(result) {
+            var primaryTabId = result.id;            
+            var issueId= '{!$CurrentPage.parameters.id}';           
+            sforce.console.openSubtab(primaryTabId ,'/apex/ReimbursementEdit?issueId='+issueId, true, 'Reimbursement',null,  openSuccess, 'Reimbursement'+issueId);
+        };
+        
+        function openSurvey(){
+            sforce.console.getEnclosingPrimaryTabId(openSubtabSurvey);
+        }
+        
+        var openSubtabSurvey = function openSubtabSurveyFun(result) {
+            var primaryTabId = result.id;            
+            var issueId= '{!$CurrentPage.parameters.id}';
+            sforce.console.openSubtab(primaryTabId ,'/apex/IssueSurvey?issueId='+issueId, true, 'Survey',null,  openSuccess, 'Survey'+issueId);
+        };
+        
+        function openAttachment(){
+            sforce.console.getEnclosingPrimaryTabId(openSubtabAttachment);
+        }
+        
+        var openSubtabAttachment = function openSubtabAttachmentFun(result) {
+            var primaryTabId = result.id;            
+            var issueId= '{!$CurrentPage.parameters.id}';
+            sforce.console.openSubtab(primaryTabId ,'/apex/AttachmentUploadPage?issueId='+issueId, true, 'Attachment',null,  openSuccess, 'Attachment'+issueId);
+        };   
+        
+        
+        var attachmentId;
+        var attachmentName;
+        function attchmentDetail(id,Name){
+            attachmentName = Name;
+            attachmentId =  id;
+            openAttachmentData();                          
+        }
+        
+        
+        function openAttachmentData(){            
+            sforce.console.getEnclosingPrimaryTabId(openSubtabCustomer);        
+        }
+        var openSubtabCustomer = function openSubtab(result) {
+            if(result.id !=null && result.id != 'null')
+                sforce.console.openSubtab(result.id, '/apex/AttachmentDetailPage?id='+attachmentId , true, attachmentName, null, openSuccess, attachmentName+attachmentId);
+            else
+                sforce.console.openSubtab(null, '/apex/AttachmentDetailPage?id='+attachmentId, true, attachmentName, null, openSuccess, attachmentName+attachmentId);
+        }
+        
+        
+        
+        function newStore(){
+            sforce.console.getEnclosingPrimaryTabId(openSubtabStore);          
+        } 
+        
+        var openSubtabStore = function openSubtabStore(result) {
+            var primaryTabId = result.id;            
+            var issueId= '{!$CurrentPage.parameters.id}';  
+            var store = document.getElementById("{!$Component.frm:storeNum}").value;
+            var pageNumber = 0;
+            if(store == null || store == 'null'){
+                pageNumber = 1;
+                document.getElementById("{!$Component.frm:storeNum}").value = 1;
+            }else{
+                pageNumber = store;
+                document.getElementById("{!$Component.frm:storeNum}").value = store +1;
+            } 
+            
+            sforce.console.openSubtab(primaryTabId ,'/apex/StoreEditPage?pageNumber='+pageNumber+'&IssueId='+issueId, true, 'Store',null,  openSuccess, 'Store'+pageNumber);
+        };            
+        
+        function newEmail()
+        {
+            sforce.console.getEnclosingPrimaryTabId(openSubtabEmail);
+        }
+        //----------------------------------
+        var openSubtabEmail = function openSubtabStore(result) 
+        {
+            var primaryTabId = result.id;            
+            var issueId= '{!$CurrentPage.parameters.id}';    
+            var ContactId = '{!case.contactid}';            
+            
+            sforce.console.openSubtab(primaryTabId ,'/_ui/core/email/author/EmailAuthor?p3_lkid=' + issueId + '&p2_lkid=' + ContactId + '&p26=crc@altriacrc.com:CRC Support&p6=Photos for Altria Consumer Response Center#', true, 'Email', null,  null, 'Email Sub-tab');
+            //primaryTabId:String 
+            //url:URL
+            //active:Boolean
+            //tabLabel:String
+            //id:String
+            //(optional)callback:Function
+            //(optional)name:String)
+        };
+        //------------------------------------------
+        
+        function openPrimaryTabEndCall(){             
+            var custId = '{!custId}';
+            var isSurveyApplicable = '{!isSurveyApplicable}';
+            
+            if(isSurveyApplicable == 'Required'){
+                
+                if(custId == null || custId == ''){
+                    if("{!customerRecType}" == 'consumer'){
+                        alert('Please present the survey or select a Cancel Reason \nPlease select the Consumer for which the issue is created');
+                    }else{
+                        alert('Please present the survey or select a Cancel Reason \nPlease select the Trade Customer for which the issue is created');
+                    }
+                }else{
+                    alert('Please present the survey or select a Cancel Reason');                 
+                }
+            }else{
+                if(custId == null || custId == ''){
+                    if("{!customerRecType}" == 'consumer'){
+                        alert('Please select the consumer for which the issue is created');
+                    }else{
+                        alert('Please select the trade customer for which the issue is created');
+                    }
+                }else{
+                    sforce.console.getEnclosingPrimaryTabId(openSubtabEndCall); 
+                }
+            }                  
+        }
+        
+        var openSubtabEndCall = function openSubtab(result) {
+            var primaryTabId = result.id;
+            sforce.console.openSubtab(primaryTabId,'/apex/EndCall' , true, 'End Call', null, openSuccess,'EndCall' );          
+        }
+        
+        function openConsumer(eve) {
+            if(eve == 'Contact'){
+                sforce.console.getEnclosingPrimaryTabId(openSubtabConsumerDetail);
+            }else{
+                sforce.console.getEnclosingPrimaryTabId(openSubtabConsumerSearch);
+            }
+        }
+        
+        var openSubtabConsumerSearch = function openSubtab(result) {
+            //Now that we have the primary tab ID, we can open a new subtab in it
+            var primaryTabId = result.id;
+            var parameters =  "{!parameters}";
+            //alert(parameters );
+            if("{!customerRecType}" == 'consumer'){
+                sforce.console.openSubtab(primaryTabId , '/apex/ConsumerSearch?hideIssue=true'+parameters , true, 'Consumer Search', null,  openSuccess, 'Consumer Search');
+            }else{
+                sforce.console.openSubtab(primaryTabId , '/apex/TradeSearch?hideIssue=true'+parameters , true, 'Trade Customer Search', null,  openSuccess, 'Trade Customer Search');
+            }
+        };
+        
+        var openSubtabConsumerDetail = function openSubtab1(result) {
+            //Now that we have the primary tab ID, we can open a new subtab in it
+            var primaryTabId = result.id;
+            var CustomerId = '{!case.contactid}'; 
+            var CustomerName = '{!custName}';
+            if("{!customerRecType}" == 'consumer'){
+                sforce.console.focusSubtabByNameAndPrimaryTabId('Consumer', primaryTabId, openSuccess);
+            }else{
+                sforce.console.focusSubtabByNameAndPrimaryTabId('Trade', primaryTabId, openSuccess);
+            }
+            //sforce.console.openSubtab(primaryTabId , '/apex/ConsumerDetailPage?id='+CustomerId, true, CustomerName, null,  openSuccess, CustomerName+CustomerId);
+        };
+        
+        
+        var subTabIssue = '';
+        function currentTabRefresh() {
+            //First find the ID of the current tab to refresh it
+            sforce.console.getEnclosingTabId(refreshCurrentTab);
+        }
+        var refreshCurrentTab = function refreshSubtab(result){
+            var subTabId = result.id;               
+            if(subTabIssue == subTabId || subTabIssue == ''){              
+                subTabIssue  = '';                        
+                ConsumerDetail();  
+            }          
+        }
+        
+        var openSuccess = function openSuccess(result) {
+            //Report whether we succeeded in opening the subtab
+            if (result.success == true) {
+                //alert('subtab successfully opened');
+            } else {
+                //alert('subtab cannot be opened');
+            }
+        };
+        
+        var onFocusedSubtabCallback = function (result) {
+            var entityId = result.objectId; 
+            subTabIssue = result.id;
+            document.getElementById("{!$Component.frm:pb:pbButton:refresh}").click();                          
+        };  
+        
+        sforce.console.onFocusedSubtab(onFocusedSubtabCallback);
+        
+        function OpenSubtabSurvey() {
+            //First find the ID of the primary tab to put the new subtab in
+            sforce.console.getEnclosingPrimaryTabId(openSurveySubtab);
+        }
+        
+        var openSurveySubtab = function openSurveySubtab(result) {
+            //Now that we have the primary tab ID, we can open a new subtab in it
+            var primaryTabId = result.id;
+            var issueid= '{!$CurrentPage.parameters.id}';
+            
+            sforce.console.openSubtab(primaryTabId , '/apex/IssueSurveyList?pageSize=100&id='+issueid, true, 
+                                      'Survey List', null, openSuccess, 'Survey List');
+        };
+        
+        
+        function openClonePage(){
+            sforce.console.getEnclosingPrimaryTabId(opencloneSubtab);
+        }            
+        
+        var opencloneSubtab = function opencloneSubtab(result) {
+            //Now that we have the primary tab ID, we can open a new subtab in it
+            var primaryTabId = result.id;
+            var issueid= '{!$CurrentPage.parameters.id}';
+            var issueNumber = '{!caseObj.CaseNumber__c}';
+            var parameters =  "{!parameters}";
+            sforce.console.openSubtab(primaryTabId , '/apex/IssueEntryClone?id='+issueid+'&parentIssue='+issueid+parameters, true, 
+                                      'Clone Issue -'+issueNumber, null, openSuccess, 'Clone Issue -'+issueNumber);
+        };
+        
+        
+        function confirmsend()
+        	{
+				
+
+                return confirm('Online Verification Form is about to be sent to the Consumer to verify their age. Do you want to proceed?');
+			}
+        
+        </script>
+        <style>
+            .NewSurvey {
+            background-color: #004A7F;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            border: none;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: Arial;
+            font-size: 20px;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            }
+            @-webkit-keyframes glowing {
+            0% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+            50% { background-color: #FF0000; -webkit-box-shadow: 0 0 40px #FF0000; }
+            100% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+            }
+            
+            @-moz-keyframes glowing {
+            0% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
+            50% { background-color: #FF0000; -moz-box-shadow: 0 0 40px #FF0000; }
+            100% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
+            }
+            
+            @-o-keyframes glowing {
+            0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+            50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
+            100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+            }
+            
+            @keyframes glowing {
+            0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+            50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
+            100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+            }
+            
+            .NewSurvey{
+            -webkit-animation: glowing 1500ms infinite;
+            -moz-animation: glowing 1500ms infinite;
+            -o-animation: glowing 1500ms infinite;
+            animation: glowing 1500ms infinite;
+            }
+        </style>
+        <apex:inputHidden id="storeNum" />
+        <apex:pageblock title="Issue Details" mode="detail"  id="pb">
+            
+                    <apex:pagemessages id="message"> 
+                    </apex:pagemessages>                     
+                                
+            <apex:actionFunction name="ConsumerDetail" action="{!ConsumerDetails}" />
+            <apex:pageBlockButtons id="pbButton">
+                <apex:commandButton action="{!edit}" value="Edit" rendered="{!currentTran != null}"/>
+                <apex:commandButton value="Reimbursement" onclick="reimbursement();return false;" rendered="{!If(customerRecType == 'consumer' && currentTran != null && country == $Label.Country,true,false)}"/>
+                <!-- 10/30/19 JD: RITM0052177 - SCR 19-10-18 Stores - Allow Only 1 Per Issue ver 1.0 -->
+                <apex:commandButton value="New Store" onclick="newStore();return false" rendered="{!currentTran != null}" disabled="{!isStoreEmpty}" /> 
+                <!-- 10/30/19 JD: RITM0052177 -->
+                <apex:commandButton value="Clone" action="{!customClone}" onclick="openClonePage();return false"  rendered="{!currentTran != null}"/>
+                <apex:commandButton value="{!If(custId == '',(if(customerRecType == 'consumer','New Consumer','New Trade Customer')),(if(customerRecType == 'consumer','Consumer','Trade Customer')))}" onclick="openConsumer('{!If(custId == '', 'No Contact','Contact')}');return false"  rendered="{!currentTran != null}"/>
+                <apex:commandButton value="Update Survey" onclick="openSurvey();return false" rendered="{!If(isSurveyApplicable != null && isSurveyApplicable != '' && isSurveyApplicable != 'Required' && isSurveyApplicable != 'Not Applicable' && currentTran != null,true,false)}"/>
+                <apex:commandButton value="Survey" styleClass="NewSurvey" id="surveyNew" style="" onclick="openSurvey();return false" rendered="{!If(isSurveyApplicable == 'Required' && currentTran != null ,true,false)}"/>
+                <apex:commandButton value="Attach File" onclick="openAttachment(); return false"  rendered="{!currentTran != null}"/>
+                <apex:commandButton value="Online VF"  id="btnonlinevf" action="{!submitVF}" onclick="if (!confirmsend()) return false;" rendered="{!case.Contact.Email != null}"/>
+                <apex:commandButton value="Refresh" onclick="currentTabRefresh(); return false" id="refresh"  rendered="{!currentTran != null}"/>
+                <apex:commandButton value="End call"  onclick="openPrimaryTabEndCall();return false" id="btnEnd" rendered="{!currentTran != null}"/>
+                <apex:commandButton value="Resend Survey" action="{!ResendSurvey}" id="btnResend" rendered="{!if(caseObj.IsReviewed__c == true && hasSurvey,true,false)}"/>
+                
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Customer" id="customersec">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Customer ID"/>
+                    <apex:outputText value="{!custId}"/>    
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Master ID"/>
+                    <apex:outputText value="{!masterId}"/> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputText />  
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Name"/>
+                    <apex:outputText value="{!custName}"/>  
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Product">
+                <apex:outputField value="{!case.Product_Line__c}" label="Product Line"/>
+                <apex:outputField value="{!case.Channel_Contact__c}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Issue Hierarchy">
+                <apex:outputField value="{!case.Classificationtxt__c}" label="Classification"/>
+                <apex:outputField value="{!case.Reasontxt__c}" label="Reason"/>
+                <apex:outputField value="{!case.Issue_Type__c}" label="Issue Type"/>
+                <apex:outputField value="{!case.Causetxt__c}" label="Cause"/>
+                <apex:outputField value="{!case.Group_Code__c}" label="Group"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Brand Hierarchy" id="BrandHier">     
+                <apex:outputField value="{!Case.UPC_code__c}" label="UPC"/>
+                <apex:outputField value="{!Case.Brandcode__c}" label="Brand" rendered="{!IF(Case.Brandcode__c!='', true , false)}"/>
+                <apex:outputField value="{!Case.Taste__c}" label="Taste" rendered="{!IF(Case.Taste__c!='', true , false)}"/>
+                <apex:outputField value="{!Case.Length_Code__c}" label="Length" rendered="{!IF(Case.Length_Code__c!='', true , false)}"/>
+                <apex:outputField value="{!Case.Packaging__c}" label="Packaging" rendered="{!IF(Case.Packaging__c!='', true , false)}"/>
+                <apex:outputField value="{!Case.Flavor__c}" label="Flavor" rendered="{!IF(Case.Flavor__c!='', true , false)}"/>
+                <apex:outputField value="{!Case.Filter__c}" label="Filter" rendered="{!IF(Case.Filter__c!='', true , false)}"/>
+                <apex:outputField value="{!Case.Paper_Type__c}" label="Paper Type" rendered="{!IF(Case.Paper_Type__c!='', true , false)}"/>
+                <apex:outputLabel ></apex:outputLabel>
+                <apex:outputField value="{!Case.Cut__c}" rendered="{!IF(Case.Cut__c!='', true , false)}"/>
+            </apex:pageBlockSection>
+            <!-- ================ IQOS Section ====================== -->
+            <!-- <apex:pageBlockSection title="IQOS Information" id="IqosInfo" rendered="{!If(selectedProductLine =='HEAT NOT BURN',true,false)}"> -->
+            <apex:pageBlockSection title="IQOS Information" id="IqosInfo" rendered="{!iqosTrue}">
+                <apex:outputField value="{!case.Serial_Number__c}" label="Serial Number" id="serialNumber"/>
+                <apex:outputField value="{!case.IQOS_Reference_ID__c}" label="IQOS Reference ID" id="iqosRefId"/>
+                <apex:outputField value="{!case.Original_Serial_Number__c}" label="Original Serial Number" id="origSerialNum" styleClass="text-uppercase"/>
+                <apex:outputField value="{!case.Reimbursed_Or_Replaced_Indicator__c}" label="Reimbursed Or Replaced Indicator"  id="rOrIndicator"/> 
+                <apex:outputField value="{!case.Third_Party_Reimbursement_Amount__c}" label="Third Party Reimbursement Amount" id="tprAmount"/>
+                <apex:outputField value="{!case.Reimbursement_Amount__c}" label="Reimbursement Amount" id="rAmount"/>
+                <apex:outputField value="{!case.CEA_Agent_ID__c}" label="CEA Agent ID" id="caID"/>
+                <apex:outputField value="{!case.Complaint_Source__c}" label="Complaint Source" id="cSource"/>
+                <apex:outputField value="{!case.Core_Service_API_Problem__c}" label="Core Service API Problem" id="csaProblem"/>
+                <apex:outputField value="{!case.Warranty_Start_Date__c}" label="Warranty Start Date" id="wStartDate"/>
+                <apex:outputField value="{!case.Warranty_Expiration_Date__c}" label="Warranty Expiration Date" id="wExDate"/>
+                <apex:outputField value="{!case.Warranty_Status__c}" label="Warranty Status" id="wStatus"/>  
+                <apex:outputField value="{!case.registrationDate__c}" label="Registration Date" id="regDate"/>   
+                <apex:outputField value="{!case.registrationStatus__c}" label="Registration Status" id="regStatus"/> 
+                <apex:outputField value="{!case.CCN__c}" label="CCN" id="ccn"/>  
+                <!--    <apex:outputField value="{!case.Purchase_Date__c}" label="Purchase Date" id="purDate"/>  -->
+                <apex:outputField value="{!case.Total_Paid_by_Customer__c}" label="Total Paid by Customer" id="tpCustomer"/> 
+                <apex:outputField value="{!case.First_Time_Buyer__c}" label="First Time Buyer" id="ftBuyer"/>    
+                <apex:outputField value="{!case.Base_Price__c}" label="Base Price" id="basePrice"/>                  
+            </apex:pageBlockSection>
+            <!-- ================ IQOS END ========================== -->
+            <apex:pageBlockSection title="Purchase Information" id="PurchaseInfo">
+                <apex:outputField value="{!case.Purchase_Price__c}" label="Purchase Price" />
+                <apex:outputField value="{!case.Affected_Type__c}" label="Affected Type" />
+                <apex:outputField value="{!case.Purchase_Date__c}" label="Purchase Date"/>
+                <apex:outputField value="{!case.AffectedQty__c}" label="Affected Quantity" />
+                <apex:outputField value="{!case.Incident_Date__c}" label="Incident Date"/>
+                <apex:outputField value="{!case.Expected_Type__c}" label="Expected Type"/>
+                <apex:outputField value="{!case.Purchase_Type__c}" label="Purchase Type" />
+                <apex:outputField value="{!case.ExpectedQty__c}" label="Expected Quantity" />
+                <apex:outputField value="{!case.PurchaseQty__c}" label="Purchase Quantity" />
+                <apex:outputField value="{!case.Returned_Type__c}" label="Returned Type" id="returnedType"/>
+              	<apex:outputText value=" " label=" " />
+                <apex:outputField value="{!case.Returned_Quantity__c}" label="Returned Quantity" id="returnedQty"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Issue Information " collapsible="TRUE" id="IssDetail" >
+                <apex:outputField value="{!case.Trace_Code_Location__c}" label="Trace Code Location"/>
+                <apex:outputField value="{!case.Suspected_Counterfiet__c}" label="Suspected Counterfeit"/>
+                <apex:outputField value="{!case.Mfg_Trace_code__c}" label="Mfg/Trace code"/>
+                <apex:outputtext rendered="{!iqosTrue}" />
+                <apex:outputField value="{!case.TC_Serial_Number__c}" label="TC Serial Number" rendered="{!iqosTrue}"/> 
+                <apex:outputField value="{!case.Suspected_Tampering__c}" label="Suspected Tampering"/> 
+                
+                <apex:outputText value="{0,date,MM/dd/yyyy}" label="Production Date"> 
+                    <apex:param value="{!case.Production_date__c}" /> 
+                </apex:outputText>  
+                
+                <apex:outputField value="{!case.Test_Issue__c}" label="Test Issue"/> 
+                
+                <!-- <apex:pageBlockSectionItem id="section1" rendered="{!IF(NOT(case.Product_Line__c=='Cigars' || case.Product_Line__c=='Green Smoke E-Vapor' 
+                                                                   || case.Product_Line__c=='E-Cigarette' || case.Product_Line__c =='MST'
+                                                                   || case.Product_Line__c =='Pouch'|| case.Product_Line__c =='Dry Snuff'
+                                                                   || case.Product_Line__c =='PMUSA Snus' || case.Product_Line__c =='USSTC Snus' 
+                                                                   || case.Product_Line__c =='Loose Leaf' || case.Product_Line__c =='Dry Snuff' 
+                                                                   || case.Product_Line__c =='TOBACCO DERIVED NICOTINE POUCH' ),true, false)}">
+                </apex:pageBlockSectionItem> -->
+                <apex:outputField value="{!case.Date_Code__c}" id="datecode" rendered="{!case.Product_Line__c=='MST'||case.Product_Line__c=='Pouch'||case.Product_Line__c=='Dry Snuff'|| case.Product_Line__c=='PMUSA Snus'|| case.Product_Line__c=='USSTC Snus' ||case.Product_Line__c=='Loose Leaf' }"/>
+                
+                <apex:outputField value="{!case.Machine_Code__c}" id="machineCode" rendered="{!IF(case.Product_Line__c=='Cigars' || case.Product_Line__c=='TOBACCO DERIVED NICOTINE POUCH'  	
+                                                                                             || case.Product_Line__c=='Dry Snuff' || case.Product_Line__c=='Pouch' || case.Product_Line__c=='MST'
+                                                                                             || case.Product_Line__c=='USSTC Snus',true,false)}"/>                                                                                  
+                
+                <apex:outputField value="{!case.Exp_Date__c}" id="ExpDate"   rendered="{!IF(case.Product_Line__c=='Green Smoke E-Vapor',true,false)}"/>
+                <apex:outputField value="{!case.DNUA_Date__c}" id="dnuaDate"  rendered="{!IF(case.Product_Line__c=='E-Cigarette',true,false)}"/>
+                
+                <apex:pageBlockSectionItem id="section9" rendered="{!IF((case.Product_Line__c=='Cigars' || case.Product_Line__c=='Dry Snuff'
+                                                                   	|| case.Product_Line__c=='E-Cigarette' || case.Product_Line__c=='Green Smoke E-Vapor'
+                                                                   	|| case.Product_Line__c=='TOBACCO DERIVED NICOTINE POUCH' || case.Product_Line__c=='Tobacco-Derived Nicotine Product'),true, false)}">
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputField value="{!case.ProdrReturnReq__c}" label="Product Return Required for Reimbursement"/>
+                
+                <apex:outputField value="{!case.Confirmed_Counterfeit__c}" label="Confirmed Counterfeit"/> 
+                
+                <!-- <apex:pageBlockSectionItem id="section2" rendered="{!IF(NOT(case.Product_Line__c =='MST'|| case.Product_Line__c =='Pouch'|| case.Product_Line__c =='Dry Snuff'|| case.Product_Line__c =='PMUSA Snus'|| case.Product_Line__c =='USSTC Snus' ||case.Product_Line__c =='Loose Leaf' ),true, false)}">
+                </apex:pageBlockSectionItem> -->
+                
+                <apex:outputText label="Date" value="{0,date,MM/dd/yyyy}" rendered="{!IF((case.Product_Line__c =='MST'|| case.Product_Line__c =='Pouch'|| case.Product_Line__c =='Dry Snuff'|| case.Product_Line__c =='PMUSA Snus'|| case.Product_Line__c =='USSTC Snus' ||case.Product_Line__c =='Loose Leaf' ),true, false)}">
+                    <apex:param value="{!case.Date__c}" /> 
+                </apex:outputText>
+                <apex:outputField value="{!case.Outbound_Tracking__c}" label="Outbound Tracking #"/>
+                
+                <apex:pageBlockSectionItem id="section3" rendered="{!IF(NOT(case.Product_Line__c =='MST'|| case.Product_Line__c =='Pouch'|| case.Product_Line__c =='Dry Snuff'|| case.Product_Line__c =='PMUSA Snus' || case.Product_Line__c =='USSTC Snus' ||case.Product_Line__c =='Loose Leaf' ),true, false)}">
+                </apex:pageBlockSectionItem>
+                <apex:outputField value="{!case.Date_Type__c}" id="datetype" rendered="{!case.Product_Line__c=='MST'||case.Product_Line__c=='Pouch'||case.Product_Line__c=='Dry Snuff'|| case.Product_Line__c=='PMUSA Snus'|| case.Product_Line__c=='USSTC Snus' ||case.Product_Line__c=='Loose Leaf' }"/>
+                
+                <apex:outputField value="{!case.Inbound_Tracking__c}" label="Inbound Tracking #"/> 
+                
+                <apex:pageBlockSectionItem id="sell1" rendered="{!IF(NOT(case.Brandcode__c =='COPENHAGEN'),true,false)}"></apex:pageBlockSectionItem>
+                
+                <apex:outputField value="{!case.Update_Reason__c}" label="Update Reason" rendered="{!isUpdateReasonVisible}"/>
+                
+                <apex:outputField value="{!case.ThirdPartyContacted__c}" id="ThirdParty" rendered="{!If(case.Classificationtxt__c=='APE',true,false)}"/>
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection showHeader="false"> 
+                <apex:outputField value="{!case.Consumer_Mentions__c}" label="Consumer Mentions"/>
+                <apex:outputField value="{!case.Related_Issue__c}" label="Related Issue"/>
+                <apex:outputPanel ></apex:outputPanel>     
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection showHeader="false"> 
+                <apex:outputText value=" " label=" " />
+                <apex:outputField value="{!case.NMI_Transaction_ID__c}" label="NMI Transaction ID"/>
+                <apex:outputPanel ></apex:outputPanel>     
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Trade Customer" id="TradeCustomer" rendered="{!If(customerRecType!='consumer',true,false)}">
+                <apex:outputField value="{!Case.Inventory_Depleted__c}" label="Depleted Inventory"/>
+                <apex:outputField value="{!Case.Caller_Name__c}" label="Caller Name"/>
+                <apex:outputField value="{!Case.Consumer_Return__c}" label="Consumer Return"/> 
+                <apex:outputField value="{!Case.Supplier_Name__c}" label="Supplier Name"/>
+                <apex:outputField value="{!Case.Comments__c}" label="Consumer Return Comments"/>
+            </apex:pageBlockSection>            
+            
+            <apex:pageBlockSection columns="1" title="Comment">
+                <apex:outputField value="{!case.Comment__c}" style="width:100%"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="2" title="System Information">                
+                <apex:outputField value="{!case.CreatedDate__c}" label="Created Date"/>                
+                <apex:outputField value="{!case.LastModifiedDate__c}" label="Last Modified Date"/>
+                <apex:outputField value="{!case.CreatedByName__c}" label="Created By"/>
+                <apex:outputField value="{!case.LastModifiedByName__c}" label="Last Modified By"/>
+                <apex:outputField value="{!case.IsReviewed__c}"/>
+                <apex:outputField value="{!case.ExtractFromFeed__c}" rendered="false"/>
+                <apex:selectList id="caseStatus" value="{!selectedStatus}" size="1" label="Status">
+                    <apex:actionSupport event="onchange" action="{!UpdateStatus}" />
+                    <apex:selectOptions value="{!StatusOptions}"/>
+                </apex:selectList>
+            </apex:pageBlockSection>
+            <apex:inputHidden id="refreshTag"/>
+            
+            <apex:pageBlockSection columns="1" title="Email">
+                <apex:commandButton value="New Email" onclick="newEmail();" />
+                <apex:pageBlockTable value="{!Case.EmailMessages}" var="email"  onRowClick="clickElem(this);" styleClass="caseId">
+                    <apex:column value="{!email.MessageDate}" headerValue="Message Date and Time" />
+                    <apex:column headerValue="Subject" >
+                        <apex:outputLink value="/{!email.Id}"><apex:outputText value="{!email.Subject}" /></apex:outputLink>
+                    </apex:column>
+                    <apex:column value="{!email.FromName}" headerValue="From Name"  />
+                    <apex:column value="{!email.FromAddress}" headerValue="From Address"  />
+                    <apex:column value="{!email.Status}" headerValue="Status"  />
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>               
+        </apex:pageblock>        
+    </apex:form>
+    
+    <!-- <apex:relatedList list="EmailMessages" id="Emails"/> -->
+    <apex:relatedList list="stores__r" id="store"/>
+    <apex:relatedList list="reimbursements__r" id="res" rendered="{!If(customerRecType == 'consumer' && country == $Label.Country,true,false)}"/>
+    <apex:pageBlock title="Survey" id="surveyList">           
+        <apex:outputPanel rendered="{!(IssueSurvyeList.size <=0)}">
+            No records to display
+        </apex:outputPanel>
+        <apex:pageBlockTable value="{!IssueSurvyeList}" var="sn" rendered="{!(IssueSurvyeList.size >0)}">
+            <apex:column headerValue="Survey Name">
+                <apex:OutputText value="{!sn.Survey_Name__c}"/>
+            </apex:column>
+            <apex:column headerValue="Question">
+                <apex:OutputText value="{!sn.QuestionText__c}"/>
+            </apex:column>
+            <apex:column headerValue="Answer">
+                <apex:OutputText value="{!sn.AnswerText__c }"/>
+            </apex:column>               
+            <apex:column headerValue="Comments">
+                <apex:OutputText value="{!sn.Comment__c}"/>
+            </apex:column>            
+        </apex:pageBlockTable>
+        <br/>
+        <apex:outputPanel rendered="{!(IssueSurvyeList.size >4)}">
+            <a href="#" onclick="OpenSubtabSurvey();return false;">View complete Survey List</a>
+        </apex:outputPanel>
+    </apex:pageBlock>
+    <apex:pageBlock title="Attachments" id="att">
+        <apex:outputPanel rendered="{!attachList.size<=0}">
+            No Record to display.
+        </apex:outputPanel>
+        <apex:pageBlockTable value="{!attachList}" var="attList" rendered="{!attachList.size>0}">
+            <apex:column headerValue="Action">
+                <a href="/servlet/servlet.FileDownload?file={!attList.id}" target="_blank">View File</a>
+            </apex:column>
+            <apex:column headerValue="File Name">
+                <apex:outputLink onClick="attchmentDetail('{!attList.id}','{!attList.Name}');return false;"  rendered="{!currentTran != null}">{!attList.Name}</apex:outputLink>
+                <apex:OutputText value="{!attList.Name}" rendered="{!currentTran == null}"/>
+            </apex:column>
+            <apex:column headerValue="Comment">
+                <apex:OutputText value="{!attList.description}" />
+            </apex:column>
+            <apex:column headerValue="Created Date">
+                <apex:OutputText value="{!attList.CreatedDate}" />
+            </apex:column> 
+            <apex:column headerValue="Last Modified Date">
+                <apex:OutputText value="{!attList.LastModifiedDate}" />
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <apex:pageBlock id="ChatHistId" title="Chat History">
+        <apex:pageBlockTable value="{!ChatHistory}" var="c" rendered="{!NOT(ISNULL(ChatHistory))}" rows="20">
+            <apex:column value="{!c.Chat_ID__c}"/>
+            <apex:column value="{!c.CreatedDate}"/>
+            <apex:column value="{!c.CreatedBy.Name}" headerValue="Created By"/>
+            <apex:column value="{!c.WaitTime}"/>
+            <apex:column value="{!c.StartTime}"/>
+            <apex:column value="{!c.EndTime}"/>
+            <apex:column value="{!c.LastModifiedDate}"/>
+            <apex:column value="{!c.LastModifiedBy.Name}" headerValue="Last Modified By"/>
+        </apex:pageBlockTable>
+        <apex:outputLabel value="No records to display" rendered="{!(ISNULL(ChatHistory))}"/>
+    </apex:pageBlock>
+    
+</apex:page>

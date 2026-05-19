@@ -1,0 +1,117 @@
+<apex:page showheader="false" sidebar="false" standardController="Contact" extensions="ConsumerAgeVerificationController">
+    <apex:includeScript value="/support/console/37.0/integration.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"/>   
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+    
+    <apex:form id="fm">
+         <style>
+            .text-uppercase {
+                text-transform:uppercase;
+            }
+        </style>    
+        <script type="text/javascript">
+        
+            window.onload = onLoadFunctionCall;
+            
+            function onLoadFunctionCall(){
+                readableCityState();
+            }
+        var j$ = jQuery.noConflict();
+         $(document).ready(function(){
+              updateCalYearPicker();  
+            });  
+            function updateCalYearPicker(){
+                var currentTime = new Date();
+                var year = currentTime.getFullYear();
+                $("#calYearPicker").html('');
+                for(var i = 1910; i <= year;  i++){
+                    $("#calYearPicker").append("<option value='"+ i +"'>" + i + "</option>")
+                }  
+            }
+    
+    function readableCityState(){
+            
+                    document.getElementById("{!$Component.fm:pb:pbs1:city}").disabled = true; 
+                    document.getElementById("{!$Component.fm:pb:pbs1:state}").disabled = true;
+        }
+            function capitalizeLetter(ele) {
+                var field = document.getElementById(ele).value;
+                document.getElementById(ele).value = field.toUpperCase();
+            }
+            function zipValid(val){
+               if(val != null && val != '' && val.length >4){
+                   getCityData();
+               }
+               if(val != null && val != '' && val.length == 0){
+                   document.getElementById("{!$Component.fm:pb:pbs1:city}").value = '';
+                   document.getElementById("{!$Component.fm:pb:pbs1:state}").value = '';
+               }
+           }
+            function CloseAgeVerfyTab(){
+                sforce.console.getEnclosingTabId(closeSubtabVar);
+            }
+            var closeSubtabVar = function closeSubtab(result) {
+                //Now that we have the tab ID, we can close it
+                var tabId = result.id;
+                sforce.console.closeTab(tabId);
+            };
+        </script>
+         <script> 
+            $(document).ready(function(){
+                $('#pg\\:fm\\:pb\\:pbs\\:f1').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $('#pg\\:fm\\:pb\\:pbs\\:f2').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $('#pg\\:fm\\:pb\\:pbs1\\:add').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $('#pg\\:fm\\:pb\\:pbs1\\:city').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $('#pg\\:fm\\:pb\\:pbs1\\:apt').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $('#pg\\:fm\\:pb\\:pbs1\\:state').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $('#pg\\:fm\\:pb\\:pbs1\\:zip').change(function(){
+                    this.value = this.value.toUpperCase();
+                });
+             }); 
+         </script>
+        <apex:pageBlock title="Consumer Age Verification" mode="edit" id="pb">
+            <apex:actionFunction name="getCityData" action="{!getcitystate}" rerender="state,city,mg"/>
+            <apex:pageMessages id="mg"></apex:pageMessages>
+            <apex:pageBlockSection title="Consumer Information" id="pbs">
+                <apex:outputField value="{!conObj.CustomerType__c}"/>
+                <apex:inputField value="{!conObj.Salutation}" label="Prefix"/>
+                <apex:inputField value="{!conObj.FirstName}" styleClass="text-uppercase" required="false" id="f1" style="border-left:3px solid #c00"/>
+                <apex:inputField value="{!conObj.Suffix__c}"/>
+                <apex:inputField value="{!conObj.LastName}" styleClass="text-uppercase" required="false" id="f2" style="border-left:3px solid #c00"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Address" id="pbs1">
+            <apex:inputField value="{!conObj.Street_Address__c}" styleClass="text-uppercase" style="border-left:3px solid #c00" id="add" />
+                <apex:inputText value="{!conObj.City__c}" styleClass="text-uppercase" disabled="{!readOnlyCityState}" id="city" />
+                <apex:inputField value="{!conObj.Apt_Lot__c}" styleClass="text-uppercase" id="apt"/> 
+                <apex:inputText value="{!conObj.State__c}" styleClass="text-uppercase" disabled="{!readOnlyCityState}" id="state" />
+                <apex:inputField value="{!conObj.Zip_Code__c}" required="false" onkeyup="zipValid(this.value);" onblur="getCityData();" onchange="getCityData();" id="zip" style="border-left:3px solid #c00"/>  
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Birthdate">
+                <apex:inputField value="{!conObj.Birthdate1__c}"  label="Date Of Birth" onclick="updateCalYearPicker();"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Verify" action="{!ageVerify}" reRender="mg"/>
+                <apex:commandButton value="Reset" action="{!reset}" />
+                <apex:commandButton value="Close" onclick="CloseAgeVerfyTab();return false;"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

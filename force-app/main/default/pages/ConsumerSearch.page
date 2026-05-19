@@ -1,0 +1,565 @@
+<apex:page standardController="Contact" extensions="ConsumerSearchController" tabstyle="Contact" showheader="true" sidebar="false" id="page1">
+   <apex:includeScript value="/support/console/37.0/integration.js"/>
+   <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"/>   
+   <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+   
+    <apex:form id="fm1" >
+        <style>
+            .text-uppercase {
+                text-transform:uppercase;
+            }
+        </style>
+        <script type="text/javascript">
+            var $j = jQuery.noConflict();
+            window.onload = function() {
+                 getPrimaryTabId();
+                 SetTabTitleConsumer();
+			};
+            function SetTabTitleConsumer() {
+                sforce.console.getEnclosingTabId(function(result) {
+                   sforce.console.setTabTitle('Consumer Search', result.id);
+                });
+                document.cookie = 'apex__tranid={!tranid}; SameSite=None; Secure; path=/';
+            }                           
+            function getPrimaryTabId(){
+                  sforce.console.getEnclosingPrimaryTabId(DisableTabCloseTrueWithId);
+            }
+            var DisableTabCloseTrueWithId = function DisableTabCloseTrueWithId(result) {
+                var primaryTabId = result.id;
+                sforce.console.disableTabClose(false, primaryTabId);
+            }                        
+            function ageVerification(){
+                var country = document.getElementById("{!$Component.fm1:pb:pbs:f13}").value;
+                if(country == 'United States'){
+                    var dob = document.getElementById("{!$Component.fm1:pb:pbs:f3}").value;
+                    var zip = document.getElementById("{!$Component.fm1:pb:pbs:f4}").value;
+                    var state = document.getElementById("{!$Component.fm1:pb:pbs:f8}").value;              
+                    if(dob != null && dob != '' && zip != null && zip != '' && state != null && state !=  ''){
+                        ageVerifyzipmap();                    
+                    }
+                }
+            }
+            function openPrimaryTabEndCall(){
+                sforce.console.getEnclosingPrimaryTabId(openSubtabEndCall);
+            }
+            var openSubtabEndCall = function openSubtab(result) {
+                                        var primaryTabId = result.id;
+                                        sforce.console.openSubtab(primaryTabId,'/apex/EndCall', true, 'End Call', null, openSuccess );
+           
+                                    }            
+            function openPrimaryTabConsumer(val){
+                if(val == 'No Contact'){ 
+                    sforce.console.getEnclosingPrimaryTabId(openSubtabConsumer);
+                }else{
+                    sforce.console.getEnclosingPrimaryTabId(function openSubtabConsumer1(result) {
+                        //Now that we have the primary tab ID, we can open a new subtab in it
+                        var primaryTabId = result.id;
+                        var CustomerId = val;
+                        var tranid= '{!tranid}';                     
+                        if(result.id != 'null' && result.id !=  null){
+                            sforce.console.openSubtab(primaryTabId , '/apex/ConsumerDetailPage?id='+CustomerId, true, 'Consumer', null,  openSuccess, 'Consumer');
+                        }else{
+                            sforce.console.openPrimaryTab(null, '/apex/ConsumerDetailPage?id='+CustomerId, true, 'Consumer', null,  openSuccess, 'Consumer');
+                        }
+                    });
+                }    
+            }             
+            var openSubtabConsumer = function openSubtab(result) {
+                var tranid= '{!tranid}';
+                var parameters ='';
+                var Fname= document.getElementById("{!$Component.fm1:pb:pbs:f1}").value;          
+                var LName = document.getElementById("{!$Component.fm1:pb:pbs:f2}").value;
+                var dob = document.getElementById("{!$Component.fm1:pb:pbs:f3}").value;
+                var zip = document.getElementById("{!$Component.fm1:pb:pbs:f4}").value;
+                var add = document.getElementById("{!$Component.fm1:pb:pbs:f6}").value;
+                var city = document.getElementById("{!$Component.fm1:pb:pbs:f7}").value;
+                var state = document.getElementById("{!$Component.fm1:pb:pbs:f8}").value;
+                var country = document.getElementById("{!$Component.fm1:pb:pbs:f13}").value;
+                var phone = document.getElementById("{!$Component.fm1:pb:pbs:f5}").value;
+                var email = document.getElementById("{!$Component.fm1:pb:pbs:f9}").value;
+                if(Fname != null && Fname != '' && Fname != 'null')
+                    parameters = parameters +    '&fname='+Fname;
+                
+                if(LName != null && LName != '' && LName != 'null')
+                    parameters = parameters +    '&lname='+LName;               
+                 
+                if(dob != null && dob != '' && dob != 'null'){
+                    parameters = parameters +    '&dob='+ dob.replace('%2F','/');
+                }    
+                
+                if(add != null && add != '' && add != 'null')
+                    parameters = parameters +    '&addr1='+add;
+                
+                if(city != null && city != '' && city != 'null')
+                    parameters = parameters +    '&city='+city;
+                
+                if(state != null && state != '' && state != 'null')
+                    parameters = parameters +    '&state='+state;
+                
+                if(country != null && country != '' && country != 'null')
+                    parameters = parameters +    '&country='+country;
+                
+                if(zip != null && zip != '' && zip != 'null')
+                    parameters = parameters +    '&zip='+zip;
+            
+                if(phone != null && phone != '' && phone != 'null')
+                    parameters = parameters +    '&phone='+phone;
+            
+                if(email != null && email != '' && email != 'null')
+                    parameters = parameters +    '&email='+email;
+                
+                if(result.id !=   null && result.id != 'null')
+                    sforce.console.openSubtab(result.id, '/apex/ConsumerEntry?tranid='+tranid+'&x=x'+parameters , true, 'New  Consumer', null, openSuccess, 'Consumer');
+                else
+                    sforce.console.openPrimaryTab(null , '/apex/ConsumerEntry?tranid='+tranid+'&x=x'+parameters , true, 'New  Consumer', null, openSuccess, 'Consumer');
+            }                
+            function openPrimaryTabIssue(){
+                sforce.console.getEnclosingPrimaryTabId(openSubtabIssue);
+            }      
+            var openSubtabIssue = function openSubtab(result) {
+                var tranid= '{!tranid}'; 
+                var issue = document.getElementById("{!$Component.fm1:issueNum}").value;
+                var pageNumber = 0;
+                if(issue == null || issue == 'null'){
+                    pageNumber = 1;
+                    document.getElementById("{!$Component.fm1:issueNum}").value = 1;
+                }else{
+                    pageNumber = issue;
+                    document.getElementById("{!$Component.fm1:issueNum}").value = issue +1;
+                }          
+                var conid = '{!tranObj.Contact__c}';
+                var parameters ='';
+                var Fname= document.getElementById("{!$Component.fm1:pb:pbs:f1}").value;          
+                var LName = document.getElementById("{!$Component.fm1:pb:pbs:f2}").value;
+                var dob = document.getElementById("{!$Component.fm1:pb:pbs:f3}").value;
+                var zip = document.getElementById("{!$Component.fm1:pb:pbs:f4}").value;
+                var add = document.getElementById("{!$Component.fm1:pb:pbs:f6}").value;
+                var city = document.getElementById("{!$Component.fm1:pb:pbs:f7}").value;
+                var state = document.getElementById("{!$Component.fm1:pb:pbs:f8}").value;
+                var country = document.getElementById("{!$Component.fm1:pb:pbs:f13}").value;
+                var phone = document.getElementById("{!$Component.fm1:pb:pbs:f5}").value;
+                var email = document.getElementById("{!$Component.fm1:pb:pbs:f9}").value;
+                var pattern = /^[0-9@!#\$\^%&*()+=\-\[\]\\\';,\.\/\{\}\|\":<>\? ]+$/;
+                if(Fname != null && Fname != '' && Fname != 'null')
+                    parameters = parameters +    '&fname='+Fname;
+                
+                if(LName != null && LName != '' && LName != 'null')
+                    parameters = parameters +    '&lname='+LName;               
+                 
+                if(dob != null && dob != '' && dob != 'null'){
+                    parameters = parameters +    '&dob='+ dob.replace('%2F','/');
+                }    
+                
+                if(add != null && add != '' && add != 'null')
+                    parameters = parameters +    '&addr1='+add;
+            
+                if(city != null && city != '' && city != 'null')
+                    parameters = parameters +    '&city='+city;
+                
+                if(state != null && state != '' && state != 'null')
+                    parameters = parameters +    '&state='+state;
+                
+                if(country != null && country != '' && country != 'null')
+                    parameters = parameters +    '&country='+country;
+                
+                if(zip != null && zip != '' && zip != 'null')
+                    parameters = parameters +    '&zip='+zip;
+            
+                if(phone != null && phone != '' && phone != 'null')
+                    parameters = parameters +    '&phone='+phone;
+            
+                if(email != null && email != '' && email != 'null')
+                    parameters = parameters +    '&email='+email;
+                      
+                if(conid != null && conid != 'null' && conid != ''){                                    
+                    if(result.id !=   null && result.id != 'null')
+                        sforce.console.openSubtab(result.id, '/apex/IssueEntryPage?pageNumber='+pageNumber+'&contid='+conid , true, 'New  Issue', null, openSuccess, 'NewIssueSearch'+pageNumber);
+                    else
+                        sforce.console.openPrimaryTab(null , '/apex/IssueEntryPage?pageNumber='+pageNumber+'&contid='+conid, true, 'New  Issue', null, openSuccess, 'NewIssueSearch'+pageNumber);
+                }else{                                
+                    if(result.id !=   null && result.id != 'null')
+                        sforce.console.openSubtab(result.id, '/apex/IssueEntryPage?pageNumber='+pageNumber+parameters , true, 'New  Issue', null, openSuccess, 'NewIssueSearch'+pageNumber);
+                    else
+                        sforce.console.openPrimaryTab(null , '/apex/IssueEntryPage?pageNumber='+pageNumber+parameters, true, 'New  Issue', null, openSuccess, 'NewIssueSearch'+pageNumber);
+                }
+            }     
+            var CustomerName;    
+            var CustomerId;
+            function openCustomer(id, Name){
+                CustomerName = Name;
+                CustomerId =  id;
+                openCustomerData();                          
+            }         
+            function openCustomerData(){            
+                sforce.console.getEnclosingPrimaryTabId(openSubtabCustomer);        
+            }
+            var openSubtabCustomer = function openSubtab(result) {
+                 var tranid= '{!tranid}';
+                if(result.id !=null && result.id != 'null')
+                   sforce.console.openSubtab(result.id, '/apex/ConsumerEntry?tranid='+tranid+'&from=search&id='+CustomerId , true, CustomerName, null, openSuccess, 'Consumer');
+                else
+                   sforce.console.openPrimaryTab(null , '/apex/ConsumerEntry?tranid='+tranid+'&from=search&id='+CustomerId , true, CustomerName, null, openSuccess, 'Consumer'); 
+            }
+     
+               
+             function CCNLookup(CCNNumber){
+                var tranid= '{!tranid}';
+                document.getElementById("errorMessages").style.display = "none";
+                var classInstances;
+                 Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.ConsumerSearchController.CCNLookup}',
+                        CCNNumber,tranid,
+                        function(result, event){
+                             classInstances = result; 
+                             if (event.status){   
+                                 if(classInstances.RequestId == null || classInstances.RequestId == ''){
+                                        document.getElementById("errorMessages").className = "message errorM3";
+                    
+                                        var errors = '<table border="0" cellpadding="0" cellspacing="0" class="messageTable" style="padding:0px;margin:0px;">';
+                                        errors = errors + '<tbody><tr valign="top">';
+                                        errors = errors + '<td>';
+                                        errors = errors + '<img alt="ERROR" class="msgIcon" src="/s.gif" title="ERROR"/>';
+                                        errors = errors + '</td>';
+                                        errors = errors + '<td class="messageCell"><div id="divError" class="messageText"><span id="SpamError1" style="color:#cc0000">';
+                                        errors = errors + '<h4>Errors</h4></span><br/></div>';
+                                        errors = errors + '</td>';
+                                        errors = errors + '</tr>';
+                                        errors = errors + '<tr>';
+                                        errors = errors + '<td></td>';
+                                        errors = errors + '<td><span id="SpamError2">';
+                                        errors = errors + '<ul style="padding-left:10px;padding-top:0px;margin:0px">';
+                                        errors = errors + 'Server Error, Please try again!';
+                                        errors = errors + '</ul></span>';
+                                        errors = errors + '</td>';
+                                        errors = errors + '</tr>';
+                                        errors = errors + '</tbody></table>';
+                                        
+                                        document.getElementById("errorMessages").innerHTML = errors;
+                                        document.getElementById("errorMessages").style.display = "";                    
+                                 
+                                 }else if(classInstances.StatusCode != null && classInstances.StatusCode != '' && (classInstances.StatusCode == '0000' || classInstances.StatusCode == '000' || classInstances.StatusCode == '010') && classInstances.CCN != null && classInstances.CCN != ''){
+                                      openCustomerPage(classInstances,tranid);
+                                      document.getElementById("errorMessages").style.display = "none";                             
+                                 }else if(classInstances.CCN != null && classInstances.CCN != ''){    
+                                         alert(classInstances.CCN);
+                                        if(classInstances.StatusCode != null && (classInstances.StatusCode == '199' || classInstances.StatusCode == '300')){                         
+                                 
+                                            document.getElementById("errorMessages").className = "message errorM3";
+                        
+                                            var errors = '<table border="0" cellpadding="0" cellspacing="0" class="messageTable" style="padding:0px;margin:0px;">';
+                                            errors = errors + '<tbody><tr valign="top">';
+                                            errors = errors + '<td>';
+                                            errors = errors + '<img alt="ERROR" class="msgIcon" src="/s.gif" title="ERROR"/>';
+                                            errors = errors + '</td>';
+                                            errors = errors + '<td class="messageCell"><div id="divError" class="messageText"><span id="SpamError1" style="color:#cc0000">';
+                                            errors = errors + '<h4>Errors</h4></span><br/></div>';
+                                            errors = errors + '</td>';
+                                            errors = errors + '</tr>';
+                                            errors = errors + '<tr>';
+                                            errors = errors + '<td></td>';
+                                            errors = errors + '<td><span id="SpamError2">';
+                                            errors = errors + '<ul style="padding-left:10px;padding-top:0px;margin:0px">';
+                                            errors = errors + 'CCN not found, Please create new consumer';
+                                            errors = errors + '</ul></span>';
+                                            errors = errors + '</td>';
+                                            errors = errors + '</tr>';
+                                            errors = errors + '</tbody></table>';  
+                                            
+                                           document.getElementById("errorMessages").innerHTML = errors;
+                                           document.getElementById("errorMessages").style.display = "";                            
+                                      }
+                                      
+                                      if(classInstances.showLocalData == true){
+                                          alert('ccn'+classInstances.CCN);
+                                          ccnLookupLocalSearch(classInstances.CCN);
+                                      }
+                                 }
+                                 
+                             }
+                        }, 
+                    {escape: false}
+                );        
+            }
+            function ccnLookupLocalSearch(ccnNumberText){
+                alert('ccn' +ccnNumberText);
+                CCNLookupSearch(ccnNumberText);
+            }
+            
+            function openCustomerPage(data,tranid){
+                    sforce.console.getEnclosingPrimaryTabId(function(result) {
+                                         openCCNPage(result, data,tranid);});
+            }
+                
+            function openCCNPage(result, data, tranid){
+                var parameters = '';
+                if(data.Fname != null && data.Fname != '' && data.Fname != 'null')
+                    parameters = parameters +    '&fname='+data.Fname;
+                
+                if(data.Lname != null && data.Lname != '' && data.Lname != 'null')
+                    parameters = parameters +    '&lname='+data.Lname;   
+                
+                if(data.Title != null && data.Title != '' && data.Title != 'null')
+                    parameters = parameters +    '&title='+data.Title;
+                
+                if(data.CCN != null && data.CCN != '' && data.CCN != 'null')
+                    parameters = parameters +    '&ccn='+data.CCN;
+                 
+                if(data.DateOfBirth != null && data.DateOfBirth != '' && data.DateOfBirth != 'null') 
+                    parameters = parameters +    '&dob='+ data.DateOfBirth;
+                    
+                if(data.AVCode != null && data.AVCode != '' && data.AVCode != 'null')
+                    parameters = parameters +    '&avcode='+data.AVCode;      
+                    
+               if(data.AVOwner != null && data.AVOwner != '' && data.AVOwner != 'null')
+                    parameters = parameters +    '&avowner='+data.AVOwner;                                
+                
+                if(data.Addr1 != null && data.Addr1 != '' && data.Addr1 != 'null')
+                    parameters = parameters +    '&addr1='+data.Addr1;
+                
+                if(data.Addr2 != null && data.Addr2 != '' && data.Addr2 != 'null')
+                    parameters = parameters +    '&addr2='+data.Addr2;
+                
+                if(data.City != null && data.City != '' && data.City != 'null')
+                    parameters = parameters +    '&city='+data.City;
+                
+                if(data.State != null && data.State != '' && data.State != 'null')
+                    parameters = parameters +    '&state='+data.State;
+                
+                if(data.Zip != null && data.Zip != '' && data.Zip != 'null')
+                    parameters = parameters +    '&zip='+data.Zip;
+                    
+                var country = document.getElementById("{!$Component.fm1:pb:pbs:f13}").value;   
+                if(country != null && country != '' && country != 'null')
+                    parameters = parameters +    '&country='+country;
+                                 
+                if(result.id !=   null && result.id != 'null')
+                    sforce.console.openSubtab(result.id, '/apex/ConsumerEntry?tranid='+tranid+'&x=x'+parameters , true, 'Customer'+tranid, null, openSuccess, 'Customer'+tranid);
+                else
+                    sforce.console.openPrimaryTab(null , '/apex/ConsumerEntry?tranid='+tranid+'&x=x'+parameters, true, 'Customer'+tranid, null, openSuccess, 'Customer'+tranid);  
+                    
+            }
+        
+            var openSuccess = function openSuccess(result) {
+                //Report whether we succeeded in opening the subtab
+                if (result.success == true) {
+                    CustomerName = '';
+                    CustomerId =  '';                    
+                } 
+            };
+        
+           
+            $j(document).ready(function(){
+                var currentTime = new Date();
+                var year = currentTime.getFullYear();
+                $j("#calYearPicker").html('');
+                for(var i = 1910; i <= year;  i++){
+                    $j("#calYearPicker").append("<option value='"+ i +"'>" + i + "</option>")
+                }  
+            });
+    
+            function readableCityState(){
+                var country = document.getElementById("{!$Component.fm1:pb:pbs:f13}").value;
+                
+                document.getElementById("{!$Component.fm1:pb:pbs:f7}").value = ''; 
+                document.getElementById("{!$Component.fm1:pb:pbs:f8}").value = '';
+                document.getElementById("{!$Component.fm1:pb:pbs:f4}").value = '';
+                document.getElementById("{!$Component.fm1:pb:pbs:f6}").value = '';
+                
+                if(country != null && country != ''){
+                    if(country == 'United States'){
+                        document.getElementById("{!$Component.fm1:pb:pbs:f7}").disabled = true; 
+                        document.getElementById("{!$Component.fm1:pb:pbs:f8}").disabled = true;
+                        document.getElementById("{!$Component.fm1:pb:btn:btn2}").disabled = true; 
+                        document.getElementById("{!$Component.fm1:pb:btn:btn2}").setAttribute("class", "btnDisabled");
+                        document.getElementById("{!$Component.fm1:pb:btn:btn3}").disabled = true; 
+                        document.getElementById("{!$Component.fm1:pb:btn:btn3}").setAttribute("class", "btnDisabled");
+                    }else{
+                        document.getElementById("{!$Component.fm1:pb:pbs:f7}").disabled = false; 
+                        document.getElementById("{!$Component.fm1:pb:pbs:f8}").disabled = false;
+                        document.getElementById("{!$Component.fm1:pb:btn:btn2}").disabled = false; 
+                        document.getElementById("{!$Component.fm1:pb:btn:btn2}").setAttribute("class", "btn");
+                        var isSearch = document.getElementById("{!$Component.fm1:pb:isSearch}").value;
+                        if(isSearch != null && (isSearch == true || isSearch ==  'true')){
+                            document.getElementById("{!$Component.fm1:pb:btn:btn3}").disabled = false; 
+                            document.getElementById("{!$Component.fm1:pb:btn:btn3}").setAttribute("class", "btn");
+                        }else{
+                            document.getElementById("{!$Component.fm1:pb:btn:btn3}").disabled = true; 
+                            document.getElementById("{!$Component.fm1:pb:btn:btn3}").setAttribute("class", "btnDisabled");
+                        }
+                    }
+                }else{
+                    document.getElementById("{!$Component.fm1:pb:btn:btn2}").setAttribute("class", "btnDisabled");
+                    document.getElementById("{!$Component.fm1:pb:btn:btn3}").setAttribute("class", "btnDisabled");
+                }           
+            }
+        
+            var subTabSearch = '';
+             function currentTabRefresh() {
+                //First find the ID of the current tab to refresh it
+                sforce.console.getEnclosingTabId(refreshCurrentTab);
+             }
+            var refreshCurrentTab = function refreshSubtab(result){
+                                        var subTabId = result.id;
+                                        if(subTabSearch == subTabId || subTabSearch.trim() == ''){
+                                            subTabSearch = ''; 
+                                            RefreshContact();
+                                        }
+                                    }
+        
+            var onFocusedSubtabCallback = function (result) {
+                                            subTabSearch =  result.id;
+                                            document.getElementById("{!$Component.fm1:pb:btn:refresh}").click();
+                        
+                                        };  
+            sforce.console.onFocusedSubtab(onFocusedSubtabCallback);   
+        
+            function zipValid(val){
+                if(val.length >4){
+                    getCityState();
+                }
+            } 
+        </script>
+         <script> 
+            $j(document).ready(function(){
+                $j('#page1\\:fm1\\:pb\\:pbs\\:f1').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $j('#page1\\:fm1\\:pb\\:pbs\\:f2').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $j('#page1\\:fm1\\:pb\\:pbs\\:f4').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $j('#page1\\:fm1\\:pb\\:pbs\\:f6').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $j('#page1\\:fm1\\:pb\\:pbs\\:f7').change(function(){
+                    this.value = this.value.toUpperCase();
+                }); 
+                
+                $j('#page1\\:fm1\\:pb\\:pbs\\:f8').change(function(){
+                    this.value = this.value.toUpperCase();
+                });
+             }); 
+         </script>
+        <apex:inputHidden id="issueNum" />    
+        <apex:pageBlock id="pb" title="Consumer Search" >
+            <apex:pageMessages id="messagePb"></apex:pageMessages>
+            <div role="alert" style="display:none;" id="errorMessages"></div>  
+            <apex:actionFunction name="search" action="{!search}" rerender="dummy"/>
+            <apex:actionFunction name="getCityState" action="{!getCityState}" oncomplete="ageVerification()" reRender="messagePb,f7,f8"/>
+            <apex:actionFunction name="ageVerifyzipmap"  action="{!ageVerifyZipMap}" reRender="messagePb,btn2,btn3" />
+            <apex:actionFunction name="RefreshContact" action="{!RefreshContact}"/>
+            <apex:actionFunction name="CCNLookupSearch" action="{!CCNLookupSearch}" reRender="resultPanel,messagePb">
+                <apex:param value="" name="CCNNumberId" id="nextV1"/> 
+            </apex:actionFunction>
+            <apex:inputHidden value="{!isSearch}" id="isSearch"/>
+            <apex:pageBlockButtons id="btn" location="top">
+                <apex:commandButton value="Search" action="{!Search}" id="btn1" disabled="{!If(tranObj.Contact__c == null ,false,true)}"/>
+                <apex:commandButton value="New Issue"  onclick="openPrimaryTabIssue();return false" id="btn2" disabled="{!isIssueBtnVisible}"/>
+                <apex:commandButton value="{!If(tranObj.Contact__c == null ,'New Consumer','Consumer')}" onclick="openPrimaryTabConsumer('{!If(tranObj.Contact__c == null, 'No Contact',tranObj.Contact__c)}');return false" disabled="{!isConsumerBtnVisible}" id="btn3" />
+                <apex:commandButton value="Clear" action="{!Clear}" id="btn4" disabled="{!If(tranObj.Contact__c == null ,false,true)}"/>
+                <apex:commandButton value="Refresh" onclick="currentTabRefresh(); return false" id="refresh" style="visibility: hidden;"/>
+            </apex:pageBlockButtons>
+        
+            <apex:pageBlockSection showHeader="true" columns="1" id="pbs">
+                <apex:panelGrid columns="6" border="0" id="pang" styleClass="tableStyle" width="100%" columnClasses="colStyle1,colStyle2,colStyle3,colStyle4,colStyle5,colStyle6" rowClasses="rowstyle">       
+                    <apex:outputText >First Name</apex:outputText>
+                    <apex:inputText value="{!conObj.FirstName}" id="f1" styleClass="text-uppercase"/>
+                    <apex:outputText >Last Name</apex:outputText>
+                    <apex:inputText value="{!conObj.LastName}" id="f2" styleClass="text-uppercase" />
+                    <apex:outputText >Date of Birth</apex:outputText>
+                    <apex:inputField value="{!conObj.Birthdate1__c}" id="f3" onchange="ageVerification();" />
+                    <apex:outputText >Zip Code/ Postal code</apex:outputText>
+                    <apex:inputText value="{!conObj.Zip_Code__c}" id="f4" onkeyup="zipValid(this.value);" styleClass="text-uppercase" onchange="getCityState();" maxlength="7"/>
+                    <apex:outputText >Street Address  / Address1</apex:outputText>
+                    <apex:inputText value="{!conObj.Street_Address__c}" id="f6" styleClass="text-uppercase"/>                
+                    <apex:outputText >City  / Locality</apex:outputText>
+                    <apex:inputText value="{!conObj.City__c}" id="f7" disabled="{!readOnlyCityState}" styleClass="text-uppercase"/>
+                    
+                    <apex:outputText >State / Province</apex:outputText>
+                    <apex:inputText value="{!conObj.State__c}" id="f8" disabled="{!readOnlyCityState}" styleClass="text-uppercase"/>
+                    <apex:outputText >Country</apex:outputText>
+                    <apex:inputField value="{!conObj.Country__c}" id="f13" onchange="readableCityState();" />
+                    <apex:outputText >Telephone</apex:outputText>
+                    <apex:inputText value="{!conObj.Phone}" id="f5"/>
+                    <apex:outputText >Email</apex:outputText>
+                    <apex:inputText value="{!conObj.Email}" id="f9" />                 
+                    
+                    <apex:outputLabel ></apex:outputLabel>
+                    <apex:outputLabel ></apex:outputLabel>
+                    <apex:outputLabel ></apex:outputLabel>
+                    <apex:outputLabel ><br/><br/><br/></apex:outputLabel>
+                        
+                    <apex:outputText >CCN #</apex:outputText>
+                    <apex:inputText value="{!conObj.CCN__c}" id="f10"/>
+                    <apex:outputText >Issue #</apex:outputText>
+                    <apex:inputText value="{!issueid}" id="f11"/>
+                    <!-- IQOS -->
+                    <apex:outputText >IQOS Reference ID</apex:outputText>
+                    <apex:inputText value="{!iqosid}" id="iqos1"/>
+                    <!-- IQOS -->
+                    <apex:outputText >Transaction # </apex:outputText>
+                    <apex:inputText value="{!tranSelectedValue}" id="f12"/>
+                    
+                    <apex:outputText >Customer ID </apex:outputText>
+                    <apex:inputText value="{!conObj.CustomerID__c}" id="f14"/>
+               </apex:panelGrid>       
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <apex:outputPanel id="resultPanel">
+        <apex:pageBlock title="Search Result"  id="pb2"  rendered="{!If(conlst.size>0,true,false)}">
+            <apex:pageBlockTable value="{!conlst}" var="c" id="pbt1">
+                  <apex:column headerValue="Local Records" rendered="{!RadioDisplay}">
+                      <input type="radio" name="chosen" onClick="return openCustomer('{!c.id}','{!JSENCODE(c.Name)}');"/>
+                  </apex:column>
+                  <apex:column headerValue="Remote Records" rendered="{!!RadioDisplay}" >
+                      <input type="radio" name="chosen1" onClick="return CCNLookup('{!c.CCN__c}');"/>
+                  </apex:column> 
+                	 <!-- Added -->
+                <apex:column headerValue="DNU">
+                          <apex:OutputText value="{!c.DNU__c}"/>
+                  </apex:column>
+
+                  <apex:column headerValue="Customer ID">
+                         <apex:OutputText value="{!c.CustomerID__c }"  label="CustomerID"/>
+                  </apex:column>                   
+                  <apex:column headerValue="CCN #">
+                         <apex:OutputText value="{!c.CCN__c}"  label="CCN"/>
+                  </apex:column> 
+                  <apex:column headerValue="First Name">
+                         <apex:OutputText value="{!c.FirstName}"  label="FirstName"/>
+                  </apex:column> 
+                  <apex:column headerValue="Last Name">
+                        <apex:OutputText value="{!c.LastName}"/>
+                  </apex:column> 
+                  <apex:column headerValue="Date Of Birth">
+                        <apex:outputText value="{0,date,MM/dd/yyyy}"> 
+                            <apex:param value="{!c.Birthdate1__c}" /> 
+                        </apex:outputText>  
+                  </apex:column> 
+                  <apex:column headerValue="Address">
+                          <apex:OutputText value="{!c.Street_Address__c}"/>
+                  </apex:column>  
+                  <apex:column headerValue="City">
+                          <apex:OutputText value="{!c.City__c}"/>
+                  </apex:column>  
+                  <apex:column headerValue="State">
+                          <apex:OutputText value="{!c.State__c}"/>
+                  </apex:column>          
+                  <apex:column headerValue="Zip">
+                          <apex:OutputText value="{!c.Zip_Code__c}"/>
+                  </apex:column>
+                  <apex:column headerValue="Country">
+                          <apex:OutputText value="{!c.Country__c}"/>
+                  </apex:column>
+               
+           </apex:pageBlockTable>           
+        </apex:pageblock>
+        </apex:outputPanel>        
+    </apex:form>
+</apex:page>

@@ -1,0 +1,74 @@
+<apex:page standardController="Case" extensions="IssueReviewController" sidebar="false" tabStyle="Issue_Review__tab">    
+   
+    <apex:form id="frm">
+       
+       <apex:pageBlock title="Issue Review">           
+           <apex:outputPanel rendered="{!(IssueReviewList.size <=0)}">
+               No records to display
+           </apex:outputPanel> 
+           
+           <apex:pageBlockButtons rendered="{!(IssueReviewList.size >0)}">
+               <apex:commandButton action="{!previous}"  value="Previous" rendered="{!hasPrevious && PageSize >5}"/>
+               <apex:commandButton action="{!next}" rendered="{!hasNext && PageSize >5}" value="Next"/>
+           </apex:pageBlockButtons>
+           <apex:pageBlockTable value="{!IssueReviewList}" var="ir" rendered="{!(IssueReviewList.size >0)}"  id="theaddrs" styleClass="tablesorter" headerClass="header">
+               
+               <apex:column width="7%">
+                   <apex:facet name="header">
+                       <apex:commandLink action="{!ViewData}" value="Issue Number{!IF(sortExpression=='cn',IF(sortDirection='asc','▼','▲'),'')}">
+                           <apex:param value="cn" name="column" assignTo="{!sortExpression}" ></apex:param>
+                       </apex:commandLink>
+                   </apex:facet>
+                   &nbsp;&nbsp;<apex:OutputLink value="apex/IssueReviewDetail?id={!ir.Id}">{!ir.CaseNumber__c}</apex:outputLink>
+               </apex:column>
+               <apex:column headerValue="Name"  width="10%">
+                    <apex:OutputText value="{!ir.Contact.Name}"/>
+               </apex:column>
+               <apex:column width="18%">
+                    <apex:facet name="header">
+                       <apex:commandLink action="{!ViewData}" value="Brand{!IF(sortExpression=='bc',IF(sortDirection='asc','▼','▲'),'')}">
+                           <apex:param value="bc" name="column" assignTo="{!sortExpression}" ></apex:param>
+                       </apex:commandLink>
+                   </apex:facet>
+                    <apex:OutputText value="{!ir.Brandcode__c}"/>
+               </apex:column>
+               <apex:column width="10%">
+                    <apex:facet name="header">
+                       <apex:commandLink action="{!ViewData}" value="Product Line{!IF(sortExpression=='pl',IF(sortDirection='asc','▼','▲'),'')}">
+                           <apex:param value="pl" name="column" assignTo="{!sortExpression}" ></apex:param>
+                       </apex:commandLink>
+                   </apex:facet>
+                    <apex:OutputText value="{!ir.Product_Line__c}"/>
+               </apex:column>
+               <apex:column width="15%">
+                    <apex:facet name="header">
+                       <apex:commandLink action="{!ViewData}" value="Classification{!IF(sortExpression=='cl',IF(sortDirection='asc','▼','▲'),'')}">
+                           <apex:param value="cl" name="column" assignTo="{!sortExpression}" ></apex:param>
+                       </apex:commandLink>
+                   </apex:facet>
+                    <apex:OutputText value="{!ir.Classificationtxt__c}"/>
+               </apex:column>
+               <apex:column width="15%">
+                    <apex:facet name="header">
+                       <apex:commandLink action="{!ViewData}" value="Reason{!IF(sortExpression=='re',IF(sortDirection='asc','▼','▲'),'')}">
+                           <apex:param value="re" name="column" assignTo="{!sortExpression}" ></apex:param>
+                       </apex:commandLink>
+                   </apex:facet>
+                    <apex:OutputText value="{!ir.Reasontxt__c}"/>
+               </apex:column>
+               <apex:column width="15%">
+                    <apex:facet name="header">
+                       <apex:commandLink action="{!ViewData}" value="Cause{!IF(sortExpression=='cs',IF(sortDirection='asc','▼','▲'),'')}">
+                           <apex:param value="cs" name="column" assignTo="{!sortExpression}" ></apex:param>
+                       </apex:commandLink>
+                   </apex:facet>
+                    <apex:OutputText value="{!ir.Causetxt__c}"/>
+               </apex:column>
+               <apex:column headerValue="Comments"  width="20%">
+                    <apex:OutputText value="{!ir.Comment__c}"/>
+               </apex:column>            
+           </apex:pageBlockTable>
+           <br/>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

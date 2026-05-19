@@ -1,0 +1,103 @@
+<apex:page standardController="Correspondence_Fulfilment__c" extensions="CorrespondenceController" id="pg">
+    <apex:includeScript value="/support/console/37.0/integration.js"/>
+    <apex:form id="fm1">  
+        
+        <script>
+             function SetTabTitleCorrespondence() {
+                sforce.console.getEnclosingTabId(function(result) {
+                   var CorresId = '{!codObj.id}'; 
+                   if(CorresId != null && CorresId != '' && CorresId != 'null'){ 
+                       sforce.console.setTabTitle('CF-'+'{!Correspondence_Fulfilment__c.Name}', result.id);
+                   }
+                   sforce.console.setTabLink();
+                   
+                });
+            }
+                
+            var pageLoad = window.onload;
+            window.onload = function() {
+                var CorresId = '{!codObj.id}';
+                if(CorresId != null && CorresId != '' && CorresId != 'null'){
+                    CancelRedirect();
+                }
+                if (pageLoad) {
+                        pageLoad();
+                }
+                SetTabTitleCorrespondence();
+                setCommentBlur();
+            }   
+            function CloseTabCorrespondence() {
+                var CorresId = '{!codObj.id}'; 
+                if(CorresId == null || CorresId == '' || CorresId == 'null'){
+                     sforce.console.getEnclosingTabId(closeSubtab);
+                }else{
+                    CancelRedirect();               
+                }   
+            }        
+            var closeSubtab = function closeSubtab(result) {
+                var tabId = result.id;
+                sforce.console.closeTab(tabId);
+            };
+            function setCommentBlur(){
+                if("{!!newFulfillment}" == "true"){
+                    document.getElementById('pg:fm1:pgBlock:pgBlckSec2:comment').disabled = true;
+                }
+            }
+        </script>
+        
+        <apex:pageBlock title="Correspondence/Fulfilment" id="pgBlock">
+            <apex:pageMessages id="message"></apex:pageMessages>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!SaveRecord}" status="loadingstatus" id="saveBtn" disabled="{!!newFulfillment}" reRender="message,saveBtn"/>
+                <apex:commandButton value="Clear" action="{!Clear}" rendered="{!If(codObj.id == null,true,false)}" disabled="{!!newFulfillment}"/>
+                <apex:commandButton value="Cancel" onclick="CloseTabCorrespondence(); return false;"/>
+            </apex:pageBlockButtons>
+            <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
+            <apex:outputPanel id="op1">
+                <apex:pageBlockSection title="Outbound" collapsible="false" id="pgBlckSec1">         
+                    <apex:pageBlockSectionItem > 
+                        <apex:outputLabel >Letter</apex:outputLabel>                        
+                        <apex:selectList value="{!selectedLetter}" size="1" label="Letter" style="width:150px; border-left:3px solid #c00" disabled="{!!newFulfillment}">                             
+                            <apex:selectOptions value="{!letterList}"/>  
+                            <apex:actionSupport event="onchange" action="{!brandList}" reRender="op1,message"/>                         
+                        </apex:selectList>                        
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:inputText value="{!dateOutput}" label="Letter Date" disabled="true" style="width:145px;"/>
+                    
+                    <apex:pageBlockSectionItem id="brand" rendered="{!customerRecType != 'trade'}"> 
+                        <apex:outputLabel >Brand</apex:outputLabel>                        
+                        <apex:selectList value="{!selectedBrand}" size="1" required="{!If(BrandRequired,true,false)}" label="Letter" style="{!If(BrandRequired,'width:150px; border-left:3px solid #c00','width:150px;')}" disabled="{!!newFulfillment}" id="brand1">
+                            <apex:selectOptions value="{!OptionBrand}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem rendered="{!showMasterId}"> 
+                        <apex:outputLabel >Master Issue ID</apex:outputLabel>                        
+                        <apex:selectList value="{!selectedId}" size="1" label="Master ID" style="width:150px; border-left:3px solid #c00" disabled="{!!newFulfillment}">
+                            <apex:selectOptions value="{!MasterIssueList}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            
+            <apex:pageBlockSection columns="1" id="pgBlckSec2">
+                <apex:inputField value="{!codObj.Comments__c}"  style="width:100%;height:120px;" id="comment"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <!-- RITM2147263 -->
+        <apex:actionstatus id="loadingstatus">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                                                                     height: 100%;opacity:0.65;width:100%;"> 
+                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">Loading...</span>
+                    </div>
+                </div>
+            </apex:facet>
+        </apex:actionstatus>
+    </apex:form>   
+ 
+</apex:page>

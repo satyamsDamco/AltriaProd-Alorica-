@@ -1,0 +1,805 @@
+<apex:page standardController="case"  extensions="IssueEntryController" sidebar="False" id="pg" showHeader="false">
+
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"/>
+    
+   <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"/>
+   <apex:includeScript value="{!URLFOR($Resource.JNumeric, 'JNumeric/JNumeric.js')}"/>
+   <apex:includeScript value="/support/console/37.0/integration.js" /> 
+    <apex:form id="frm1">
+        <style>
+            .class1{
+                border-left:2px solid #FF0000;
+            }
+            .class2{
+            
+            }
+        </style>
+        <script>
+        
+        var j$ = jQuery.noConflict();
+        
+        $(document).ready(function(){
+            setFieldsValidation();  
+            var currentTime = new Date();
+            var year = currentTime.getFullYear();
+            $("#calYearPicker").html('');
+            for(var i = 1956; i <= year;  i++){
+                $("#calYearPicker").append("<option value='"+ i +"'>" + i + "</option>")
+            }          
+        });   
+    
+         //close current Tab from cancel button.
+        function testCloseTab() {
+            //First find the ID of the current tab to close it
+            sforce.console.getEnclosingTabId(closeSubtab);
+        }
+        
+        var closeSubtab = function closeSubtab(result) {
+            //Now that we have the tab ID, we can close it
+            var tabId = result.id;
+            sforce.console.closeTab(tabId);
+        };     
+        
+        function setFieldsValidation() {
+            var control = $('[id$="purchaseQty"]');
+            if (control != null) 
+                control.numeric({ decimal: false, negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });            
+            
+            control = $('[id$="expectQty"]');
+            if (control != null)
+                control.numeric({ decimal: false, negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });
+           
+           control = $('[id$="affectQty"]');
+            if (control != null)
+                control.numeric({ decimal: false, negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });  
+            
+            control = $('[id$="returnedQty"]');
+            if (control != null)
+                control.numeric({ decimal: false, negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });
+                
+            setFieldsPriceValidation();    
+                
+         }
+         
+         function setFieldsPriceValidation() {
+            var control = $('[id$="purchasePrice"]');
+            if (control != null)
+                control.numeric({ negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); }); 
+            
+         
+         }
+
+        window.onload = function() {
+            var input = document.getElementById('pg:frm1:IssEntryBlock:product:productPblock:product').focus();
+            hidingBrandFields();
+            disabledFields();
+            //renderNMIFunction();
+        }
+        
+        function productLineCheck(){
+            var productLine = document.getElementById('pg:frm1:IssEntryBlock:product:productPblock:product').value;
+            var oldProductLine = document.getElementById('pg:frm1:IssEntryBlock:product:productLine').value;
+            
+            document.getElementById('pg:frm1:IssEntryBlock:product:productLine').value = productLine;
+            if(productLine != '' && oldProductLine != productLine && oldProductLine != '' && oldProductLine  !='0' ){                
+           
+                if(confirm('Are you sure you want to change the product line')){
+                    ProductLineChange();                
+                }else{
+                    document.getElementById('pg:frm1:IssEntryBlock:product:productPblock:product').value = oldProductLine;
+                    document.getElementById('pg:frm1:IssEntryBlock:product:productLine').value = oldProductLine;
+                }                
+            }
+            
+            renderNMIFunction();
+            rerenderOP1(); 
+                  
+        }
+        
+        function resetHierarchyData(){
+            document.getElementById('pg:frm1:IssEntryBlock:IssHier:idfield').value = '';
+            document.getElementById('pg:frm1:IssEntryBlock:IssHier:issueHierCode').value = '';
+            document.getElementById('pg:frm1:IssEntryBlock:IssHier:classification').value = '';            
+            document.getElementById('pg:frm1:IssEntryBlock:IssHier:groupcode').value = '';
+            document.getElementById('pg:frm1:IssEntryBlock:IssHier:cause').value = '';
+            document.getElementById('pg:frm1:IssEntryBlock:IssHier:issueType').value = '';
+            document.getElementById('pg:frm1:IssEntryBlock:IssHier:classification1').value = '';
+            document.getElementById('pg:frm1:IssEntryBlock:IssHier:reason').value = '';
+            
+            document.getElementById('pg:frm1:IssEntryBlock:BrandHier:targetId').value = '';             
+            document.getElementById('pg:frm1:IssEntryBlock:BrandHier:upc').value = '';
+            document.getElementById('pg:frm1:IssEntryBlock:BrandHier:brand').value = ''; 
+            document.getElementById('pg:frm1:IssEntryBlock:BrandHier:brand1').value = '';   
+                
+            document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value = '';
+            $('.labeltaste').show();
+            
+            document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionLength:length').value = '';
+            $('.labellength').show();
+            
+            document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionPackaging:packaging').value = '';
+            $('.labelpackaging').show();
+            
+            document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFlavor:flavor').value = '';
+            $('.labelflavor').show();
+            
+            document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFilter:filter').value = '';
+            $('.labelFilter').show();            
+                
+            document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionpaperType:paperType').value = '';  
+            $('.labelpaperType').show();                 
+                
+            document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionCut:cut').value = '';
+            $('.labelcut').show(); 
+            
+            hidingBrandFields();                
+            rerenderOP1();    
+        }
+        
+        function checkRequiredFields(){
+            var check = false;
+            var productLine = document.getElementById('pg:frm1:IssEntryBlock:product:productPblock:product').value;
+            var chancon = document.getElementById('pg:frm1:IssEntryBlock:product:cc').value;
+            var ih = document.getElementById('pg:frm1:IssEntryBlock:IssHier:idfield').value;
+            var br = document.getElementById('pg:frm1:IssEntryBlock:BrandHier:targetId').value;
+            
+             document.getElementById("errorMessages").className = "message errorM3";
+                
+                var errors = '<table border="0" cellpadding="0" cellspacing="0" class="messageTable" style="padding:0px;margin:0px;">';
+                errors = errors + '<tbody><tr valign="top">';
+                errors = errors + '<td>';
+                errors = errors + '<img alt="ERROR" class="msgIcon" src="/s.gif" title="ERROR"/>';
+                errors = errors + '</td>';
+                errors = errors + '<td class="messageCell"><div id="MessageDiv" class="messageText"><span id="MessageSpan" style="color:#cc0000">';
+                errors = errors + '<h4>Errors</h4></span><br/></div>';
+                errors = errors + '</td>';
+                errors = errors + '</tr>';
+                errors = errors + '<tr>';
+                errors = errors + '<td></td>';
+                errors = errors + '<td><span id="MessageSpan1">';
+                errors = errors + '<ul style="padding-left:10px;padding-top:0px;margin:0px">';
+                
+                var errMsg = '';
+                
+            if(productLine == null || productLine == '' || productLine == '0'){
+                errMsg = errMsg + '<li style="padding-top:5px">Please select Product Line.</li>';
+            }
+            
+            if(chancon == null || chancon == '' || chancon == '0'){
+                errMsg = errMsg + '<li style="padding-top:5px">Please select the Channel Contact.</li>';
+            }
+            
+            if(ih == null || ih == ''){
+                  errMsg = errMsg + '<li style="padding-top:5px">Please select Issue Hierarchy.</li>'; 
+            }
+            if(br == null || br == ''){
+                 errMsg = errMsg + '<li style="padding-top:5px">Please select Brand Hierarchy.</li>';              
+            }
+            
+            var susCount = document.getElementById('pg:frm1:IssEntryBlock:IssDetail:susCounter').checked;
+            var susTamp = document.getElementById('pg:frm1:IssEntryBlock:IssDetail:suspectedTam').checked;
+            
+            if(susCount == true || susTamp == true){
+                if(!confirm('This Issue has been flagged with Suspected Counterfeit and/or Suspected Tampering. Please click on the “OK” button to save the issue as it is.')){
+                    return;
+                }
+            }
+            
+            //RITM2227718
+            var testIssue = document.getElementById('pg:frm1:IssEntryBlock:IssDetail:testIssue').checked;
+            if(testIssue == true){
+                if(!confirm('This Issue has been flagged as a Test Issue. Please click on the “OK” button to save the issue as it is.')){
+                    return;
+                }
+            }
+            
+            var confCounterfeit = document.getElementById('pg:frm1:IssEntryBlock:IssDetail:confCounterfeit').checked;
+            if(confCounterfeit == true){
+                if(!confirm('This Issue has been flagged as a Confirmed Counterfeit Trace Code. Please click on the “OK” button to save the issue as it is.')){
+                    return;
+                }
+            }
+            
+            var price = document.getElementById('pg:frm1:IssEntryBlock:PurchaseInfo:purchasePrice').value;
+            var classification = document.getElementById('pg:frm1:IssEntryBlock:IssHier:classification').value;
+               
+            if(classification != null && classification.trim() != '' && classification != 'Not a Complaint' && (price == null || price.trim() == '')){
+               
+               errMsg = errMsg + '<li style="padding-top:5px">Purchase Price is required except when Classification is “Not a Complaint”. Zero is a valid Purchase Price.</li>';
+                                
+            } 
+            
+            var purchaseType  = document.getElementById('pg:frm1:IssEntryBlock:PurchaseInfo:purchaseType').value;
+            var purchaseQty  = document.getElementById('pg:frm1:IssEntryBlock:PurchaseInfo:purchaseQty').value;
+            var purchaseDate = document.getElementById('pg:frm1:IssEntryBlock:PurchaseInfo:purchaseDate').value;
+                
+            var incidentDate = document.getElementById('pg:frm1:IssEntryBlock:PurchaseInfo:IncidentDate').value;
+            
+            var expectType  = document.getElementById('pg:frm1:IssEntryBlock:PurchaseInfo:expectType').value;
+            var expectQty  = document.getElementById('pg:frm1:IssEntryBlock:PurchaseInfo:expectQty').value;
+            
+            var affectType  = document.getElementById('pg:frm1:IssEntryBlock:PurchaseInfo:affectType').value;
+            var affectQty  = document.getElementById('pg:frm1:IssEntryBlock:PurchaseInfo:affectQty').value;
+            
+            var returnedType  = document.getElementById('pg:frm1:IssEntryBlock:PurchaseInfo:returnedType').value;
+            var returnedQty  = document.getElementById('pg:frm1:IssEntryBlock:PurchaseInfo:returnedQty').value;
+            
+            var consumerReturn = document.getElementById('pg:frm1:IssEntryBlock:TradeCustomer:consumerReturn');
+            var consumerReturnComment = document.getElementById('pg:frm1:IssEntryBlock:TradeCustomer:consumerReturnComment');
+             
+            if(purchaseType !=  null  && purchaseType != '' && purchaseQty  == ''){
+                 errMsg = errMsg + '<li style="padding-top:5px">Please fill the Purchase Quantity.</li>';
+            }
+            
+            if(expectType !=  null  && expectType != '' && expectQty  == ''){
+                  errMsg = errMsg + '<li style="padding-top:5px">Please fill the Expected Quantity.</li>';
+            }
+            
+            if(affectType !=  null  && affectType != '' && affectQty  == ''){
+                  errMsg = errMsg + '<li style="padding-top:5px">Please fill the Affected Quantity.</li>';
+            }
+            
+             if(purchaseQty !=  null  && purchaseQty != '' && purchaseType  == ''){
+                     errMsg = errMsg + '<li style="padding-top:5px">Please fill the Purchase Type.</li>';
+             }
+                
+            if(expectQty !=  null  && expectQty != '' &&  expectType == ''){
+                 errMsg = errMsg + '<li style="padding-top:5px">Please fill the Expected Type.</li>';
+            }
+            
+            if(affectQty !=  null  && affectQty != '' &&  affectType == ''){
+                  errMsg = errMsg + '<li style="padding-top:5px">Please fill the Affected Type.</li>';
+            }
+            
+            if(returnedType !=  null  && returnedType != '' && returnedQty  == ''){
+                errMsg = errMsg + '<li style="padding-top:5px">Please fill the Returned Quantity.</li>';
+            }
+            if(returnedQty !=  null  && returnedQty != '' && returnedType  == ''){
+                errMsg = errMsg + '<li style="padding-top:5px">Please fill the Returned Type.</li>';
+            }
+               
+              var q = new Date();
+                var m = q.getMonth();
+                var d = q.getDate();
+                var y = q.getFullYear();
+
+            var dateToday = new Date(y,m,d);
+            
+            if(purchaseDate !=  null  && purchaseDate != ''){
+                var mydate = new Date(purchaseDate);
+                if(mydate > dateToday){
+                    errMsg = errMsg + '<li style="padding-top:5px">Purchase Date: Purchase Date cannot be a Future Date. Enter a valid Date.</li>';
+                }
+            }
+            
+            if(incidentDate !=  null  && incidentDate != ''){
+                var mydate = new Date(incidentDate);
+                if(mydate > dateToday){
+                    errMsg = errMsg + '<li style="padding-top:5px">Incident Date: Incident Date cannot be a Future Date. Enter a valid Date.</li>';
+                }
+            }
+            
+            if(incidentDate !=  null  && incidentDate != '' && (new Date(purchaseDate)) > (new Date(incidentDate))){
+                errMsg = errMsg + '<li style="padding-top:5px">Incident Date: Incident date cannot be earlier than Purchase date.</li>';
+            }
+            
+            var comments = document.getElementById('pg:frm1:IssEntryBlock:commentSection:commentObj').value;
+            
+            if(comments == null || comments.trim() == ''){
+                 errMsg = errMsg + '<li style="padding-top:5px">Please enter the Comment</li>';
+            }
+            
+            if(consumerReturn != null && consumerReturn.checked && (consumerReturnComment.value ==  null || consumerReturnComment.value ==  '')){
+                 errMsg = errMsg + '<li style="padding-top:5px">Please enter the consumer Return Comments</li>';
+            }
+           if(errMsg != '')
+            {
+                errors = errors + errMsg;
+                errors = errors + '</ul></span>';
+                errors = errors + '</td>';
+                errors = errors + '</tr>';
+                errors = errors + '</tbody></table>';
+                
+                document.getElementById("errorMessages").innerHTML = errors;
+                document.getElementById("errorMessages").style.display = "";
+            }
+            else
+            {
+                //RITM2147263
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+                document.getElementsByTagName('body')[0].style = 'overflow: hidden';
+                document.getElementById('el_loading').style.display = 'block';
+                
+                saveissue();
+                document.getElementById("errorMessages").style.display = "none";
+
+            }
+        }
+     
+        function launchIssueHier(id,issueHierCode,issueType,reason,cause,groupcode,classification)
+        {
+        
+            var idValue = document.getElementById(id);   
+            
+            var code = document.getElementById('pg:frm1:IssEntryBlock:product:productPblock:product').value;
+            
+            if(code == '' || code == '0'){
+               alert('Please select product line');
+                return false;
+                
+            }              
+                        
+            var url;
+            if(idValue.value == null){
+                url="/apex/IssueHierarchy?idfield=" + id + "&productlineName="+code + "&issueHierCode="+ issueHierCode + "&issueTypeCode=" + issueType + "&reasonCode=" + reason + "&causeCode=" + cause + "&groupCode=" + groupcode + "&classificationCode=" + classification; 
+            }else{
+                url="/apex/IssueHierarchy?idfield=" + id + "&productlineName="+code + "&issueHierId="+ idValue.value + "&issueHierCode="+ issueHierCode + "&issueTypeCode=" + issueType + "&reasonCode=" + reason + "&causeCode=" + cause + "&groupCode=" + groupcode + "&classificationCode=" + classification; 
+            }
+            newWin=window.open(url, 'Popup','height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+           
+            newWin.focus(); 
+            document.onmousedown = focusPopup; 
+            document.onkeyup = focusPopup; 
+            document.onmousemove = focusPopup;
+            return false;
+        }
+    
+    var newWin1=null;   
+            function launchNaturalLang(id,issueHierCode,issueType,reason,cause,groupcode,classification)
+            {
+            
+                var idValue = document.getElementById(id);   
+                
+                var code = document.getElementById('pg:frm1:IssEntryBlock:product:productPblock:product').value;
+                
+                if(code == '' || code == '0'){
+                    alert('Please select product line');
+                    return false;
+                }              
+                            
+                var url;
+                if(idValue.value == null){
+                    url="/apex/IHNLAssociationListPage?idfield=" + id + "&productlineName="+code + "&issueHierCode="+ issueHierCode + "&issueTypeCode=" + issueType + "&reasonCode=" + reason + "&causeCode=" + cause + "&groupCode=" + groupcode + "&classificationCode=" + classification; 
+                }else{
+                    url="/apex/IHNLAssociationListPage?idfield=" + id + "&productlineName="+code + "&issueHierId="+ idValue.value + "&issueHierCode="+ issueHierCode + "&issueTypeCode=" + issueType + "&reasonCode=" + reason + "&causeCode=" + cause + "&groupCode=" + groupcode + "&classificationCode=" + classification; 
+                }
+                
+              newWin1=window.open(url, 'Popup','height=500,width=900,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+               
+                newWin1.focus(); 
+                document.onmousedown = focusPopup; 
+                document.onkeyup = focusPopup; 
+                document.onmousemove = focusPopup;
+                return false;
+                /* sforce.console.getEnclosingPrimaryTabId(function (result) {
+                    //Now that we have the primary tab ID, we can open a new subtab in it
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId ,url, true, 'Natural Language',null,  openSuccess, 'Natural Language');
+                });*/
+            }
+        
+        var newWin=null;
+        function launchBrandHier(id,upc,brand)
+        {
+            var idValue = document.getElementById(id);
+            var taste = 'pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste';
+            var length = 'pg:frm1:IssEntryBlock:BrandHier:sectionLength:length';
+            var packaging = 'pg:frm1:IssEntryBlock:BrandHier:sectionPackaging:packaging';
+            var flavor = 'pg:frm1:IssEntryBlock:BrandHier:sectionFlavor:flavor';
+            var filter = 'pg:frm1:IssEntryBlock:BrandHier:sectionFilter:filter';
+            var paperType = 'pg:frm1:IssEntryBlock:BrandHier:sectionpaperType:paperType';
+            var cut = 'pg:frm1:IssEntryBlock:BrandHier:sectionCut:cut';
+            
+            var code = document.getElementById('pg:frm1:IssEntryBlock:product:productPblock:product').value;
+            
+            if(code == '' || code == '0'){
+                alert('Please select product line');
+                return false;
+            }
+                           
+            var url;
+            if(idValue.value == 'null'){
+                url ="/apex/BrandHierarchy?idfield=" + id + "&productlineName="+code +"&upc=" + upc +"&brand=" +brand+ "&taste="+taste +"&length="+length +"&packaging=" + packaging +"&flavor="+flavor+ "&filter="+ filter +"&paperType="+paperType +"&cut="+cut;
+            }else{
+                url ="/apex/BrandHierarchy?idfield=" + id + "&brandHierId="+ idValue.value +"&productlineName="+code+"&upc=" + upc +"&brand=" +brand+ "&taste="+taste +"&length="+length +"&packaging=" + packaging +"&flavor="+flavor+ "&filter="+ filter +"&paperType="+paperType +"&cut="+cut;
+            }
+            newWin=window.open(url, 'Popup','height=500,width=600,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no');
+          
+            newWin.focus(); 
+            document.onmousedown = focusPopup; 
+            document.onkeyup = focusPopup; 
+            document.onmousemove = focusPopup;
+            return false;
+        }
+        
+        function focusPopup() {
+            if(newWin && !newWin.closed) { 
+                newWin.focus(); 
+            } 
+        }
+             
+        function closeLookupPopup()
+        {
+            if (null!=newWin)
+            {
+                if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:upc').value == 'no upc'){
+                    document.getElementById('pg:frm1:IssEntryBlock:BrandHier:upc').value = '';
+                }
+                document.getElementById('pg:frm1:IssEntryBlock:BrandHier:brand1').value = document.getElementById('pg:frm1:IssEntryBlock:BrandHier:brand').value;
+                hidingBrandFields();                             
+                brandFun();
+                newWin.close();
+            }            
+        }
+        function closeLookupPopup1()
+        {
+            if (null!=newWin)
+            {
+                document.getElementById('pg:frm1:IssEntryBlock:IssHier:classification1').value = document.getElementById('pg:frm1:IssEntryBlock:IssHier:classification').value;
+                IssueFun();
+                newWin.close();
+            }
+            
+        }
+        
+    function closeLookupPopupNL1()
+            {
+                if (null!=newWin1)
+                {
+                    document.getElementById('pg:frm1:IssEntryBlock:IssHier:classification1').value = document.getElementById('pg:frm1:IssEntryBlock:IssHier:classification').value;
+                    IssueFun();
+                    newWin1.close();
+                }
+                
+            }
+        
+        function hidingBrandFields(){
+             if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value == '0'){
+                    $('.labeltaste').hide();
+                }else{
+                    $('.labeltaste').show();
+                }
+                
+                if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionLength:length').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionLength:length').value == '0'){
+                    $('.labellength').hide();
+                }else{
+                    $('.labellength').show();
+                }
+                
+                if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionPackaging:packaging').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionPackaging:packaging').value == '0'){
+                    $('.labelpackaging').hide();
+                }else{
+                    $('.labelpackaging').show();
+                }
+                
+                if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFlavor:flavor').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFlavor:flavor').value == '0'){
+                    $('.labelflavor').hide();
+                }else{
+                   $('.labelflavor').show();
+                }
+                
+                if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFilter:filter').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFilter:filter').value == '0'){
+                    $('.labelFilter').hide();                    
+                }else{
+                    $('.labelFilter').show();
+                }
+                
+                if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionpaperType:paperType').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionpaperType:paperType').value == '0'){
+                    $('.labelpaperType').hide();  
+                }else{
+                    $('.labelpaperType').show();  
+                }
+                
+                if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionCut:cut').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionCut:cut').value == '0'){
+                    $('.labelcut').hide(); 
+                }else{
+                    $('.labelcut').show(); 
+                }  
+        }
+        function showValidation(){
+                var ErrorMessage = document.getElementById('pg:frm1:IssEntryBlock:traceCodeErrorMessage').value;
+                var ErrorAlert = document.getElementById('pg:frm1:IssEntryBlock:traceCodeError').value;
+                var productLineId = document.getElementById('pg:frm1:IssEntryBlock:productLineId').value;
+                if(ErrorMessage != null && ErrorMessage.trim() != ''){
+                    alert(ErrorMessage);
+                    
+                    if(ErrorAlert != null && (ErrorAlert == 'true' || ErrorAlert == true) && productLineId != null && productLineId.trim() != ''){
+                        getPrimaryIdTraceDocument(productLineId);;
+                    }
+                }                
+            }
+            
+            
+            function getPrimaryIdTraceDocument(productLineId) {
+                //First find the ID of the primary tab to put the new subtab in
+                sforce.console.getEnclosingPrimaryTabId(function (result) {
+                    //Now that we have the primary tab ID, we can open a new subtab in it
+                    var primaryTabId = result.id;
+                    sforce.console.openSubtab(primaryTabId , '/apex/traceCodeDocument?id='+productLineId, true, 'Trace Code'+productLineId, null, openSuccess, 'Trace Code'+productLineId);
+                });
+            }
+            
+            function showDateCodeValidation(){
+                var ErrorMessage = document.getElementById('pg:frm1:IssEntryBlock:dateCodeError').value;
+                if(ErrorMessage != null && ErrorMessage.trim() != ''){
+                    alert(ErrorMessage);
+                    
+                }                
+            }
+            
+             var openSuccess = function openSuccess(result) {
+                //Report whether we succeeded in opening the subtab
+               
+                if (result.success == true) {
+                    //alert('subtab successfully opened');
+                } else {
+                    //alert('subtab cannot be opened');
+                }
+            };
+            
+            //2-19-2017: Part of IQOS Project
+            function disabledFields(){
+                var val = document.getElementById('pg:frm1:IssEntryBlock:IqosInfo:serialNumber').value;
+                if(val != null && val != ''){
+                    document.getElementById('pg:frm1:IssEntryBlock:IssDetail:tcSerialNum').disabled = true;
+                    document.getElementById('pg:frm1:IssEntryBlock:IssDetail:tcSerialNum').value = '';
+                    
+                    document.getElementById('pg:frm1:IssEntryBlock:IssDetail:traceCode').disabled = true;
+                    document.getElementById('pg:frm1:IssEntryBlock:IssDetail:traceCode').value = '';
+                }
+                else{
+                    document.getElementById('pg:frm1:IssEntryBlock:IssDetail:tcSerialNum').disabled = false;
+                    document.getElementById('pg:frm1:IssEntryBlock:IssDetail:traceCode').disabled = false;
+                }
+            }
+    </script> 
+ 
+    <style>
+        .text-uppercase {
+            text-transform:uppercase;
+        }
+    </style>
+        <apex:pageBlock title="Issue Entry"  id="IssEntryBlock">
+       
+           <apex:actionFunction action="{!customSave}" id="sa" name="saveissue"/>  
+           <apex:actionFunction action="{!renderNMIFunction}" id="sa1" name="renderNMIFunction"/>          
+           <apex:actionFunction name="TraceCodeValidation" action="{!TraceCodeValidation}" reRender="message,traceCode,susCounter,productiondate,traceCodeErrorMessage,traceCodeError,productLineId" oncomplete="showValidation()"/>
+           <apex:actionFunction name="DateCodeValidation"  action="{!DateCodeValidation}" reRender="message,datecode,dateVal,datetype,dateCodeError" oncomplete="showDateCodeValidation()"/>
+          <apex:actionFunction name="IQOSSerialNumber" action="{!IQOSSerialNumber}" reRender="productiondate,message,serialNumber,regDate,ccn,regStatus,purchaseDate,tpCustomer,ftBuyer,basePrice,purchasePrice,wStartDate,wExDate,wStatus,origSerialNum,csaProblem"/>
+           <apex:inputHidden id="traceCodeErrorMessage" value="{!traceCodeErrorMessage}"/>
+           <apex:inputHidden id="traceCodeError" value="{!traceCodeError}"/>
+           <apex:inputHidden id="productLineId" value="{!productLineId}"/>
+           <apex:inputHidden id="dateCodeError" value="{!dateCodeError}"/>
+           <apex:pageBlockButtons id="btn">
+                <apex:commandButton Value="Save" onclick="checkRequiredFields();"  reRender="message"/>
+                <apex:commandButton Value="Cancel" onclick="testCloseTab();return false;"/>              
+           </apex:pageBlockButtons>
+           <div role="alert" style="display:none;" id="errorMessages"></div> 
+           <apex:pageMessages id="message"/> 
+            <apex:actionFunction name="rerenderIH" rerender="IssHier"/>
+            <apex:actionFunction name="rerenderOP1" reRender="IssDetail" />
+            <apex:actionFunction name="IssueFun" reRender="purchasePrice,IssDetail" oncomplete="setFieldsPriceValidation()"/>
+            <apex:actionFunction name="brandFun" reRender="sell1,sell2,IssDetail"/>
+            
+            <apex:pageBlockSection title="Customer">
+                <apex:outputField value="{!conObj.CustomerID__c }"/>
+                <apex:pageBlockSectionItem > 
+                    <apex:outputLabel value="Master ID"></apex:outputLabel>
+                    <apex:outputText value="{!masterID}"/>
+                </apex:pageBlockSectionItem>
+                <apex:outputText />
+                <apex:outputText value="{!conObj.Name}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Product" id="product">            
+                 <apex:pageBlockSectionItem id="productPblock">                     
+                     <apex:outputLabel value="Product Line"></apex:outputLabel>                     
+                     <apex:selectList id="product" value="{!selectedProductLine}"  style="width:175px;" size="1" onchange="productLineCheck();">
+                         <apex:selectOptions value="{!productLineList}"/>
+                     </apex:selectList>                    
+                 </apex:pageBlockSectionItem>
+                 <apex:inputfield value="{!caseObj.Channel_Contact__c}" id="cc"/>
+                <apex:actionFunction name="ProductLineChange" action="{!resetHierarchy}" reRender="IssEntryBlock" oncomplete="resetHierarchyData()"/>
+                <apex:inputHidden id="productLine" value="{!selectedProductLine}" />
+            </apex:pageBlockSection>
+             <apex:pageBlockSection title="Issue Hierarchy" id="IssHier">
+                <apex:commandButton value="Issue Hierarchy"  onclick="launchIssueHier('{!$Component.idfield}','{!$Component.issueHierCode}','{!$Component.issueType}','{!$Component.reason}','{!$Component.cause}','{!$Component.groupcode}','{!$Component.classification}'); return false;" />
+                 <apex:commandButton value="Natural Language"  onclick="launchNaturalLang('{!$Component.idfield}','{!$Component.issueHierCode}','{!$Component.issueType}','{!$Component.reason}','{!$Component.cause}','{!$Component.groupcode}','{!$Component.classification}'); return false;" oncomplete="rerenderPurchaseInfo();"/>
+                <apex:outputLabel ></apex:outputLabel>
+                <apex:inputHidden value="{!caseObj.Issue_Hierarchy_Code__c}" id="idfield"/>                
+                <apex:inputHidden value="{!caseObj.Classificationtxt__c}" id="classification1"/>  
+                <apex:outputLabel ></apex:outputLabel>
+                <apex:inputText value="{!caseObj.Classificationtxt__c}" id="classification" label="Classification" disabled="true"/>
+                <apex:inputText value="{!caseObj.Reasontxt__c}" id="reason" label="Reason"  disabled="true"/>
+                <apex:inputText value="{!caseObj.Issue_Type__c}" id="issueType" label="Issue Type" disabled="true"/>                
+                <apex:inputText value="{!caseObj.Causetxt__c}" id="cause" label="Cause"  disabled="true"/>
+                <apex:inputText value="{!caseObj.Group_Code__c}" id="groupcode" label="Group Code" disabled="true"/>
+                <apex:inputHidden value="{!caseObj.Issue_Hierarchy_Code__r.Name}" id="issueHierCode"/>
+                
+            </apex:pageBlockSection>
+            
+           
+            <apex:pageBlockSection title="Brand Hierarchy" id="BrandHier">
+                                      
+                <apex:commandButton value="Brand Hierarchy"  onclick="launchBrandHier('{!$Component.targetId}','{!$Component.upc}','{!$Component.brand}'); return false;" />
+                
+                <apex:inputHidden value="{!caseObj.Crc_Brand_Hierarchy_Code__c}" id="targetId"/>
+                
+                <apex:inputText value="{!caseObj.UPC_code__c}" id="upc" label="UPC"   disabled="true"/>
+                <apex:inputText value="{!caseObj.Brandcode__c}" id="brand" label="Brand" disabled="true" onchange="brandFun();"/>                
+                
+                <apex:pageBlockSectionItem dataStyleClass="labeltaste" labelStyleClass="labeltaste" id="sectionTaste">
+                    <apex:outputLabel value="Taste"></apex:outputLabel>
+                    <apex:inputText value="{!caseObj.Taste__c}" label="Taste" id="taste" disabled="true"/>
+                </apex:pageBlockSectionItem>
+                
+                 <apex:pageBlockSectionItem dataStyleClass="labellength" labelStyleClass="labellength" id="sectionLength">
+                    <apex:outputLabel value="Length"></apex:outputLabel>
+                    <apex:inputText value="{!caseObj.Length_Code__c}" label="Length" id="length" disabled="true"/>
+                </apex:pageBlockSectionItem>
+               
+                <apex:pageBlockSectionItem dataStyleClass="labelpackaging" labelStyleClass="labelpackaging"  id="sectionPackaging">
+                    <apex:outputLabel value="Packaging"></apex:outputLabel>
+                    <apex:inputText value="{!caseObj.Packaging__c}" label="Packaging" id="packaging"  disabled="true"/>
+                </apex:pageBlockSectionItem>  
+                
+                <apex:pageBlockSectionItem dataStyleClass="labelflavor" labelStyleClass="labelflavor" id="sectionFlavor">
+                    <apex:outputLabel value="Flavor"></apex:outputLabel>
+                     <apex:inputText value="{!caseObj.Flavor__c}" label="Flavor" id="flavor"  disabled="true"/>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem dataStyleClass="labelFilter" labelStyleClass="labelFilter" id="sectionFilter"> 
+                    <apex:outputLabel value="Filter"></apex:outputLabel>
+                    <apex:inputText value="{!caseObj.Filter__c}" label="Filter" id="filter" disabled="true"/>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem dataStyleClass="labelpaperType" labelStyleClass="labelpaperType" id="sectionpaperType">
+                     <apex:outputLabel value="Paper Type"></apex:outputLabel>
+                     <apex:inputText value="{!caseObj.Paper_Type__c}" label="Paper Type" id="paperType" disabled="true"/>
+                </apex:pageBlockSectionItem>
+             
+                <apex:pageBlockSectionItem dataStyleClass="labelcut" labelStyleClass="labelcut" id="sectionCut">
+                    <apex:outputLabel value="Cut"></apex:outputLabel>
+                    <apex:inputText value="{!caseObj.Cut__c}" label="Cut" id="cut" disabled="true"/>
+                </apex:pageBlockSectionItem>
+                <apex:inputhidden value="{!caseObj.Brandcode__c}" id="brand1"/> 
+             </apex:pageBlockSection>
+ 
+            <!-- ================ IQOS Section ====================== -->
+            <!-- <apex:pageBlockSection title="IQOS Information" id="IqosInfo" rendered="{!If(selectedProductLine =='HEAT NOT BURN',true,false)}"> -->
+            <apex:pageBlockSection title="IQOS Information" id="IqosInfo" rendered="{!iqosTrue}">
+                <apex:inputField value="{!caseObj.Serial_Number__c}" label="Serial Number" onblur="IQOSSerialNumber();disabledFields()" id="serialNumber" styleClass="text-uppercase"/>
+                <apex:inputText value="{!caseObj.IQOS_Reference_ID__c}" label="IQOS Reference ID" id="iqosRefId" disabled="true"/>
+                <apex:inputText value="{!caseObj.Original_Serial_Number__c}" label="Original Serial Number" id="origSerialNum" disabled="true" styleClass="text-uppercase"/>
+                <apex:inputText value="{!caseObj.Reimbursed_Or_Replaced_Indicator__c}" label="Reimbursed Or Replaced Indicator"  id="rOrIndicator" disabled="true"/> 
+            <!--    <apex:inputField value="{!caseObj.Third_Party_Reimbursement_Amount__c}" label="Third Party Reimbursement Amount" id="tprAmount"/> -->
+                <apex:inputText value="{!iqosTPRA}" label="Third Party Reimbursement Amount" id="tprAmount" disabled="true"/> 
+            <!--    <apex:inputField value="{!caseObj.Reimbursement_Amount__c}" label="Reimbursement Amount" id="rAmount"/> -->
+                <apex:inputText value="{!iqosRA}" label="Reimbursement Amount" id="rAmount" disabled="true"/> 
+                <apex:inputText value="{!caseObj.CEA_Agent_ID__c}" label="CEA Agent ID" id="caID" disabled="true"/>
+                <apex:inputText value="{!caseObj.Complaint_Source__c}" label="Complaint Source" id="cSource" disabled="true"/>
+                <apex:outputField value="{!caseObj.Core_Service_API_Problem__c}" label="Core Service API Problem" id="csaProblem"/>
+            <!--    <apex:inputField value="{!caseObj.Warranty_Start_Date__c}" label="Warranty Start Date" id="wStartDate"/> -->
+                <apex:inputText value="{!iqosWSD}" label="Warranty Start Date" id="wStartDate" disabled="true"/> 
+             <!--   <apex:inputField value="{!caseObj.Warranty_Expiration_Date__c}" label="Warranty Expiration Date" id="wExDate"/> -->
+                <apex:inputText value="{!iqosWED}" label="Warranty Expiration Date" id="wExDate" disabled="true"/> 
+                <apex:inputText value="{!caseObj.Warranty_Status__c}" label="Warranty Status" id="wStatus" disabled="true"/>  
+            <!--    <apex:outputField value="{!caseObj.registrationDate__c}" label="Registration Date" id="regDate"/>   -->
+                <apex:inputText value="{!iqosRegDate}" label="Registration Date" id="regDate" disabled="true"/>
+                <apex:inputText value="{!caseObj.registrationStatus__c}" label="Registration Status" id="regStatus" disabled="true"/> 
+                <apex:inputText value="{!caseObj.CCN__c}" label="CCN" id="ccn" disabled="true"/> 
+             
+            <!--    <apex:inputField value="{!caseObj.Purchase_Date__c}" label="Purchase Date" id="purDate"/>  -->
+                <apex:inputText value="{!iqosTPC}" label="Total Paid by Customer" id="tpCustomer" disabled="true"/> 
+                <apex:outputField value="{!caseObj.First_Time_Buyer__c}" label="First Time Buyer" id="ftBuyer"/>    
+                <apex:inputText value="{!iqosBP}" label="Base Price" id="basePrice" disabled="true"/>   
+                <apex:inputHidden value="{!caseObj.CreatedDate__c}"/>
+            </apex:pageBlockSection>
+            <!-- ================ IQOS END ========================== -->
+            
+            <apex:pageBlockSection title="Purchase Information" id="PurchaseInfo">
+                <apex:inputField value="{!caseObj.Purchase_Price__c}" id="purchasePrice" label="Purchase Price"   styleClass="{!IF(caseObj.Classificationtxt__c != null && caseObj.Classificationtxt__c != 'Not a Complaint','class1','class2')}"  />
+                <apex:inputField value="{!caseObj.Affected_Type__c}" label="Affected Type" id="affectType"/>
+                <apex:inputField value="{!caseObj.Purchase_Date__c}" label="Purchase Date" id="purchaseDate"/>
+                <apex:inputField value="{!caseObj.AffectedQty__c}" label="Affected Quantity"  id="affectQty"/> 
+                <apex:inputField value="{!caseObj.Incident_Date__c}" label="Incident Date" id="IncidentDate"/>
+                <apex:inputField value="{!caseObj.Expected_Type__c}" label="Expected Type" id="expectType"/>
+                <apex:inputField value="{!caseObj.Purchase_Type__c}" label="Purchase Type" id="purchaseType"/>
+                <apex:inputField value="{!caseObj.ExpectedQty__c}" label="Expected Quantity" id="expectQty"/>
+                <apex:inputField value="{!caseObj.PurchaseQty__c}" label="Purchase Quantity" id="purchaseQty"/>
+                <apex:inputField value="{!case.Returned_Type__c}" label="Returned Type" id="returnedType"/>
+				<apex:outputText value=" " label=" " />
+                <apex:inputField value="{!case.Returned_Quantity__c}" label="Returned Quantity" id="returnedQty"/>
+            </apex:pageBlockSection>
+            
+                     
+            <apex:pageBlockSection title="Issue Information" collapsible="true" id="IssDetail">
+                <apex:selectList value="{!selectedTraceCodeLocation}"  label="Trace Code Location" size="1" style="width:150px;" rendered="{!selectedProductLine != '0'}">
+                    <apex:selectOptions value="{!TraceCodeLocation}"/>
+                </apex:selectList>
+                <apex:inputField value="{!caseObj.Suspected_Counterfiet__c}" label="Suspected Counterfeit" id="susCounter"  rendered="{!selectedProductLine != '0'}"/>
+                <apex:inputField value="{!caseObj.Mfg_Trace_code__c}" styleClass="text-uppercase"  label="Mfg/Trace code" onblur="TraceCodeValidation()" id="traceCode"  rendered="{!selectedProductLine != '0'}"/>
+                
+                <apex:outputtext rendered="{!iqosTrue}" />
+                
+                <apex:inputtext value="{!caseObj.TC_Serial_Number__c}" label="TC Serial Number" styleClass="text-uppercase" id="tcSerialNum"  rendered="{!iqosTrue}"/>
+                
+                <apex:inputField value="{!caseObj.Suspected_Tampering__c}" label="Suspected Tampering" id="suspectedTam"  rendered="{!selectedProductLine != '0'}"/>
+                <apex:inputText value="{!productionDate}" disabled="true"  label="Production Date" id="productiondate"  rendered="{!selectedProductLine != '0'}"/>   
+                
+                <apex:inputField value="{!caseObj.Test_Issue__c}" label="Test Issue" id="testIssue"  rendered="{!selectedProductLine != '0'}"/> 
+                
+                <!-- <apex:pageBlockSectionItem id="section1" rendered="{!IF(NOT(selectedProductLine=='Cigars' || selectedProductLine=='Green Smoke E-Vapor' 
+                                                                   || selectedProductLine=='E-Cigarette' || selectedProductLine=='MST' 
+                                                                   || selectedProductLine =='Pouch' || selectedProductLine =='USSTC Snus' 
+                                                                   || selectedProductLine=='Tobacco-Derived Nicotine Product' || selectedProductLine=='Dry Snuff'
+                                                                   || selectedProductLine=='TOBACCO DERIVED NICOTINE POUCH' ),true, false)}">
+                </apex:pageBlockSectionItem> -->
+                 
+                <apex:inputField value="{!caseObj.Date_Code__c}"  styleClass="text-uppercase"  onblur="DateCodeValidation();" id="datecode" rendered="{!selectedProductLine=='MST'||selectedProductLine=='Pouch'|| selectedProductLine=='Green Smoke E-Vapor'||  selectedProductLine=='USSTC Snus' ||selectedProductLine=='E-Cigarette' || selectedProductLine=='Tobacco-Derived Nicotine Product'}"/>
+                                
+                <apex:inputField value="{!case.Machine_Code__c}" id="machineCode" rendered="{!IF(selectedProductLine=='Cigars' || selectedProductLine=='TOBACCO DERIVED NICOTINE POUCH'  	
+                                                                                            || selectedProductLine=='Dry Snuff' || selectedProductLine=='Pouch' || selectedProductLine=='MST'
+                                                                                            || selectedProductLine=='USSTC Snus',true,false)}"/>                                                                                  
+           
+                <apex:pageBlockSectionItem id="section9" rendered="{!selectedProductLine == '' || selectedProductLine  == '0'}">
+                </apex:pageBlockSectionItem>             
+                <apex:inputField value="{!caseObj.ProdrReturnReq__c}" label="Product Return Required for Reimbursement"/>
+                
+                <apex:inputField value="{!caseObj.Confirmed_Counterfeit__c}" label="Confirmed Counterfeit" id="confCounterfeit"  rendered="{!selectedProductLine != '0'}"/> 
+                
+                <!-- <apex:pageBlockSectionItem id="section2" rendered="{!IF(NOT(selectedProductLine=='Green Smoke E-Vapor' || selectedProductLine=='E-Cigarette' || selectedProductLine=='MST' || selectedProductLine =='Pouch' || selectedProductLine =='USSTC Snus' || selectedProductLine=='Tobacco-Derived Nicotine Product'),true, false)}">
+                </apex:pageBlockSectionItem> -->
+                
+                <apex:inputText value="{!dateCodeDate}" label="Date" id="dateVal" disabled="true" rendered="{!selectedProductLine=='MST'||selectedProductLine=='Pouch'|| selectedProductLine=='Green Smoke E-Vapor'||  selectedProductLine=='USSTC Snus' ||selectedProductLine=='E-Cigarette' || selectedProductLine=='Tobacco-Derived Nicotine Product'}"/>
+                
+                               
+                <apex:inputField value="{!caseObj.Outbound_Tracking__c}" label="Outbound Tracking #"/>
+             
+                <apex:pageBlockSectionItem id="section3" rendered="{!IF(NOT(selectedProductLine=='Green Smoke E-Vapor' || selectedProductLine=='E-Cigarette' || selectedProductLine=='MST' || selectedProductLine =='Pouch' || selectedProductLine =='USSTC Snus' || selectedProductLine=='Tobacco-Derived Nicotine Product'),true, false)}">
+                </apex:pageBlockSectionItem>
+                
+                <apex:inputText value="{!caseObj.Date_Type__c}"  label="Date Type" disabled="true" id="datetype" rendered="{!selectedProductLine=='MST'||selectedProductLine=='Pouch'|| selectedProductLine=='Green Smoke E-Vapor'||  selectedProductLine=='USSTC Snus' ||selectedProductLine=='E-Cigarette' || selectedProductLine=='Tobacco-Derived Nicotine Product'}"/>
+               
+                <apex:inputField value="{!caseObj.Inbound_Tracking__c}" label="Inbound Tracking #"/> 
+                <apex:pageBlockSectionItem id="sell1" rendered="{!caseObj.Brandcode__c != 'COPENHAGEN'}"></apex:pageBlockSectionItem>
+                <apex:inputField value="{!caseObj.ThirdPartyContacted__c}" id="ThirdParty" rendered="{!If(caseObj.Classificationtxt__c=='APE',true,false)}"/>
+                
+            </apex:pageBlockSection>
+           
+           <apex:pageBlockSection showHeader="false" collapsible="false">
+                <apex:inputField value="{!caseObj.Consumer_Mentions__c}" label="Consumer Mentions"/>
+                <apex:inputField value="{!caseObj.Related_Issue__c}" label="Related Issue"/>
+                <apex:outputPanel ></apex:outputPanel>               
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection showHeader="false" rendered="{!renderNMI}"> 
+                <apex:outputText value=" " label=" " />
+                <apex:inputField value="{!caseObj.NMI_Transaction_ID__c}" label="NMI Transaction ID"/>
+                <apex:outputPanel ></apex:outputPanel>     
+            </apex:pageBlockSection>
+            
+              <apex:pageBlockSection title="Trade Customer" id="TradeCustomer" rendered="{!If(customerRecType=='trade',true,false)}">
+                <apex:inputField value="{!caseObj.Inventory_Depleted__c}" label="Depleted Inventory"/>
+                <apex:inputField value="{!caseObj.Caller_Name__c}" label="Caller Name"/>
+                <apex:inputField value="{!caseObj.Consumer_Return__c}" label="Consumer Return" id="consumerReturn"/> 
+                <apex:inputField value="{!caseObj.Supplier_Name__c}" label="Supplier Name" id="sn" />
+                <apex:inputField value="{!caseObj.Comments__c}"  label="Consumer Return Comments" id="consumerReturnComment" style="width:100%;height:120px;"/>                
+             </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="1" title="Comment" id="commentSection">
+                <apex:inputField value="{!caseObj.Comment__c}"  id="commentObj"  style="width:100%;border-left:2px solid #FF0000"/>
+            </apex:pageBlockSection>
+            
+            <!-- RITM2147263 -->
+            <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+                                                                 height: 100%;opacity:0.65;width:100%;display:none;">
+                <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                    <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                    <span class="waitingDescription">Loading...</span>
+                </div>
+            </div>
+         </apex:pageBlock>
+    </apex:form>
+</apex:page>
