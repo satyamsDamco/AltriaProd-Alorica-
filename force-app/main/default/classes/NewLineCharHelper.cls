@@ -670,6 +670,14 @@ public void newlineCase(List<Case> caseUpdate) {
                                 caseObj.Line__c = caseObj.Mfg_Trace_code__c.substring(6, 8);
                                 caseObj.DateCodeUnit__c = third_char;    
                             }
+                            else if (third_char == '8S1' || third_char == '8S2' || third_char == '8S3'){
+                                system.debug('control in first 2nd if case');
+                                production_date = production_date; 
+                                system.debug('Date code unit '+third_char);
+                                caseObj.DateCodeRptBay__c = '8';
+                                caseObj.Line__c = caseObj.Mfg_Trace_code__c.substring(6, 8);
+                                caseObj.DateCodeUnit__c = third_char;    
+                            }
                             caseObj.ValidTraceCode__c = true;
                             caseObj.DateCodeRptFactory__c = '3RD PARTY MANUFACTURER';
                             caseObj.DateCodeLocation__c = 'Dominican Republic';

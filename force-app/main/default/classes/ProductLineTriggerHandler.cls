@@ -25,7 +25,7 @@ public class ProductLineTriggerHandler {
             plDTO.CODE = prodLineRec.Code__c != null ? prodLineRec.Code__c : '';
             plDTO.ALTCODE = prodLineRec.Altcode__c != null ? prodLineRec.Altcode__c : '';
             plDTO.DESCRIPTION = prodLineRec.Name != null ? prodLineRec.Name : '';
-            plDTO.DISPLAYDESCRIPTION = prodLineRec.DisplayDescription__c != null ? prodLineRec.DisplayDescription__c : '';
+            plDTO.DISPLAYEDDESCRIPTION = prodLineRec.DisplayDescription__c != null ? prodLineRec.DisplayDescription__c : '';
             if(prodLineRec.isActive__c != null && prodLineRec.isActive__c) {
                 plDTO.ACTIVEFLAG = 'Y';
             } else if(prodLineRec.isActive__c != null && !prodLineRec.isActive__c) {
@@ -56,7 +56,7 @@ public class ProductLineTriggerHandler {
         public String CODE {get; set;}
         public String ALTCODE {get; set;}
         public String DESCRIPTION {get; set;}
-        public String DISPLAYDESCRIPTION {get; set;}
+        public String DISPLAYEDDESCRIPTION {get; set;}
         public String ACTIVEFLAG {get; set;}
         public String DISPLAYORDER {get; set;}
     }
