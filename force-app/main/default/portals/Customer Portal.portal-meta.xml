@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Portal xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <admin>delivery.services@alorica.com.altria</admin>
+    <description>Customer Portal</description>
+    <emailSenderAddress>mramsey@salesforce.com</emailSenderAddress>
+    <emailSenderName>admin@servicecloud.trial</emailSenderName>
+    <enableSelfCloseCase>false</enableSelfCloseCase>
+    <footerDocument>Trial_Documents/Trial_Customer_Portal_Footer_HTML.html</footerDocument>
+    <forgotPassTemplate>unfiled$public/CustomerPortalChangePwdEmail</forgotPassTemplate>
+    <headerDocument>Trial_Documents/Trial_Customer_Portal_Header_HTML.html</headerDocument>
+    <isSelfRegistrationActivated>false</isSelfRegistrationActivated>
+    <loginHeaderDocument>Trial_Documents/Trial_Customer_Portal_Login_HTML.html</loginHeaderDocument>
+    <logoDocument>Trial_Documents/serviceCloudLogo.png</logoDocument>
+    <newPassTemplate>unfiled$public/CustomerPortalChangePwdEmail</newPassTemplate>
+    <newUserTemplate>unfiled$public/CustomerPortalNewUserEmail</newUserTemplate>
+    <selfRegUserDefaultProfile>high volume customer portal user</selfRegUserDefaultProfile>
+    <showActionConfirmation>false</showActionConfirmation>
+    <type>CustomerSuccess</type>
+</Portal>

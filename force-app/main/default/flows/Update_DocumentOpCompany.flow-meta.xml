@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Migrated from the: Update DocumentOpCompany workflow rule
+Workflow rule description: &quot;</description>
+    <environments>Default</environments>
+    <label>Update DocumentOpCompany</label>
+    <migratedFromWorkflowRuleName>Update DocumentOpCompany</migratedFromWorkflowRuleName>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Operating_Company_Update</name>
+        <label>Operating Company Update</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>DocumentOpCompany__c</field>
+            <value>
+                <elementReference>$Record.DocType__r.Operating_Company__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Operating_Company_Update</targetReference>
+        </connector>
+        <object>Correspondence_Fulfilment__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

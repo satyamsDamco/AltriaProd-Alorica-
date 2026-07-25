@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Update Store Feed Created Date</description>
+        <name>Update_Store_Feed_Created_Date</name>
+        <label>Update Store Feed Created Date</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.FeedCreatedDate__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Migrated from the Store Created Date workflow rule
+Workflow rule description: Update Store Feed Created Date</description>
+    <environments>Default</environments>
+    <interviewLabel>Store Created Date {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Store Created Date</label>
+    <migratedFromWorkflowRuleName>Store Created Date</migratedFromWorkflowRuleName>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Store_Feed_Created_Date</targetReference>
+        </connector>
+        <object>Store__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

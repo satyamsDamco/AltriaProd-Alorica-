@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Knowledge</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Knowledge</value>
+    </caseValues>
+    <layouts>
+        <layout>FAQ How To Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Flash Flash Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Help Doc Help Doc Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Knowledge Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Process Document Process Document Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- FAQ --></label>
+        <name>FAQ</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Flash --></label>
+        <name>Flash</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Help_Doc --></label>
+        <name>Help_Doc</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Process_Document --></label>
+        <name>Process_Document</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

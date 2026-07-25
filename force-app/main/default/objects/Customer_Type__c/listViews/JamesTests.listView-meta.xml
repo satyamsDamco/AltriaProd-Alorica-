@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>JamesTests</fullName>
+    <columns>NAME</columns>
+    <columns>CustomerConsumer__c</columns>
+    <columns>IsActive__c</columns>
+    <columns>CodeType__c</columns>
+    <columns>Customer_Type__c</columns>
+    <columns>Description__c</columns>
+    <columns>Display_Description__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>FeedSend__c</columns>
+    <columns>OBJECT_ID</columns>
+    <filterScope>Everything</filterScope>
+    <label>James Tests</label>
+</ListView>

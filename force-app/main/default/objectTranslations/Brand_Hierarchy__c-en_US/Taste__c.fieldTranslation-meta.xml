@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Taste --></label>
+    <name>Taste__c</name>
+    <picklistValues>
+        <masterLabel>0</masterLabel>
+        <translation><!-- 0 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>0.006</masterLabel>
+        <translation><!-- 0.006 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>0.012</masterLabel>
+        <translation><!-- 0.012 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>0.018</masterLabel>
+        <translation><!-- 0.018 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>0.024</masterLabel>
+        <translation><!-- 0.024 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>0.045</masterLabel>
+        <translation><!-- 0.045 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>0.05</masterLabel>
+        <translation><!-- 0.05 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>0.06</masterLabel>
+        <translation><!-- 0.06 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>1 MG</masterLabel>
+        <translation><!-- 1 MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>1.5 MG</masterLabel>
+        <translation><!-- 1.5 MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>12 MG</masterLabel>
+        <translation><!-- 12 MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 MG</masterLabel>
+        <translation><!-- 2 MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2A</masterLabel>
+        <translation><!-- 2A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3 MG</masterLabel>
+        <translation><!-- 3 MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3.5 MG</masterLabel>
+        <translation><!-- 3.5 MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>4 MG</masterLabel>
+        <translation><!-- 4 MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>4-Port</masterLabel>
+        <translation><!-- 4-Port --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>500mA</masterLabel>
+        <translation><!-- 500mA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>50mg Caffeine</masterLabel>
+        <translation><!-- 50mg Caffeine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>6 MG</masterLabel>
+        <translation><!-- 6 MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>8 MG</masterLabel>
+        <translation><!-- 8 MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>9 MG</masterLabel>
+        <translation><!-- 9 MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ACE Device</masterLabel>
+        <translation><!-- ACE Device --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ACE Pod 2.4 Percent Nicotine</masterLabel>
+        <translation><!-- ACE Pod 2.4 Percent Nicotine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ACE Pod 5 Percent Nicotine</masterLabel>
+        <translation><!-- ACE Pod 5 Percent Nicotine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>AZ</masterLabel>
+        <translation><!-- AZ --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BLACK &amp; GOLD</masterLabel>
+        <translation><!-- BLACK &amp; GOLD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BLACK GOLD</masterLabel>
+        <translation><!-- BLACK GOLD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BLACK LABEL</masterLabel>
+        <translation><!-- BLACK LABEL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BLACK PACK</masterLabel>
+        <translation><!-- BLACK PACK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BLACK SELECT</masterLabel>
+        <translation><!-- BLACK SELECT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BLUE</masterLabel>
+        <translation><!-- BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BOLD ICE</masterLabel>
+        <translation><!-- BOLD ICE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Black Special Blend</masterLabel>
+        <translation><!-- Black Special Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Blend No. 27</masterLabel>
+        <translation><!-- Blend No. 27 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Blend No. 32</masterLabel>
+        <translation><!-- Blend No. 32 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Blend No. 54</masterLabel>
+        <translation><!-- Blend No. 54 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Blue Pack</masterLabel>
+        <translation><!-- Blue Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bold</masterLabel>
+        <translation><!-- Bold --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bronze Pack</masterLabel>
+        <translation><!-- Bronze Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bronze Pack Blend No. 27</masterLabel>
+        <translation><!-- Bronze Pack Blend No. 27 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CIGARETTELLOS</masterLabel>
+        <translation><!-- CIGARETTELLOS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CLASSIC</masterLabel>
+        <translation><!-- CLASSIC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CLASSIC BLUE</masterLabel>
+        <translation><!-- CLASSIC BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CLASSIC LIGHT</masterLabel>
+        <translation><!-- CLASSIC LIGHT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>COWBOY CUT</masterLabel>
+        <translation><!-- COWBOY CUT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>COWBOY CUT GOLD</masterLabel>
+        <translation><!-- COWBOY CUT GOLD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>COWBOY CUT MENTHOL</masterLabel>
+        <translation><!-- COWBOY CUT MENTHOL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Calming Stress</masterLabel>
+        <translation><!-- Calming Stress --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chewable Dissolvables</masterLabel>
+        <translation><!-- Chewable Dissolvables --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chews</masterLabel>
+        <translation><!-- Chews --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chillax</masterLabel>
+        <translation><!-- Chillax --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Constant Power</masterLabel>
+        <translation><!-- Constant Power --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Daily 4.5 Percent Nicotine</masterLabel>
+        <translation><!-- Daily 4.5 Percent Nicotine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Daily 6 Percent Nicotine</masterLabel>
+        <translation><!-- Daily 6 Percent Nicotine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Daily Unknown Percent Nicotine</masterLabel>
+        <translation><!-- Daily Unknown Percent Nicotine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Deluxe</masterLabel>
+        <translation><!-- Deluxe --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Disc</masterLabel>
+        <translation><!-- Disc --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Disposable</masterLabel>
+        <translation><!-- Disposable --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>E-COMMERCE</masterLabel>
+        <translation><!-- E-COMMERCE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>E-COMMERCE CO</masterLabel>
+        <translation><!-- E-COMMERCE CO --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>E-COMMERCE MO</masterLabel>
+        <translation><!-- E-COMMERCE MO --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Edge</masterLabel>
+        <translation><!-- Edge --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Energy</masterLabel>
+        <translation><!-- Energy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Energy &amp; Focus</masterLabel>
+        <translation><!-- Energy &amp; Focus --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>FANTASIA LIGHTS</masterLabel>
+        <translation><!-- FANTASIA LIGHTS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Full Flavor</masterLabel>
+        <translation><!-- Full Flavor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>GOLD LABEL</masterLabel>
+        <translation><!-- GOLD LABEL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gold</masterLabel>
+        <translation><!-- Gold --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gold Pack</masterLabel>
+        <translation><!-- Gold Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gold Pack 25s</masterLabel>
+        <translation><!-- Gold Pack 25s --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Green Pack</masterLabel>
+        <translation><!-- Green Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HAVANA OVALS</masterLabel>
+        <translation><!-- HAVANA OVALS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HINT</masterLabel>
+        <translation><!-- HINT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hydration</masterLabel>
+        <translation><!-- Hydration --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IN</masterLabel>
+        <translation><!-- IN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ice</masterLabel>
+        <translation><!-- Ice --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lights</masterLabel>
+        <translation><!-- Lights --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lowest/Superlights/Ultima</masterLabel>
+        <translation><!-- Lowest/Superlights/Ultima --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Luxury</masterLabel>
+        <translation><!-- Luxury --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MCD</masterLabel>
+        <translation><!-- MCD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MCD GOLD</masterLabel>
+        <translation><!-- MCD GOLD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MCD LIGHTS</masterLabel>
+        <translation><!-- MCD LIGHTS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MCD SILVER</masterLabel>
+        <translation><!-- MCD SILVER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MCD ULTRA</masterLabel>
+        <translation><!-- MCD ULTRA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MENTHOL</masterLabel>
+        <translation><!-- MENTHOL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medium</masterLabel>
+        <translation><!-- Medium --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Melts</masterLabel>
+        <translation><!-- Melts --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Midnight</masterLabel>
+        <translation><!-- Midnight --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Milds</masterLabel>
+        <translation><!-- Milds --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multifilter</masterLabel>
+        <translation><!-- Multifilter --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multiufilter</masterLabel>
+        <translation><!-- Multiufilter --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>N/A</masterLabel>
+        <translation><!-- N/A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NAT</masterLabel>
+        <translation><!-- NAT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NAT&apos;S</masterLabel>
+        <translation><!-- NAT&apos;S --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NAT&apos;S BLUE</masterLabel>
+        <translation><!-- NAT&apos;S BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NAT&apos;S MENTHOL</masterLabel>
+        <translation><!-- NAT&apos;S MENTHOL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NAT&apos;S YELLOW</masterLabel>
+        <translation><!-- NAT&apos;S YELLOW --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NATURALS LIGHTS</masterLabel>
+        <translation><!-- NATURALS LIGHTS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NATURALS LIGHTS / BROWN</masterLabel>
+        <translation><!-- NATURALS LIGHTS / BROWN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NATURALS ULTRA</masterLabel>
+        <translation><!-- NATURALS ULTRA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NEW YORK CUT</masterLabel>
+        <translation><!-- NEW YORK CUT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NEW YORK CUT BLUE</masterLabel>
+        <translation><!-- NEW YORK CUT BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NEW YORK CUT ORIGINAL</masterLabel>
+        <translation><!-- NEW YORK CUT ORIGINAL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NOT IN SYSTEM</masterLabel>
+        <translation><!-- NOT IN SYSTEM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NXT</masterLabel>
+        <translation><!-- NXT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>None</masterLabel>
+        <translation><!-- None --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ORIGIN HP</masterLabel>
+        <translation><!-- ORIGIN HP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ORIGINAL</masterLabel>
+        <translation><!-- ORIGINAL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ORIGINALS</masterLabel>
+        <translation><!-- ORIGINALS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ORIGINALS BLUE</masterLabel>
+        <translation><!-- ORIGINALS BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ORIGINALS YELLOW</masterLabel>
+        <translation><!-- ORIGINALS YELLOW --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PLUS HP</masterLabel>
+        <translation><!-- PLUS HP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Red</masterLabel>
+        <translation><!-- Red --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Red Label</masterLabel>
+        <translation><!-- Red Label --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Red Pack</masterLabel>
+        <translation><!-- Red Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reserve</masterLabel>
+        <translation><!-- Reserve --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rich Blue</masterLabel>
+        <translation><!-- Rich Blue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SELECT BLUE</masterLabel>
+        <translation><!-- SELECT BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SELECT FULL FLAVOR</masterLabel>
+        <translation><!-- SELECT FULL FLAVOR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SELECT YELLOW</masterLabel>
+        <translation><!-- SELECT YELLOW --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SIMPLE TOBACCO BLUE</masterLabel>
+        <translation><!-- SIMPLE TOBACCO BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SIMPLE TOBACCO GREEN</masterLabel>
+        <translation><!-- SIMPLE TOBACCO GREEN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SIMPLE TOBACCO ORANGE</masterLabel>
+        <translation><!-- SIMPLE TOBACCO ORANGE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SIMPLE TOBACCO YELLOW</masterLabel>
+        <translation><!-- SIMPLE TOBACCO YELLOW --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SMOOTH ICE</masterLabel>
+        <translation><!-- SMOOTH ICE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SPECIAL SELECT GOLD</masterLabel>
+        <translation><!-- SPECIAL SELECT GOLD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SPECIAL SELECT RED</masterLabel>
+        <translation><!-- SPECIAL SELECT RED --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Select</masterLabel>
+        <translation><!-- Select --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Silver Pack</masterLabel>
+        <translation><!-- Silver Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Skyline</masterLabel>
+        <translation><!-- Skyline --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Slate</masterLabel>
+        <translation><!-- Slate --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Smooth</masterLabel>
+        <translation><!-- Smooth --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Southern Cut</masterLabel>
+        <translation><!-- Southern Cut --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Special Blend</masterLabel>
+        <translation><!-- Special Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Special Blend Black Pack</masterLabel>
+        <translation><!-- Special Blend Black Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Special Blend Gold Pack</masterLabel>
+        <translation><!-- Special Blend Gold Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Special Blend Red Pack</masterLabel>
+        <translation><!-- Special Blend Red Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Special Blend Unknown</masterLabel>
+        <translation><!-- Special Blend Unknown --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Standard</masterLabel>
+        <translation><!-- Standard --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Stress Relief</masterLabel>
+        <translation><!-- Stress Relief --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Superslims</masterLabel>
+        <translation><!-- Superslims --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Superslims Gold Pack</masterLabel>
+        <translation><!-- Superslims Gold Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Superslims Lights</masterLabel>
+        <translation><!-- Superslims Lights --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Superslims Uknown Taste</masterLabel>
+        <translation><!-- Superslims Uknown Taste --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Superslims Unknown Taste</masterLabel>
+        <translation><!-- Superslims Unknown Taste --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Turkish Blend</masterLabel>
+        <translation><!-- Turkish Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Turkish Night</masterLabel>
+        <translation><!-- Turkish Night --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ultra Lights</masterLabel>
+        <translation><!-- Ultra Lights --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Undetermined</masterLabel>
+        <translation><!-- Undetermined --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unknown</masterLabel>
+        <translation><!-- Unknown --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unknown MG</masterLabel>
+        <translation><!-- Unknown MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Va Blend</masterLabel>
+        <translation><!-- Va Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>White Pack</masterLabel>
+        <translation><!-- White Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>YELLOW</masterLabel>
+        <translation><!-- YELLOW --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

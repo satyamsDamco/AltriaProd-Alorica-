@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Adjustment Type --></label>
+    <name>Adjustment_Type__c</name>
+    <picklistValues>
+        <masterLabel>Brand Hierarchy</masterLabel>
+        <translation><!-- Brand Hierarchy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Consumer Notes</masterLabel>
+        <translation><!-- Consumer Notes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Date Code</masterLabel>
+        <translation><!-- Date Code --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Issue Hierarchy</masterLabel>
+        <translation><!-- Issue Hierarchy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Related Issue ID</masterLabel>
+        <translation><!-- Related Issue ID --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Review</masterLabel>
+        <translation><!-- Review --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Suspected Counterfeit Flag</masterLabel>
+        <translation><!-- Suspected Counterfeit Flag --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Suspected Tampering</masterLabel>
+        <translation><!-- Suspected Tampering --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trace Code</masterLabel>
+        <translation><!-- Trace Code --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

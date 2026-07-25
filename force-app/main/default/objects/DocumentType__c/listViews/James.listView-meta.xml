@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>James</fullName>
+    <columns>IsActive__c</columns>
+    <columns>Brand_Required__c</columns>
+    <columns>Description__c</columns>
+    <columns>DocTyp__c</columns>
+    <columns>DocumentTypeCode__c</columns>
+    <columns>FeedSend__c</columns>
+    <columns>FileName__c</columns>
+    <columns>isReimbursement__c</columns>
+    <columns>isTrade__c</columns>
+    <columns>showMasterField__c</columns>
+    <columns>Op_Company__c</columns>
+    <columns>PkgCode__c</columns>
+    <columns>PrintLetterHead__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>James</label>
+</ListView>

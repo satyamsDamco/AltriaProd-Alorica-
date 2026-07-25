@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- StoreAddr1_Feed --></label>
+    <name>StoreAddr1_Feed__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-home</defaultLandingTab>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <tabs>Survey__c</tabs>
+    <tabs>Product_Line__c</tabs>
+    <tabs>Brand__c</tabs>
+    <tabs>Brand_Hierarchy__c</tabs>
+    <tabs>Issue_Hierarchy__c</tabs>
+    <tabs>DocumentType__c</tabs>
+    <tabs>Issue_Review</tabs>
+    <tabs>Issue_Adjustment_Review</tabs>
+    <tabs>Manual_Integration</tabs>
+    <tabs>Age_Mapping__c</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>Transaction_Management__c</tabs>
+    <tabs>Store__c</tabs>
+    <tabs>Issue_Adjustment__c</tabs>
+    <tabs>Reimbursement__c</tabs>
+    <tabs>Correspondence_Fulfilment__c</tabs>
+    <tabs>Survey_Issue__c</tabs>
+    <tabs>Attachment_Detail__c</tabs>
+    <tabs>IQOS_Static_Data__c</tabs>
+    <tabs>Variable_Data__c</tabs>
+    <tabs>Survey_Configuration__c</tabs>
+    <tabs>standard-File</tabs>
+    <tabs>Hot_Zip__c</tabs>
+    <tabs>Tracecode_Matrix_Table__c</tabs>
+</CustomApplication>

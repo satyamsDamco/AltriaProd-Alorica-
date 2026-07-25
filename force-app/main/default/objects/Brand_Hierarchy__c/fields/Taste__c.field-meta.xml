@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Taste__c</fullName>
+    <label>Taste</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>0</fullName>
+                <default>false</default>
+                <label>0</label>
+            </value>
+            <value>
+                <fullName>0.006</fullName>
+                <default>false</default>
+                <label>0.006</label>
+            </value>
+            <value>
+                <fullName>0.012</fullName>
+                <default>false</default>
+                <label>0.012</label>
+            </value>
+            <value>
+                <fullName>0.018</fullName>
+                <default>false</default>
+                <label>0.018</label>
+            </value>
+            <value>
+                <fullName>0.024</fullName>
+                <default>false</default>
+                <label>0.024</label>
+            </value>
+            <value>
+                <fullName>1 MG</fullName>
+                <default>false</default>
+                <label>1 MG</label>
+            </value>
+            <value>
+                <fullName>2A</fullName>
+                <default>false</default>
+                <label>2A</label>
+            </value>
+            <value>
+                <fullName>2 MG</fullName>
+                <default>false</default>
+                <label>2 MG</label>
+            </value>
+            <value>
+                <fullName>3 MG</fullName>
+                <default>false</default>
+                <label>3 MG</label>
+            </value>
+            <value>
+                <fullName>4 MG</fullName>
+                <default>false</default>
+                <label>4 MG</label>
+            </value>
+            <value>
+                <fullName>4-Port</fullName>
+                <default>false</default>
+                <label>4-Port</label>
+            </value>
+            <value>
+                <fullName>500mA</fullName>
+                <default>false</default>
+                <label>500mA</label>
+            </value>
+            <value>
+                <fullName>8 MG</fullName>
+                <default>false</default>
+                <label>8 MG</label>
+            </value>
+            <value>
+                <fullName>AZ</fullName>
+                <default>false</default>
+                <label>AZ</label>
+            </value>
+            <value>
+                <fullName>BLACK &amp; GOLD</fullName>
+                <default>false</default>
+                <label>BLACK &amp; GOLD</label>
+            </value>
+            <value>
+                <fullName>BLACK LABEL</fullName>
+                <default>false</default>
+                <label>BLACK LABEL</label>
+            </value>
+            <value>
+                <fullName>BLACK PACK</fullName>
+                <default>false</default>
+                <label>BLACK PACK</label>
+            </value>
+            <value>
+                <fullName>BLACK SELECT</fullName>
+                <default>false</default>
+                <label>BLACK SELECT</label>
+            </value>
+            <value>
+                <fullName>Black Special Blend</fullName>
+                <default>false</default>
+                <label>Black Special Blend</label>
+            </value>
+            <value>
+                <fullName>Blend No. 27</fullName>
+                <default>false</default>
+                <label>Blend No. 27</label>
+            </value>
+            <value>
+                <fullName>Blend No. 32</fullName>
+                <default>false</default>
+                <label>Blend No. 32</label>
+            </value>
+            <value>
+                <fullName>Blend No. 54</fullName>
+                <default>false</default>
+                <label>Blend No. 54</label>
+            </value>
+            <value>
+                <fullName>BLUE</fullName>
+                <default>false</default>
+                <label>BLUE</label>
+            </value>
+            <value>
+                <fullName>Blue Pack</fullName>
+                <default>false</default>
+                <label>Blue Pack</label>
+            </value>
+            <value>
+                <fullName>Bold</fullName>
+                <default>false</default>
+                <label>Bold</label>
+            </value>
+            <value>
+                <fullName>BOLD ICE</fullName>
+                <default>false</default>
+                <label>BOLD ICE</label>
+            </value>
+            <value>
+                <fullName>Bronze Pack</fullName>
+                <default>false</default>
+                <label>Bronze Pack</label>
+            </value>
+            <value>
+                <fullName>Bronze Pack Blend No. 27</fullName>
+                <default>false</default>
+                <label>Bronze Pack Blend No. 27</label>
+            </value>
+            <value>
+                <fullName>Chewable Dissolvables</fullName>
+                <default>false</default>
+                <label>Chewable Dissolvables</label>
+            </value>
+            <value>
+                <fullName>Chews</fullName>
+                <default>false</default>
+                <label>Chews</label>
+            </value>
+            <value>
+                <fullName>CIGARETTELLOS</fullName>
+                <default>false</default>
+                <label>CIGARETTELLOS</label>
+            </value>
+            <value>
+                <fullName>CLASSIC</fullName>
+                <default>false</default>
+                <label>CLASSIC</label>
+            </value>
+            <value>
+                <fullName>CLASSIC BLUE</fullName>
+                <default>false</default>
+                <label>CLASSIC BLUE</label>
+            </value>
+            <value>
+                <fullName>CLASSIC LIGHT</fullName>
+                <default>false</default>
+                <label>CLASSIC LIGHT</label>
+            </value>
+            <value>
+                <fullName>Constant Power</fullName>
+                <default>false</default>
+                <label>Constant Power</label>
+            </value>
+            <value>
+                <fullName>Deluxe</fullName>
+                <default>false</default>
+                <label>Deluxe</label>
+            </value>
+            <value>
+                <fullName>DISC</fullName>
+                <default>false</default>
+                <label>Disc</label>
+            </value>
+            <value>
+                <fullName>Disposable</fullName>
+                <default>false</default>
+                <label>Disposable</label>
+            </value>
+            <value>
+                <fullName>E-COMMERCE</fullName>
+                <default>false</default>
+                <label>E-COMMERCE</label>
+            </value>
+            <value>
+                <fullName>E-COMMERCE CO</fullName>
+                <default>false</default>
+                <label>E-COMMERCE CO</label>
+            </value>
+            <value>
+                <fullName>E-COMMERCE MO</fullName>
+                <default>false</default>
+                <label>E-COMMERCE MO</label>
+            </value>
+            <value>
+                <fullName>Edge</fullName>
+                <default>false</default>
+                <label>Edge</label>
+            </value>
+            <value>
+                <fullName>FANTASIA LIGHTS</fullName>
+                <default>false</default>
+                <label>FANTASIA LIGHTS</label>
+            </value>
+            <value>
+                <fullName>Full Flavor</fullName>
+                <default>false</default>
+                <label>Full Flavor</label>
+            </value>
+            <value>
+                <fullName>Gold</fullName>
+                <default>false</default>
+                <label>Gold</label>
+            </value>
+            <value>
+                <fullName>GOLD LABEL</fullName>
+                <default>false</default>
+                <label>GOLD LABEL</label>
+            </value>
+            <value>
+                <fullName>Gold Pack</fullName>
+                <default>false</default>
+                <label>Gold Pack</label>
+            </value>
+            <value>
+                <fullName>Gold Pack 25s</fullName>
+                <default>false</default>
+                <label>Gold Pack 25s</label>
+            </value>
+            <value>
+                <fullName>Green Pack</fullName>
+                <default>false</default>
+                <label>Green Pack</label>
+            </value>
+            <value>
+                <fullName>HAVANA OVALS</fullName>
+                <default>false</default>
+                <label>HAVANA OVALS</label>
+            </value>
+            <value>
+                <fullName>HINT</fullName>
+                <default>false</default>
+                <label>HINT</label>
+            </value>
+            <value>
+                <fullName>Ice</fullName>
+                <default>false</default>
+                <label>Ice</label>
+            </value>
+            <value>
+                <fullName>IN</fullName>
+                <default>false</default>
+                <label>IN</label>
+            </value>
+            <value>
+                <fullName>Lights</fullName>
+                <default>false</default>
+                <label>Lights</label>
+            </value>
+            <value>
+                <fullName>Lowest/Superlights/Ultima</fullName>
+                <default>false</default>
+                <label>Lowest/Superlights/Ultima</label>
+            </value>
+            <value>
+                <fullName>Luxury</fullName>
+                <default>false</default>
+                <label>Luxury</label>
+            </value>
+            <value>
+                <fullName>MCD</fullName>
+                <default>false</default>
+                <label>MCD</label>
+            </value>
+            <value>
+                <fullName>MCD GOLD</fullName>
+                <default>false</default>
+                <label>MCD GOLD</label>
+            </value>
+            <value>
+                <fullName>MCD LIGHTS</fullName>
+                <default>false</default>
+                <label>MCD LIGHTS</label>
+            </value>
+            <value>
+                <fullName>MCD SILVER</fullName>
+                <default>false</default>
+                <label>MCD SILVER</label>
+            </value>
+            <value>
+                <fullName>MCD ULTRA</fullName>
+                <default>false</default>
+                <label>MCD ULTRA</label>
+            </value>
+            <value>
+                <fullName>Medium</fullName>
+                <default>false</default>
+                <label>Medium</label>
+            </value>
+            <value>
+                <fullName>Melts</fullName>
+                <default>false</default>
+                <label>Melts</label>
+            </value>
+            <value>
+                <fullName>MENTHOL</fullName>
+                <default>false</default>
+                <label>MENTHOL</label>
+            </value>
+            <value>
+                <fullName>Midnight</fullName>
+                <default>false</default>
+                <label>Midnight</label>
+            </value>
+            <value>
+                <fullName>Milds</fullName>
+                <default>false</default>
+                <label>Milds</label>
+            </value>
+            <value>
+                <fullName>Multifilter</fullName>
+                <default>false</default>
+                <label>Multifilter</label>
+            </value>
+            <value>
+                <fullName>Multiufilter</fullName>
+                <default>false</default>
+                <label>Multiufilter</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>NAT</fullName>
+                <default>false</default>
+                <label>NAT</label>
+            </value>
+            <value>
+                <fullName>NAT&apos;S</fullName>
+                <default>false</default>
+                <label>NAT&apos;S</label>
+            </value>
+            <value>
+                <fullName>NAT&apos;S BLUE</fullName>
+                <default>false</default>
+                <label>NAT&apos;S BLUE</label>
+            </value>
+            <value>
+                <fullName>NAT&apos;S MENTHOL</fullName>
+                <default>false</default>
+                <label>NAT&apos;S MENTHOL</label>
+            </value>
+            <value>
+                <fullName>NAT&apos;S YELLOW</fullName>
+                <default>false</default>
+                <label>NAT&apos;S YELLOW</label>
+            </value>
+            <value>
+                <fullName>NATURALS LIGHTS</fullName>
+                <default>false</default>
+                <label>NATURALS LIGHTS</label>
+            </value>
+            <value>
+                <fullName>NATURALS LIGHTS / BROWN</fullName>
+                <default>false</default>
+                <label>NATURALS LIGHTS / BROWN</label>
+            </value>
+            <value>
+                <fullName>NATURALS ULTRA</fullName>
+                <default>false</default>
+                <label>NATURALS ULTRA</label>
+            </value>
+            <value>
+                <fullName>NEW YORK CUT</fullName>
+                <default>false</default>
+                <label>NEW YORK CUT</label>
+            </value>
+            <value>
+                <fullName>NEW YORK CUT BLUE</fullName>
+                <default>false</default>
+                <label>NEW YORK CUT BLUE</label>
+            </value>
+            <value>
+                <fullName>NEW YORK CUT ORIGINAL</fullName>
+                <default>false</default>
+                <label>NEW YORK CUT ORIGINAL</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>NOT IN SYSTEM</fullName>
+                <default>false</default>
+                <label>NOT IN SYSTEM</label>
+            </value>
+            <value>
+                <fullName>NXT</fullName>
+                <default>false</default>
+                <label>NXT</label>
+            </value>
+            <value>
+                <fullName>ORIGINAL</fullName>
+                <default>false</default>
+                <label>ORIGINAL</label>
+            </value>
+            <value>
+                <fullName>ORIGINALS</fullName>
+                <default>false</default>
+                <label>ORIGINALS</label>
+            </value>
+            <value>
+                <fullName>ORIGINALS BLUE</fullName>
+                <default>false</default>
+                <label>ORIGINALS BLUE</label>
+            </value>
+            <value>
+                <fullName>ORIGINALS YELLOW</fullName>
+                <default>false</default>
+                <label>ORIGINALS YELLOW</label>
+            </value>
+            <value>
+                <fullName>Red</fullName>
+                <default>false</default>
+                <label>Red</label>
+            </value>
+            <value>
+                <fullName>Red Label</fullName>
+                <default>false</default>
+                <label>Red Label</label>
+            </value>
+            <value>
+                <fullName>Red Pack</fullName>
+                <default>false</default>
+                <label>Red Pack</label>
+            </value>
+            <value>
+                <fullName>Reserve</fullName>
+                <default>false</default>
+                <label>Reserve</label>
+            </value>
+            <value>
+                <fullName>Rich Blue</fullName>
+                <default>false</default>
+                <label>Rich Blue</label>
+            </value>
+            <value>
+                <fullName>Select</fullName>
+                <default>false</default>
+                <label>Select</label>
+            </value>
+            <value>
+                <fullName>SELECT BLUE</fullName>
+                <default>false</default>
+                <label>SELECT BLUE</label>
+            </value>
+            <value>
+                <fullName>SELECT FULL FLAVOR</fullName>
+                <default>false</default>
+                <label>SELECT FULL FLAVOR</label>
+            </value>
+            <value>
+                <fullName>SELECT YELLOW</fullName>
+                <default>false</default>
+                <label>SELECT YELLOW</label>
+            </value>
+            <value>
+                <fullName>Silver Pack</fullName>
+                <default>false</default>
+                <label>Silver Pack</label>
+            </value>
+            <value>
+                <fullName>Skyline</fullName>
+                <default>false</default>
+                <label>Skyline</label>
+            </value>
+            <value>
+                <fullName>Slate</fullName>
+                <default>false</default>
+                <label>Slate</label>
+            </value>
+            <value>
+                <fullName>Smooth</fullName>
+                <default>false</default>
+                <label>Smooth</label>
+            </value>
+            <value>
+                <fullName>SMOOTH ICE</fullName>
+                <default>false</default>
+                <label>SMOOTH ICE</label>
+            </value>
+            <value>
+                <fullName>Southern Cut</fullName>
+                <default>false</default>
+                <label>Southern Cut</label>
+            </value>
+            <value>
+                <fullName>Special Blend</fullName>
+                <default>false</default>
+                <label>Special Blend</label>
+            </value>
+            <value>
+                <fullName>Special Blend Black Pack</fullName>
+                <default>false</default>
+                <label>Special Blend Black Pack</label>
+            </value>
+            <value>
+                <fullName>Special Blend Gold Pack</fullName>
+                <default>false</default>
+                <label>Special Blend Gold Pack</label>
+            </value>
+            <value>
+                <fullName>Special Blend Red Pack</fullName>
+                <default>false</default>
+                <label>Special Blend Red Pack</label>
+            </value>
+            <value>
+                <fullName>Special Blend Unknown</fullName>
+                <default>false</default>
+                <label>Special Blend Unknown</label>
+            </value>
+            <value>
+                <fullName>SPECIAL SELECT GOLD</fullName>
+                <default>false</default>
+                <label>SPECIAL SELECT GOLD</label>
+            </value>
+            <value>
+                <fullName>SPECIAL SELECT RED</fullName>
+                <default>false</default>
+                <label>SPECIAL SELECT RED</label>
+            </value>
+            <value>
+                <fullName>Superslims</fullName>
+                <default>false</default>
+                <label>Superslims</label>
+            </value>
+            <value>
+                <fullName>Superslims Gold Pack</fullName>
+                <default>false</default>
+                <label>Superslims Gold Pack</label>
+            </value>
+            <value>
+                <fullName>Superslims Lights</fullName>
+                <default>false</default>
+                <label>Superslims Lights</label>
+            </value>
+            <value>
+                <fullName>Superslims Uknown Taste</fullName>
+                <default>false</default>
+                <label>Superslims Uknown Taste</label>
+            </value>
+            <value>
+                <fullName>Superslims Unknown Taste</fullName>
+                <default>false</default>
+                <label>Superslims Unknown Taste</label>
+            </value>
+            <value>
+                <fullName>Turkish Blend</fullName>
+                <default>false</default>
+                <label>Turkish Blend</label>
+            </value>
+            <value>
+                <fullName>Turkish Night</fullName>
+                <default>false</default>
+                <label>Turkish Night</label>
+            </value>
+            <value>
+                <fullName>Ultra Lights</fullName>
+                <default>false</default>
+                <label>Ultra Lights</label>
+            </value>
+            <value>
+                <fullName>Undetermined</fullName>
+                <default>false</default>
+                <label>Undetermined</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>Va Blend</fullName>
+                <default>false</default>
+                <label>Va Blend</label>
+            </value>
+            <value>
+                <fullName>White Pack</fullName>
+                <default>false</default>
+                <label>White Pack</label>
+            </value>
+            <value>
+                <fullName>YELLOW</fullName>
+                <default>false</default>
+                <label>YELLOW</label>
+            </value>
+            <value>
+                <fullName>SIMPLE TOBACCO YELLOW</fullName>
+                <default>false</default>
+                <label>SIMPLE TOBACCO YELLOW</label>
+            </value>
+            <value>
+                <fullName>SIMPLE TOBACCO BLUE</fullName>
+                <default>false</default>
+                <label>SIMPLE TOBACCO BLUE</label>
+            </value>
+            <value>
+                <fullName>SIMPLE TOBACCO GREEN</fullName>
+                <default>false</default>
+                <label>SIMPLE TOBACCO GREEN</label>
+            </value>
+            <value>
+                <fullName>SIMPLE TOBACCO ORANGE</fullName>
+                <default>false</default>
+                <label>SIMPLE TOBACCO ORANGE</label>
+            </value>
+            <value>
+                <fullName>6 MG</fullName>
+                <default>false</default>
+                <label>6 MG</label>
+            </value>
+            <value>
+                <fullName>9 MG</fullName>
+                <default>false</default>
+                <label>9 MG</label>
+            </value>
+            <value>
+                <fullName>12 MG</fullName>
+                <default>false</default>
+                <label>12 MG</label>
+            </value>
+            <value>
+                <fullName>BLACK GOLD</fullName>
+                <default>false</default>
+                <label>BLACK GOLD</label>
+            </value>
+            <value>
+                <fullName>1.5 MG</fullName>
+                <default>false</default>
+                <label>1.5 MG</label>
+            </value>
+            <value>
+                <fullName>3.5 MG</fullName>
+                <default>false</default>
+                <label>3.5 MG</label>
+            </value>
+            <value>
+                <fullName>STANDARD</fullName>
+                <default>false</default>
+                <label>Standard</label>
+            </value>
+            <value>
+                <fullName>0.045</fullName>
+                <default>false</default>
+                <label>0.045</label>
+            </value>
+            <value>
+                <fullName>0.06</fullName>
+                <default>false</default>
+                <label>0.06</label>
+            </value>
+            <value>
+                <fullName>0.05</fullName>
+                <default>false</default>
+                <label>0.05</label>
+            </value>
+            <value>
+                <fullName>ACE Device</fullName>
+                <default>false</default>
+                <label>ACE Device</label>
+            </value>
+            <value>
+                <fullName>ACE Pod 5 Percent Nicotine</fullName>
+                <default>false</default>
+                <label>ACE Pod 5 Percent Nicotine</label>
+            </value>
+            <value>
+                <fullName>ACE Pod 2.4 Percent Nicotine</fullName>
+                <default>false</default>
+                <label>ACE Pod 2.4 Percent Nicotine</label>
+            </value>
+            <value>
+                <fullName>Daily 4.5 Percent Nicotine</fullName>
+                <default>false</default>
+                <label>Daily 4.5 Percent Nicotine</label>
+            </value>
+            <value>
+                <fullName>Daily 6 Percent Nicotine</fullName>
+                <default>false</default>
+                <label>Daily 6 Percent Nicotine</label>
+            </value>
+            <value>
+                <fullName>50mg Caffeine</fullName>
+                <default>false</default>
+                <label>50mg Caffeine</label>
+            </value>
+            <value>
+                <fullName>Energy</fullName>
+                <default>false</default>
+                <label>Energy</label>
+            </value>
+            <value>
+                <fullName>Stress Relief</fullName>
+                <default>false</default>
+                <label>Stress Relief</label>
+            </value>
+            <value>
+                <fullName>Energy &amp; Focus</fullName>
+                <default>false</default>
+                <label>Energy &amp; Focus</label>
+            </value>
+            <value>
+                <fullName>Calming Stress</fullName>
+                <default>false</default>
+                <label>Calming Stress</label>
+            </value>
+            <value>
+                <fullName>Chillax</fullName>
+                <default>false</default>
+                <label>Chillax</label>
+            </value>
+            <value>
+                <fullName>Hydration</fullName>
+                <default>false</default>
+                <label>Hydration</label>
+            </value>
+            <value>
+                <fullName>Daily Unknown Percent Nicotine</fullName>
+                <default>false</default>
+                <label>Daily Unknown Percent Nicotine</label>
+            </value>
+            <value>
+                <fullName>Unknown MG</fullName>
+                <default>false</default>
+                <label>Unknown MG</label>
+            </value>
+            <value>
+                <fullName>PLUS HP</fullName>
+                <default>false</default>
+                <label>PLUS HP</label>
+            </value>
+            <value>
+                <fullName>ORIGIN HP</fullName>
+                <default>false</default>
+                <label>ORIGIN HP</label>
+            </value>
+            <value>
+                <fullName>COWBOY CUT</fullName>
+                <default>false</default>
+                <label>COWBOY CUT</label>
+            </value>
+            <value>
+                <fullName>COWBOY CUT GOLD</fullName>
+                <default>false</default>
+                <label>COWBOY CUT GOLD</label>
+            </value>
+            <value>
+                <fullName>COWBOY CUT MENTHOL</fullName>
+                <default>false</default>
+                <label>COWBOY CUT MENTHOL</label>
+            </value>
+            <value>
+                <fullName>CRISP BLEND</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>CRISP BLEND</label>
+            </value>
+            <value>
+                <fullName>E-COMMERCE AL</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>E-COMMERCE AL</label>
+            </value>
+            <value>
+                <fullName>E-COMMERCE GA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>E-COMMERCE GA</label>
+            </value>
+            <value>
+                <fullName>E-COMMERCE KY</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>E-COMMERCE KY</label>
+            </value>
+            <value>
+                <fullName>E-COMMERCE MI</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>E-COMMERCE MI</label>
+            </value>
+            <value>
+                <fullName>E-COMMERCE SC</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>E-COMMERCE SC</label>
+            </value>
+            <value>
+                <fullName>E-COMMERCE TN</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>E-COMMERCE TN</label>
+            </value>
+            <value>
+                <fullName>ESTATE BLEND</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>ESTATE BLEND</label>
+            </value>
+            <value>
+                <fullName>HARVEST BLEND</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>HARVEST BLEND</label>
+            </value>
+            <value>
+                <fullName>NA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>NA</label>
+            </value>
+            <value>
+                <fullName>SIENNA RIDGE BLEND</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SIENNA RIDGE BLEND</label>
+            </value>
+            <value>
+                <fullName>SLATE BOLD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SLATE BOLD</label>
+            </value>
+            <value>
+                <fullName>Special Blend Blue Pack</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Special Blend Blue Pack</label>
+            </value>
+            <value>
+                <fullName>Ultra Smooth</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Ultra Smooth</label>
+            </value>
+            <value>
+                <fullName>Wall Adaptor</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Wall Adaptor</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

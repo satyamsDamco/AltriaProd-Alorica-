@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- CRC Operating Company --></label>
+    <name>CRC_Operating_Company__c</name>
+    <picklistValues>
+        <masterLabel>JMC</masterLabel>
+        <translation><!-- JMC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NAT_SHERMAN</masterLabel>
+        <translation><!-- NAT_SHERMAN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NJOY</masterLabel>
+        <translation><!-- NJOY --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NUMARK</masterLabel>
+        <translation><!-- NUMARK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NUMRK</masterLabel>
+        <translation><!-- NUMRK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PMIP</masterLabel>
+        <translation><!-- PMIP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PMPR</masterLabel>
+        <translation><!-- PMPR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PMUSA</masterLabel>
+        <translation><!-- PMUSA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USST</masterLabel>
+        <translation><!-- USST --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USSTC</masterLabel>
+        <translation><!-- USSTC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USSTH</masterLabel>
+        <translation><!-- USSTH --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USSTN</masterLabel>
+        <translation><!-- USSTN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USSTP</masterLabel>
+        <translation><!-- USSTP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USSTV</masterLabel>
+        <translation><!-- USSTV --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

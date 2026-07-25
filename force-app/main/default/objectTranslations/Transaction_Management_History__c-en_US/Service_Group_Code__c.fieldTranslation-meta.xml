@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Service Group Code --></label>
+    <name>Service_Group_Code__c</name>
+    <picklistValues>
+        <masterLabel>APPROVALS</masterLabel>
+        <translation><!-- APPROVALS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CRC</masterLabel>
+        <translation><!-- CRC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CRCAGEVERIFY</masterLabel>
+        <translation><!-- CRCAGEVERIFY --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CRCAGEVERIFYRQ</masterLabel>
+        <translation><!-- CRCAGEVERIFYRQ --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CUSTOMER</masterLabel>
+        <translation><!-- CUSTOMER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CUSTOMERS</masterLabel>
+        <translation><!-- CUSTOMERS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chat</masterLabel>
+        <translation><!-- Chat --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Consumer</masterLabel>
+        <translation><!-- Consumer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Correspondence</masterLabel>
+        <translation><!-- Correspondence --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ISSUES</masterLabel>
+        <translation><!-- ISSUES --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IVR REIMBURSEMENTS</masterLabel>
+        <translation><!-- IVR REIMBURSEMENTS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PNASRequest</masterLabel>
+        <translation><!-- PNASRequest --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SGProgramAllocation</masterLabel>
+        <translation><!-- SGProgramAllocation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SRPROGRAMALLOCATION</masterLabel>
+        <translation><!-- SRPROGRAMALLOCATION --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Survey</masterLabel>
+        <translation><!-- Survey --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TAVDecline</masterLabel>
+        <translation><!-- TAVDecline --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UpdateSurvey</masterLabel>
+        <translation><!-- UpdateSurvey --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

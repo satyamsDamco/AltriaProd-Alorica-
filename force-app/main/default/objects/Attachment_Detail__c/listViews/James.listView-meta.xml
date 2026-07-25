@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>James</fullName>
+    <columns>OBJECT_ID</columns>
+    <columns>NAME</columns>
+    <columns>AttachmentId__c</columns>
+    <columns>Attachment_Name__c</columns>
+    <columns>IsActive__c</columns>
+    <columns>isReviewed__c</columns>
+    <columns>FeedSend__c</columns>
+    <columns>IssueID__c</columns>
+    <columns>Issue_Sent__c</columns>
+    <columns>CreatedDate__c</columns>
+    <columns>Description__c</columns>
+    <columns>DescriptionFeed__c</columns>
+    <columns>File_Name__c</columns>
+    <columns>File_Type__c</columns>
+    <columns>Issue__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>IssueID__c</field>
+        <operation>equals</operation>
+        <value>03281718</value>
+    </filters>
+    <label>James</label>
+</ListView>

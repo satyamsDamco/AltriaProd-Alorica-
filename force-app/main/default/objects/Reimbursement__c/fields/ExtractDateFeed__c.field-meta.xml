@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExtractDateFeed__c</fullName>
+    <externalId>false</externalId>
+    <formula>if(Text(ExtractDate__c) != &apos;&apos;,Text(month(ExtractDate__c))+&apos;/&apos;+text(day(ExtractDate__c))+&apos;/&apos;+text(year(ExtractDate__c))+&apos; 00:00:00&apos;,&apos;&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>ExtractDateFeed</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

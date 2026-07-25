@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.LastModifiedDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>set audit</label>
+    <license>Salesforce</license>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Case</object>
+        <viewAllFields>false</viewAllFields>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <tabSettings>
+        <tab>standard-Case</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

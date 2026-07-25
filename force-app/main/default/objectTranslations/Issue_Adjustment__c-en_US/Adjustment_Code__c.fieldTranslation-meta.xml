@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Adjustment Code --></label>
+    <name>Adjustment_Code__c</name>
+    <picklistValues>
+        <masterLabel>BH</masterLabel>
+        <translation><!-- BH --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CCL</masterLabel>
+        <translation><!-- CCL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CN</masterLabel>
+        <translation><!-- CN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DC</masterLabel>
+        <translation><!-- DC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>FC</masterLabel>
+        <translation><!-- FC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IH</masterLabel>
+        <translation><!-- IH --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITB</masterLabel>
+        <translation><!-- ITB --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITCS</masterLabel>
+        <translation><!-- ITCS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITF</masterLabel>
+        <translation><!-- ITF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITL</masterLabel>
+        <translation><!-- ITL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITM</masterLabel>
+        <translation><!-- ITM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITMT</masterLabel>
+        <translation><!-- ITMT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITPD</masterLabel>
+        <translation><!-- ITPD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITS</masterLabel>
+        <translation><!-- ITS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITSN</masterLabel>
+        <translation><!-- ITSN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITUD</masterLabel>
+        <translation><!-- ITUD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITUT</masterLabel>
+        <translation><!-- ITUT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITVD</masterLabel>
+        <translation><!-- ITVD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITVT</masterLabel>
+        <translation><!-- ITVT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RID</masterLabel>
+        <translation><!-- RID --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SC</masterLabel>
+        <translation><!-- SC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SCF</masterLabel>
+        <translation><!-- SCF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ST</masterLabel>
+        <translation><!-- ST --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TC</masterLabel>
+        <translation><!-- TC --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

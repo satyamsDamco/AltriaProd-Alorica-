@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Reimbursed Or Replaced Indicator --></label>
+    <name>Reimbursed_Or_Replaced_Indicator__c</name>
+    <picklistValues>
+        <masterLabel>Not Reimbursed</masterLabel>
+        <translation><!-- Not Reimbursed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reimbursed by Avail</masterLabel>
+        <translation><!-- Reimbursed by Avail --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reimbursed by GMR</masterLabel>
+        <translation><!-- Reimbursed by GMR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reimbursed by PFSWeb</masterLabel>
+        <translation><!-- Reimbursed by PFSWeb --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Replacement</masterLabel>
+        <translation><!-- Replacement --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>To be reimbursed by Alorica</masterLabel>
+        <translation><!-- To be reimbursed by Alorica --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,1116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Flavor__c</fullName>
+    <label>Flavor</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1-PACK</fullName>
+                <default>false</default>
+                <label>1-PACK</label>
+            </value>
+            <value>
+                <fullName>2 - PACK FOIL $1.75</fullName>
+                <default>false</default>
+                <label>2 - PACK FOIL $1.75</label>
+            </value>
+            <value>
+                <fullName>3-PACK</fullName>
+                <default>false</default>
+                <label>3-PACK</label>
+            </value>
+            <value>
+                <fullName>3 - PACK FOIL</fullName>
+                <default>false</default>
+                <label>3 - PACK FOIL</label>
+            </value>
+            <value>
+                <fullName>5 - PACK $3.95 - H</fullName>
+                <default>false</default>
+                <label>5 - PACK $3.95 - H</label>
+            </value>
+            <value>
+                <fullName>5 - PACK $3.95 - N</fullName>
+                <default>false</default>
+                <label>5 - PACK $3.95 - N</label>
+            </value>
+            <value>
+                <fullName>5 - PACK CREAM FILLER</fullName>
+                <default>false</default>
+                <label>5 - PACK CREAM FILLER</label>
+            </value>
+            <value>
+                <fullName>5 - PACK H</fullName>
+                <default>false</default>
+                <label>5 - PACK H</label>
+            </value>
+            <value>
+                <fullName>5 - PACK - H</fullName>
+                <default>false</default>
+                <label>5 - PACK - H</label>
+            </value>
+            <value>
+                <fullName>5 - PACK N</fullName>
+                <default>false</default>
+                <label>5 - PACK N</label>
+            </value>
+            <value>
+                <fullName>5 - PACK - N</fullName>
+                <default>false</default>
+                <label>5 - PACK - N</label>
+            </value>
+            <value>
+                <fullName>5 - PACK SWEETS FILLER</fullName>
+                <default>false</default>
+                <label>5 - PACK SWEETS FILLER</label>
+            </value>
+            <value>
+                <fullName>5 - PACK - T</fullName>
+                <default>false</default>
+                <label>5 - PACK - T</label>
+            </value>
+            <value>
+                <fullName>Absolute Tobacco</fullName>
+                <default>false</default>
+                <label>Absolute Tobacco</label>
+            </value>
+            <value>
+                <fullName>Amber</fullName>
+                <default>false</default>
+                <label>Amber</label>
+            </value>
+            <value>
+                <fullName>Apple</fullName>
+                <default>false</default>
+                <label>Apple</label>
+            </value>
+            <value>
+                <fullName>APPLE CIDER</fullName>
+                <default>false</default>
+                <label>APPLE CIDER</label>
+            </value>
+            <value>
+                <fullName>Berry</fullName>
+                <default>false</default>
+                <label>Berry</label>
+            </value>
+            <value>
+                <fullName>Black</fullName>
+                <default>false</default>
+                <label>Black</label>
+            </value>
+            <value>
+                <fullName>Blend No. 27</fullName>
+                <default>false</default>
+                <label>Blend No. 27</label>
+            </value>
+            <value>
+                <fullName>Blue Mint</fullName>
+                <default>false</default>
+                <label>Blue Mint</label>
+            </value>
+            <value>
+                <fullName>BOLD CLASSIC 4.0</fullName>
+                <default>false</default>
+                <label>BOLD CLASSIC 4.0</label>
+            </value>
+            <value>
+                <fullName>Bold Classic 4.5</fullName>
+                <default>false</default>
+                <label>Bold Classic 4.5</label>
+            </value>
+            <value>
+                <fullName>BOLD MENTHOL 4.0</fullName>
+                <default>false</default>
+                <label>BOLD MENTHOL 4.0</label>
+            </value>
+            <value>
+                <fullName>Bold Menthol 4.5</fullName>
+                <default>false</default>
+                <label>Bold Menthol 4.5</label>
+            </value>
+            <value>
+                <fullName>Bold Original 4.5</fullName>
+                <default>false</default>
+                <label>Bold Original 4.5</label>
+            </value>
+            <value>
+                <fullName>Bold Wintergreen</fullName>
+                <default>false</default>
+                <label>Bold Wintergreen</label>
+            </value>
+            <value>
+                <fullName>BOURBON BLEND 1.2</fullName>
+                <default>false</default>
+                <label>BOURBON BLEND 1.2</label>
+            </value>
+            <value>
+                <fullName>BOURBON BLEND 2.5</fullName>
+                <default>false</default>
+                <label>BOURBON BLEND 2.5</label>
+            </value>
+            <value>
+                <fullName>BVR 2.4</fullName>
+                <default>false</default>
+                <label>BVR 2.4</label>
+            </value>
+            <value>
+                <fullName>BVR 2.4L</fullName>
+                <default>false</default>
+                <label>BVR 2.4L</label>
+            </value>
+            <value>
+                <fullName>CARIBBEAN OASIS 1.2</fullName>
+                <default>false</default>
+                <label>CARIBBEAN OASIS 1.2</label>
+            </value>
+            <value>
+                <fullName>CARIBBEAN OASIS 2.5</fullName>
+                <default>false</default>
+                <label>CARIBBEAN OASIS 2.5</label>
+            </value>
+            <value>
+                <fullName>Cherry</fullName>
+                <default>false</default>
+                <label>Cherry</label>
+            </value>
+            <value>
+                <fullName>Cinnamon</fullName>
+                <default>false</default>
+                <label>Cinnamon</label>
+            </value>
+            <value>
+                <fullName>Citrus</fullName>
+                <default>false</default>
+                <label>Citrus</label>
+            </value>
+            <value>
+                <fullName>Classic</fullName>
+                <default>false</default>
+                <label>Classic</label>
+            </value>
+            <value>
+                <fullName>CLASSIC 1.2</fullName>
+                <default>false</default>
+                <label>CLASSIC 1.2</label>
+            </value>
+            <value>
+                <fullName>Classic 2.4</fullName>
+                <default>false</default>
+                <label>Classic 2.4</label>
+            </value>
+            <value>
+                <fullName>Classic 2.5</fullName>
+                <default>false</default>
+                <label>Classic 2.5</label>
+            </value>
+            <value>
+                <fullName>CLASSIC 3.5</fullName>
+                <default>false</default>
+                <label>CLASSIC 3.5</label>
+            </value>
+            <value>
+                <fullName>CLASSIC TOBACCO</fullName>
+                <default>false</default>
+                <label>CLASSIC TOBACCO</label>
+            </value>
+            <value>
+                <fullName>COFFEE</fullName>
+                <default>false</default>
+                <label>COFFEE</label>
+            </value>
+            <value>
+                <fullName>Cool Mint</fullName>
+                <default>false</default>
+                <label>Cool Mint</label>
+            </value>
+            <value>
+                <fullName>Cool Mint Tobacco</fullName>
+                <default>false</default>
+                <label>Cool Mint Tobacco</label>
+            </value>
+            <value>
+                <fullName>COOL SPEARMINT</fullName>
+                <default>false</default>
+                <label>COOL SPEARMINT</label>
+            </value>
+            <value>
+                <fullName>COPPER STILL 1.2</fullName>
+                <default>false</default>
+                <label>COPPER STILL 1.2</label>
+            </value>
+            <value>
+                <fullName>COPPER STILL 2.5</fullName>
+                <default>false</default>
+                <label>COPPER STILL 2.5</label>
+            </value>
+            <value>
+                <fullName>Crisp</fullName>
+                <default>false</default>
+                <label>Crisp</label>
+            </value>
+            <value>
+                <fullName>Crisp Blend</fullName>
+                <default>false</default>
+                <label>Crisp Blend</label>
+            </value>
+            <value>
+                <fullName>Crisp Mint</fullName>
+                <default>false</default>
+                <label>Crisp Mint</label>
+            </value>
+            <value>
+                <fullName>CVR 2.4</fullName>
+                <default>false</default>
+                <label>CVR 2.4</label>
+            </value>
+            <value>
+                <fullName>Dark</fullName>
+                <default>false</default>
+                <label>Dark</label>
+            </value>
+            <value>
+                <fullName>Dark Blend</fullName>
+                <default>false</default>
+                <label>Dark Blend</label>
+            </value>
+            <value>
+                <fullName>DARK FUSION 1.2</fullName>
+                <default>false</default>
+                <label>DARK FUSION 1.2</label>
+            </value>
+            <value>
+                <fullName>DARK FUSION 2.5</fullName>
+                <default>false</default>
+                <label>DARK FUSION 2.5</label>
+            </value>
+            <value>
+                <fullName>DARK ORIGINAL 1.2</fullName>
+                <default>false</default>
+                <label>DARK ORIGINAL 1.2</label>
+            </value>
+            <value>
+                <fullName>DELUX</fullName>
+                <default>false</default>
+                <label>DELUX</label>
+            </value>
+            <value>
+                <fullName>EARL BLEND 1.2</fullName>
+                <default>false</default>
+                <label>EARL BLEND 1.2</label>
+            </value>
+            <value>
+                <fullName>EARL BLEND 2.5</fullName>
+                <default>false</default>
+                <label>EARL BLEND 2.5</label>
+            </value>
+            <value>
+                <fullName>FRESH MENTHOL</fullName>
+                <default>false</default>
+                <label>FRESH MENTHOL</label>
+            </value>
+            <value>
+                <fullName>Fusion</fullName>
+                <default>false</default>
+                <label>Fusion</label>
+            </value>
+            <value>
+                <fullName>Fusion 2.5</fullName>
+                <default>false</default>
+                <label>Fusion 2.5</label>
+            </value>
+            <value>
+                <fullName>GLACIER MINT</fullName>
+                <default>false</default>
+                <label>GLACIER MINT</label>
+            </value>
+            <value>
+                <fullName>Green Mint</fullName>
+                <default>false</default>
+                <label>Green Mint</label>
+            </value>
+            <value>
+                <fullName>HARD PACK - JUMBO</fullName>
+                <default>false</default>
+                <label>HARD PACK - JUMBO</label>
+            </value>
+            <value>
+                <fullName>Harvest Blend</fullName>
+                <default>false</default>
+                <label>Harvest Blend</label>
+            </value>
+            <value>
+                <fullName>HARVEST BLEND 2.5</fullName>
+                <default>false</default>
+                <label>HARVEST BLEND 2.5</label>
+            </value>
+            <value>
+                <fullName>HAVANA WINE 1.2</fullName>
+                <default>false</default>
+                <label>HAVANA WINE 1.2</label>
+            </value>
+            <value>
+                <fullName>HAZELNUT CREAM</fullName>
+                <default>false</default>
+                <label>HAZELNUT CREAM</label>
+            </value>
+            <value>
+                <fullName>ISLAND OASIS 1.2</fullName>
+                <default>false</default>
+                <label>ISLAND OASIS 1.2</label>
+            </value>
+            <value>
+                <fullName>ISLAND OASIS 2.5</fullName>
+                <default>false</default>
+                <label>ISLAND OASIS 2.5</label>
+            </value>
+            <value>
+                <fullName>Key</fullName>
+                <default>false</default>
+                <label>Key</label>
+            </value>
+            <value>
+                <fullName>MARDI GRAS 2.5</fullName>
+                <default>false</default>
+                <label>MARDI GRAS 2.5</label>
+            </value>
+            <value>
+                <fullName>MARLBORO HEAT STICK ORIGINAL</fullName>
+                <default>false</default>
+                <label>MARLBORO HEAT STICK ORIGINAL</label>
+            </value>
+            <value>
+                <fullName>Menthol</fullName>
+                <default>false</default>
+                <label>Menthol</label>
+            </value>
+            <value>
+                <fullName>MENTHOL 1.2</fullName>
+                <default>false</default>
+                <label>MENTHOL 1.2</label>
+            </value>
+            <value>
+                <fullName>Menthol 2.4</fullName>
+                <default>false</default>
+                <label>Menthol 2.4</label>
+            </value>
+            <value>
+                <fullName>Menthol 2.5</fullName>
+                <default>false</default>
+                <label>Menthol 2.5</label>
+            </value>
+            <value>
+                <fullName>MENTHOL 3.5</fullName>
+                <default>false</default>
+                <label>MENTHOL 3.5</label>
+            </value>
+            <value>
+                <fullName>Menthol Fusion</fullName>
+                <default>false</default>
+                <label>Menthol Fusion</label>
+            </value>
+            <value>
+                <fullName>Menthol Ice</fullName>
+                <default>false</default>
+                <label>Menthol Ice</label>
+            </value>
+            <value>
+                <fullName>MENTHOL ICE 2.4</fullName>
+                <default>false</default>
+                <label>MENTHOL ICE 2.4</label>
+            </value>
+            <value>
+                <fullName>Menthol Smooth</fullName>
+                <default>false</default>
+                <label>Menthol Smooth</label>
+            </value>
+            <value>
+                <fullName>Mint</fullName>
+                <default>false</default>
+                <label>Mint</label>
+            </value>
+            <value>
+                <fullName>Mocha Mist</fullName>
+                <default>false</default>
+                <label>Mocha Mist</label>
+            </value>
+            <value>
+                <fullName>Mountain Clove</fullName>
+                <default>false</default>
+                <label>Mountain Clove</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>Natural</fullName>
+                <default>false</default>
+                <label>Natural</label>
+            </value>
+            <value>
+                <fullName>NOT IN SYSTEM</fullName>
+                <default>false</default>
+                <label>NOT IN SYSTEM</label>
+            </value>
+            <value>
+                <fullName>Original</fullName>
+                <default>false</default>
+                <label>Original</label>
+            </value>
+            <value>
+                <fullName>Original Tobacco</fullName>
+                <default>false</default>
+                <label>Original Tobacco</label>
+            </value>
+            <value>
+                <fullName>Pack</fullName>
+                <default>false</default>
+                <label>Pack</label>
+            </value>
+            <value>
+                <fullName>Peach</fullName>
+                <default>false</default>
+                <label>Peach</label>
+            </value>
+            <value>
+                <fullName>Peppermint</fullName>
+                <default>false</default>
+                <label>Peppermint</label>
+            </value>
+            <value>
+                <fullName>PINA COLADA 1.2</fullName>
+                <default>false</default>
+                <label>PINA COLADA 1.2</label>
+            </value>
+            <value>
+                <fullName>Red Label</fullName>
+                <default>false</default>
+                <label>Red Label</label>
+            </value>
+            <value>
+                <fullName>Regular</fullName>
+                <default>false</default>
+                <label>Regular</label>
+            </value>
+            <value>
+                <fullName>Regular To Menthol</fullName>
+                <default>false</default>
+                <label>Regular To Menthol</label>
+            </value>
+            <value>
+                <fullName>Rich</fullName>
+                <default>false</default>
+                <label>Rich</label>
+            </value>
+            <value>
+                <fullName>Rich Blend</fullName>
+                <default>false</default>
+                <label>Rich Blend</label>
+            </value>
+            <value>
+                <fullName>Rich Tobacco</fullName>
+                <default>false</default>
+                <label>Rich Tobacco</label>
+            </value>
+            <value>
+                <fullName>Robust</fullName>
+                <default>false</default>
+                <label>Robust</label>
+            </value>
+            <value>
+                <fullName>Select Blend</fullName>
+                <default>false</default>
+                <label>Select Blend</label>
+            </value>
+            <value>
+                <fullName>Signature Red</fullName>
+                <default>false</default>
+                <label>Signature Red</label>
+            </value>
+            <value>
+                <fullName>Signature Red Label</fullName>
+                <default>false</default>
+                <label>Signature Red Label</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.49</fullName>
+                <default>false</default>
+                <label>SINGLES $0.49</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 CREAM FILLER</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 CREAM FILLER</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 CREAM FILLER N</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 CREAM FILLER N</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 CREAM FILLER - N</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 CREAM FILLER - N</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 E</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 E</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 - E</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 - E</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 F</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 F</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 - F</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 - F</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 H</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 H</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 - H</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 - H</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 N</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 N</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 - N</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 - N</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.89 SWEETS FILLER</fullName>
+                <default>false</default>
+                <label>SINGLES $0.89 SWEETS FILLER</label>
+            </value>
+            <value>
+                <fullName>SINGLES $1.75</fullName>
+                <default>false</default>
+                <label>SINGLES $1.75</label>
+            </value>
+            <value>
+                <fullName>SINGLES F</fullName>
+                <default>false</default>
+                <label>SINGLES F</label>
+            </value>
+            <value>
+                <fullName>SINGLES G</fullName>
+                <default>false</default>
+                <label>SINGLES G</label>
+            </value>
+            <value>
+                <fullName>SINGLES H</fullName>
+                <default>false</default>
+                <label>SINGLES H</label>
+            </value>
+            <value>
+                <fullName>SINGLES N</fullName>
+                <default>false</default>
+                <label>SINGLES N</label>
+            </value>
+            <value>
+                <fullName>SINGLES - N</fullName>
+                <default>false</default>
+                <label>SINGLES - N</label>
+            </value>
+            <value>
+                <fullName>Smooth Chocolate</fullName>
+                <default>false</default>
+                <label>Smooth Chocolate</label>
+            </value>
+            <value>
+                <fullName>SMOOTH CLASSIC 1.2</fullName>
+                <default>false</default>
+                <label>SMOOTH CLASSIC 1.2</label>
+            </value>
+            <value>
+                <fullName>SMOOTH CLASSIC 2.5</fullName>
+                <default>false</default>
+                <label>SMOOTH CLASSIC 2.5</label>
+            </value>
+            <value>
+                <fullName>Smooth Cream</fullName>
+                <default>false</default>
+                <label>Smooth Cream</label>
+            </value>
+            <value>
+                <fullName>SMOOTH CREAM 1.2</fullName>
+                <default>false</default>
+                <label>SMOOTH CREAM 1.2</label>
+            </value>
+            <value>
+                <fullName>SMOOTH CREAM 2.4</fullName>
+                <default>false</default>
+                <label>SMOOTH CREAM 2.4</label>
+            </value>
+            <value>
+                <fullName>Smooth Hickory</fullName>
+                <default>false</default>
+                <label>Smooth Hickory</label>
+            </value>
+            <value>
+                <fullName>SMOOTH MENTHOL</fullName>
+                <default>false</default>
+                <label>SMOOTH MENTHOL</label>
+            </value>
+            <value>
+                <fullName>SMOOTH MENTHOL 2.4</fullName>
+                <default>false</default>
+                <label>SMOOTH MENTHOL 2.4</label>
+            </value>
+            <value>
+                <fullName>Smooth Mint</fullName>
+                <default>false</default>
+                <label>Smooth Mint</label>
+            </value>
+            <value>
+                <fullName>Smooth Mint Tobacco</fullName>
+                <default>false</default>
+                <label>Smooth Mint Tobacco</label>
+            </value>
+            <value>
+                <fullName>SMOOTH WINTERGREEN</fullName>
+                <default>false</default>
+                <label>SMOOTH WINTERGREEN</label>
+            </value>
+            <value>
+                <fullName>Southern Blend</fullName>
+                <default>false</default>
+                <label>Southern Blend</label>
+            </value>
+            <value>
+                <fullName>Southern Gold</fullName>
+                <default>false</default>
+                <label>Southern Gold</label>
+            </value>
+            <value>
+                <fullName>Spearmint</fullName>
+                <default>false</default>
+                <label>Spearmint</label>
+            </value>
+            <value>
+                <fullName>Special Blend Regular</fullName>
+                <default>false</default>
+                <label>Special Blend Regular</label>
+            </value>
+            <value>
+                <fullName>SPICED FRUIT 1.2</fullName>
+                <default>false</default>
+                <label>SPICED FRUIT 1.2</label>
+            </value>
+            <value>
+                <fullName>Straight</fullName>
+                <default>false</default>
+                <label>Straight</label>
+            </value>
+            <value>
+                <fullName>STRAWBERRY BRULEE</fullName>
+                <default>false</default>
+                <label>STRAWBERRY BRULEE</label>
+            </value>
+            <value>
+                <fullName>Strong</fullName>
+                <default>false</default>
+                <label>Strong</label>
+            </value>
+            <value>
+                <fullName>Summer Blend</fullName>
+                <default>false</default>
+                <label>Summer Blend</label>
+            </value>
+            <value>
+                <fullName>SUMMER BLEND 1.2</fullName>
+                <default>false</default>
+                <label>SUMMER BLEND 1.2</label>
+            </value>
+            <value>
+                <fullName>SUMMER BLEND 2.5</fullName>
+                <default>false</default>
+                <label>SUMMER BLEND 2.5</label>
+            </value>
+            <value>
+                <fullName>SUMMER FUSION 2.5</fullName>
+                <default>false</default>
+                <label>SUMMER FUSION 2.5</label>
+            </value>
+            <value>
+                <fullName>Sweet</fullName>
+                <default>false</default>
+                <label>Sweet</label>
+            </value>
+            <value>
+                <fullName>SWEET ORIGINAL</fullName>
+                <default>false</default>
+                <label>SWEET ORIGINAL</label>
+            </value>
+            <value>
+                <fullName>Tobacco Gold</fullName>
+                <default>false</default>
+                <label>Tobacco Gold</label>
+            </value>
+            <value>
+                <fullName>UNIT KY LOW PG</fullName>
+                <default>false</default>
+                <label>UNIT KY LOW PG</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>Va Blend</fullName>
+                <default>false</default>
+                <label>Va Blend</label>
+            </value>
+            <value>
+                <fullName>Vanilla</fullName>
+                <default>false</default>
+                <label>Vanilla</label>
+            </value>
+            <value>
+                <fullName>Vanilla Dreams</fullName>
+                <default>false</default>
+                <label>Vanilla Dreams</label>
+            </value>
+            <value>
+                <fullName>Variety</fullName>
+                <default>false</default>
+                <label>Variety</label>
+            </value>
+            <value>
+                <fullName>VINEYARD BLEND 1.2</fullName>
+                <default>false</default>
+                <label>VINEYARD BLEND 1.2</label>
+            </value>
+            <value>
+                <fullName>Vineyard Blend 2.5</fullName>
+                <default>false</default>
+                <label>Vineyard Blend 2.5</label>
+            </value>
+            <value>
+                <fullName>WeymanS Best</fullName>
+                <default>false</default>
+                <label>WeymanS Best</label>
+            </value>
+            <value>
+                <fullName>WEYMANS RESERVE LONG CUT BLACK</fullName>
+                <default>false</default>
+                <label>WEYMANS RESERVE LONG CUT BLACK</label>
+            </value>
+            <value>
+                <fullName>Whiskey Blend</fullName>
+                <default>false</default>
+                <label>Whiskey Blend</label>
+            </value>
+            <value>
+                <fullName>Wintergreen</fullName>
+                <default>false</default>
+                <label>Wintergreen</label>
+            </value>
+            <value>
+                <fullName>Winter Mint</fullName>
+                <default>false</default>
+                <label>Winter Mint</label>
+            </value>
+            <value>
+                <fullName>Winter Mint 2.5</fullName>
+                <default>false</default>
+                <label>Winter Mint 2.5</label>
+            </value>
+            <value>
+                <fullName>Winter Mint 3.5</fullName>
+                <default>false</default>
+                <label>Winter Mint 3.5</label>
+            </value>
+            <value>
+                <fullName>X-Tra Crisp Blend</fullName>
+                <default>false</default>
+                <label>X-Tra Crisp Blend</label>
+            </value>
+            <value>
+                <fullName>X-Tra Mint</fullName>
+                <default>false</default>
+                <label>X-Tra Mint</label>
+            </value>
+            <value>
+                <fullName>X-tra Mint Chill</fullName>
+                <default>false</default>
+                <label>X-tra Mint Chill</label>
+            </value>
+            <value>
+                <fullName>X-Tra Rich Blend</fullName>
+                <default>false</default>
+                <label>X-Tra Rich Blend</label>
+            </value>
+            <value>
+                <fullName>X-Tra Wintergreen Blend</fullName>
+                <default>false</default>
+                <label>X-Tra Wintergreen Blend</label>
+            </value>
+            <value>
+                <fullName>GREEN MENTHOL</fullName>
+                <default>false</default>
+                <label>GREEN MENTHOL</label>
+            </value>
+            <value>
+                <fullName>BLUE MENTHOL</fullName>
+                <default>false</default>
+                <label>BLUE MENTHOL</label>
+            </value>
+            <value>
+                <fullName>Extra Rich Tobacco</fullName>
+                <default>false</default>
+                <label>Extra Rich Tobacco</label>
+            </value>
+            <value>
+                <fullName>Cool Menthol</fullName>
+                <default>false</default>
+                <label>Cool Menthol</label>
+            </value>
+            <value>
+                <fullName>Extra Cool Menthol</fullName>
+                <default>false</default>
+                <label>Extra Cool Menthol</label>
+            </value>
+            <value>
+                <fullName>Black and Blueberry</fullName>
+                <default>false</default>
+                <label>Black and Blueberry</label>
+            </value>
+            <value>
+                <fullName>Blueberry</fullName>
+                <default>false</default>
+                <label>Blueberry</label>
+            </value>
+            <value>
+                <fullName>Watermelon</fullName>
+                <default>false</default>
+                <label>Watermelon</label>
+            </value>
+            <value>
+                <fullName>ExtraBlack and Blueberry</fullName>
+                <default>false</default>
+                <label>ExtraBlack and Blueberry</label>
+            </value>
+            <value>
+                <fullName>Tropical Twist</fullName>
+                <default>false</default>
+                <label>Tropical Twist</label>
+            </value>
+            <value>
+                <fullName>Extra Menthol</fullName>
+                <default>false</default>
+                <label>Extra Menthol</label>
+            </value>
+            <value>
+                <fullName>Carmel Latte</fullName>
+                <default>false</default>
+                <label>Carmel Latte</label>
+            </value>
+            <value>
+                <fullName>Grapefruit Citrus</fullName>
+                <default>false</default>
+                <label>Grapefruit Citrus</label>
+            </value>
+            <value>
+                <fullName>Island Spice</fullName>
+                <default>false</default>
+                <label>Island Spice</label>
+            </value>
+            <value>
+                <fullName>Lime Ginger</fullName>
+                <default>false</default>
+                <label>Lime Ginger</label>
+            </value>
+            <value>
+                <fullName>Vanilla Mint</fullName>
+                <default>false</default>
+                <label>Vanilla Mint</label>
+            </value>
+            <value>
+                <fullName>Reserve</fullName>
+                <default>false</default>
+                <label>Reserve</label>
+            </value>
+            <value>
+                <fullName>Lime Citrus</fullName>
+                <default>false</default>
+                <label>Lime Citrus</label>
+            </value>
+            <value>
+                <fullName>Tropical Fruit</fullName>
+                <default>false</default>
+                <label>Tropical Fruit</label>
+            </value>
+            <value>
+                <fullName>Berry Blast</fullName>
+                <default>false</default>
+                <label>Berry Blast</label>
+            </value>
+            <value>
+                <fullName>Chia Swirl</fullName>
+                <default>false</default>
+                <label>Chia Swirl</label>
+            </value>
+            <value>
+                <fullName>Orange Mango</fullName>
+                <default>false</default>
+                <label>Orange Mango</label>
+            </value>
+            <value>
+                <fullName>Strawberry</fullName>
+                <default>false</default>
+                <label>Strawberry</label>
+            </value>
+            <value>
+                <fullName>Blackberry Lemon</fullName>
+                <default>false</default>
+                <label>Blackberry Lemon</label>
+            </value>
+            <value>
+                <fullName>Mango</fullName>
+                <default>false</default>
+                <label>Mango</label>
+            </value>
+            <value>
+                <fullName>Green Apple</fullName>
+                <default>false</default>
+                <label>Green Apple</label>
+            </value>
+            <value>
+                <fullName>Spicy Mango</fullName>
+                <default>false</default>
+                <label>Spicy Mango</label>
+            </value>
+            <value>
+                <fullName>Passionfruit Pineapple</fullName>
+                <default>false</default>
+                <label>Passionfruit Pineapple</label>
+            </value>
+            <value>
+                <fullName>Watermelon Lime</fullName>
+                <default>false</default>
+                <label>Watermelon Lime</label>
+            </value>
+            <value>
+                <fullName>Peach Daiquiri</fullName>
+                <default>false</default>
+                <label>Peach Daiquiri</label>
+            </value>
+            <value>
+                <fullName>Polar Peppermint</fullName>
+                <default>false</default>
+                <label>Polar Peppermint</label>
+            </value>
+            <value>
+                <fullName>Mocha Nut Crunch Mix</fullName>
+                <default>false</default>
+                <label>Mocha Nut Crunch Mix</label>
+            </value>
+            <value>
+                <fullName>Sparkling Hibiscus Ginger</fullName>
+                <default>false</default>
+                <label>Sparkling Hibiscus Ginger</label>
+            </value>
+            <value>
+                <fullName>Sparkling Lemon Black Tea</fullName>
+                <default>false</default>
+                <label>Sparkling Lemon Black Tea</label>
+            </value>
+            <value>
+                <fullName>Peanut Butter &amp; Chocolate</fullName>
+                <default>false</default>
+                <label>Peanut Butter &amp; Chocolate</label>
+            </value>
+            <value>
+                <fullName>Almond Butter &amp; Cocoa</fullName>
+                <default>false</default>
+                <label>Almond Butter &amp; Cocoa</label>
+            </value>
+            <value>
+                <fullName>Unknown Flavor</fullName>
+                <default>false</default>
+                <label>Unknown Flavor</label>
+            </value>
+            <value>
+                <fullName>Tobacco Flavor</fullName>
+                <default>false</default>
+                <label>Tobacco Flavor</label>
+            </value>
+            <value>
+                <fullName>CAPPUCCINO</fullName>
+                <default>false</default>
+                <label>CAPPUCCINO</label>
+            </value>
+            <value>
+                <fullName>Mango Pineapple</fullName>
+                <default>false</default>
+                <label>Mango Pineapple</label>
+            </value>
+            <value>
+                <fullName>Blueberry Mint</fullName>
+                <default>false</default>
+                <label>Blueberry Mint</label>
+            </value>
+            <value>
+                <fullName>2A</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>2A</label>
+            </value>
+            <value>
+                <fullName>Blend No. 54 Menthol</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Blend No. 54 Menthol</label>
+            </value>
+            <value>
+                <fullName>Mild</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Mild</label>
+            </value>
+            <value>
+                <fullName>NA</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>NA</label>
+            </value>
+            <value>
+                <fullName>Special Blend</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Special Blend</label>
+            </value>
+            <value>
+                <fullName>Spice</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Spice</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Issue Adjustment</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Issues Adjustment</value>
+    </caseValues>
+    <layouts>
+        <layout>Issue Adjustment Layout</layout>
+        <sections>
+            <label><!-- Counterfeit Data --></label>
+            <section>Counterfeit Data</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

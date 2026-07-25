@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- PaperType --></label>
+    <name>PaperType__c</name>
+    <picklistValues>
+        <masterLabel>ALPINE BLUE</masterLabel>
+        <translation><!-- ALPINE BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BLOSSOM PINK</masterLabel>
+        <translation><!-- BLOSSOM PINK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BLUE</masterLabel>
+        <translation><!-- BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BRILLIANT COPPER</masterLabel>
+        <translation><!-- BRILLIANT COPPER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BRILLIANT GOLD</masterLabel>
+        <translation><!-- BRILLIANT GOLD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Banded Paper</masterLabel>
+        <translation><!-- Banded Paper --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Banded Paper Ny</masterLabel>
+        <translation><!-- Banded Paper Ny --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CLOUD</masterLabel>
+        <translation><!-- CLOUD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>COPPER</masterLabel>
+        <translation><!-- COPPER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CORAL</masterLabel>
+        <translation><!-- CORAL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DARK BRONZE</masterLabel>
+        <translation><!-- DARK BRONZE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DARK PEWTER</masterLabel>
+        <translation><!-- DARK PEWTER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DEEP LAVENDER</masterLabel>
+        <translation><!-- DEEP LAVENDER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DF</masterLabel>
+        <translation><!-- DF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer  - Smooth Chocolate  Manhattan</masterLabel>
+        <translation><!-- Designer  - Smooth Chocolate  Manhattan --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Black</masterLabel>
+        <translation><!-- Designer - Black --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Black  Nashville</masterLabel>
+        <translation><!-- Designer - Black  Nashville --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Black Nashville</masterLabel>
+        <translation><!-- Designer - Black Nashville --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Brown</masterLabel>
+        <translation><!-- Designer - Brown --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Classic Tobacco Classic</masterLabel>
+        <translation><!-- Designer - Classic Tobacco Classic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - I Love Green Smoke  Springfield</masterLabel>
+        <translation><!-- Designer - I Love Green Smoke  Springfield --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Menthol Ice  New Orleans</masterLabel>
+        <translation><!-- Designer - Menthol Ice  New Orleans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Menthol Ice Jazzy</masterLabel>
+        <translation><!-- Designer - Menthol Ice Jazzy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Mocha Mist  Seattle</masterLabel>
+        <translation><!-- Designer - Mocha Mist  Seattle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Red Label  El Paso</masterLabel>
+        <translation><!-- Designer - Red Label  El Paso --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Signature Red Paisley</masterLabel>
+        <translation><!-- Designer - Signature Red Paisley --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Southern Gold Argyle</masterLabel>
+        <translation><!-- Designer - Southern Gold Argyle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Tobacco Gold  Chicago</masterLabel>
+        <translation><!-- Designer - Tobacco Gold  Chicago --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer - Vanilla Dreams  Charleston</masterLabel>
+        <translation><!-- Designer - Vanilla Dreams  Charleston --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer Battery Long Green LED - Green</masterLabel>
+        <translation><!-- Designer Battery Long Green LED - Green --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer Battery Long Green LED - I Love Green Smoke  Springfield</masterLabel>
+        <translation><!-- Designer Battery Long Green LED - I Love Green Smoke  Springfield --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer Battery Long Green LED - Mocha Mist  Seattle</masterLabel>
+        <translation><!-- Designer Battery Long Green LED - Mocha Mist  Seattle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer Battery Long Green LED - Mocha Mist Mocha</masterLabel>
+        <translation><!-- Designer Battery Long Green LED - Mocha Mist Mocha --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer Battery Long Green LED - Smooth Chocolate  Manhattan</masterLabel>
+        <translation><!-- Designer Battery Long Green LED - Smooth Chocolate  Manhattan --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer Battery Long Green LED - Smooth Cream Cream</masterLabel>
+        <translation><!-- Designer Battery Long Green LED - Smooth Cream Cream --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Designer Battery Long Green LED - Vanilla Dreams  Charleston</masterLabel>
+        <translation><!-- Designer Battery Long Green LED - Vanilla Dreams  Charleston --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ELECTRIC TEAL</masterLabel>
+        <translation><!-- ELECTRIC TEAL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>FL</masterLabel>
+        <translation><!-- FL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>FOREST GREEN</masterLabel>
+        <translation><!-- FOREST GREEN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>FSC</masterLabel>
+        <translation><!-- FSC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>GA</masterLabel>
+        <translation><!-- GA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>GOLD</masterLabel>
+        <translation><!-- GOLD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>GRAY</masterLabel>
+        <translation><!-- GRAY --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HOT PINK</masterLabel>
+        <translation><!-- HOT PINK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>INDIGO</masterLabel>
+        <translation><!-- INDIGO --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITALIAN RED</masterLabel>
+        <translation><!-- ITALIAN RED --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intro</masterLabel>
+        <translation><!-- Intro --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LAKE BLUE</masterLabel>
+        <translation><!-- LAKE BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LAVENDER</masterLabel>
+        <translation><!-- LAVENDER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LIGHT PLUM</masterLabel>
+        <translation><!-- LIGHT PLUM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Leather</masterLabel>
+        <translation><!-- Leather --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MARINE</masterLabel>
+        <translation><!-- MARINE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>METALLIC BLUE</masterLabel>
+        <translation><!-- METALLIC BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>METALLIC PLUM</masterLabel>
+        <translation><!-- METALLIC PLUM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MINT</masterLabel>
+        <translation><!-- MINT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Metal</masterLabel>
+        <translation><!-- Metal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>N/A</masterLabel>
+        <translation><!-- N/A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NATURAL SAND</masterLabel>
+        <translation><!-- NATURAL SAND --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NAVY</masterLabel>
+        <translation><!-- NAVY --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NC</masterLabel>
+        <translation><!-- NC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NULL</masterLabel>
+        <translation><!-- NULL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Non Banded Paper</masterLabel>
+        <translation><!-- Non Banded Paper --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ORANGE</masterLabel>
+        <translation><!-- ORANGE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PALE BLUE</masterLabel>
+        <translation><!-- PALE BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PAPERTYPE</masterLabel>
+        <translation><!-- PAPERTYPE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PERIWINKLE</masterLabel>
+        <translation><!-- PERIWINKLE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PERIWINKLE FOIL</masterLabel>
+        <translation><!-- PERIWINKLE FOIL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PEWTER</masterLabel>
+        <translation><!-- PEWTER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PINK</masterLabel>
+        <translation><!-- PINK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PLUM</masterLabel>
+        <translation><!-- PLUM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RED</masterLabel>
+        <translation><!-- RED --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RICH TURQOISE</masterLabel>
+        <translation><!-- RICH TURQOISE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ROSE</masterLabel>
+        <translation><!-- ROSE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ROSSO CORSA</masterLabel>
+        <translation><!-- ROSSO CORSA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rolling</masterLabel>
+        <translation><!-- Rolling --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rubber</masterLabel>
+        <translation><!-- Rubber --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SAND</masterLabel>
+        <translation><!-- SAND --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SC</masterLabel>
+        <translation><!-- SC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SCARLET</masterLabel>
+        <translation><!-- SCARLET --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SLATE</masterLabel>
+        <translation><!-- SLATE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SOFT LILAC</masterLabel>
+        <translation><!-- SOFT LILAC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SOFT YELLOW</masterLabel>
+        <translation><!-- SOFT YELLOW --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SPRING LEAF</masterLabel>
+        <translation><!-- SPRING LEAF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>STEEL BLUE</masterLabel>
+        <translation><!-- STEEL BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>STELLAR BLUE</masterLabel>
+        <translation><!-- STELLAR BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SUNSHINE</masterLabel>
+        <translation><!-- SUNSHINE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sparkle</masterLabel>
+        <translation><!-- Sparkle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Standard</masterLabel>
+        <translation><!-- Standard --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TEAL GREEN</masterLabel>
+        <translation><!-- TEAL GREEN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TURQUOISE</masterLabel>
+        <translation><!-- TURQUOISE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UK Designer Battery Long Green  LED ABS Tobacco  Cooperstown</masterLabel>
+        <translation><!-- UK Designer Battery Long Green  LED ABS Tobacco  Cooperstown --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UK Designer Battery Long Green  LED Mocha Mist  Seattle</masterLabel>
+        <translation><!-- UK Designer Battery Long Green  LED Mocha Mist  Seattle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UK Designer Battery Long Green LED I Love Green Smoke  Springfield</masterLabel>
+        <translation><!-- UK Designer Battery Long Green LED I Love Green Smoke  Springfield --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UK Designer Battery Long Green LED Menthol Ice  New Orleans</masterLabel>
+        <translation><!-- UK Designer Battery Long Green LED Menthol Ice  New Orleans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UK Designer Battery Long Green LED Red Label  El Paso</masterLabel>
+        <translation><!-- UK Designer Battery Long Green LED Red Label  El Paso --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UK Designer Battery Long Green LED Smooth Chocolate  Manhattan</masterLabel>
+        <translation><!-- UK Designer Battery Long Green LED Smooth Chocolate  Manhattan --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UK Designer Battery Long Green LED Tobacco Gold  Chicago</masterLabel>
+        <translation><!-- UK Designer Battery Long Green LED Tobacco Gold  Chicago --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UK Designer Battery Long Green LED Vanilla Dreams  Charleston</masterLabel>
+        <translation><!-- UK Designer Battery Long Green LED Vanilla Dreams  Charleston --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UNKNOWN COLOR</masterLabel>
+        <translation><!-- UNKNOWN COLOR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UNKNOWN DESIGN</masterLabel>
+        <translation><!-- UNKNOWN DESIGN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unknown</masterLabel>
+        <translation><!-- Unknown --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VA</masterLabel>
+        <translation><!-- VA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>WHITE</masterLabel>
+        <translation><!-- WHITE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>YELLOW</masterLabel>
+        <translation><!-- YELLOW --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

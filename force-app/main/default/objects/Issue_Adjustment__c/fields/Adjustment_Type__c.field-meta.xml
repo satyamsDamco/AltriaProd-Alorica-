@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Adjustment_Type__c</fullName>
+    <label>Adjustment Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Brand Hierarchy</fullName>
+                <default>false</default>
+                <label>Brand Hierarchy</label>
+            </value>
+            <value>
+                <fullName>Consumer Notes</fullName>
+                <default>false</default>
+                <label>Consumer Notes</label>
+            </value>
+            <value>
+                <fullName>Date Code</fullName>
+                <default>false</default>
+                <label>Date Code</label>
+            </value>
+            <value>
+                <fullName>Issue Hierarchy</fullName>
+                <default>false</default>
+                <label>Issue Hierarchy</label>
+            </value>
+            <value>
+                <fullName>Related Issue ID</fullName>
+                <default>false</default>
+                <label>Related Issue ID</label>
+            </value>
+            <value>
+                <fullName>Review</fullName>
+                <default>false</default>
+                <label>Review</label>
+            </value>
+            <value>
+                <fullName>Suspected Counterfeit Flag</fullName>
+                <default>false</default>
+                <label>Suspected Counterfeit Flag</label>
+            </value>
+            <value>
+                <fullName>Suspected Tampering</fullName>
+                <default>false</default>
+                <label>Suspected Tampering</label>
+            </value>
+            <value>
+                <fullName>Trace Code</fullName>
+                <default>false</default>
+                <label>Trace Code</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

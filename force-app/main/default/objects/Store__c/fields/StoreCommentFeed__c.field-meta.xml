@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StoreCommentFeed__c</fullName>
+    <description>Outbound Feed Only.</description>
+    <encryptionScheme>None</encryptionScheme>
+    <label>Store Comment Feed</label>
+    <length>131072</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

@@ -1,0 +1,1605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Packaging --></label>
+    <name>Packaging__c</name>
+    <picklistValues>
+        <masterLabel>1 1/2 Oz Packet</masterLabel>
+        <translation><!-- 1 1/2 Oz Packet --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>1 3/8 Oz Packet</masterLabel>
+        <translation><!-- 1 3/8 Oz Packet --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>1-PACK</masterLabel>
+        <translation><!-- 1-PACK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>10 - Pack</masterLabel>
+        <translation><!-- 10 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>10 Ct  Tray-5-Pack</masterLabel>
+        <translation><!-- 10 Ct  Tray-5-Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>10 Ct Display Of 7 - Pack</masterLabel>
+        <translation><!-- 10 Ct Display Of 7 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>10 Ct Tray Of 7 - Pack</masterLabel>
+        <translation><!-- 10 Ct Tray Of 7 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>10 Ct Tray-5-Packpromo201001</masterLabel>
+        <translation><!-- 10 Ct Tray-5-Packpromo201001 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>10-2-Pack Upright Promo 201002</masterLabel>
+        <translation><!-- 10-2-Pack Upright Promo 201002 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>10ct Tray-5-Packpromo201001</masterLabel>
+        <translation><!-- 10ct Tray-5-Packpromo201001 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>12 Oz Can</masterLabel>
+        <translation><!-- 12 Oz Can --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>14 Oz Can</masterLabel>
+        <translation><!-- 14 Oz Can --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 - PACK FOIL $1.75</masterLabel>
+        <translation><!-- 2 - PACK FOIL $1.75 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 - Pack Foil</masterLabel>
+        <translation><!-- 2 - Pack Foil --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 - Pack Foil B2G $0.50 OFF</masterLabel>
+        <translation><!-- 2 - Pack Foil B2G $0.50 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 - Pack Foil CGR</masterLabel>
+        <translation><!-- 2 - Pack Foil CGR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 - Pack Foil Promo $1.49</masterLabel>
+        <translation><!-- 2 - Pack Foil Promo $1.49 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 - Pack Foil Promo $2.29</masterLabel>
+        <translation><!-- 2 - Pack Foil Promo $2.29 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 - Pack Foil Promo 1.49</masterLabel>
+        <translation><!-- 2 - Pack Foil Promo 1.49 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 - Pack Foil Promo 99</masterLabel>
+        <translation><!-- 2 - Pack Foil Promo 99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 - Pack Foil- $0.99</masterLabel>
+        <translation><!-- 2 - Pack Foil- $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 - Pack Foil- $1.39</masterLabel>
+        <translation><!-- 2 - Pack Foil- $1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 Pack</masterLabel>
+        <translation><!-- 2 Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 Pack 1.49</masterLabel>
+        <translation><!-- 2 Pack 1.49 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2-Pack Promo 201002</masterLabel>
+        <translation><!-- 2-Pack Promo 201002 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 - COUNT UPRIGHT</masterLabel>
+        <translation><!-- 25 - COUNT UPRIGHT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 - COUNT UPRIGHT $0.79</masterLabel>
+        <translation><!-- 25 - COUNT UPRIGHT $0.79 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 - COUNT UPRIGHT $0.89</masterLabel>
+        <translation><!-- 25 - COUNT UPRIGHT $0.89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 - COUNT UPRIGHT $0.99</masterLabel>
+        <translation><!-- 25 - COUNT UPRIGHT $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 - COUNT UPRIGHT $1.19</masterLabel>
+        <translation><!-- 25 - COUNT UPRIGHT $1.19 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 -COUNT UPRIGHT $0.79</masterLabel>
+        <translation><!-- 25 -COUNT UPRIGHT $0.79 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 -COUNT UPRIGHT $0.89</masterLabel>
+        <translation><!-- 25 -COUNT UPRIGHT $0.89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 -COUNT UPRIGHT $0.99</masterLabel>
+        <translation><!-- 25 -COUNT UPRIGHT $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 -COUNT UPRIGHT $1.19</masterLabel>
+        <translation><!-- 25 -COUNT UPRIGHT $1.19 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 -COUNT UPRIGHT $1.39</masterLabel>
+        <translation><!-- 25 -COUNT UPRIGHT $1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 -Count Upright</masterLabel>
+        <translation><!-- 25 -Count Upright --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 -Count Upright Singles</masterLabel>
+        <translation><!-- 25 -Count Upright Singles --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 -Ct  Upright</masterLabel>
+        <translation><!-- 25 -Ct  Upright --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 Count Upright $0.89</masterLabel>
+        <translation><!-- 25 Count Upright $0.89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 Count Upright $0.99</masterLabel>
+        <translation><!-- 25 Count Upright $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 Count Upright $1.19</masterLabel>
+        <translation><!-- 25 Count Upright $1.19 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25 Count Upright $1.39</masterLabel>
+        <translation><!-- 25 Count Upright $1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>25s Hard Pack</masterLabel>
+        <translation><!-- 25s Hard Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3 - PACK FOIL</masterLabel>
+        <translation><!-- 3 - PACK FOIL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3 - Pack</masterLabel>
+        <translation><!-- 3 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3 - Pack B2G1F</masterLabel>
+        <translation><!-- 3 - Pack B2G1F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3 - Pack Foil B2G1F</masterLabel>
+        <translation><!-- 3 - Pack Foil B2G1F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3 For Price of 2 - Pack Pack</masterLabel>
+        <translation><!-- 3 For Price of 2 - Pack Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3-PACK</masterLabel>
+        <translation><!-- 3-PACK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3-Pack Blister</masterLabel>
+        <translation><!-- 3-Pack Blister --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3-Pack Box</masterLabel>
+        <translation><!-- 3-Pack Box --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>30 -Count Display</masterLabel>
+        <translation><!-- 30 -Count Display --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>30 Count Upright</masterLabel>
+        <translation><!-- 30 Count Upright --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK $3.95 - H</masterLabel>
+        <translation><!-- 5 - PACK $3.95 - H --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK $3.95 - N</masterLabel>
+        <translation><!-- 5 - PACK $3.95 - N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK $4.45</masterLabel>
+        <translation><!-- 5 - PACK $4.45 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK - H</masterLabel>
+        <translation><!-- 5 - PACK - H --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK - N</masterLabel>
+        <translation><!-- 5 - PACK - N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK - T</masterLabel>
+        <translation><!-- 5 - PACK - T --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK CREAM FILLER</masterLabel>
+        <translation><!-- 5 - PACK CREAM FILLER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK H</masterLabel>
+        <translation><!-- 5 - PACK H --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK N</masterLabel>
+        <translation><!-- 5 - PACK N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK SWEETS FILLER</masterLabel>
+        <translation><!-- 5 - PACK SWEETS FILLER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - Pack</masterLabel>
+        <translation><!-- 5 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - Pack $0.50 OFF</masterLabel>
+        <translation><!-- 5 - Pack $0.50 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - Pack $3.99</masterLabel>
+        <translation><!-- 5 - Pack $3.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - Pack - $1.99</masterLabel>
+        <translation><!-- 5 - Pack - $1.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - Pack - $2.49</masterLabel>
+        <translation><!-- 5 - Pack - $2.49 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - Pack B4G1F</masterLabel>
+        <translation><!-- 5 - Pack B4G1F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - Pack Foil</masterLabel>
+        <translation><!-- 5 - Pack Foil --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - Pack Sniped</masterLabel>
+        <translation><!-- 5 - Pack Sniped --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 Oz Bag</masterLabel>
+        <translation><!-- 5 Oz Bag --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 Pack</masterLabel>
+        <translation><!-- 5 Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 Pack - O</masterLabel>
+        <translation><!-- 5 Pack - O --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 Pack B4G1F</masterLabel>
+        <translation><!-- 5 Pack B4G1F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 Pack of $4.45</masterLabel>
+        <translation><!-- 5 Pack of $4.45 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 Pack of $4.95</masterLabel>
+        <translation><!-- 5 Pack of $4.95 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 Pack of $5.95</masterLabel>
+        <translation><!-- 5 Pack of $5.95 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 Pack of $6.95</masterLabel>
+        <translation><!-- 5 Pack of $6.95 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5-PACK- $2.99</masterLabel>
+        <translation><!-- 5-PACK- $2.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5-Pack Promo 201001</masterLabel>
+        <translation><!-- 5-Pack Promo 201001 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5-Pack Promo 201201</masterLabel>
+        <translation><!-- 5-Pack Promo 201201 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>50 -Count Club</masterLabel>
+        <translation><!-- 50 -Count Club --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>50 -Count Display</masterLabel>
+        <translation><!-- 50 -Count Display --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>6 - Pack</masterLabel>
+        <translation><!-- 6 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>60 - Count Club</masterLabel>
+        <translation><!-- 60 - Count Club --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>7 - Pack</masterLabel>
+        <translation><!-- 7 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>7 - Pack Promo</masterLabel>
+        <translation><!-- 7 - Pack Promo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>7 Oz Can</masterLabel>
+        <translation><!-- 7 Oz Can --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>7 Pack</masterLabel>
+        <translation><!-- 7 Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>9 Oz Bag</masterLabel>
+        <translation><!-- 9 Oz Bag --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BOTTLE</masterLabel>
+        <translation><!-- BOTTLE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bag</masterLabel>
+        <translation><!-- Bag --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Blister Pack</masterLabel>
+        <translation><!-- Blister Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Box</masterLabel>
+        <translation><!-- Box --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CAN (PROMO 0.75)</masterLabel>
+        <translation><!-- CAN (PROMO 0.75) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CARTON  50 CENT OFF</masterLabel>
+        <translation><!-- CARTON  50 CENT OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CARTON 2X5</masterLabel>
+        <translation><!-- CARTON 2X5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CARTON AND KIT</masterLabel>
+        <translation><!-- CARTON AND KIT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CARTON OF 5 - PACK $4.45</masterLabel>
+        <translation><!-- CARTON OF 5 - PACK $4.45 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CARTON-$0.50 OFF</masterLabel>
+        <translation><!-- CARTON-$0.50 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CASE  50 CENT OFF</masterLabel>
+        <translation><!-- CASE  50 CENT OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CASE OF 5 - PACK $4.45</masterLabel>
+        <translation><!-- CASE OF 5 - PACK $4.45 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CASE OF SINGLES $0.99</masterLabel>
+        <translation><!-- CASE OF SINGLES $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CASE OF SINGLES $1.19</masterLabel>
+        <translation><!-- CASE OF SINGLES $1.19 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CASE OF SINGLES $1.39</masterLabel>
+        <translation><!-- CASE OF SINGLES $1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CASE OF SINGLES 1.19</masterLabel>
+        <translation><!-- CASE OF SINGLES 1.19 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CASE OF SINGLES 1.39</masterLabel>
+        <translation><!-- CASE OF SINGLES 1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CASE- $0.50 OFF</masterLabel>
+        <translation><!-- CASE- $0.50 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can</masterLabel>
+        <translation><!-- Can --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (AK &amp; HI)</masterLabel>
+        <translation><!-- Can (AK &amp; HI) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (Duty Free USA)</masterLabel>
+        <translation><!-- Can (Duty Free USA) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (MILITARY)</masterLabel>
+        <translation><!-- Can (MILITARY) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (PR)</masterLabel>
+        <translation><!-- Can (PR) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (PROMO .50)</masterLabel>
+        <translation><!-- Can (PROMO .50) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (PROMO 0.50)</masterLabel>
+        <translation><!-- Can (PROMO 0.50) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (PROMO 0.75 Off)</masterLabel>
+        <translation><!-- Can (PROMO 0.75 Off) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (PROMO 1.00)</masterLabel>
+        <translation><!-- Can (PROMO 1.00) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (PROMO 1.25)</masterLabel>
+        <translation><!-- Can (PROMO 1.25) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (PROMO 1.69 Per Can)</masterLabel>
+        <translation><!-- Can (PROMO 1.69 Per Can) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (PROMO 1.69)</masterLabel>
+        <translation><!-- Can (PROMO 1.69) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (PROMO-01)</masterLabel>
+        <translation><!-- Can (PROMO-01) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can (UPC)</masterLabel>
+        <translation><!-- Can (UPC) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can Display Carton</masterLabel>
+        <translation><!-- Can Display Carton --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can Lead Market</masterLabel>
+        <translation><!-- Can Lead Market --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can Lead Market (Plus asterisk)</masterLabel>
+        <translation><!-- Can Lead Market (Plus asterisk) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can Promo 1.90</masterLabel>
+        <translation><!-- Can Promo 1.90 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can Promo 2.25</masterLabel>
+        <translation><!-- Can Promo 2.25 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can Test Market Al</masterLabel>
+        <translation><!-- Can Test Market Al --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cannister 6 Oz</masterLabel>
+        <translation><!-- Cannister 6 Oz --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton</masterLabel>
+        <translation><!-- Carton --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton - $0.99</masterLabel>
+        <translation><!-- Carton - $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton - $4.99</masterLabel>
+        <translation><!-- Carton - $4.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton - $5.99</masterLabel>
+        <translation><!-- Carton - $5.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton - $9.99</masterLabel>
+        <translation><!-- Carton - $9.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton -1.00 OFF</masterLabel>
+        <translation><!-- Carton -1.00 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Horizontal</masterLabel>
+        <translation><!-- Carton Horizontal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Horizontal New</masterLabel>
+        <translation><!-- Carton Horizontal New --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 1 1/2 Oz Packet</masterLabel>
+        <translation><!-- Carton Of 1 1/2 Oz Packet --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 2 - Pack</masterLabel>
+        <translation><!-- Carton Of 2 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 2 - Pack 1.49</masterLabel>
+        <translation><!-- Carton Of 2 - Pack 1.49 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 2 - Pack Foil</masterLabel>
+        <translation><!-- Carton Of 2 - Pack Foil --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 2 - Pack Foil B2G $0.50 OFF</masterLabel>
+        <translation><!-- Carton Of 2 - Pack Foil B2G $0.50 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 2 - Pack Foil CGR</masterLabel>
+        <translation><!-- Carton Of 2 - Pack Foil CGR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 2 - Pack Foil Promo $1.49</masterLabel>
+        <translation><!-- Carton Of 2 - Pack Foil Promo $1.49 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 2 - Pack Foil Promo $2.29</masterLabel>
+        <translation><!-- Carton Of 2 - Pack Foil Promo $2.29 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 2 - Pack Foil Promo 1.49</masterLabel>
+        <translation><!-- Carton Of 2 - Pack Foil Promo 1.49 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 2 - Pack Foil Promo 99</masterLabel>
+        <translation><!-- Carton Of 2 - Pack Foil Promo 99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 2 - Pack Foil- $0.99</masterLabel>
+        <translation><!-- Carton Of 2 - Pack Foil- $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 2 - Pack Foil- $1.39</masterLabel>
+        <translation><!-- Carton Of 2 - Pack Foil- $1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 3 - Pack</masterLabel>
+        <translation><!-- Carton Of 3 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 3 - Pack B2G1F</masterLabel>
+        <translation><!-- Carton Of 3 - Pack B2G1F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 3 - Pack Foil B2G1F</masterLabel>
+        <translation><!-- Carton Of 3 - Pack Foil B2G1F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 5 - Pack</masterLabel>
+        <translation><!-- Carton Of 5 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 5 - Pack $0.50 OFF</masterLabel>
+        <translation><!-- Carton Of 5 - Pack $0.50 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 5 - Pack - O</masterLabel>
+        <translation><!-- Carton Of 5 - Pack - O --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 5 - Pack B4G1F</masterLabel>
+        <translation><!-- Carton Of 5 - Pack B4G1F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 5 - Pack Foil</masterLabel>
+        <translation><!-- Carton Of 5 - Pack Foil --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 5 - Pack Sniped</masterLabel>
+        <translation><!-- Carton Of 5 - Pack Sniped --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 5 Pack B4G1F</masterLabel>
+        <translation><!-- Carton Of 5 Pack B4G1F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 7 - Pack</masterLabel>
+        <translation><!-- Carton Of 7 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of 7-Pack &amp; 25 Cnt Uprt</masterLabel>
+        <translation><!-- Carton Of 7-Pack &amp; 25 Cnt Uprt --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of Box</masterLabel>
+        <translation><!-- Carton Of Box --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of Hard Pack</masterLabel>
+        <translation><!-- Carton Of Hard Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Of Pouches</masterLabel>
+        <translation><!-- Carton Of Pouches --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton Vertical</masterLabel>
+        <translation><!-- Carton Vertical --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton of 5 - Pack $4.95</masterLabel>
+        <translation><!-- Carton of 5 - Pack $4.95 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton of 5 - Pack $5.95</masterLabel>
+        <translation><!-- Carton of 5 - Pack $5.95 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton of 5 - Pack $6.95</masterLabel>
+        <translation><!-- Carton of 5 - Pack $6.95 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton of 5 Pack</masterLabel>
+        <translation><!-- Carton of 5 Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton-1.00 OFF</masterLabel>
+        <translation><!-- Carton-1.00 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case</masterLabel>
+        <translation><!-- Case --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case - $0.99</masterLabel>
+        <translation><!-- Case - $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case - $4.99</masterLabel>
+        <translation><!-- Case - $4.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case - $5.99</masterLabel>
+        <translation><!-- Case - $5.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case - $9.99</masterLabel>
+        <translation><!-- Case - $9.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Lead Market</masterLabel>
+        <translation><!-- Case Lead Market --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 1 1/2 Oz Packet</masterLabel>
+        <translation><!-- Case Of 1 1/2 Oz Packet --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 100 CT Singles .79</masterLabel>
+        <translation><!-- Case Of 100 CT Singles .79 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 100 CT Singles .89</masterLabel>
+        <translation><!-- Case Of 100 CT Singles .89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 2 - Pack Foil</masterLabel>
+        <translation><!-- Case Of 2 - Pack Foil --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 2 - Pack Foil - $0.99</masterLabel>
+        <translation><!-- Case Of 2 - Pack Foil - $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 2 - Pack Foil - $1.39</masterLabel>
+        <translation><!-- Case Of 2 - Pack Foil - $1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 2 - Pack Foil B2G $0.50 OFF</masterLabel>
+        <translation><!-- Case Of 2 - Pack Foil B2G $0.50 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 2 - Pack Foil CGR</masterLabel>
+        <translation><!-- Case Of 2 - Pack Foil CGR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 2 - Pack Foil Promo $1.49</masterLabel>
+        <translation><!-- Case Of 2 - Pack Foil Promo $1.49 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 2 - Pack Foil Promo $2.29</masterLabel>
+        <translation><!-- Case Of 2 - Pack Foil Promo $2.29 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 2 - Pack Foil Promo 1.49</masterLabel>
+        <translation><!-- Case Of 2 - Pack Foil Promo 1.49 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 2 - Pack Foil Promo 99</masterLabel>
+        <translation><!-- Case Of 2 - Pack Foil Promo 99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 2 Pack</masterLabel>
+        <translation><!-- Case Of 2 Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 2 Pack 1.49</masterLabel>
+        <translation><!-- Case Of 2 Pack 1.49 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 25 -Count Upright</masterLabel>
+        <translation><!-- Case Of 25 -Count Upright --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 3 - Pack Foil B2G1F</masterLabel>
+        <translation><!-- Case Of 3 - Pack Foil B2G1F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 3 Pack</masterLabel>
+        <translation><!-- Case Of 3 Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 3 Pack B2G1F</masterLabel>
+        <translation><!-- Case Of 3 Pack B2G1F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 300 7 - Pack</masterLabel>
+        <translation><!-- Case Of 300 7 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 5 - Pack</masterLabel>
+        <translation><!-- Case Of 5 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 5 - Pack Foil</masterLabel>
+        <translation><!-- Case Of 5 - Pack Foil --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 5 Pack</masterLabel>
+        <translation><!-- Case Of 5 Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 5 Pack $0.50 OFF</masterLabel>
+        <translation><!-- Case Of 5 Pack $0.50 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 5 Pack - O</masterLabel>
+        <translation><!-- Case Of 5 Pack - O --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 5 Pack B4G1F</masterLabel>
+        <translation><!-- Case Of 5 Pack B4G1F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 5 Pack Incentive Offer</masterLabel>
+        <translation><!-- Case Of 5 Pack Incentive Offer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 5 Pack Incentive Offer 2</masterLabel>
+        <translation><!-- Case Of 5 Pack Incentive Offer 2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 5 Pack Sniped</masterLabel>
+        <translation><!-- Case Of 5 Pack Sniped --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 50 -Count Club</masterLabel>
+        <translation><!-- Case Of 50 -Count Club --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 60 - Count Club</masterLabel>
+        <translation><!-- Case Of 60 - Count Club --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 7 - Pack</masterLabel>
+        <translation><!-- Case Of 7 - Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 7 Pack</masterLabel>
+        <translation><!-- Case Of 7 Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of 7-Pack &amp; 25 Cnt Uprght</masterLabel>
+        <translation><!-- Case Of 7-Pack &amp; 25 Cnt Uprght --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Box</masterLabel>
+        <translation><!-- Case Of Box --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Cans</masterLabel>
+        <translation><!-- Case Of Cans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Cans Lead Market</masterLabel>
+        <translation><!-- Case Of Cans Lead Market --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Cans Promo 1.90</masterLabel>
+        <translation><!-- Case Of Cans Promo 1.90 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Cans Promo 2.25</masterLabel>
+        <translation><!-- Case Of Cans Promo 2.25 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Cans Promotion</masterLabel>
+        <translation><!-- Case Of Cans Promotion --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Giant Tumblers</masterLabel>
+        <translation><!-- Case Of Giant Tumblers --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Hard Pack</masterLabel>
+        <translation><!-- Case Of Hard Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Medium Cans</masterLabel>
+        <translation><!-- Case Of Medium Cans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Pocket Cans</masterLabel>
+        <translation><!-- Case Of Pocket Cans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Pouches</masterLabel>
+        <translation><!-- Case Of Pouches --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Rolls</masterLabel>
+        <translation><!-- Case Of Rolls --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Singles</masterLabel>
+        <translation><!-- Case Of Singles --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Singles $0.25 OFF</masterLabel>
+        <translation><!-- Case Of Singles $0.25 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Singles $0.69</masterLabel>
+        <translation><!-- Case Of Singles $0.69 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Singles $0.79</masterLabel>
+        <translation><!-- Case Of Singles $0.79 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Singles $0.89</masterLabel>
+        <translation><!-- Case Of Singles $0.89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Singles .79</masterLabel>
+        <translation><!-- Case Of Singles .79 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Singles .89</masterLabel>
+        <translation><!-- Case Of Singles .89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Singles .99</masterLabel>
+        <translation><!-- Case Of Singles .99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Singles 30 Count Display</masterLabel>
+        <translation><!-- Case Of Singles 30 Count Display --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Singles Club</masterLabel>
+        <translation><!-- Case Of Singles Club --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Singles Revenue</masterLabel>
+        <translation><!-- Case Of Singles Revenue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Slim Cans</masterLabel>
+        <translation><!-- Case Of Slim Cans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Thrift Cans</masterLabel>
+        <translation><!-- Case Of Thrift Cans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Thrift Tumblers</masterLabel>
+        <translation><!-- Case Of Thrift Tumblers --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Of Tubes</masterLabel>
+        <translation><!-- Case Of Tubes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case Test Market Al</masterLabel>
+        <translation><!-- Case Test Market Al --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of 25 Count Upright $0.89</masterLabel>
+        <translation><!-- Case of 25 Count Upright $0.89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of 25 Count Upright $0.99</masterLabel>
+        <translation><!-- Case of 25 Count Upright $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of 25 Count Upright $1.19</masterLabel>
+        <translation><!-- Case of 25 Count Upright $1.19 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of 25 Count Upright $1.39</masterLabel>
+        <translation><!-- Case of 25 Count Upright $1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of 5 - Pack $3.99</masterLabel>
+        <translation><!-- Case of 5 - Pack $3.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of 5 - Pack $4.95</masterLabel>
+        <translation><!-- Case of 5 - Pack $4.95 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of 5 - Pack $5.95</masterLabel>
+        <translation><!-- Case of 5 - Pack $5.95 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of 5 - Pack $6.95</masterLabel>
+        <translation><!-- Case of 5 - Pack $6.95 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of 5-Pack Promo 201201</masterLabel>
+        <translation><!-- Case of 5-Pack Promo 201201 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of 50 Count Displays</masterLabel>
+        <translation><!-- Case of 50 Count Displays --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of Tubes Horizontal</masterLabel>
+        <translation><!-- Case of Tubes Horizontal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of Tubes Vertical</masterLabel>
+        <translation><!-- Case of Tubes Vertical --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of Tubs</masterLabel>
+        <translation><!-- Case of Tubs --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case of Upright Singles</masterLabel>
+        <translation><!-- Case of Upright Singles --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case- 1.00 OFF</masterLabel>
+        <translation><!-- Case- 1.00 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case-1.00 OFF</masterLabel>
+        <translation><!-- Case-1.00 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case-2 Pack Promo 201002</masterLabel>
+        <translation><!-- Case-2 Pack Promo 201002 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case-5 Pack</masterLabel>
+        <translation><!-- Case-5 Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case-5 Pack Promo 201001</masterLabel>
+        <translation><!-- Case-5 Pack Promo 201001 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case-Singles</masterLabel>
+        <translation><!-- Case-Singles --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case-of 5 - Pack $3.99</masterLabel>
+        <translation><!-- Case-of 5 - Pack $3.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Club Display Of Singles</masterLabel>
+        <translation><!-- Club Display Of Singles --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DISPLAY CARTON 25 1.19</masterLabel>
+        <translation><!-- DISPLAY CARTON 25 1.19 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DISPLAY CARTON 25 1.39</masterLabel>
+        <translation><!-- DISPLAY CARTON 25 1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DISPLAY OF $0.99</masterLabel>
+        <translation><!-- DISPLAY OF $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DISPLAY OF $1.19</masterLabel>
+        <translation><!-- DISPLAY OF $1.19 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DISPLAY OF $1.39</masterLabel>
+        <translation><!-- DISPLAY OF $1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Carton</masterLabel>
+        <translation><!-- Display Carton --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Carton 100 .79</masterLabel>
+        <translation><!-- Display Carton 100 .79 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Carton 100 .89</masterLabel>
+        <translation><!-- Display Carton 100 .89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Carton 25</masterLabel>
+        <translation><!-- Display Carton 25 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Carton 25 .79</masterLabel>
+        <translation><!-- Display Carton 25 .79 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Carton 25 .89</masterLabel>
+        <translation><!-- Display Carton 25 .89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Carton 25 .99</masterLabel>
+        <translation><!-- Display Carton 25 .99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Of $0.79</masterLabel>
+        <translation><!-- Display Of $0.79 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Of $0.89</masterLabel>
+        <translation><!-- Display Of $0.89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Of 30- Count</masterLabel>
+        <translation><!-- Display Of 30- Count --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Of 5 - Pack $3.99</masterLabel>
+        <translation><!-- Display Of 5 - Pack $3.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Of Cans</masterLabel>
+        <translation><!-- Display Of Cans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Of Singles</masterLabel>
+        <translation><!-- Display Of Singles --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Of Singles $0.25 OFF</masterLabel>
+        <translation><!-- Display Of Singles $0.25 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Of Singles $0.69</masterLabel>
+        <translation><!-- Display Of Singles $0.69 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Of Singles $0.79</masterLabel>
+        <translation><!-- Display Of Singles $0.79 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display Of Singles Revenue</masterLabel>
+        <translation><!-- Display Of Singles Revenue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Display of Singles $0.99</masterLabel>
+        <translation><!-- Display of Singles $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>EU Express Starter Kit</masterLabel>
+        <translation><!-- EU Express Starter Kit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>EU Starter Kit (Accessory Kit)</masterLabel>
+        <translation><!-- EU Starter Kit (Accessory Kit) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>EU Starter Kit Accessory Kit UK</masterLabel>
+        <translation><!-- EU Starter Kit Accessory Kit UK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Foil Pack 6</masterLabel>
+        <translation><!-- Foil Pack 6 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Foil Pack Sample 2</masterLabel>
+        <translation><!-- Foil Pack Sample 2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Full Pack</masterLabel>
+        <translation><!-- Full Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Giant Tumbler</masterLabel>
+        <translation><!-- Giant Tumbler --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Green Smoke Starter Kit</masterLabel>
+        <translation><!-- Green Smoke Starter Kit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Green Smoke Starter Kit (NZ)</masterLabel>
+        <translation><!-- Green Smoke Starter Kit (NZ) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HARD PACK - JUMBO</masterLabel>
+        <translation><!-- HARD PACK - JUMBO --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HARD PACK 50 CENT OFF</masterLabel>
+        <translation><!-- HARD PACK 50 CENT OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack</masterLabel>
+        <translation><!-- Hard Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack - $0.99</masterLabel>
+        <translation><!-- Hard Pack - $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack - $4.99</masterLabel>
+        <translation><!-- Hard Pack - $4.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack - $5.99</masterLabel>
+        <translation><!-- Hard Pack - $5.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack - $9.99</masterLabel>
+        <translation><!-- Hard Pack - $9.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack - .50 Off</masterLabel>
+        <translation><!-- Hard Pack - .50 Off --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack - 1 Pack</masterLabel>
+        <translation><!-- Hard Pack - 1 Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack - 1 pack $4.99</masterLabel>
+        <translation><!-- Hard Pack - 1 pack $4.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack - 2 Pack</masterLabel>
+        <translation><!-- Hard Pack - 2 Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack 25s</masterLabel>
+        <translation><!-- Hard Pack 25s --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack Blue</masterLabel>
+        <translation><!-- Hard Pack Blue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack Carton</masterLabel>
+        <translation><!-- Hard Pack Carton --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack Carton - .50 Off</masterLabel>
+        <translation><!-- Hard Pack Carton - .50 Off --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack Case</masterLabel>
+        <translation><!-- Hard Pack Case --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack Case - .50 Off</masterLabel>
+        <translation><!-- Hard Pack Case - .50 Off --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack Green</masterLabel>
+        <translation><!-- Hard Pack Green --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Pack Purse</masterLabel>
+        <translation><!-- Hard Pack Purse --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intro Kit - EU</masterLabel>
+        <translation><!-- Intro Kit - EU --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intro Kit Blister</masterLabel>
+        <translation><!-- Intro Kit Blister --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Kit</masterLabel>
+        <translation><!-- Kit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Kit Accessory Pack</masterLabel>
+        <translation><!-- Kit Accessory Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medium Can</masterLabel>
+        <translation><!-- Medium Can --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>N/A</masterLabel>
+        <translation><!-- N/A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other Packing</masterLabel>
+        <translation><!-- Other Packing --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PACK RESEALABLE</masterLabel>
+        <translation><!-- PACK RESEALABLE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PACK- $0.50 OFF</masterLabel>
+        <translation><!-- PACK- $0.50 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pack</masterLabel>
+        <translation><!-- Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pack Poly -1.00 0FF</masterLabel>
+        <translation><!-- Pack Poly -1.00 0FF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pack Poly-1.00 OFF</masterLabel>
+        <translation><!-- Pack Poly-1.00 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Paper Can / Tin Lid</masterLabel>
+        <translation><!-- Paper Can / Tin Lid --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pocket Can</masterLabel>
+        <translation><!-- Pocket Can --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pouch</masterLabel>
+        <translation><!-- Pouch --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pouch 0.75 Oz</masterLabel>
+        <translation><!-- Pouch 0.75 Oz --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Princess Pack</masterLabel>
+        <translation><!-- Princess Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quick Start Kit</masterLabel>
+        <translation><!-- Quick Start Kit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RESEALABLE PACK</masterLabel>
+        <translation><!-- RESEALABLE PACK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RESEALABLE PACK CARTON</masterLabel>
+        <translation><!-- RESEALABLE PACK CARTON --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RESEALABLE PACK CASE</masterLabel>
+        <translation><!-- RESEALABLE PACK CASE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rechargeable Kit</masterLabel>
+        <translation><!-- Rechargeable Kit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rechargeable Kit - Clamshell packaging</masterLabel>
+        <translation><!-- Rechargeable Kit - Clamshell packaging --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Replacement</masterLabel>
+        <translation><!-- Replacement --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Roll</masterLabel>
+        <translation><!-- Roll --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Roll Lead Market</masterLabel>
+        <translation><!-- Roll Lead Market --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Roll Of Cans</masterLabel>
+        <translation><!-- Roll Of Cans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Roll Of Cans Lead Market</masterLabel>
+        <translation><!-- Roll Of Cans Lead Market --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Roll Of Cans Promo 1.90</masterLabel>
+        <translation><!-- Roll Of Cans Promo 1.90 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Roll Of Pocket Cans</masterLabel>
+        <translation><!-- Roll Of Pocket Cans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Roll Of Slim Can</masterLabel>
+        <translation><!-- Roll Of Slim Can --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Roll Of Slim Cans</masterLabel>
+        <translation><!-- Roll Of Slim Cans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Roll Promo 2.25</masterLabel>
+        <translation><!-- Roll Promo 2.25 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Roll Test Market Al</masterLabel>
+        <translation><!-- Roll Test Market Al --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rounded Corner Box</masterLabel>
+        <translation><!-- Rounded Corner Box --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.49</masterLabel>
+        <translation><!-- SINGLES $0.49 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 - E</masterLabel>
+        <translation><!-- SINGLES $0.79 - E --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 - F</masterLabel>
+        <translation><!-- SINGLES $0.79 - F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 - H</masterLabel>
+        <translation><!-- SINGLES $0.79 - H --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 - N</masterLabel>
+        <translation><!-- SINGLES $0.79 - N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 CREAM FILLER</masterLabel>
+        <translation><!-- SINGLES $0.79 CREAM FILLER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 CREAM FILLER - N</masterLabel>
+        <translation><!-- SINGLES $0.79 CREAM FILLER - N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 CREAM FILLER N</masterLabel>
+        <translation><!-- SINGLES $0.79 CREAM FILLER N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 E</masterLabel>
+        <translation><!-- SINGLES $0.79 E --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 F</masterLabel>
+        <translation><!-- SINGLES $0.79 F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 H</masterLabel>
+        <translation><!-- SINGLES $0.79 H --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 N</masterLabel>
+        <translation><!-- SINGLES $0.79 N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.89 SWEETS FILLER</masterLabel>
+        <translation><!-- SINGLES $0.89 SWEETS FILLER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.99</masterLabel>
+        <translation><!-- SINGLES $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $1.19</masterLabel>
+        <translation><!-- SINGLES $1.19 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $1.39</masterLabel>
+        <translation><!-- SINGLES $1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $1.75</masterLabel>
+        <translation><!-- SINGLES $1.75 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES - N</masterLabel>
+        <translation><!-- SINGLES - N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES 1.19</masterLabel>
+        <translation><!-- SINGLES 1.19 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES 1.39</masterLabel>
+        <translation><!-- SINGLES 1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES F</masterLabel>
+        <translation><!-- SINGLES F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES G</masterLabel>
+        <translation><!-- SINGLES G --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES H</masterLabel>
+        <translation><!-- SINGLES H --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES N</masterLabel>
+        <translation><!-- SINGLES N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SLEEVE</masterLabel>
+        <translation><!-- SLEEVE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Single - 25 Count Upright $0.89</masterLabel>
+        <translation><!-- Single - 25 Count Upright $0.89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Single - 25 Count Upright $0.99</masterLabel>
+        <translation><!-- Single - 25 Count Upright $0.99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Single - 25 Count Upright $1.19</masterLabel>
+        <translation><!-- Single - 25 Count Upright $1.19 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Single - 25 Count Upright $1.39</masterLabel>
+        <translation><!-- Single - 25 Count Upright $1.39 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Singles</masterLabel>
+        <translation><!-- Singles --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Singles $0.25 OFF</masterLabel>
+        <translation><!-- Singles $0.25 OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Singles $0.69</masterLabel>
+        <translation><!-- Singles $0.69 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Singles $0.79</masterLabel>
+        <translation><!-- Singles $0.79 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Singles $0.89</masterLabel>
+        <translation><!-- Singles $0.89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Singles .79</masterLabel>
+        <translation><!-- Singles .79 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Singles .89</masterLabel>
+        <translation><!-- Singles .89 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Singles .99</masterLabel>
+        <translation><!-- Singles .99 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Singles B1</masterLabel>
+        <translation><!-- Singles B1 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Singles Revenue</masterLabel>
+        <translation><!-- Singles Revenue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Singles Tube</masterLabel>
+        <translation><!-- Singles Tube --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Slim Can</masterLabel>
+        <translation><!-- Slim Can --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Soft Pack</masterLabel>
+        <translation><!-- Soft Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Thrift Can</masterLabel>
+        <translation><!-- Thrift Can --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Thrift Tumbler</masterLabel>
+        <translation><!-- Thrift Tumbler --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tray 6 Pouch</masterLabel>
+        <translation><!-- Tray 6 Pouch --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tub</masterLabel>
+        <translation><!-- Tub --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tube</masterLabel>
+        <translation><!-- Tube --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UK Express Starter Kit</masterLabel>
+        <translation><!-- UK Express Starter Kit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UK Starter Kit</masterLabel>
+        <translation><!-- UK Starter Kit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UNIT KY LOW PG</masterLabel>
+        <translation><!-- UNIT KY LOW PG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unit</masterLabel>
+        <translation><!-- Unit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unknown</masterLabel>
+        <translation><!-- Unknown --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Wholesale Pro Kit</masterLabel>
+        <translation><!-- Wholesale Pro Kit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Wholesale Starter Kit</masterLabel>
+        <translation><!-- Wholesale Starter Kit --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

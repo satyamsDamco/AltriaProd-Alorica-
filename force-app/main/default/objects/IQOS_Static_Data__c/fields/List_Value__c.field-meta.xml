@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>List_Value__c</fullName>
+    <label>List Value</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>List_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AC Power Adapter</fullName>
+                <default>false</default>
+                <label>AC Power Adapter</label>
+            </value>
+            <value>
+                <fullName>Carrying Case</fullName>
+                <default>false</default>
+                <label>Carrying Case</label>
+            </value>
+            <value>
+                <fullName>Carton</fullName>
+                <default>false</default>
+                <label>Carton</label>
+            </value>
+            <value>
+                <fullName>Cleaning Capsule</fullName>
+                <default>false</default>
+                <label>Cleaning Capsule</label>
+            </value>
+            <value>
+                <fullName>Cleaning Fluid Bottle</fullName>
+                <default>false</default>
+                <label>Cleaning Fluid Bottle</label>
+            </value>
+            <value>
+                <fullName>Cleaning Stick</fullName>
+                <default>false</default>
+                <label>Cleaning Stick</label>
+            </value>
+            <value>
+                <fullName>Contacting Attorney</fullName>
+                <default>false</default>
+                <label>Contacting Attorney</label>
+            </value>
+            <value>
+                <fullName>Contacting Better Business Bureau</fullName>
+                <default>false</default>
+                <label>Contacting Better Business Bureau</label>
+            </value>
+            <value>
+                <fullName>Contacting FDA</fullName>
+                <default>false</default>
+                <label>Contacting FDA</label>
+            </value>
+            <value>
+                <fullName>Contacting Government Agency</fullName>
+                <default>false</default>
+                <label>Contacting Government Agency</label>
+            </value>
+            <value>
+                <fullName>Contacting Media</fullName>
+                <default>false</default>
+                <label>Contacting Media</label>
+            </value>
+            <value>
+                <fullName>Convenience</fullName>
+                <default>false</default>
+                <label>Convenience</label>
+            </value>
+            <value>
+                <fullName>Disposal Unit</fullName>
+                <default>false</default>
+                <label>Disposal Unit</label>
+            </value>
+            <value>
+                <fullName>Drug Store</fullName>
+                <default>false</default>
+                <label>Drug Store</label>
+            </value>
+            <value>
+                <fullName>Duty Free</fullName>
+                <default>false</default>
+                <label>Duty Free</label>
+            </value>
+            <value>
+                <fullName>Flea Market</fullName>
+                <default>false</default>
+                <label>Flea Market</label>
+            </value>
+            <value>
+                <fullName>Grocery</fullName>
+                <default>false</default>
+                <label>Grocery</label>
+            </value>
+            <value>
+                <fullName>Holder</fullName>
+                <default>false</default>
+                <label>Holder</label>
+            </value>
+            <value>
+                <fullName>Holder Cap</fullName>
+                <default>false</default>
+                <label>Holder Cap</label>
+            </value>
+            <value>
+                <fullName>Internet</fullName>
+                <default>false</default>
+                <label>Internet</label>
+            </value>
+            <value>
+                <fullName>IQOS Store</fullName>
+                <default>false</default>
+                <label>IQOS Store</label>
+            </value>
+            <value>
+                <fullName>Kit</fullName>
+                <default>false</default>
+                <label>Kit</label>
+            </value>
+            <value>
+                <fullName>Liquor Store</fullName>
+                <default>false</default>
+                <label>Liquor Store</label>
+            </value>
+            <value>
+                <fullName>Mass Merchandiser</fullName>
+                <default>false</default>
+                <label>Mass Merchandiser</label>
+            </value>
+            <value>
+                <fullName>Mobile Sales Unit</fullName>
+                <default>false</default>
+                <label>Mobile Sales Unit</label>
+            </value>
+            <value>
+                <fullName>Native American</fullName>
+                <default>false</default>
+                <label>Native American</label>
+            </value>
+            <value>
+                <fullName>Not Reimbursed</fullName>
+                <default>false</default>
+                <label>Not Reimbursed</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Pack</fullName>
+                <default>false</default>
+                <label>Pack</label>
+            </value>
+            <value>
+                <fullName>Pocket Charge</fullName>
+                <default>false</default>
+                <label>Pocket Charge</label>
+            </value>
+            <value>
+                <fullName>Pocket Charger</fullName>
+                <default>false</default>
+                <label>Pocket Charger</label>
+            </value>
+            <value>
+                <fullName>Product Misuse</fullName>
+                <default>false</default>
+                <label>Product Misuse</label>
+            </value>
+            <value>
+                <fullName>Recall</fullName>
+                <default>false</default>
+                <label>Recall</label>
+            </value>
+            <value>
+                <fullName>Reimbursed by GMR</fullName>
+                <default>false</default>
+                <label>Reimbursed by GMR</label>
+            </value>
+            <value>
+                <fullName>Reimbursed by PFSWeb</fullName>
+                <default>false</default>
+                <label>Reimbursed by PFSWeb</label>
+            </value>
+            <value>
+                <fullName>Replacement</fullName>
+                <default>false</default>
+                <label>Replacement</label>
+            </value>
+            <value>
+                <fullName>Sleeve</fullName>
+                <default>false</default>
+                <label>Sleeve</label>
+            </value>
+            <value>
+                <fullName>Stick</fullName>
+                <default>false</default>
+                <label>Stick</label>
+            </value>
+            <value>
+                <fullName>Street Vendor</fullName>
+                <default>false</default>
+                <label>Street Vendor</label>
+            </value>
+            <value>
+                <fullName>Switching To A Competitor</fullName>
+                <default>false</default>
+                <label>Switching To A Competitor</label>
+            </value>
+            <value>
+                <fullName>Tobacco Store</fullName>
+                <default>false</default>
+                <label>Tobacco Store</label>
+            </value>
+            <value>
+                <fullName>To be reimbursed by Alorica</fullName>
+                <default>false</default>
+                <label>To be reimbursed by Alorica</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>USB Cable</fullName>
+                <default>false</default>
+                <label>USB Cable</label>
+            </value>
+            <value>
+                <fullName>VAPOR SHOP</fullName>
+                <default>false</default>
+                <label>VAPOR SHOP</label>
+            </value>
+            <value>
+                <fullName>Reimbursed by Avail</fullName>
+                <default>false</default>
+                <label>Reimbursed by Avail</label>
+            </value>
+            <value>
+                <fullName>Silicone Sleeve</fullName>
+                <default>false</default>
+                <label>Silicone Sleeve</label>
+            </value>
+            <value>
+                <fullName>IQOS Door Cover</fullName>
+                <default>false</default>
+                <label>IQOS Door Cover</label>
+            </value>
+            <value>
+                <fullName>Cleaning Sticks</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cleaning Sticks</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <controllingFieldValue>Trace Code Location</controllingFieldValue>
+            <valueName>AC Power Adapter</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <valueName>Carrying Case</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <valueName>Carton</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <valueName>Cleaning Capsule</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <valueName>Cleaning Stick</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <valueName>Disposal Unit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <controllingFieldValue>Trace Code Location</controllingFieldValue>
+            <valueName>Holder</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <valueName>Holder Cap</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <controllingFieldValue>Trace Code Location</controllingFieldValue>
+            <valueName>Kit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <valueName>Pack</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <controllingFieldValue>Trace Code Location</controllingFieldValue>
+            <valueName>Pocket Charger</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <valueName>Sleeve</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <valueName>Stick</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <valueName>USB Cable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <valueName>Silicone Sleeve</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Affected Type</controllingFieldValue>
+            <controllingFieldValue>Expected Type</controllingFieldValue>
+            <controllingFieldValue>Purchase Type</controllingFieldValue>
+            <valueName>IQOS Door Cover</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Mentions</controllingFieldValue>
+            <valueName>Contacting Attorney</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Mentions</controllingFieldValue>
+            <valueName>Contacting Better Business Bureau</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Mentions</controllingFieldValue>
+            <valueName>Contacting FDA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Mentions</controllingFieldValue>
+            <valueName>Contacting Government Agency</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Mentions</controllingFieldValue>
+            <valueName>Contacting Media</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Mentions</controllingFieldValue>
+            <valueName>Product Misuse</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Mentions</controllingFieldValue>
+            <valueName>Recall</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Mentions</controllingFieldValue>
+            <valueName>Switching To A Competitor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reimbursed or Replaced Indicator</controllingFieldValue>
+            <valueName>Not Reimbursed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reimbursed or Replaced Indicator</controllingFieldValue>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reimbursed or Replaced Indicator</controllingFieldValue>
+            <valueName>Reimbursed by GMR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reimbursed or Replaced Indicator</controllingFieldValue>
+            <valueName>Reimbursed by PFSWeb</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reimbursed or Replaced Indicator</controllingFieldValue>
+            <valueName>Replacement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reimbursed or Replaced Indicator</controllingFieldValue>
+            <valueName>To be reimbursed by Alorica</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Reimbursed or Replaced Indicator</controllingFieldValue>
+            <valueName>Reimbursed by Avail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Convenience</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Drug Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Duty Free</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Flea Market</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Grocery</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Internet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>IQOS Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Liquor Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Mass Merchandiser</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Mobile Sales Unit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Native American</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Street Vendor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Tobacco Store</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>Unknown</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store Type</controllingFieldValue>
+            <valueName>VAPOR SHOP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trace Code Location</controllingFieldValue>
+            <valueName>Cleaning Fluid Bottle</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

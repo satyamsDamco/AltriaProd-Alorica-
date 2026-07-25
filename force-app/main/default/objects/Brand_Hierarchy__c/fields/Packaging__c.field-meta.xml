@@ -1,0 +1,2219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Packaging__c</fullName>
+    <label>Packaging</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>10-2-Pack Upright Promo 201002</fullName>
+                <default>false</default>
+                <label>10-2-Pack Upright Promo 201002</label>
+            </value>
+            <value>
+                <fullName>10 Ct Display Of 7 - Pack</fullName>
+                <default>false</default>
+                <label>10 Ct Display Of 7 - Pack</label>
+            </value>
+            <value>
+                <fullName>10 Ct  Tray-5-Pack</fullName>
+                <default>false</default>
+                <label>10 Ct  Tray-5-Pack</label>
+            </value>
+            <value>
+                <fullName>10ct Tray-5-Packpromo201001</fullName>
+                <default>false</default>
+                <label>10ct Tray-5-Packpromo201001</label>
+            </value>
+            <value>
+                <fullName>10 Ct Tray-5-Packpromo201001</fullName>
+                <default>false</default>
+                <label>10 Ct Tray-5-Packpromo201001</label>
+            </value>
+            <value>
+                <fullName>10 Ct Tray Of 7 - Pack</fullName>
+                <default>false</default>
+                <label>10 Ct Tray Of 7 - Pack</label>
+            </value>
+            <value>
+                <fullName>10 - Pack</fullName>
+                <default>false</default>
+                <label>10 - Pack</label>
+            </value>
+            <value>
+                <fullName>1 1/2 Oz Packet</fullName>
+                <default>false</default>
+                <label>1 1/2 Oz Packet</label>
+            </value>
+            <value>
+                <fullName>12 Oz Can</fullName>
+                <default>false</default>
+                <label>12 Oz Can</label>
+            </value>
+            <value>
+                <fullName>1 3/8 Oz Packet</fullName>
+                <default>false</default>
+                <label>1 3/8 Oz Packet</label>
+            </value>
+            <value>
+                <fullName>14 Oz Can</fullName>
+                <default>false</default>
+                <label>14 Oz Can</label>
+            </value>
+            <value>
+                <fullName>1-PACK</fullName>
+                <default>false</default>
+                <label>1-PACK</label>
+            </value>
+            <value>
+                <fullName>25 -Count Upright</fullName>
+                <default>false</default>
+                <label>25 -Count Upright</label>
+            </value>
+            <value>
+                <fullName>25 -COUNT UPRIGHT $0.79</fullName>
+                <default>false</default>
+                <label>25 -COUNT UPRIGHT $0.79</label>
+            </value>
+            <value>
+                <fullName>25 -COUNT UPRIGHT $0.89</fullName>
+                <default>false</default>
+                <label>25 -COUNT UPRIGHT $0.89</label>
+            </value>
+            <value>
+                <fullName>25 -COUNT UPRIGHT $0.99</fullName>
+                <default>false</default>
+                <label>25 -COUNT UPRIGHT $0.99</label>
+            </value>
+            <value>
+                <fullName>25 -Count Upright Singles</fullName>
+                <default>false</default>
+                <label>25 -Count Upright Singles</label>
+            </value>
+            <value>
+                <fullName>25 -Ct  Upright</fullName>
+                <default>false</default>
+                <label>25 -Ct  Upright</label>
+            </value>
+            <value>
+                <fullName>25s Hard Pack</fullName>
+                <default>false</default>
+                <label>25s Hard Pack</label>
+            </value>
+            <value>
+                <fullName>2 Pack</fullName>
+                <default>false</default>
+                <label>2 Pack</label>
+            </value>
+            <value>
+                <fullName>2 Pack 1.49</fullName>
+                <default>false</default>
+                <label>2 Pack 1.49</label>
+            </value>
+            <value>
+                <fullName>2 - Pack Foil</fullName>
+                <default>false</default>
+                <label>2 - Pack Foil</label>
+            </value>
+            <value>
+                <fullName>2 - Pack Foil- $0.99</fullName>
+                <default>false</default>
+                <label>2 - Pack Foil- $0.99</label>
+            </value>
+            <value>
+                <fullName>2 - Pack Foil- $1.39</fullName>
+                <default>false</default>
+                <label>2 - Pack Foil- $1.39</label>
+            </value>
+            <value>
+                <fullName>2 - PACK FOIL $1.75</fullName>
+                <default>false</default>
+                <label>2 - PACK FOIL $1.75</label>
+            </value>
+            <value>
+                <fullName>2 - Pack Foil B2G $0.50 OFF</fullName>
+                <default>false</default>
+                <label>2 - Pack Foil B2G $0.50 OFF</label>
+            </value>
+            <value>
+                <fullName>2 - Pack Foil CGR</fullName>
+                <default>false</default>
+                <label>2 - Pack Foil CGR</label>
+            </value>
+            <value>
+                <fullName>2 - Pack Foil Promo $1.49</fullName>
+                <default>false</default>
+                <label>2 - Pack Foil Promo $1.49</label>
+            </value>
+            <value>
+                <fullName>2 - Pack Foil Promo $2.29</fullName>
+                <default>false</default>
+                <label>2 - Pack Foil Promo $2.29</label>
+            </value>
+            <value>
+                <fullName>2 - Pack Foil Promo 1.49</fullName>
+                <default>false</default>
+                <label>2 - Pack Foil Promo 1.49</label>
+            </value>
+            <value>
+                <fullName>2 - Pack Foil Promo 99</fullName>
+                <default>false</default>
+                <label>2 - Pack Foil Promo 99</label>
+            </value>
+            <value>
+                <fullName>2-Pack Promo 201002</fullName>
+                <default>false</default>
+                <label>2-Pack Promo 201002</label>
+            </value>
+            <value>
+                <fullName>30 -Count Display</fullName>
+                <default>false</default>
+                <label>30 -Count Display</label>
+            </value>
+            <value>
+                <fullName>3 For Price of 2 - Pack Pack</fullName>
+                <default>false</default>
+                <label>3 For Price of 2 - Pack Pack</label>
+            </value>
+            <value>
+                <fullName>3 - Pack</fullName>
+                <default>false</default>
+                <label>3 - Pack</label>
+            </value>
+            <value>
+                <fullName>3-PACK</fullName>
+                <default>false</default>
+                <label>3-PACK</label>
+            </value>
+            <value>
+                <fullName>3 - Pack B2G1F</fullName>
+                <default>false</default>
+                <label>3 - Pack B2G1F</label>
+            </value>
+            <value>
+                <fullName>3-Pack Blister</fullName>
+                <default>false</default>
+                <label>3-Pack Blister</label>
+            </value>
+            <value>
+                <fullName>3-Pack Box</fullName>
+                <default>false</default>
+                <label>3-Pack Box</label>
+            </value>
+            <value>
+                <fullName>3 - PACK FOIL</fullName>
+                <default>false</default>
+                <label>3 - PACK FOIL</label>
+            </value>
+            <value>
+                <fullName>3 - Pack Foil B2G1F</fullName>
+                <default>false</default>
+                <label>3 - Pack Foil B2G1F</label>
+            </value>
+            <value>
+                <fullName>50 -Count Club</fullName>
+                <default>false</default>
+                <label>50 -Count Club</label>
+            </value>
+            <value>
+                <fullName>50 -Count Display</fullName>
+                <default>false</default>
+                <label>50 -Count Display</label>
+            </value>
+            <value>
+                <fullName>5 Oz Bag</fullName>
+                <default>false</default>
+                <label>5 Oz Bag</label>
+            </value>
+            <value>
+                <fullName>5 Pack</fullName>
+                <default>false</default>
+                <label>5 Pack</label>
+            </value>
+            <value>
+                <fullName>5 - Pack</fullName>
+                <default>false</default>
+                <label>5 - Pack</label>
+            </value>
+            <value>
+                <fullName>5 - Pack $0.50 OFF</fullName>
+                <default>false</default>
+                <label>5 - Pack $0.50 OFF</label>
+            </value>
+            <value>
+                <fullName>5 - PACK $3.95 - H</fullName>
+                <default>false</default>
+                <label>5 - PACK $3.95 - H</label>
+            </value>
+            <value>
+                <fullName>5 - PACK $3.95 - N</fullName>
+                <default>false</default>
+                <label>5 - PACK $3.95 - N</label>
+            </value>
+            <value>
+                <fullName>5 Pack B4G1F</fullName>
+                <default>false</default>
+                <label>5 Pack B4G1F</label>
+            </value>
+            <value>
+                <fullName>5 - Pack B4G1F</fullName>
+                <default>false</default>
+                <label>5 - Pack B4G1F</label>
+            </value>
+            <value>
+                <fullName>5 - PACK CREAM FILLER</fullName>
+                <default>false</default>
+                <label>5 - PACK CREAM FILLER</label>
+            </value>
+            <value>
+                <fullName>5 - Pack Foil</fullName>
+                <default>false</default>
+                <label>5 - Pack Foil</label>
+            </value>
+            <value>
+                <fullName>5 - PACK H</fullName>
+                <default>false</default>
+                <label>5 - PACK H</label>
+            </value>
+            <value>
+                <fullName>5 - PACK - H</fullName>
+                <default>false</default>
+                <label>5 - PACK - H</label>
+            </value>
+            <value>
+                <fullName>5 - PACK N</fullName>
+                <default>false</default>
+                <label>5 - PACK N</label>
+            </value>
+            <value>
+                <fullName>5 - PACK - N</fullName>
+                <default>false</default>
+                <label>5 - PACK - N</label>
+            </value>
+            <value>
+                <fullName>5 Pack - O</fullName>
+                <default>false</default>
+                <label>5 Pack - O</label>
+            </value>
+            <value>
+                <fullName>5-Pack Promo 201001</fullName>
+                <default>false</default>
+                <label>5-Pack Promo 201001</label>
+            </value>
+            <value>
+                <fullName>5-Pack Promo 201201</fullName>
+                <default>false</default>
+                <label>5-Pack Promo 201201</label>
+            </value>
+            <value>
+                <fullName>5 - Pack Sniped</fullName>
+                <default>false</default>
+                <label>5 - Pack Sniped</label>
+            </value>
+            <value>
+                <fullName>5 - PACK SWEETS FILLER</fullName>
+                <default>false</default>
+                <label>5 - PACK SWEETS FILLER</label>
+            </value>
+            <value>
+                <fullName>5 - PACK - T</fullName>
+                <default>false</default>
+                <label>5 - PACK - T</label>
+            </value>
+            <value>
+                <fullName>60 - Count Club</fullName>
+                <default>false</default>
+                <label>60 - Count Club</label>
+            </value>
+            <value>
+                <fullName>6 - Pack</fullName>
+                <default>false</default>
+                <label>6 - Pack</label>
+            </value>
+            <value>
+                <fullName>7 Oz Can</fullName>
+                <default>false</default>
+                <label>7 Oz Can</label>
+            </value>
+            <value>
+                <fullName>7 Pack</fullName>
+                <default>false</default>
+                <label>7 Pack</label>
+            </value>
+            <value>
+                <fullName>7 - Pack</fullName>
+                <default>false</default>
+                <label>7 - Pack</label>
+            </value>
+            <value>
+                <fullName>7 - Pack Promo</fullName>
+                <default>false</default>
+                <label>7 - Pack Promo</label>
+            </value>
+            <value>
+                <fullName>9 Oz Bag</fullName>
+                <default>false</default>
+                <label>9 Oz Bag</label>
+            </value>
+            <value>
+                <fullName>Blister Pack</fullName>
+                <default>false</default>
+                <label>Blister Pack</label>
+            </value>
+            <value>
+                <fullName>Box</fullName>
+                <default>false</default>
+                <label>Box</label>
+            </value>
+            <value>
+                <fullName>Can</fullName>
+                <default>false</default>
+                <label>Can</label>
+            </value>
+            <value>
+                <fullName>Can (AK &amp; HI)</fullName>
+                <default>false</default>
+                <label>Can (AK &amp; HI)</label>
+            </value>
+            <value>
+                <fullName>Can (Duty Free USA)</fullName>
+                <default>false</default>
+                <label>Can (Duty Free USA)</label>
+            </value>
+            <value>
+                <fullName>Can (MILITARY)</fullName>
+                <default>false</default>
+                <label>Can (MILITARY)</label>
+            </value>
+            <value>
+                <fullName>Can (PR)</fullName>
+                <default>false</default>
+                <label>Can (PR)</label>
+            </value>
+            <value>
+                <fullName>Can (PROMO .50)</fullName>
+                <default>false</default>
+                <label>Can (PROMO .50)</label>
+            </value>
+            <value>
+                <fullName>Can (PROMO 0.50)</fullName>
+                <default>false</default>
+                <label>Can (PROMO 0.50)</label>
+            </value>
+            <value>
+                <fullName>Can (PROMO 0.75 Off)</fullName>
+                <default>false</default>
+                <label>Can (PROMO 0.75 Off)</label>
+            </value>
+            <value>
+                <fullName>Can (PROMO-01)</fullName>
+                <default>false</default>
+                <label>Can (PROMO-01)</label>
+            </value>
+            <value>
+                <fullName>Can (PROMO 1.00)</fullName>
+                <default>false</default>
+                <label>Can (PROMO 1.00)</label>
+            </value>
+            <value>
+                <fullName>Can (PROMO 1.25)</fullName>
+                <default>false</default>
+                <label>Can (PROMO 1.25)</label>
+            </value>
+            <value>
+                <fullName>Can (PROMO 1.69)</fullName>
+                <default>false</default>
+                <label>Can (PROMO 1.69)</label>
+            </value>
+            <value>
+                <fullName>Can (PROMO 1.69 Per Can)</fullName>
+                <default>false</default>
+                <label>Can (PROMO 1.69 Per Can)</label>
+            </value>
+            <value>
+                <fullName>Can (UPC)</fullName>
+                <default>false</default>
+                <label>Can (UPC)</label>
+            </value>
+            <value>
+                <fullName>Can Lead Market</fullName>
+                <default>false</default>
+                <label>Can Lead Market</label>
+            </value>
+            <value>
+                <fullName>Can Lead Market (Plus asterisk)</fullName>
+                <default>false</default>
+                <label>Can Lead Market (Plus asterisk)</label>
+            </value>
+            <value>
+                <fullName>Cannister 6 Oz</fullName>
+                <default>false</default>
+                <label>Cannister 6 Oz</label>
+            </value>
+            <value>
+                <fullName>Can Promo 1.90</fullName>
+                <default>false</default>
+                <label>Can Promo 1.90</label>
+            </value>
+            <value>
+                <fullName>Can Promo 2.25</fullName>
+                <default>false</default>
+                <label>Can Promo 2.25</label>
+            </value>
+            <value>
+                <fullName>Can Test Market Al</fullName>
+                <default>false</default>
+                <label>Can Test Market Al</label>
+            </value>
+            <value>
+                <fullName>Carton</fullName>
+                <default>false</default>
+                <label>Carton</label>
+            </value>
+            <value>
+                <fullName>CARTON  50 CENT OFF</fullName>
+                <default>false</default>
+                <label>CARTON  50 CENT OFF</label>
+            </value>
+            <value>
+                <fullName>CARTON AND KIT</fullName>
+                <default>false</default>
+                <label>CARTON AND KIT</label>
+            </value>
+            <value>
+                <fullName>Carton Horizontal</fullName>
+                <default>false</default>
+                <label>Carton Horizontal</label>
+            </value>
+            <value>
+                <fullName>Carton Horizontal New</fullName>
+                <default>false</default>
+                <label>Carton Horizontal New</label>
+            </value>
+            <value>
+                <fullName>Carton Of 1 1/2 Oz Packet</fullName>
+                <default>false</default>
+                <label>Carton Of 1 1/2 Oz Packet</label>
+            </value>
+            <value>
+                <fullName>Carton Of 2 - Pack</fullName>
+                <default>false</default>
+                <label>Carton Of 2 - Pack</label>
+            </value>
+            <value>
+                <fullName>Carton Of 2 - Pack 1.49</fullName>
+                <default>false</default>
+                <label>Carton Of 2 - Pack 1.49</label>
+            </value>
+            <value>
+                <fullName>Carton Of 2 - Pack Foil</fullName>
+                <default>false</default>
+                <label>Carton Of 2 - Pack Foil</label>
+            </value>
+            <value>
+                <fullName>Carton Of 2 - Pack Foil- $0.99</fullName>
+                <default>false</default>
+                <label>Carton Of 2 - Pack Foil- $0.99</label>
+            </value>
+            <value>
+                <fullName>Carton Of 2 - Pack Foil- $1.39</fullName>
+                <default>false</default>
+                <label>Carton Of 2 - Pack Foil- $1.39</label>
+            </value>
+            <value>
+                <fullName>Carton Of 2 - Pack Foil B2G $0.50 OFF</fullName>
+                <default>false</default>
+                <label>Carton Of 2 - Pack Foil B2G $0.50 OFF</label>
+            </value>
+            <value>
+                <fullName>Carton Of 2 - Pack Foil CGR</fullName>
+                <default>false</default>
+                <label>Carton Of 2 - Pack Foil CGR</label>
+            </value>
+            <value>
+                <fullName>Carton Of 2 - Pack Foil Promo $1.49</fullName>
+                <default>false</default>
+                <label>Carton Of 2 - Pack Foil Promo $1.49</label>
+            </value>
+            <value>
+                <fullName>Carton Of 2 - Pack Foil Promo $2.29</fullName>
+                <default>false</default>
+                <label>Carton Of 2 - Pack Foil Promo $2.29</label>
+            </value>
+            <value>
+                <fullName>Carton Of 2 - Pack Foil Promo 1.49</fullName>
+                <default>false</default>
+                <label>Carton Of 2 - Pack Foil Promo 1.49</label>
+            </value>
+            <value>
+                <fullName>Carton Of 2 - Pack Foil Promo 99</fullName>
+                <default>false</default>
+                <label>Carton Of 2 - Pack Foil Promo 99</label>
+            </value>
+            <value>
+                <fullName>Carton Of 3 - Pack</fullName>
+                <default>false</default>
+                <label>Carton Of 3 - Pack</label>
+            </value>
+            <value>
+                <fullName>Carton Of 3 - Pack B2G1F</fullName>
+                <default>false</default>
+                <label>Carton Of 3 - Pack B2G1F</label>
+            </value>
+            <value>
+                <fullName>Carton Of 3 - Pack Foil B2G1F</fullName>
+                <default>false</default>
+                <label>Carton Of 3 - Pack Foil B2G1F</label>
+            </value>
+            <value>
+                <fullName>Carton Of 5 - Pack</fullName>
+                <default>false</default>
+                <label>Carton Of 5 - Pack</label>
+            </value>
+            <value>
+                <fullName>Carton Of 5 - Pack $0.50 OFF</fullName>
+                <default>false</default>
+                <label>Carton Of 5 - Pack $0.50 OFF</label>
+            </value>
+            <value>
+                <fullName>Carton Of 5 Pack B4G1F</fullName>
+                <default>false</default>
+                <label>Carton Of 5 Pack B4G1F</label>
+            </value>
+            <value>
+                <fullName>Carton Of 5 - Pack B4G1F</fullName>
+                <default>false</default>
+                <label>Carton Of 5 - Pack B4G1F</label>
+            </value>
+            <value>
+                <fullName>Carton Of 5 - Pack Foil</fullName>
+                <default>false</default>
+                <label>Carton Of 5 - Pack Foil</label>
+            </value>
+            <value>
+                <fullName>Carton Of 5 - Pack - O</fullName>
+                <default>false</default>
+                <label>Carton Of 5 - Pack - O</label>
+            </value>
+            <value>
+                <fullName>Carton Of 5 - Pack Sniped</fullName>
+                <default>false</default>
+                <label>Carton Of 5 - Pack Sniped</label>
+            </value>
+            <value>
+                <fullName>Carton Of 7 - Pack</fullName>
+                <default>false</default>
+                <label>Carton Of 7 - Pack</label>
+            </value>
+            <value>
+                <fullName>Carton Of 7-Pack &amp; 25 Cnt Uprt</fullName>
+                <default>false</default>
+                <label>Carton Of 7-Pack &amp; 25 Cnt Uprt</label>
+            </value>
+            <value>
+                <fullName>Carton Of Box</fullName>
+                <default>false</default>
+                <label>Carton Of Box</label>
+            </value>
+            <value>
+                <fullName>Carton Of Hard Pack</fullName>
+                <default>false</default>
+                <label>Carton Of Hard Pack</label>
+            </value>
+            <value>
+                <fullName>Carton Of Pouches</fullName>
+                <default>false</default>
+                <label>Carton Of Pouches</label>
+            </value>
+            <value>
+                <fullName>Carton Vertical</fullName>
+                <default>false</default>
+                <label>Carton Vertical</label>
+            </value>
+            <value>
+                <fullName>Case</fullName>
+                <default>false</default>
+                <label>Case</label>
+            </value>
+            <value>
+                <fullName>Case-2 Pack Promo 201002</fullName>
+                <default>false</default>
+                <label>Case-2 Pack Promo 201002</label>
+            </value>
+            <value>
+                <fullName>CASE  50 CENT OFF</fullName>
+                <default>false</default>
+                <label>CASE  50 CENT OFF</label>
+            </value>
+            <value>
+                <fullName>Case-5 Pack</fullName>
+                <default>false</default>
+                <label>Case-5 Pack</label>
+            </value>
+            <value>
+                <fullName>Case-5 Pack Promo 201001</fullName>
+                <default>false</default>
+                <label>Case-5 Pack Promo 201001</label>
+            </value>
+            <value>
+                <fullName>Case Lead Market</fullName>
+                <default>false</default>
+                <label>Case Lead Market</label>
+            </value>
+            <value>
+                <fullName>Case Of 100 CT Singles .79</fullName>
+                <default>false</default>
+                <label>Case Of 100 CT Singles .79</label>
+            </value>
+            <value>
+                <fullName>Case Of 100 CT Singles .89</fullName>
+                <default>false</default>
+                <label>Case Of 100 CT Singles .89</label>
+            </value>
+            <value>
+                <fullName>Case Of 1 1/2 Oz Packet</fullName>
+                <default>false</default>
+                <label>Case Of 1 1/2 Oz Packet</label>
+            </value>
+            <value>
+                <fullName>Case Of 25 -Count Upright</fullName>
+                <default>false</default>
+                <label>Case Of 25 -Count Upright</label>
+            </value>
+            <value>
+                <fullName>Case Of 2 Pack</fullName>
+                <default>false</default>
+                <label>Case Of 2 Pack</label>
+            </value>
+            <value>
+                <fullName>Case Of 2 Pack 1.49</fullName>
+                <default>false</default>
+                <label>Case Of 2 Pack 1.49</label>
+            </value>
+            <value>
+                <fullName>Case Of 2 - Pack Foil</fullName>
+                <default>false</default>
+                <label>Case Of 2 - Pack Foil</label>
+            </value>
+            <value>
+                <fullName>Case Of 2 - Pack Foil - $0.99</fullName>
+                <default>false</default>
+                <label>Case Of 2 - Pack Foil - $0.99</label>
+            </value>
+            <value>
+                <fullName>Case Of 2 - Pack Foil - $1.39</fullName>
+                <default>false</default>
+                <label>Case Of 2 - Pack Foil - $1.39</label>
+            </value>
+            <value>
+                <fullName>Case Of 2 - Pack Foil B2G $0.50 OFF</fullName>
+                <default>false</default>
+                <label>Case Of 2 - Pack Foil B2G $0.50 OFF</label>
+            </value>
+            <value>
+                <fullName>Case Of 2 - Pack Foil CGR</fullName>
+                <default>false</default>
+                <label>Case Of 2 - Pack Foil CGR</label>
+            </value>
+            <value>
+                <fullName>Case Of 2 - Pack Foil Promo $1.49</fullName>
+                <default>false</default>
+                <label>Case Of 2 - Pack Foil Promo $1.49</label>
+            </value>
+            <value>
+                <fullName>Case Of 2 - Pack Foil Promo $2.29</fullName>
+                <default>false</default>
+                <label>Case Of 2 - Pack Foil Promo $2.29</label>
+            </value>
+            <value>
+                <fullName>Case Of 2 - Pack Foil Promo 1.49</fullName>
+                <default>false</default>
+                <label>Case Of 2 - Pack Foil Promo 1.49</label>
+            </value>
+            <value>
+                <fullName>Case Of 2 - Pack Foil Promo 99</fullName>
+                <default>false</default>
+                <label>Case Of 2 - Pack Foil Promo 99</label>
+            </value>
+            <value>
+                <fullName>Case Of 300 7 - Pack</fullName>
+                <default>false</default>
+                <label>Case Of 300 7 - Pack</label>
+            </value>
+            <value>
+                <fullName>Case Of 3 Pack</fullName>
+                <default>false</default>
+                <label>Case Of 3 Pack</label>
+            </value>
+            <value>
+                <fullName>Case Of 3 Pack B2G1F</fullName>
+                <default>false</default>
+                <label>Case Of 3 Pack B2G1F</label>
+            </value>
+            <value>
+                <fullName>Case Of 3 - Pack Foil B2G1F</fullName>
+                <default>false</default>
+                <label>Case Of 3 - Pack Foil B2G1F</label>
+            </value>
+            <value>
+                <fullName>Case Of 50 -Count Club</fullName>
+                <default>false</default>
+                <label>Case Of 50 -Count Club</label>
+            </value>
+            <value>
+                <fullName>Case of 50 Count Displays</fullName>
+                <default>false</default>
+                <label>Case of 50 Count Displays</label>
+            </value>
+            <value>
+                <fullName>Case Of 5 Pack</fullName>
+                <default>false</default>
+                <label>Case Of 5 Pack</label>
+            </value>
+            <value>
+                <fullName>Case Of 5 - Pack</fullName>
+                <default>false</default>
+                <label>Case Of 5 - Pack</label>
+            </value>
+            <value>
+                <fullName>Case Of 5 Pack $0.50 OFF</fullName>
+                <default>false</default>
+                <label>Case Of 5 Pack $0.50 OFF</label>
+            </value>
+            <value>
+                <fullName>Case Of 5 Pack B4G1F</fullName>
+                <default>false</default>
+                <label>Case Of 5 Pack B4G1F</label>
+            </value>
+            <value>
+                <fullName>Case Of 5 - Pack Foil</fullName>
+                <default>false</default>
+                <label>Case Of 5 - Pack Foil</label>
+            </value>
+            <value>
+                <fullName>Case Of 5 Pack Incentive Offer</fullName>
+                <default>false</default>
+                <label>Case Of 5 Pack Incentive Offer</label>
+            </value>
+            <value>
+                <fullName>Case Of 5 Pack Incentive Offer 2</fullName>
+                <default>false</default>
+                <label>Case Of 5 Pack Incentive Offer 2</label>
+            </value>
+            <value>
+                <fullName>Case Of 5 Pack - O</fullName>
+                <default>false</default>
+                <label>Case Of 5 Pack - O</label>
+            </value>
+            <value>
+                <fullName>Case of 5-Pack Promo 201201</fullName>
+                <default>false</default>
+                <label>Case of 5-Pack Promo 201201</label>
+            </value>
+            <value>
+                <fullName>Case Of 5 Pack Sniped</fullName>
+                <default>false</default>
+                <label>Case Of 5 Pack Sniped</label>
+            </value>
+            <value>
+                <fullName>Case Of 60 - Count Club</fullName>
+                <default>false</default>
+                <label>Case Of 60 - Count Club</label>
+            </value>
+            <value>
+                <fullName>Case Of 7 Pack</fullName>
+                <default>false</default>
+                <label>Case Of 7 Pack</label>
+            </value>
+            <value>
+                <fullName>Case Of 7 - Pack</fullName>
+                <default>false</default>
+                <label>Case Of 7 - Pack</label>
+            </value>
+            <value>
+                <fullName>Case Of 7-Pack &amp; 25 Cnt Uprght</fullName>
+                <default>false</default>
+                <label>Case Of 7-Pack &amp; 25 Cnt Uprght</label>
+            </value>
+            <value>
+                <fullName>Case Of Box</fullName>
+                <default>false</default>
+                <label>Case Of Box</label>
+            </value>
+            <value>
+                <fullName>Case Of Cans</fullName>
+                <default>false</default>
+                <label>Case Of Cans</label>
+            </value>
+            <value>
+                <fullName>Case Of Cans Lead Market</fullName>
+                <default>false</default>
+                <label>Case Of Cans Lead Market</label>
+            </value>
+            <value>
+                <fullName>Case Of Cans Promo 1.90</fullName>
+                <default>false</default>
+                <label>Case Of Cans Promo 1.90</label>
+            </value>
+            <value>
+                <fullName>Case Of Cans Promo 2.25</fullName>
+                <default>false</default>
+                <label>Case Of Cans Promo 2.25</label>
+            </value>
+            <value>
+                <fullName>Case Of Cans Promotion</fullName>
+                <default>false</default>
+                <label>Case Of Cans Promotion</label>
+            </value>
+            <value>
+                <fullName>Case Of Giant Tumblers</fullName>
+                <default>false</default>
+                <label>Case Of Giant Tumblers</label>
+            </value>
+            <value>
+                <fullName>Case Of Hard Pack</fullName>
+                <default>false</default>
+                <label>Case Of Hard Pack</label>
+            </value>
+            <value>
+                <fullName>Case Of Medium Cans</fullName>
+                <default>false</default>
+                <label>Case Of Medium Cans</label>
+            </value>
+            <value>
+                <fullName>Case Of Pocket Cans</fullName>
+                <default>false</default>
+                <label>Case Of Pocket Cans</label>
+            </value>
+            <value>
+                <fullName>Case Of Pouches</fullName>
+                <default>false</default>
+                <label>Case Of Pouches</label>
+            </value>
+            <value>
+                <fullName>Case Of Rolls</fullName>
+                <default>false</default>
+                <label>Case Of Rolls</label>
+            </value>
+            <value>
+                <fullName>Case Of Singles</fullName>
+                <default>false</default>
+                <label>Case Of Singles</label>
+            </value>
+            <value>
+                <fullName>Case Of Singles .79</fullName>
+                <default>false</default>
+                <label>Case Of Singles .79</label>
+            </value>
+            <value>
+                <fullName>Case Of Singles .89</fullName>
+                <default>false</default>
+                <label>Case Of Singles .89</label>
+            </value>
+            <value>
+                <fullName>Case Of Singles .99</fullName>
+                <default>false</default>
+                <label>Case Of Singles .99</label>
+            </value>
+            <value>
+                <fullName>Case Of Singles $0.25 OFF</fullName>
+                <default>false</default>
+                <label>Case Of Singles $0.25 OFF</label>
+            </value>
+            <value>
+                <fullName>Case Of Singles $0.69</fullName>
+                <default>false</default>
+                <label>Case Of Singles $0.69</label>
+            </value>
+            <value>
+                <fullName>Case Of Singles $0.79</fullName>
+                <default>false</default>
+                <label>Case Of Singles $0.79</label>
+            </value>
+            <value>
+                <fullName>Case Of Singles $0.89</fullName>
+                <default>false</default>
+                <label>Case Of Singles $0.89</label>
+            </value>
+            <value>
+                <fullName>Case Of Singles 30 Count Display</fullName>
+                <default>false</default>
+                <label>Case Of Singles 30 Count Display</label>
+            </value>
+            <value>
+                <fullName>Case Of Singles Club</fullName>
+                <default>false</default>
+                <label>Case Of Singles Club</label>
+            </value>
+            <value>
+                <fullName>Case Of Singles Revenue</fullName>
+                <default>false</default>
+                <label>Case Of Singles Revenue</label>
+            </value>
+            <value>
+                <fullName>Case Of Slim Cans</fullName>
+                <default>false</default>
+                <label>Case Of Slim Cans</label>
+            </value>
+            <value>
+                <fullName>Case Of Thrift Cans</fullName>
+                <default>false</default>
+                <label>Case Of Thrift Cans</label>
+            </value>
+            <value>
+                <fullName>Case Of Thrift Tumblers</fullName>
+                <default>false</default>
+                <label>Case Of Thrift Tumblers</label>
+            </value>
+            <value>
+                <fullName>Case Of Tubes</fullName>
+                <default>false</default>
+                <label>Case Of Tubes</label>
+            </value>
+            <value>
+                <fullName>Case of Tubes Horizontal</fullName>
+                <default>false</default>
+                <label>Case of Tubes Horizontal</label>
+            </value>
+            <value>
+                <fullName>Case of Tubes Vertical</fullName>
+                <default>false</default>
+                <label>Case of Tubes Vertical</label>
+            </value>
+            <value>
+                <fullName>Case-Singles</fullName>
+                <default>false</default>
+                <label>Case-Singles</label>
+            </value>
+            <value>
+                <fullName>Case Test Market Al</fullName>
+                <default>false</default>
+                <label>Case Test Market Al</label>
+            </value>
+            <value>
+                <fullName>Club Display Of Singles</fullName>
+                <default>false</default>
+                <label>Club Display Of Singles</label>
+            </value>
+            <value>
+                <fullName>Display Carton 100 .79</fullName>
+                <default>false</default>
+                <label>Display Carton 100 .79</label>
+            </value>
+            <value>
+                <fullName>Display Carton 100 .89</fullName>
+                <default>false</default>
+                <label>Display Carton 100 .89</label>
+            </value>
+            <value>
+                <fullName>Display Carton 25</fullName>
+                <default>false</default>
+                <label>Display Carton 25</label>
+            </value>
+            <value>
+                <fullName>Display Carton 25 .79</fullName>
+                <default>false</default>
+                <label>Display Carton 25 .79</label>
+            </value>
+            <value>
+                <fullName>Display Carton 25 .89</fullName>
+                <default>false</default>
+                <label>Display Carton 25 .89</label>
+            </value>
+            <value>
+                <fullName>Display Carton 25 .99</fullName>
+                <default>false</default>
+                <label>Display Carton 25 .99</label>
+            </value>
+            <value>
+                <fullName>Display Of $0.79</fullName>
+                <default>false</default>
+                <label>Display Of $0.79</label>
+            </value>
+            <value>
+                <fullName>Display Of $0.89</fullName>
+                <default>false</default>
+                <label>Display Of $0.89</label>
+            </value>
+            <value>
+                <fullName>DISPLAY OF $0.99</fullName>
+                <default>false</default>
+                <label>DISPLAY OF $0.99</label>
+            </value>
+            <value>
+                <fullName>Display Of 30- Count</fullName>
+                <default>false</default>
+                <label>Display Of 30- Count</label>
+            </value>
+            <value>
+                <fullName>Display Of Cans</fullName>
+                <default>false</default>
+                <label>Display Of Cans</label>
+            </value>
+            <value>
+                <fullName>Display Of Singles</fullName>
+                <default>false</default>
+                <label>Display Of Singles</label>
+            </value>
+            <value>
+                <fullName>Display Of Singles $0.25 OFF</fullName>
+                <default>false</default>
+                <label>Display Of Singles $0.25 OFF</label>
+            </value>
+            <value>
+                <fullName>Display Of Singles $0.69</fullName>
+                <default>false</default>
+                <label>Display Of Singles $0.69</label>
+            </value>
+            <value>
+                <fullName>Display Of Singles $0.79</fullName>
+                <default>false</default>
+                <label>Display Of Singles $0.79</label>
+            </value>
+            <value>
+                <fullName>Display Of Singles Revenue</fullName>
+                <default>false</default>
+                <label>Display Of Singles Revenue</label>
+            </value>
+            <value>
+                <fullName>EU Express Starter Kit</fullName>
+                <default>false</default>
+                <label>EU Express Starter Kit</label>
+            </value>
+            <value>
+                <fullName>EU Starter Kit (Accessory Kit)</fullName>
+                <default>false</default>
+                <label>EU Starter Kit (Accessory Kit)</label>
+            </value>
+            <value>
+                <fullName>EU Starter Kit Accessory Kit UK</fullName>
+                <default>false</default>
+                <label>EU Starter Kit Accessory Kit UK</label>
+            </value>
+            <value>
+                <fullName>Foil Pack 6</fullName>
+                <default>false</default>
+                <label>Foil Pack 6</label>
+            </value>
+            <value>
+                <fullName>Foil Pack Sample 2</fullName>
+                <default>false</default>
+                <label>Foil Pack Sample 2</label>
+            </value>
+            <value>
+                <fullName>Giant Tumbler</fullName>
+                <default>false</default>
+                <label>Giant Tumbler</label>
+            </value>
+            <value>
+                <fullName>Green Smoke Starter Kit</fullName>
+                <default>false</default>
+                <label>Green Smoke Starter Kit</label>
+            </value>
+            <value>
+                <fullName>Green Smoke Starter Kit (NZ)</fullName>
+                <default>false</default>
+                <label>Green Smoke Starter Kit (NZ)</label>
+            </value>
+            <value>
+                <fullName>Hard Pack</fullName>
+                <default>false</default>
+                <label>Hard Pack</label>
+            </value>
+            <value>
+                <fullName>Hard Pack - .50 Off</fullName>
+                <default>false</default>
+                <label>Hard Pack - .50 Off</label>
+            </value>
+            <value>
+                <fullName>Hard Pack 25s</fullName>
+                <default>false</default>
+                <label>Hard Pack 25s</label>
+            </value>
+            <value>
+                <fullName>HARD PACK 50 CENT OFF</fullName>
+                <default>false</default>
+                <label>HARD PACK 50 CENT OFF</label>
+            </value>
+            <value>
+                <fullName>Hard Pack Blue</fullName>
+                <default>false</default>
+                <label>Hard Pack Blue</label>
+            </value>
+            <value>
+                <fullName>Hard Pack Carton</fullName>
+                <default>false</default>
+                <label>Hard Pack Carton</label>
+            </value>
+            <value>
+                <fullName>Hard Pack Carton - .50 Off</fullName>
+                <default>false</default>
+                <label>Hard Pack Carton - .50 Off</label>
+            </value>
+            <value>
+                <fullName>Hard Pack Case</fullName>
+                <default>false</default>
+                <label>Hard Pack Case</label>
+            </value>
+            <value>
+                <fullName>Hard Pack Case - .50 Off</fullName>
+                <default>false</default>
+                <label>Hard Pack Case - .50 Off</label>
+            </value>
+            <value>
+                <fullName>Hard Pack Green</fullName>
+                <default>false</default>
+                <label>Hard Pack Green</label>
+            </value>
+            <value>
+                <fullName>HARD PACK - JUMBO</fullName>
+                <default>false</default>
+                <label>HARD PACK - JUMBO</label>
+            </value>
+            <value>
+                <fullName>Hard Pack Purse</fullName>
+                <default>false</default>
+                <label>Hard Pack Purse</label>
+            </value>
+            <value>
+                <fullName>Intro Kit Blister</fullName>
+                <default>false</default>
+                <label>Intro Kit Blister</label>
+            </value>
+            <value>
+                <fullName>Intro Kit - EU</fullName>
+                <default>false</default>
+                <label>Intro Kit - EU</label>
+            </value>
+            <value>
+                <fullName>Kit</fullName>
+                <default>false</default>
+                <label>Kit</label>
+            </value>
+            <value>
+                <fullName>Kit Accessory Pack</fullName>
+                <default>false</default>
+                <label>Kit Accessory Pack</label>
+            </value>
+            <value>
+                <fullName>Medium Can</fullName>
+                <default>false</default>
+                <label>Medium Can</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>Other Packing</fullName>
+                <default>false</default>
+                <label>Other Packing</label>
+            </value>
+            <value>
+                <fullName>Pack</fullName>
+                <default>false</default>
+                <label>Pack</label>
+            </value>
+            <value>
+                <fullName>PACK RESEALABLE</fullName>
+                <default>false</default>
+                <label>PACK RESEALABLE</label>
+            </value>
+            <value>
+                <fullName>Paper Can / Tin Lid</fullName>
+                <default>false</default>
+                <label>Paper Can / Tin Lid</label>
+            </value>
+            <value>
+                <fullName>Pocket Can</fullName>
+                <default>false</default>
+                <label>Pocket Can</label>
+            </value>
+            <value>
+                <fullName>Pouch</fullName>
+                <default>false</default>
+                <label>Pouch</label>
+            </value>
+            <value>
+                <fullName>Pouch 0.75 Oz</fullName>
+                <default>false</default>
+                <label>Pouch 0.75 Oz</label>
+            </value>
+            <value>
+                <fullName>Princess Pack</fullName>
+                <default>false</default>
+                <label>Princess Pack</label>
+            </value>
+            <value>
+                <fullName>Quick Start Kit</fullName>
+                <default>false</default>
+                <label>Quick Start Kit</label>
+            </value>
+            <value>
+                <fullName>Rechargeable Kit</fullName>
+                <default>false</default>
+                <label>Rechargeable Kit</label>
+            </value>
+            <value>
+                <fullName>Rechargeable Kit - Clamshell packaging</fullName>
+                <default>false</default>
+                <label>Rechargeable Kit - Clamshell packaging</label>
+            </value>
+            <value>
+                <fullName>Replacement</fullName>
+                <default>false</default>
+                <label>Replacement</label>
+            </value>
+            <value>
+                <fullName>RESEALABLE PACK</fullName>
+                <default>false</default>
+                <label>RESEALABLE PACK</label>
+            </value>
+            <value>
+                <fullName>RESEALABLE PACK CARTON</fullName>
+                <default>false</default>
+                <label>RESEALABLE PACK CARTON</label>
+            </value>
+            <value>
+                <fullName>RESEALABLE PACK CASE</fullName>
+                <default>false</default>
+                <label>RESEALABLE PACK CASE</label>
+            </value>
+            <value>
+                <fullName>Roll</fullName>
+                <default>false</default>
+                <label>Roll</label>
+            </value>
+            <value>
+                <fullName>Roll Lead Market</fullName>
+                <default>false</default>
+                <label>Roll Lead Market</label>
+            </value>
+            <value>
+                <fullName>Roll Of Cans</fullName>
+                <default>false</default>
+                <label>Roll Of Cans</label>
+            </value>
+            <value>
+                <fullName>Roll Of Cans Lead Market</fullName>
+                <default>false</default>
+                <label>Roll Of Cans Lead Market</label>
+            </value>
+            <value>
+                <fullName>Roll Of Cans Promo 1.90</fullName>
+                <default>false</default>
+                <label>Roll Of Cans Promo 1.90</label>
+            </value>
+            <value>
+                <fullName>Roll Of Pocket Cans</fullName>
+                <default>false</default>
+                <label>Roll Of Pocket Cans</label>
+            </value>
+            <value>
+                <fullName>Roll Of Slim Can</fullName>
+                <default>false</default>
+                <label>Roll Of Slim Can</label>
+            </value>
+            <value>
+                <fullName>Roll Of Slim Cans</fullName>
+                <default>false</default>
+                <label>Roll Of Slim Cans</label>
+            </value>
+            <value>
+                <fullName>Roll Promo 2.25</fullName>
+                <default>false</default>
+                <label>Roll Promo 2.25</label>
+            </value>
+            <value>
+                <fullName>Roll Test Market Al</fullName>
+                <default>false</default>
+                <label>Roll Test Market Al</label>
+            </value>
+            <value>
+                <fullName>Rounded Corner Box</fullName>
+                <default>false</default>
+                <label>Rounded Corner Box</label>
+            </value>
+            <value>
+                <fullName>Singles</fullName>
+                <default>false</default>
+                <label>Singles</label>
+            </value>
+            <value>
+                <fullName>Singles .79</fullName>
+                <default>false</default>
+                <label>Singles .79</label>
+            </value>
+            <value>
+                <fullName>Singles .89</fullName>
+                <default>false</default>
+                <label>Singles .89</label>
+            </value>
+            <value>
+                <fullName>Singles .99</fullName>
+                <default>false</default>
+                <label>Singles .99</label>
+            </value>
+            <value>
+                <fullName>Singles $0.25 OFF</fullName>
+                <default>false</default>
+                <label>Singles $0.25 OFF</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.49</fullName>
+                <default>false</default>
+                <label>SINGLES $0.49</label>
+            </value>
+            <value>
+                <fullName>Singles $0.69</fullName>
+                <default>false</default>
+                <label>Singles $0.69</label>
+            </value>
+            <value>
+                <fullName>Singles $0.79</fullName>
+                <default>false</default>
+                <label>Singles $0.79</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 CREAM FILLER</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 CREAM FILLER</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 CREAM FILLER N</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 CREAM FILLER N</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 CREAM FILLER - N</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 CREAM FILLER - N</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 E</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 E</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 - E</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 - E</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 F</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 F</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 - F</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 - F</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 H</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 H</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 - H</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 - H</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 N</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 N</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 - N</fullName>
+                <default>false</default>
+                <label>SINGLES $0.79 - N</label>
+            </value>
+            <value>
+                <fullName>Singles $0.89</fullName>
+                <default>false</default>
+                <label>Singles $0.89</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.89 SWEETS FILLER</fullName>
+                <default>false</default>
+                <label>SINGLES $0.89 SWEETS FILLER</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.99</fullName>
+                <default>false</default>
+                <label>SINGLES $0.99</label>
+            </value>
+            <value>
+                <fullName>SINGLES $1.75</fullName>
+                <default>false</default>
+                <label>SINGLES $1.75</label>
+            </value>
+            <value>
+                <fullName>Singles B1</fullName>
+                <default>false</default>
+                <label>Singles B1</label>
+            </value>
+            <value>
+                <fullName>SINGLES F</fullName>
+                <default>false</default>
+                <label>SINGLES F</label>
+            </value>
+            <value>
+                <fullName>SINGLES G</fullName>
+                <default>false</default>
+                <label>SINGLES G</label>
+            </value>
+            <value>
+                <fullName>SINGLES H</fullName>
+                <default>false</default>
+                <label>SINGLES H</label>
+            </value>
+            <value>
+                <fullName>SINGLES N</fullName>
+                <default>false</default>
+                <label>SINGLES N</label>
+            </value>
+            <value>
+                <fullName>SINGLES - N</fullName>
+                <default>false</default>
+                <label>SINGLES - N</label>
+            </value>
+            <value>
+                <fullName>Singles Revenue</fullName>
+                <default>false</default>
+                <label>Singles Revenue</label>
+            </value>
+            <value>
+                <fullName>Singles Tube</fullName>
+                <default>false</default>
+                <label>Singles Tube</label>
+            </value>
+            <value>
+                <fullName>SLEEVE</fullName>
+                <default>false</default>
+                <label>SLEEVE</label>
+            </value>
+            <value>
+                <fullName>Slim Can</fullName>
+                <default>false</default>
+                <label>Slim Can</label>
+            </value>
+            <value>
+                <fullName>Soft Pack</fullName>
+                <default>false</default>
+                <label>Soft Pack</label>
+            </value>
+            <value>
+                <fullName>Thrift Can</fullName>
+                <default>false</default>
+                <label>Thrift Can</label>
+            </value>
+            <value>
+                <fullName>Thrift Tumbler</fullName>
+                <default>false</default>
+                <label>Thrift Tumbler</label>
+            </value>
+            <value>
+                <fullName>Tray 6 Pouch</fullName>
+                <default>false</default>
+                <label>Tray 6 Pouch</label>
+            </value>
+            <value>
+                <fullName>Tube</fullName>
+                <default>false</default>
+                <label>Tube</label>
+            </value>
+            <value>
+                <fullName>UK Express Starter Kit</fullName>
+                <default>false</default>
+                <label>UK Express Starter Kit</label>
+            </value>
+            <value>
+                <fullName>UK Starter Kit</fullName>
+                <default>false</default>
+                <label>UK Starter Kit</label>
+            </value>
+            <value>
+                <fullName>Unit</fullName>
+                <default>false</default>
+                <label>Unit</label>
+            </value>
+            <value>
+                <fullName>UNIT KY LOW PG</fullName>
+                <default>false</default>
+                <label>UNIT KY LOW PG</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>Wholesale Pro Kit</fullName>
+                <default>false</default>
+                <label>Wholesale Pro Kit</label>
+            </value>
+            <value>
+                <fullName>Wholesale Starter Kit</fullName>
+                <default>false</default>
+                <label>Wholesale Starter Kit</label>
+            </value>
+            <value>
+                <fullName>Tub</fullName>
+                <default>false</default>
+                <label>Tub</label>
+            </value>
+            <value>
+                <fullName>Case of Tubs</fullName>
+                <default>false</default>
+                <label>Case of Tubs</label>
+            </value>
+            <value>
+                <fullName>CARTON 2X5</fullName>
+                <default>false</default>
+                <label>CARTON 2X5</label>
+            </value>
+            <value>
+                <fullName>SINGLES $1.19</fullName>
+                <default>false</default>
+                <label>SINGLES $1.19</label>
+            </value>
+            <value>
+                <fullName>25 - COUNT UPRIGHT $0.89</fullName>
+                <default>false</default>
+                <label>25 - COUNT UPRIGHT $0.89</label>
+            </value>
+            <value>
+                <fullName>25 - COUNT UPRIGHT $0.99</fullName>
+                <default>false</default>
+                <label>25 - COUNT UPRIGHT $0.99</label>
+            </value>
+            <value>
+                <fullName>25 - COUNT UPRIGHT $1.19</fullName>
+                <default>false</default>
+                <label>25 - COUNT UPRIGHT $1.19</label>
+            </value>
+            <value>
+                <fullName>25 - COUNT UPRIGHT</fullName>
+                <default>false</default>
+                <label>25 - COUNT UPRIGHT</label>
+            </value>
+            <value>
+                <fullName>25 - COUNT UPRIGHT $0.79</fullName>
+                <default>false</default>
+                <label>25 - COUNT UPRIGHT $0.79</label>
+            </value>
+            <value>
+                <fullName>BOTTLE</fullName>
+                <default>false</default>
+                <label>BOTTLE</label>
+            </value>
+            <value>
+                <fullName>CAN (PROMO 0.75)</fullName>
+                <default>false</default>
+                <label>CAN (PROMO 0.75)</label>
+            </value>
+            <value>
+                <fullName>CASE OF SINGLES $0.99</fullName>
+                <default>false</default>
+                <label>CASE OF SINGLES $0.99</label>
+            </value>
+            <value>
+                <fullName>25 -COUNT UPRIGHT $1.19</fullName>
+                <default>false</default>
+                <label>25 -COUNT UPRIGHT $1.19</label>
+            </value>
+            <value>
+                <fullName>CASE OF SINGLES $1.19</fullName>
+                <default>false</default>
+                <label>CASE OF SINGLES $1.19</label>
+            </value>
+            <value>
+                <fullName>SINGLES $1.39</fullName>
+                <default>false</default>
+                <label>SINGLES $1.39</label>
+            </value>
+            <value>
+                <fullName>25 -COUNT UPRIGHT $1.39</fullName>
+                <default>false</default>
+                <label>25 -COUNT UPRIGHT $1.39</label>
+            </value>
+            <value>
+                <fullName>CASE OF SINGLES $1.39</fullName>
+                <default>false</default>
+                <label>CASE OF SINGLES $1.39</label>
+            </value>
+            <value>
+                <fullName>DISPLAY OF $1.19</fullName>
+                <default>false</default>
+                <label>DISPLAY OF $1.19</label>
+            </value>
+            <value>
+                <fullName>DISPLAY OF $1.39</fullName>
+                <default>false</default>
+                <label>DISPLAY OF $1.39</label>
+            </value>
+            <value>
+                <fullName>SINGLES 1.19</fullName>
+                <default>false</default>
+                <label>SINGLES 1.19</label>
+            </value>
+            <value>
+                <fullName>DISPLAY CARTON 25 1.19</fullName>
+                <default>false</default>
+                <label>DISPLAY CARTON 25 1.19</label>
+            </value>
+            <value>
+                <fullName>CASE OF SINGLES 1.19</fullName>
+                <default>false</default>
+                <label>CASE OF SINGLES 1.19</label>
+            </value>
+            <value>
+                <fullName>SINGLES 1.39</fullName>
+                <default>false</default>
+                <label>SINGLES 1.39</label>
+            </value>
+            <value>
+                <fullName>DISPLAY CARTON 25 1.39</fullName>
+                <default>false</default>
+                <label>DISPLAY CARTON 25 1.39</label>
+            </value>
+            <value>
+                <fullName>CASE OF SINGLES 1.39</fullName>
+                <default>false</default>
+                <label>CASE OF SINGLES 1.39</label>
+            </value>
+            <value>
+                <fullName>5 - PACK $4.45</fullName>
+                <default>false</default>
+                <label>5 - PACK $4.45</label>
+            </value>
+            <value>
+                <fullName>CARTON OF 5 - PACK $4.45</fullName>
+                <default>false</default>
+                <label>CARTON OF 5 - PACK $4.45</label>
+            </value>
+            <value>
+                <fullName>CASE OF 5 - PACK $4.45</fullName>
+                <default>false</default>
+                <label>CASE OF 5 - PACK $4.45</label>
+            </value>
+            <value>
+                <fullName>Full Pack</fullName>
+                <default>false</default>
+                <label>Full Pack</label>
+            </value>
+            <value>
+                <fullName>Case- 1.00 OFF</fullName>
+                <default>false</default>
+                <label>Case- 1.00 OFF</label>
+            </value>
+            <value>
+                <fullName>Carton -1.00 OFF</fullName>
+                <default>false</default>
+                <label>Carton -1.00 OFF</label>
+            </value>
+            <value>
+                <fullName>Pack Poly -1.00 0FF</fullName>
+                <default>false</default>
+                <label>Pack Poly -1.00 0FF</label>
+            </value>
+            <value>
+                <fullName>Case-1.00 OFF</fullName>
+                <default>false</default>
+                <label>Case-1.00 OFF</label>
+            </value>
+            <value>
+                <fullName>Carton-1.00 OFF</fullName>
+                <default>false</default>
+                <label>Carton-1.00 OFF</label>
+            </value>
+            <value>
+                <fullName>Pack Poly-1.00 OFF</fullName>
+                <default>false</default>
+                <label>Pack Poly-1.00 OFF</label>
+            </value>
+            <value>
+                <fullName>5-PACK- $2.99</fullName>
+                <default>false</default>
+                <label>5-PACK- $2.99</label>
+            </value>
+            <value>
+                <fullName>Hard Pack - 1 Pack</fullName>
+                <default>false</default>
+                <label>Hard Pack - 1 Pack</label>
+            </value>
+            <value>
+                <fullName>Hard Pack - $0.99</fullName>
+                <default>false</default>
+                <label>Hard Pack - $0.99</label>
+            </value>
+            <value>
+                <fullName>Carton - $0.99</fullName>
+                <default>false</default>
+                <label>Carton - $0.99</label>
+            </value>
+            <value>
+                <fullName>Case - $0.99</fullName>
+                <default>false</default>
+                <label>Case - $0.99</label>
+            </value>
+            <value>
+                <fullName>Hard Pack - $4.99</fullName>
+                <default>false</default>
+                <label>Hard Pack - $4.99</label>
+            </value>
+            <value>
+                <fullName>Carton - $4.99</fullName>
+                <default>false</default>
+                <label>Carton - $4.99</label>
+            </value>
+            <value>
+                <fullName>Case - $4.99</fullName>
+                <default>false</default>
+                <label>Case - $4.99</label>
+            </value>
+            <value>
+                <fullName>Hard Pack - $9.99</fullName>
+                <default>false</default>
+                <label>Hard Pack - $9.99</label>
+            </value>
+            <value>
+                <fullName>Carton - $9.99</fullName>
+                <default>false</default>
+                <label>Carton - $9.99</label>
+            </value>
+            <value>
+                <fullName>Case - $9.99</fullName>
+                <default>false</default>
+                <label>Case - $9.99</label>
+            </value>
+            <value>
+                <fullName>Hard Pack - $5.99</fullName>
+                <default>false</default>
+                <label>Hard Pack - $5.99</label>
+            </value>
+            <value>
+                <fullName>Carton - $5.99</fullName>
+                <default>false</default>
+                <label>Carton - $5.99</label>
+            </value>
+            <value>
+                <fullName>Case - $5.99</fullName>
+                <default>false</default>
+                <label>Case - $5.99</label>
+            </value>
+            <value>
+                <fullName>Hard Pack - 1 pack $4.99</fullName>
+                <default>false</default>
+                <label>Hard Pack - 1 pack $4.99</label>
+            </value>
+            <value>
+                <fullName>Hard Pack - 2 Pack</fullName>
+                <default>false</default>
+                <label>Hard Pack - 2 Pack</label>
+            </value>
+            <value>
+                <fullName>Bag</fullName>
+                <default>false</default>
+                <label>Bag</label>
+            </value>
+            <value>
+                <fullName>Display Carton</fullName>
+                <default>false</default>
+                <label>Display Carton</label>
+            </value>
+            <value>
+                <fullName>Case of 5 - Pack $3.99</fullName>
+                <default>false</default>
+                <label>Case of 5 - Pack $3.99</label>
+            </value>
+            <value>
+                <fullName>Display Of 5 - Pack $3.99</fullName>
+                <default>false</default>
+                <label>Display Of 5 - Pack $3.99</label>
+            </value>
+            <value>
+                <fullName>5 - Pack $3.99</fullName>
+                <default>false</default>
+                <label>5 - Pack $3.99</label>
+            </value>
+            <value>
+                <fullName>Case-of 5 - Pack $3.99</fullName>
+                <default>false</default>
+                <label>Case-of 5 - Pack $3.99</label>
+            </value>
+            <value>
+                <fullName>Display of Singles $0.99</fullName>
+                <default>false</default>
+                <label>Display of Singles $0.99</label>
+            </value>
+            <value>
+                <fullName>Can Display Carton</fullName>
+                <default>false</default>
+                <label>Can Display Carton</label>
+            </value>
+            <value>
+                <fullName>5 Pack of $4.45</fullName>
+                <default>false</default>
+                <label>5 Pack of $4.45</label>
+            </value>
+            <value>
+                <fullName>Case of 5 - Pack $4.95</fullName>
+                <default>false</default>
+                <label>Case of 5 - Pack $4.95</label>
+            </value>
+            <value>
+                <fullName>Carton of 5 - Pack $4.95</fullName>
+                <default>false</default>
+                <label>Carton of 5 - Pack $4.95</label>
+            </value>
+            <value>
+                <fullName>5 Pack of $4.95</fullName>
+                <default>false</default>
+                <label>5 Pack of $4.95</label>
+            </value>
+            <value>
+                <fullName>Case of 5 - Pack $5.95</fullName>
+                <default>false</default>
+                <label>Case of 5 - Pack $5.95</label>
+            </value>
+            <value>
+                <fullName>Carton of 5 - Pack $5.95</fullName>
+                <default>false</default>
+                <label>Carton of 5 - Pack $5.95</label>
+            </value>
+            <value>
+                <fullName>5 Pack of $5.95</fullName>
+                <default>false</default>
+                <label>5 Pack of $5.95</label>
+            </value>
+            <value>
+                <fullName>Case of 5 - Pack $6.95</fullName>
+                <default>false</default>
+                <label>Case of 5 - Pack $6.95</label>
+            </value>
+            <value>
+                <fullName>Carton of 5 - Pack $6.95</fullName>
+                <default>false</default>
+                <label>Carton of 5 - Pack $6.95</label>
+            </value>
+            <value>
+                <fullName>5 Pack of $6.95</fullName>
+                <default>false</default>
+                <label>5 Pack of $6.95</label>
+            </value>
+            <value>
+                <fullName>Case of 25 Count Upright $1.19</fullName>
+                <default>false</default>
+                <label>Case of 25 Count Upright $1.19</label>
+            </value>
+            <value>
+                <fullName>25 Count Upright $1.19</fullName>
+                <default>false</default>
+                <label>25 Count Upright $1.19</label>
+            </value>
+            <value>
+                <fullName>Single - 25 Count Upright $1.19</fullName>
+                <default>false</default>
+                <label>Single - 25 Count Upright $1.19</label>
+            </value>
+            <value>
+                <fullName>Case of 25 Count Upright $0.89</fullName>
+                <default>false</default>
+                <label>Case of 25 Count Upright $0.89</label>
+            </value>
+            <value>
+                <fullName>25 Count Upright $0.89</fullName>
+                <default>false</default>
+                <label>25 Count Upright $0.89</label>
+            </value>
+            <value>
+                <fullName>Single - 25 Count Upright $0.89</fullName>
+                <default>false</default>
+                <label>Single - 25 Count Upright $0.89</label>
+            </value>
+            <value>
+                <fullName>Case of 25 Count Upright $0.99</fullName>
+                <default>false</default>
+                <label>Case of 25 Count Upright $0.99</label>
+            </value>
+            <value>
+                <fullName>25 Count Upright $0.99</fullName>
+                <default>false</default>
+                <label>25 Count Upright $0.99</label>
+            </value>
+            <value>
+                <fullName>Single - 25 Count Upright $0.99</fullName>
+                <default>false</default>
+                <label>Single - 25 Count Upright $0.99</label>
+            </value>
+            <value>
+                <fullName>Case of 25 Count Upright $1.39</fullName>
+                <default>false</default>
+                <label>Case of 25 Count Upright $1.39</label>
+            </value>
+            <value>
+                <fullName>25 Count Upright $1.39</fullName>
+                <default>false</default>
+                <label>25 Count Upright $1.39</label>
+            </value>
+            <value>
+                <fullName>Single - 25 Count Upright $1.39</fullName>
+                <default>false</default>
+                <label>Single - 25 Count Upright $1.39</label>
+            </value>
+            <value>
+                <fullName>5 - Pack - $1.99</fullName>
+                <default>false</default>
+                <label>5 - Pack - $1.99</label>
+            </value>
+            <value>
+                <fullName>5 - Pack - $2.49</fullName>
+                <default>false</default>
+                <label>5 - Pack - $2.49</label>
+            </value>
+            <value>
+                <fullName>30 Count Upright</fullName>
+                <default>false</default>
+                <label>30 Count Upright</label>
+            </value>
+            <value>
+                <fullName>Carton of 5 Pack</fullName>
+                <default>false</default>
+                <label>Carton of 5 Pack</label>
+            </value>
+            <value>
+                <fullName>Case of Upright Singles</fullName>
+                <default>false</default>
+                <label>Case of Upright Singles</label>
+            </value>
+            <value>
+                <fullName>CARTON-$0.50 OFF</fullName>
+                <default>false</default>
+                <label>CARTON-$0.50 OFF</label>
+            </value>
+            <value>
+                <fullName>CASE- $0.50 OFF</fullName>
+                <default>false</default>
+                <label>CASE- $0.50 OFF</label>
+            </value>
+            <value>
+                <fullName>PACK- $0.50 OFF</fullName>
+                <default>false</default>
+                <label>PACK- $0.50 OFF</label>
+            </value>
+            <value>
+                <fullName>10 Ct Tray-5-Pack</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>10 Ct Tray-5-Pack</label>
+            </value>
+            <value>
+                <fullName>10 PACK</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>10 PACK</label>
+            </value>
+            <value>
+                <fullName>10-PACK</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>10-PACK</label>
+            </value>
+            <value>
+                <fullName>25 -Ct Upright</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>25 -Ct Upright</label>
+            </value>
+            <value>
+                <fullName>25s Soft Pack</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>25s Soft Pack</label>
+            </value>
+            <value>
+                <fullName>3 - PACK $1.49</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>3 - PACK $1.49</label>
+            </value>
+            <value>
+                <fullName>3 - PACK $1.49 - T</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>3 - PACK $1.49 - T</label>
+            </value>
+            <value>
+                <fullName>5 - PACK $4.45 G</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>5 - PACK $4.45 G</label>
+            </value>
+            <value>
+                <fullName>5 - PACK $4.45 H</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>5 - PACK $4.45 H</label>
+            </value>
+            <value>
+                <fullName>5 - PACK $4.45 N</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>5 - PACK $4.45 N</label>
+            </value>
+            <value>
+                <fullName>5 - PACK G</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>5 - PACK G</label>
+            </value>
+            <value>
+                <fullName>5 - PACK M</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>5 - PACK M</label>
+            </value>
+            <value>
+                <fullName>5 Sided Box</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>5 Sided Box</label>
+            </value>
+            <value>
+                <fullName>5-Pack</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>5-Pack</label>
+            </value>
+            <value>
+                <fullName>Can Test Market TX</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Can Test Market TX</label>
+            </value>
+            <value>
+                <fullName>Carton Of 2 - Pack Foil Promo  $1.49</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Carton Of 2 - Pack Foil Promo  $1.49</label>
+            </value>
+            <value>
+                <fullName>Case Of 2 - Pack Foil Promo  $1.49</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Case Of 2 - Pack Foil Promo  $1.49</label>
+            </value>
+            <value>
+                <fullName>Case Test Market TX</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Case Test Market TX</label>
+            </value>
+            <value>
+                <fullName>Foil Pack 2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Foil Pack 2</label>
+            </value>
+            <value>
+                <fullName>HARD PACK $0.50 OFF</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>HARD PACK $0.50 OFF</label>
+            </value>
+            <value>
+                <fullName>HARD PACK $1.00 OFF</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>HARD PACK $1.00 OFF</label>
+            </value>
+            <value>
+                <fullName>Roll Test Market TX</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Roll Test Market TX</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 A</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SINGLES $0.79 A</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 B</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SINGLES $0.79 B</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 C</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SINGLES $0.79 C</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 D</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SINGLES $0.79 D</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 G</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SINGLES $0.79 G</label>
+            </value>
+            <value>
+                <fullName>SINGLES $0.79 M</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SINGLES $0.79 M</label>
+            </value>
+            <value>
+                <fullName>SINGLES -</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SINGLES -</label>
+            </value>
+            <value>
+                <fullName>SINGLES E</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SINGLES E</label>
+            </value>
+            <value>
+                <fullName>SINGLES M</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>SINGLES M</label>
+            </value>
+            <value>
+                <fullName>Slide Pack Plastic</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Slide Pack Plastic</label>
+            </value>
+            <value>
+                <fullName>TUBE F</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>TUBE F</label>
+            </value>
+            <value>
+                <fullName>TUBE ORIGINAL</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>TUBE ORIGINAL</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

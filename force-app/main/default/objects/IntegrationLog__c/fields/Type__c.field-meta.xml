@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <label>Type</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Acxiom</fullName>
+                <default>false</default>
+                <label>Acxiom</label>
+            </value>
+            <value>
+                <fullName>Lexis-Nexis</fullName>
+                <default>false</default>
+                <label>Lexis-Nexis</label>
+            </value>
+            <value>
+                <fullName>Melissa</fullName>
+                <default>false</default>
+                <label>Melissa</label>
+            </value>
+            <value>
+                <fullName>Alorica</fullName>
+                <default>false</default>
+                <label>Alorica</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

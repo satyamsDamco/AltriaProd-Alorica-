@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>isActive__c</columns>
+    <columns>Code__c</columns>
+    <columns>isValidDateCode__c</columns>
+    <columns>Operating_Company__c</columns>
+    <columns>Trace_Code_Location__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>Altcode__c</columns>
+    <columns>Op_Company__c</columns>
+    <columns>FeedSend__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

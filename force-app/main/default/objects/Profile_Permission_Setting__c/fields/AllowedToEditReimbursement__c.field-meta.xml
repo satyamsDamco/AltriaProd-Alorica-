@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllowedToEditReimbursement__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Keeps information about permission to edit a reimbursement record in different transaction.</description>
+    <inlineHelpText>Keeps information about permission to edit a reimbursement record in different transaction.</inlineHelpText>
+    <label>AllowedToEditReimbursement</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

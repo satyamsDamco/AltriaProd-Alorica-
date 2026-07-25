@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Migrated from the: Case Auto Number  Update workflow rule
+Workflow rule description: To update the case number with the auto number.</description>
+    <environments>Default</environments>
+    <interviewLabel>Case Auto Number  Update {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Auto Number  Update</label>
+    <migratedFromWorkflowRuleName>Case Auto Number  Update</migratedFromWorkflowRuleName>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_CaseNumber_and_FeedCreatedDate</name>
+        <label>Update CaseNumber and FeedCreatedDate</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>CaseNumber__c</field>
+            <value>
+                <elementReference>$Record.CaseNumber</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FeedCreatedDate__c</field>
+            <value>
+                <elementReference>$Record.CreatedDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_CaseNumber_and_FeedCreatedDate</targetReference>
+        </connector>
+        <object>Case</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

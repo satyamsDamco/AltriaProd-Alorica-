@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Denotes the History type. --></help>
+    <label><!-- Service Request Code --></label>
+    <name>Service_Request_Code__c</name>
+    <picklistValues>
+        <masterLabel>AGE_VERIFICATION_REQUEST</masterLabel>
+        <translation><!-- AGE_VERIFICATION_REQUEST --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>AGE_VERIFY</masterLabel>
+        <translation><!-- AGE_VERIFY --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CCNLOOKUP</masterLabel>
+        <translation><!-- CCNLOOKUP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CHAT_START</masterLabel>
+        <translation><!-- CHAT_START --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CONSUMER IS NOT AGE VERIFIED</masterLabel>
+        <translation><!-- CONSUMER IS NOT AGE VERIFIED --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CORSP_OUTBOUND</masterLabel>
+        <translation><!-- CORSP_OUTBOUND --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CREATECUST</masterLabel>
+        <translation><!-- CREATECUST --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CREATEISSUE</masterLabel>
+        <translation><!-- CREATEISSUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CREATE_REIMB</masterLabel>
+        <translation><!-- CREATE_REIMB --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CREATE_SURVEY</masterLabel>
+        <translation><!-- CREATE_SURVEY --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>EMAIL_ADDRESS_UPDATE</masterLabel>
+        <translation><!-- EMAIL_ADDRESS_UPDATE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>EMAIL_CONFIRMED_UPDATE</masterLabel>
+        <translation><!-- EMAIL_CONFIRMED_UPDATE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ENDCALL</masterLabel>
+        <translation><!-- ENDCALL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>FULL_SEARCH</masterLabel>
+        <translation><!-- FULL_SEARCH --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ISSUE_APPROVED</masterLabel>
+        <translation><!-- ISSUE_APPROVED --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MULTIPLE CONSUMERS FOUND</masterLabel>
+        <translation><!-- MULTIPLE CONSUMERS FOUND --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NO CONSUMER FOUND</masterLabel>
+        <translation><!-- NO CONSUMER FOUND --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NO REIMBURSEMENT FOUND FOR CONSUMER</masterLabel>
+        <translation><!-- NO REIMBURSEMENT FOUND FOR CONSUMER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ONLINE_VF_SENT</masterLabel>
+        <translation><!-- ONLINE_VF_SENT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>REIMBURSEMENT FOUND</masterLabel>
+        <translation><!-- REIMBURSEMENT FOUND --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SRPROGRAMALLOCATION</masterLabel>
+        <translation><!-- SRPROGRAMALLOCATION --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UPDATECUST</masterLabel>
+        <translation><!-- UPDATECUST --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UPDATEISSUE</masterLabel>
+        <translation><!-- UPDATEISSUE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UPDATE_REIMB</masterLabel>
+        <translation><!-- UPDATE_REIMB --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UPDATE_SURVEY</masterLabel>
+        <translation><!-- UPDATE_SURVEY --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

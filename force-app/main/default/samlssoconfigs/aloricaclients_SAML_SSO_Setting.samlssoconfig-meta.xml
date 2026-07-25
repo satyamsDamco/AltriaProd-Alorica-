@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SamlSsoConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <errorUrl>https://login.salesforce.com/?login=1</errorUrl>
+    <identityLocation>SubjectNameId</identityLocation>
+    <identityMapping>UserId</identityMapping>
+    <issuer>https://aloricaclients.my.salesforce.com</issuer>
+    <loginUrl>https://aloricaclients.my.salesforce.com/idp/endpoint/HttpPost</loginUrl>
+    <name>aloricaclients SAML SSO Setting</name>
+    <oauthTokenEndpoint>https://altria-prod.my.salesforce.com/services/oauth2/token?so=00D36000001EhVB</oauthTokenEndpoint>
+    <redirectBinding>false</redirectBinding>
+    <requestSignatureMethod>1</requestSignatureMethod>
+    <requestSigningCertId>0P11Q0000029xEA</requestSigningCertId>
+    <salesforceLoginUrl>https://altria-prod.my.salesforce.com?so=00D36000001EhVB</salesforceLoginUrl>
+    <samlEntityId>https://saml.salesforce.com/00D36000001EhVBEA0</samlEntityId>
+    <samlVersion>SAML2_0</samlVersion>
+    <useConfigRequestMethod>true</useConfigRequestMethod>
+    <useSameDigestAlgoForSigning>false</useSameDigestAlgoForSigning>
+    <userProvisioning>false</userProvisioning>
+    <validationCert>MIIErDCCA5SgAwIBAgIOAUkveUlqAAAAAG2jSskwDQYJKoZIhvcNAQEFBQAwgZAxKDAmBgNVBAMMH1NlbGZTaWduZWRDZXJ0XzIwT2N0MjAxNF8yMTMxNTcxGDAWBgNVBAsMDzAwRDQwMDAwMDAwTjNxNjEXMBUGA1UECgwOU2FsZXNmb3JjZS5jb20xFjAUBgNVBAcMDVNhbiBGcmFuY2lzY28xCzAJBgNVBAgMAkNBMQwwCgYDVQQGEwNVU0EwHhcNMTQxMDIwMjEzMTU4WhcNMTYxMDE5MjEzMTU4WjCBkDEoMCYGA1UEAwwfU2VsZlNpZ25lZENlcnRfMjBPY3QyMDE0XzIxMzE1NzEYMBYGA1UECwwPMDBENDAwMDAwMDBOM3E2MRcwFQYDVQQKDA5TYWxlc2ZvcmNlLmNvbTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzELMAkGA1UECAwCQ0ExDDAKBgNVBAYTA1VTQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIuqVrgudftbwres393Sk/KqBG2h4kM2k3zI5V7jLGvyOT5F3eSUcV176TQqwJp+h76jrCTVsJ62xR0tXBS5XTD+PFRLcUJp+48x+1+Ycw32DZZGW9DBYS02xUUvSQauiSu6V2FKdENUQWkLVmaCZTXItTGVkjISve+NygcfpFZPcyrg/mQzOdZs0Mes2TDwtbwvaqKVZnEs0TXcJ77cb9wf2/6m7NnHhNQCkoTDYmf/vLy/FoMsQWt53hUKi0CWIWORw1m6XIiO8JfBCzpK8pAR+mQoaXz+Ke1/iDz5VElj6917/bTdj9Bcv3YMKqcdeKEmr4W6+Agqhsj6V3scn7kCAwEAAaOCAQAwgf0wHQYDVR0OBBYEFKDVoH9TpumEqzcJC29v2q0mLkbSMIHKBgNVHSMEgcIwgb+AFKDVoH9TpumEqzcJC29v2q0mLkbSoYGWpIGTMIGQMSgwJgYDVQQDDB9TZWxmU2lnbmVkQ2VydF8yME9jdDIwMTRfMjEzMTU3MRgwFgYDVQQLDA8wMEQ0MDAwMDAwME4zcTYxFzAVBgNVBAoMDlNhbGVzZm9yY2UuY29tMRYwFAYDVQQHDA1TYW4gRnJhbmNpc2NvMQswCQYDVQQIDAJDQTEMMAoGA1UEBhMDVVNBgg4BSS95SYAAAAAAbaNKyTAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQBHwUQXAVhi68bqDYKGv5Jg2/N5LfEOWge3Zh3LpvsNTDR0CO6H9Yh/sIxmh+SbEXhhykZGZ++ukgI9LUoCRAGLwGCmTqbjPXwaVB7uufb5fdnaznq3Q1143SOgLzK2BqALogGPu9LyNqCNqStgP2ME0OwVqMl1uWrwjTYFzjyrmbqnau+bbXoS0BZhHXdPu9ZJTGsozjrZKd1qgP/waGxC0YON+Tc71fJdgYsyZkb9A2RvgCR/kyIM0lgsCLn32DCIkv9V5xi8iF+hTzWzFe5uIKZARtzt4JuVm/L4ct3VAVcu2mFTJuaBSXfA5e58EbSOGPktPlbPzN6oH4H+as9J</validationCert>
+</SamlSsoConfig>

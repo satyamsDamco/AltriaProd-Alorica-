@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Operating Company --></label>
+    <name>OperatingCompany__c</name>
+    <picklistValues>
+        <masterLabel>6601 Ventures</masterLabel>
+        <translation><!-- 6601 Ventures --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CRC Direct</masterLabel>
+        <translation><!-- CRC Direct --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HELIX</masterLabel>
+        <translation><!-- HELIX --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>JMC</masterLabel>
+        <translation><!-- JMC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NAT_SHERMAN</masterLabel>
+        <translation><!-- NAT_SHERMAN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NJOY</masterLabel>
+        <translation><!-- NJOY --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NUMARK</masterLabel>
+        <translation><!-- NUMARK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PM Corporate</masterLabel>
+        <translation><!-- PM Corporate --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PMIP</masterLabel>
+        <translation><!-- PMIP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PMUSA</masterLabel>
+        <translation><!-- PMUSA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trade</masterLabel>
+        <translation><!-- Trade --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USST</masterLabel>
+        <translation><!-- USST --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USSTC</masterLabel>
+        <translation><!-- USSTC --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataCategoryGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <dataCategory>
+        <dataCategory>
+            <label>PMUSA</label>
+            <name>PMUSA</name>
+        </dataCategory>
+        <dataCategory>
+            <label>USSTC</label>
+            <name>USSTC</name>
+        </dataCategory>
+        <dataCategory>
+            <label>JMC</label>
+            <name>JMC</name>
+        </dataCategory>
+        <dataCategory>
+            <label>TRADE</label>
+            <name>TRADE</name>
+        </dataCategory>
+        <dataCategory>
+            <label>GLOBAL</label>
+            <name>GLOBAL</name>
+        </dataCategory>
+        <dataCategory>
+            <label>NuMark</label>
+            <name>NuMark</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Help Docs</label>
+            <name>Help_Docs</name>
+        </dataCategory>
+        <dataCategory>
+            <label>System</label>
+            <name>System</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Process Documents</label>
+            <name>Process_Documents</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Surveys</label>
+            <name>Surveys</name>
+        </dataCategory>
+        <label>All</label>
+        <name>All</name>
+    </dataCategory>
+    <label>General</label>
+    <objectUsage>
+        <object>KnowledgeArticleVersion</object>
+    </objectUsage>
+</DataCategoryGroup>

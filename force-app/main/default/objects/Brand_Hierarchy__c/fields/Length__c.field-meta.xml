@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Length__c</fullName>
+    <label>Length</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>100s</fullName>
+                <default>false</default>
+                <label>100s</label>
+            </value>
+            <value>
+                <fullName>120s</fullName>
+                <default>false</default>
+                <label>120s</label>
+            </value>
+            <value>
+                <fullName>72mm</fullName>
+                <default>false</default>
+                <label>72mm</label>
+            </value>
+            <value>
+                <fullName>83mm</fullName>
+                <default>false</default>
+                <label>83mm</label>
+            </value>
+            <value>
+                <fullName>Black</fullName>
+                <default>false</default>
+                <label>Black</label>
+            </value>
+            <value>
+                <fullName>Cube</fullName>
+                <default>false</default>
+                <label>Cube</label>
+            </value>
+            <value>
+                <fullName>Disposable</fullName>
+                <default>false</default>
+                <label>Disposable</label>
+            </value>
+            <value>
+                <fullName>Flat Wire</fullName>
+                <default>false</default>
+                <label>Flat Wire</label>
+            </value>
+            <value>
+                <fullName>King Size</fullName>
+                <default>false</default>
+                <label>King Size</label>
+            </value>
+            <value>
+                <fullName>Long</fullName>
+                <default>false</default>
+                <label>Long</label>
+            </value>
+            <value>
+                <fullName>Long Size</fullName>
+                <default>false</default>
+                <label>Long Size</label>
+            </value>
+            <value>
+                <fullName>Mini</fullName>
+                <default>false</default>
+                <label>Mini</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>NULL</fullName>
+                <default>false</default>
+                <label>NULL</label>
+            </value>
+            <value>
+                <fullName>Other Size</fullName>
+                <default>false</default>
+                <label>Other Size</label>
+            </value>
+            <value>
+                <fullName>Plastic</fullName>
+                <default>false</default>
+                <label>Plastic</label>
+            </value>
+            <value>
+                <fullName>Plug Adapter</fullName>
+                <default>false</default>
+                <label>Plug Adapter</label>
+            </value>
+            <value>
+                <fullName>QUEEN SIZE</fullName>
+                <default>false</default>
+                <label>QUEEN SIZE</label>
+            </value>
+            <value>
+                <fullName>Short</fullName>
+                <default>false</default>
+                <label>Short</label>
+            </value>
+            <value>
+                <fullName>Soft</fullName>
+                <default>false</default>
+                <label>Soft</label>
+            </value>
+            <value>
+                <fullName>Stainless Steel</fullName>
+                <default>false</default>
+                <label>Stainless Steel</label>
+            </value>
+            <value>
+                <fullName>STANDARD</fullName>
+                <default>false</default>
+                <label>STANDARD</label>
+            </value>
+            <value>
+                <fullName>TANK</fullName>
+                <default>false</default>
+                <label>TANK</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>USB Charger</fullName>
+                <default>false</default>
+                <label>USB Charger</label>
+            </value>
+            <value>
+                <fullName>White</fullName>
+                <default>false</default>
+                <label>White</label>
+            </value>
+            <value>
+                <fullName>XL</fullName>
+                <default>false</default>
+                <label>XL</label>
+            </value>
+            <value>
+                <fullName>XL LONG</fullName>
+                <default>false</default>
+                <label>XL LONG</label>
+            </value>
+            <value>
+                <fullName>100s Red</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>100s Red</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Issue</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Issues</value>
+    </caseValues>
+    <layouts>
+        <layout>Case Feed Layout</layout>
+        <layoutType>CaseInteraction</layoutType>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Case Layout</layout>
+        <sections>
+            <label><!-- Brand Hierarchy --></label>
+            <section>Brand Hierarchy</section>
+        </sections>
+        <sections>
+            <label><!-- Comment --></label>
+            <section>Comment</section>
+        </sections>
+        <sections>
+            <label><!-- Customer --></label>
+            <section>Customer</section>
+        </sections>
+        <sections>
+            <label><!-- Issue Hierarchy --></label>
+            <section>Issue Hierarchy</section>
+        </sections>
+        <sections>
+            <label><!-- Issue Information --></label>
+            <section>Issue Information</section>
+        </sections>
+        <sections>
+            <label><!-- Product --></label>
+            <section>Product</section>
+        </sections>
+        <sections>
+            <label><!-- Purchase Information --></label>
+            <section>Purchase Information</section>
+        </sections>
+        <sections>
+            <label><!-- System Information --></label>
+            <section>System Information</section>
+        </sections>
+        <sections>
+            <label><!-- Trade Customer --></label>
+            <section>Trade Customer</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- CloseCaseLightning --></label>
+        <name>CloseCaseLightning</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Send Email --></label>
+        <name>Send_Email</name>
+    </quickActions>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Incident date cannot be earlier than Purchase date --></errorMessage>
+        <name>Incident_date</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Incident Date cannot be a Future Date. Enter a valid Date. --></errorMessage>
+        <name>No_future_date_Incident</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Purchase Date cannot be a Future Date. Enter a valid Date. --></errorMessage>
+        <name>No_future_date_purchase</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Related Issue: Please enter valid Related Issue Number. --></errorMessage>
+        <name>Related_Issue_Validation</name>
+    </validationRules>
+</CustomObjectTranslation>

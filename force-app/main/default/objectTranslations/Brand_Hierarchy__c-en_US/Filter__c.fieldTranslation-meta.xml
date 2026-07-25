@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Filter --></label>
+    <name>Filter__c</name>
+    <picklistValues>
+        <masterLabel>2A</masterLabel>
+        <translation><!-- 2A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2A - PI Approved</masterLabel>
+        <translation><!-- 2A - PI Approved --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>500mA</masterLabel>
+        <translation><!-- 500mA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>500mA - EU</masterLabel>
+        <translation><!-- 500mA - EU --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>500mA - NZ</masterLabel>
+        <translation><!-- 500mA - NZ --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>500mA - UK</masterLabel>
+        <translation><!-- 500mA - UK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CVR 2.4</masterLabel>
+        <translation><!-- CVR 2.4 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CVR2.6.8G</masterLabel>
+        <translation><!-- CVR2.6.8G --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CVR2.6.8G &amp; BVR2.4L</masterLabel>
+        <translation><!-- CVR2.6.8G &amp; BVR2.4L --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Filter</masterLabel>
+        <translation><!-- Filter --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Filtered</masterLabel>
+        <translation><!-- Filtered --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Flavormax</masterLabel>
+        <translation><!-- Flavormax --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>GSAW-001</masterLabel>
+        <translation><!-- GSAW-001 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LED Green</masterLabel>
+        <translation><!-- LED Green --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LED Green - UK</masterLabel>
+        <translation><!-- LED Green - UK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LED Red</masterLabel>
+        <translation><!-- LED Red --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LED Red - UK</masterLabel>
+        <translation><!-- LED Red - UK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multifilter</masterLabel>
+        <translation><!-- Multifilter --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>N/A</masterLabel>
+        <translation><!-- N/A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NULL</masterLabel>
+        <translation><!-- NULL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Non-Filtered</masterLabel>
+        <translation><!-- Non-Filtered --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>None</masterLabel>
+        <translation><!-- None --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Original</masterLabel>
+        <translation><!-- Original --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PI Approved</masterLabel>
+        <translation><!-- PI Approved --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Plastic</masterLabel>
+        <translation><!-- Plastic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Test</masterLabel>
+        <translation><!-- Test --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>US to EU</masterLabel>
+        <translation><!-- US to EU --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unknown</masterLabel>
+        <translation><!-- Unknown --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vapors</masterLabel>
+        <translation><!-- Vapors --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Wood</masterLabel>
+        <translation><!-- Wood --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

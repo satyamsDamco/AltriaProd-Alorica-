@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Length --></label>
+    <name>Length__c</name>
+    <picklistValues>
+        <masterLabel>100s</masterLabel>
+        <translation><!-- 100s --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>120s</masterLabel>
+        <translation><!-- 120s --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>72mm</masterLabel>
+        <translation><!-- 72mm --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>83mm</masterLabel>
+        <translation><!-- 83mm --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Black</masterLabel>
+        <translation><!-- Black --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cube</masterLabel>
+        <translation><!-- Cube --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Disposable</masterLabel>
+        <translation><!-- Disposable --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Flat Wire</masterLabel>
+        <translation><!-- Flat Wire --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>King Size</masterLabel>
+        <translation><!-- King Size --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Long</masterLabel>
+        <translation><!-- Long --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Long Size</masterLabel>
+        <translation><!-- Long Size --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mini</masterLabel>
+        <translation><!-- Mini --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>N/A</masterLabel>
+        <translation><!-- N/A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NULL</masterLabel>
+        <translation><!-- NULL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other Size</masterLabel>
+        <translation><!-- Other Size --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Plastic</masterLabel>
+        <translation><!-- Plastic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Plug Adapter</masterLabel>
+        <translation><!-- Plug Adapter --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>QUEEN SIZE</masterLabel>
+        <translation><!-- QUEEN SIZE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>STANDARD</masterLabel>
+        <translation><!-- STANDARD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Short</masterLabel>
+        <translation><!-- Short --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Soft</masterLabel>
+        <translation><!-- Soft --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Stainless Steel</masterLabel>
+        <translation><!-- Stainless Steel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TANK</masterLabel>
+        <translation><!-- TANK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USB Charger</masterLabel>
+        <translation><!-- USB Charger --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unknown</masterLabel>
+        <translation><!-- Unknown --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>White</masterLabel>
+        <translation><!-- White --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>XL</masterLabel>
+        <translation><!-- XL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>XL LONG</masterLabel>
+        <translation><!-- XL LONG --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

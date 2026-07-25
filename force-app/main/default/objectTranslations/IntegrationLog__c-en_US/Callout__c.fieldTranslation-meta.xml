@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Callout --></label>
+    <name>Callout__c</name>
+    <picklistValues>
+        <masterLabel>Address Verification</masterLabel>
+        <translation><!-- Address Verification --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Age Verification</masterLabel>
+        <translation><!-- Age Verification --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CCN Lookup</masterLabel>
+        <translation><!-- CCN Lookup --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CEA Complaint</masterLabel>
+        <translation><!-- CEA Complaint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Device ot Kit - Core Services</masterLabel>
+        <translation><!-- Device ot Kit - Core Services --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Full Search Lookup</masterLabel>
+        <translation><!-- Full Search Lookup --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IVR Reimbursements</masterLabel>
+        <translation><!-- IVR Reimbursements --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Manufacturing - Core Services</masterLabel>
+        <translation><!-- Manufacturing - Core Services --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Profile Update</masterLabel>
+        <translation><!-- Profile Update --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Token</masterLabel>
+        <translation><!-- Token --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Zip Lookup</masterLabel>
+        <translation><!-- Zip Lookup --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

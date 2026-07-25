@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>Type__c</name>
+    <picklistValues>
+        <masterLabel>Acxiom</masterLabel>
+        <translation><!-- Acxiom --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Alorica</masterLabel>
+        <translation><!-- Alorica --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lexis-Nexis</masterLabel>
+        <translation><!-- Lexis-Nexis --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Melissa</masterLabel>
+        <translation><!-- Melissa --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

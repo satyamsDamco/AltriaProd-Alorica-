@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Affected Type --></label>
+    <name>Affected_Type__c</name>
+    <picklistValues>
+        <masterLabel>AC Charger</masterLabel>
+        <translation><!-- AC Charger --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>AC Power Adapter</masterLabel>
+        <translation><!-- AC Power Adapter --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Battery</masterLabel>
+        <translation><!-- Battery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Can</masterLabel>
+        <translation><!-- Can --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Car Charger</masterLabel>
+        <translation><!-- Car Charger --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carrying Case</masterLabel>
+        <translation><!-- Carrying Case --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton</masterLabel>
+        <translation><!-- Carton --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cartridge</masterLabel>
+        <translation><!-- Cartridge --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case</masterLabel>
+        <translation><!-- Case --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cigar</masterLabel>
+        <translation><!-- Cigar --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cigarette</masterLabel>
+        <translation><!-- Cigarette --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cleaning Capsule</masterLabel>
+        <translation><!-- Cleaning Capsule --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cleaning Stick</masterLabel>
+        <translation><!-- Cleaning Stick --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Disc</masterLabel>
+        <translation><!-- Disc --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Disposal Unit</masterLabel>
+        <translation><!-- Disposal Unit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Holder</masterLabel>
+        <translation><!-- Holder --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Holder Cap</masterLabel>
+        <translation><!-- Holder Cap --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IQOS Door Cover</masterLabel>
+        <translation><!-- IQOS Door Cover --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Kit</masterLabel>
+        <translation><!-- Kit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NJOY ACE Device</masterLabel>
+        <translation><!-- NJOY ACE Device --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NJOY Daily</masterLabel>
+        <translation><!-- NJOY Daily --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pack</masterLabel>
+        <translation><!-- Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pocket Charger</masterLabel>
+        <translation><!-- Pocket Charger --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pods</masterLabel>
+        <translation><!-- Pods --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pouch</masterLabel>
+        <translation><!-- Pouch --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Promotional packing</masterLabel>
+        <translation><!-- Promotional packing --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Roll</masterLabel>
+        <translation><!-- Roll --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Silicone Sleeve</masterLabel>
+        <translation><!-- Silicone Sleeve --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sleeve</masterLabel>
+        <translation><!-- Sleeve --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Snus Carton</masterLabel>
+        <translation><!-- Snus Carton --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Snus Pack</masterLabel>
+        <translation><!-- Snus Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Stick</masterLabel>
+        <translation><!-- Stick --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tub</masterLabel>
+        <translation><!-- Tub --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tube</masterLabel>
+        <translation><!-- Tube --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USB Cable</masterLabel>
+        <translation><!-- USB Cable --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USB – Charger</masterLabel>
+        <translation><!-- USB – Charger --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

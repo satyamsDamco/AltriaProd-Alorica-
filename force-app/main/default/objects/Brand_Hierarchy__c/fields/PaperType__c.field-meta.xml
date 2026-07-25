@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PaperType__c</fullName>
+    <label>PaperType</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Banded Paper</fullName>
+                <default>false</default>
+                <label>Banded Paper</label>
+            </value>
+            <value>
+                <fullName>Banded Paper Ny</fullName>
+                <default>false</default>
+                <label>Banded Paper Ny</label>
+            </value>
+            <value>
+                <fullName>BLUE</fullName>
+                <default>false</default>
+                <label>BLUE</label>
+            </value>
+            <value>
+                <fullName>BRILLIANT COPPER</fullName>
+                <default>false</default>
+                <label>BRILLIANT COPPER</label>
+            </value>
+            <value>
+                <fullName>COPPER</fullName>
+                <default>false</default>
+                <label>COPPER</label>
+            </value>
+            <value>
+                <fullName>DEEP LAVENDER</fullName>
+                <default>false</default>
+                <label>DEEP LAVENDER</label>
+            </value>
+            <value>
+                <fullName>Designer Battery Long Green LED - Green</fullName>
+                <default>false</default>
+                <label>Designer Battery Long Green LED - Green</label>
+            </value>
+            <value>
+                <fullName>Designer Battery Long Green LED - I Love Green Smoke  Springfield</fullName>
+                <default>false</default>
+                <label>Designer Battery Long Green LED - I Love Green Smoke  Springfield</label>
+            </value>
+            <value>
+                <fullName>Designer Battery Long Green LED - Mocha Mist Mocha</fullName>
+                <default>false</default>
+                <label>Designer Battery Long Green LED - Mocha Mist Mocha</label>
+            </value>
+            <value>
+                <fullName>Designer Battery Long Green LED - Mocha Mist  Seattle</fullName>
+                <default>false</default>
+                <label>Designer Battery Long Green LED - Mocha Mist  Seattle</label>
+            </value>
+            <value>
+                <fullName>Designer Battery Long Green LED - Smooth Chocolate  Manhattan</fullName>
+                <default>false</default>
+                <label>Designer Battery Long Green LED - Smooth Chocolate  Manhattan</label>
+            </value>
+            <value>
+                <fullName>Designer Battery Long Green LED - Smooth Cream Cream</fullName>
+                <default>false</default>
+                <label>Designer Battery Long Green LED - Smooth Cream Cream</label>
+            </value>
+            <value>
+                <fullName>Designer Battery Long Green LED - Vanilla Dreams  Charleston</fullName>
+                <default>false</default>
+                <label>Designer Battery Long Green LED - Vanilla Dreams  Charleston</label>
+            </value>
+            <value>
+                <fullName>Designer - Black</fullName>
+                <default>false</default>
+                <label>Designer - Black</label>
+            </value>
+            <value>
+                <fullName>Designer - Black  Nashville</fullName>
+                <default>false</default>
+                <label>Designer - Black  Nashville</label>
+            </value>
+            <value>
+                <fullName>Designer - Brown</fullName>
+                <default>false</default>
+                <label>Designer - Brown</label>
+            </value>
+            <value>
+                <fullName>Designer - Classic Tobacco Classic</fullName>
+                <default>false</default>
+                <label>Designer - Classic Tobacco Classic</label>
+            </value>
+            <value>
+                <fullName>Designer - I Love Green Smoke  Springfield</fullName>
+                <default>false</default>
+                <label>Designer - I Love Green Smoke  Springfield</label>
+            </value>
+            <value>
+                <fullName>Designer - Menthol Ice Jazzy</fullName>
+                <default>false</default>
+                <label>Designer - Menthol Ice Jazzy</label>
+            </value>
+            <value>
+                <fullName>Designer - Menthol Ice  New Orleans</fullName>
+                <default>false</default>
+                <label>Designer - Menthol Ice  New Orleans</label>
+            </value>
+            <value>
+                <fullName>Designer - Mocha Mist  Seattle</fullName>
+                <default>false</default>
+                <label>Designer - Mocha Mist  Seattle</label>
+            </value>
+            <value>
+                <fullName>Designer - Red Label  El Paso</fullName>
+                <default>false</default>
+                <label>Designer - Red Label  El Paso</label>
+            </value>
+            <value>
+                <fullName>Designer - Signature Red Paisley</fullName>
+                <default>false</default>
+                <label>Designer - Signature Red Paisley</label>
+            </value>
+            <value>
+                <fullName>Designer  - Smooth Chocolate  Manhattan</fullName>
+                <default>false</default>
+                <label>Designer  - Smooth Chocolate  Manhattan</label>
+            </value>
+            <value>
+                <fullName>Designer - Southern Gold Argyle</fullName>
+                <default>false</default>
+                <label>Designer - Southern Gold Argyle</label>
+            </value>
+            <value>
+                <fullName>Designer - Tobacco Gold  Chicago</fullName>
+                <default>false</default>
+                <label>Designer - Tobacco Gold  Chicago</label>
+            </value>
+            <value>
+                <fullName>Designer - Vanilla Dreams  Charleston</fullName>
+                <default>false</default>
+                <label>Designer - Vanilla Dreams  Charleston</label>
+            </value>
+            <value>
+                <fullName>FOREST GREEN</fullName>
+                <default>false</default>
+                <label>FOREST GREEN</label>
+            </value>
+            <value>
+                <fullName>FSC</fullName>
+                <default>false</default>
+                <label>FSC</label>
+            </value>
+            <value>
+                <fullName>GA</fullName>
+                <default>false</default>
+                <label>GA</label>
+            </value>
+            <value>
+                <fullName>HOT PINK</fullName>
+                <default>false</default>
+                <label>HOT PINK</label>
+            </value>
+            <value>
+                <fullName>Intro</fullName>
+                <default>false</default>
+                <label>Intro</label>
+            </value>
+            <value>
+                <fullName>ITALIAN RED</fullName>
+                <default>false</default>
+                <label>ITALIAN RED</label>
+            </value>
+            <value>
+                <fullName>LAKE BLUE</fullName>
+                <default>false</default>
+                <label>LAKE BLUE</label>
+            </value>
+            <value>
+                <fullName>LAVENDER</fullName>
+                <default>false</default>
+                <label>LAVENDER</label>
+            </value>
+            <value>
+                <fullName>Leather</fullName>
+                <default>false</default>
+                <label>Leather</label>
+            </value>
+            <value>
+                <fullName>Metal</fullName>
+                <default>false</default>
+                <label>Metal</label>
+            </value>
+            <value>
+                <fullName>METALLIC BLUE</fullName>
+                <default>false</default>
+                <label>METALLIC BLUE</label>
+            </value>
+            <value>
+                <fullName>METALLIC PLUM</fullName>
+                <default>false</default>
+                <label>METALLIC PLUM</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>NATURAL SAND</fullName>
+                <default>false</default>
+                <label>NATURAL SAND</label>
+            </value>
+            <value>
+                <fullName>Non Banded Paper</fullName>
+                <default>false</default>
+                <label>Non Banded Paper</label>
+            </value>
+            <value>
+                <fullName>NULL</fullName>
+                <default>false</default>
+                <label>NULL</label>
+            </value>
+            <value>
+                <fullName>ORANGE</fullName>
+                <default>false</default>
+                <label>ORANGE</label>
+            </value>
+            <value>
+                <fullName>PAPERTYPE</fullName>
+                <default>false</default>
+                <label>PAPERTYPE</label>
+            </value>
+            <value>
+                <fullName>PERIWINKLE</fullName>
+                <default>false</default>
+                <label>PERIWINKLE</label>
+            </value>
+            <value>
+                <fullName>PERIWINKLE FOIL</fullName>
+                <default>false</default>
+                <label>PERIWINKLE FOIL</label>
+            </value>
+            <value>
+                <fullName>PINK</fullName>
+                <default>false</default>
+                <label>PINK</label>
+            </value>
+            <value>
+                <fullName>PLUM</fullName>
+                <default>false</default>
+                <label>PLUM</label>
+            </value>
+            <value>
+                <fullName>RED</fullName>
+                <default>false</default>
+                <label>RED</label>
+            </value>
+            <value>
+                <fullName>RICH TURQOISE</fullName>
+                <default>false</default>
+                <label>RICH TURQOISE</label>
+            </value>
+            <value>
+                <fullName>Rolling</fullName>
+                <default>false</default>
+                <label>Rolling</label>
+            </value>
+            <value>
+                <fullName>ROSE</fullName>
+                <default>false</default>
+                <label>ROSE</label>
+            </value>
+            <value>
+                <fullName>ROSSO CORSA</fullName>
+                <default>false</default>
+                <label>ROSSO CORSA</label>
+            </value>
+            <value>
+                <fullName>Rubber</fullName>
+                <default>false</default>
+                <label>Rubber</label>
+            </value>
+            <value>
+                <fullName>SAND</fullName>
+                <default>false</default>
+                <label>SAND</label>
+            </value>
+            <value>
+                <fullName>SLATE</fullName>
+                <default>false</default>
+                <label>SLATE</label>
+            </value>
+            <value>
+                <fullName>SOFT LILAC</fullName>
+                <default>false</default>
+                <label>SOFT LILAC</label>
+            </value>
+            <value>
+                <fullName>Sparkle</fullName>
+                <default>false</default>
+                <label>Sparkle</label>
+            </value>
+            <value>
+                <fullName>SPRING LEAF</fullName>
+                <default>false</default>
+                <label>SPRING LEAF</label>
+            </value>
+            <value>
+                <fullName>Standard</fullName>
+                <default>false</default>
+                <label>Standard</label>
+            </value>
+            <value>
+                <fullName>SUNSHINE</fullName>
+                <default>false</default>
+                <label>SUNSHINE</label>
+            </value>
+            <value>
+                <fullName>TURQUOISE</fullName>
+                <default>false</default>
+                <label>TURQUOISE</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green  LED ABS Tobacco  Cooperstown</fullName>
+                <default>false</default>
+                <label>UK Designer Battery Long Green  LED ABS Tobacco  Cooperstown</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED I Love Green Smoke  Springfield</fullName>
+                <default>false</default>
+                <label>UK Designer Battery Long Green LED I Love Green Smoke  Springfield</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED Menthol Ice  New Orleans</fullName>
+                <default>false</default>
+                <label>UK Designer Battery Long Green LED Menthol Ice  New Orleans</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green  LED Mocha Mist  Seattle</fullName>
+                <default>false</default>
+                <label>UK Designer Battery Long Green  LED Mocha Mist  Seattle</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED Red Label  El Paso</fullName>
+                <default>false</default>
+                <label>UK Designer Battery Long Green LED Red Label  El Paso</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED Smooth Chocolate  Manhattan</fullName>
+                <default>false</default>
+                <label>UK Designer Battery Long Green LED Smooth Chocolate  Manhattan</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED Tobacco Gold  Chicago</fullName>
+                <default>false</default>
+                <label>UK Designer Battery Long Green LED Tobacco Gold  Chicago</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED Vanilla Dreams  Charleston</fullName>
+                <default>false</default>
+                <label>UK Designer Battery Long Green LED Vanilla Dreams  Charleston</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>UNKNOWN COLOR</fullName>
+                <default>false</default>
+                <label>UNKNOWN COLOR</label>
+            </value>
+            <value>
+                <fullName>UNKNOWN DESIGN</fullName>
+                <default>false</default>
+                <label>UNKNOWN DESIGN</label>
+            </value>
+            <value>
+                <fullName>VA</fullName>
+                <default>false</default>
+                <label>VA</label>
+            </value>
+            <value>
+                <fullName>WHITE</fullName>
+                <default>false</default>
+                <label>WHITE</label>
+            </value>
+            <value>
+                <fullName>DF</fullName>
+                <default>false</default>
+                <label>DF</label>
+            </value>
+            <value>
+                <fullName>GRAY</fullName>
+                <default>false</default>
+                <label>GRAY</label>
+            </value>
+            <value>
+                <fullName>NAVY</fullName>
+                <default>false</default>
+                <label>NAVY</label>
+            </value>
+            <value>
+                <fullName>NC</fullName>
+                <default>false</default>
+                <label>NC</label>
+            </value>
+            <value>
+                <fullName>PALE BLUE</fullName>
+                <default>false</default>
+                <label>PALE BLUE</label>
+            </value>
+            <value>
+                <fullName>GOLD</fullName>
+                <default>false</default>
+                <label>GOLD</label>
+            </value>
+            <value>
+                <fullName>MINT</fullName>
+                <default>false</default>
+                <label>MINT</label>
+            </value>
+            <value>
+                <fullName>ALPINE BLUE</fullName>
+                <default>false</default>
+                <label>ALPINE BLUE</label>
+            </value>
+            <value>
+                <fullName>LIGHT PLUM</fullName>
+                <default>false</default>
+                <label>LIGHT PLUM</label>
+            </value>
+            <value>
+                <fullName>BLOSSOM PINK</fullName>
+                <default>false</default>
+                <label>BLOSSOM PINK</label>
+            </value>
+            <value>
+                <fullName>STEEL BLUE</fullName>
+                <default>false</default>
+                <label>STEEL BLUE</label>
+            </value>
+            <value>
+                <fullName>ELECTRIC TEAL</fullName>
+                <default>false</default>
+                <label>ELECTRIC TEAL</label>
+            </value>
+            <value>
+                <fullName>PEWTER</fullName>
+                <default>false</default>
+                <label>PEWTER</label>
+            </value>
+            <value>
+                <fullName>DARK BRONZE</fullName>
+                <default>false</default>
+                <label>DARK BRONZE</label>
+            </value>
+            <value>
+                <fullName>STELLAR BLUE</fullName>
+                <default>false</default>
+                <label>STELLAR BLUE</label>
+            </value>
+            <value>
+                <fullName>BRILLIANT GOLD</fullName>
+                <default>false</default>
+                <label>BRILLIANT GOLD</label>
+            </value>
+            <value>
+                <fullName>SOFT YELLOW</fullName>
+                <default>false</default>
+                <label>SOFT YELLOW</label>
+            </value>
+            <value>
+                <fullName>INDIGO</fullName>
+                <default>false</default>
+                <label>INDIGO</label>
+            </value>
+            <value>
+                <fullName>DARK PEWTER</fullName>
+                <default>false</default>
+                <label>DARK PEWTER</label>
+            </value>
+            <value>
+                <fullName>MARINE</fullName>
+                <default>false</default>
+                <label>MARINE</label>
+            </value>
+            <value>
+                <fullName>SCARLET</fullName>
+                <default>false</default>
+                <label>SCARLET</label>
+            </value>
+            <value>
+                <fullName>TEAL GREEN</fullName>
+                <default>false</default>
+                <label>TEAL GREEN</label>
+            </value>
+            <value>
+                <fullName>CLOUD</fullName>
+                <default>false</default>
+                <label>CLOUD</label>
+            </value>
+            <value>
+                <fullName>CORAL</fullName>
+                <default>false</default>
+                <label>CORAL</label>
+            </value>
+            <value>
+                <fullName>YELLOW</fullName>
+                <default>false</default>
+                <label>YELLOW</label>
+            </value>
+            <value>
+                <fullName>FL</fullName>
+                <default>false</default>
+                <label>FL</label>
+            </value>
+            <value>
+                <fullName>SC</fullName>
+                <default>false</default>
+                <label>SC</label>
+            </value>
+            <value>
+                <fullName>Designer - Black Nashville</fullName>
+                <default>false</default>
+                <label>Designer - Black Nashville</label>
+            </value>
+            <value>
+                <fullName>Designer - Absolute Tobacco  Cooperstown</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer - Absolute Tobacco  Cooperstown</label>
+            </value>
+            <value>
+                <fullName>Designer - Absolute Tobacco Cooperstown</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer - Absolute Tobacco Cooperstown</label>
+            </value>
+            <value>
+                <fullName>Designer - I Love Green Smoke Springfield</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer - I Love Green Smoke Springfield</label>
+            </value>
+            <value>
+                <fullName>Designer - Menthol Ice New Orleans</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer - Menthol Ice New Orleans</label>
+            </value>
+            <value>
+                <fullName>Designer - Mocha Mist Seattle</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer - Mocha Mist Seattle</label>
+            </value>
+            <value>
+                <fullName>Designer - Red Label El Paso</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer - Red Label El Paso</label>
+            </value>
+            <value>
+                <fullName>Designer - Smooth Chocolate Manhattan</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer - Smooth Chocolate Manhattan</label>
+            </value>
+            <value>
+                <fullName>Designer - Tobacco Gold Chicago</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer - Tobacco Gold Chicago</label>
+            </value>
+            <value>
+                <fullName>Designer - Vanilla Dreams Charleston</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer - Vanilla Dreams Charleston</label>
+            </value>
+            <value>
+                <fullName>Designer Battery Long Green LED - I Love Green Smoke Springfield</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer Battery Long Green LED - I Love Green Smoke Springfield</label>
+            </value>
+            <value>
+                <fullName>Designer Battery Long Green LED - Mocha Mist Seattle</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer Battery Long Green LED - Mocha Mist Seattle</label>
+            </value>
+            <value>
+                <fullName>Designer Battery Long Green LED - Smooth Chocolate Manhattan</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer Battery Long Green LED - Smooth Chocolate Manhattan</label>
+            </value>
+            <value>
+                <fullName>Designer Battery Long Green LED - Vanilla Dreams Charleston</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Designer Battery Long Green LED - Vanilla Dreams Charleston</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED ABS Tobacco Cooperstown</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>UK Designer Battery Long Green LED ABS Tobacco Cooperstown</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED I Love Green Smoke Springfield</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>UK Designer Battery Long Green LED I Love Green Smoke Springfield</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED Menthol Ice New Orleans</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>UK Designer Battery Long Green LED Menthol Ice New Orleans</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED Mocha Mist Seattle</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>UK Designer Battery Long Green LED Mocha Mist Seattle</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED Red Label El Paso</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>UK Designer Battery Long Green LED Red Label El Paso</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED Smooth Chocolate Manhattan</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>UK Designer Battery Long Green LED Smooth Chocolate Manhattan</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED Tobacco Gold Chicago</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>UK Designer Battery Long Green LED Tobacco Gold Chicago</label>
+            </value>
+            <value>
+                <fullName>UK Designer Battery Long Green LED Vanilla Dreams Charleston</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>UK Designer Battery Long Green LED Vanilla Dreams Charleston</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

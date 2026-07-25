@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disposition__c</fullName>
+    <label>Disposition</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Completed</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
+            <value>
+                <fullName>Hang Up/ Dead Air Disconnect</fullName>
+                <default>false</default>
+                <label>Hang Up/ Dead Air Disconnect</label>
+            </value>
+            <value>
+                <fullName>Language Barrier</fullName>
+                <default>false</default>
+                <label>Language Barrier</label>
+            </value>
+            <value>
+                <fullName>Test Call</fullName>
+                <default>false</default>
+                <label>Test Call</label>
+            </value>
+            <value>
+                <fullName>Transferred Call</fullName>
+                <default>false</default>
+                <label>Transferred Call</label>
+            </value>
+            <value>
+                <fullName>Wrong Number</fullName>
+                <default>false</default>
+                <label>Wrong Number</label>
+            </value>
+            <value>
+                <fullName>Research</fullName>
+                <default>false</default>
+                <label>Research</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

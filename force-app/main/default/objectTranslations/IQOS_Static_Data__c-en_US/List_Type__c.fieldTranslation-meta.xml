@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- List Type --></label>
+    <name>List_Type__c</name>
+    <picklistValues>
+        <masterLabel>Affected Type</masterLabel>
+        <translation><!-- Affected Type --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Consumer Mentions</masterLabel>
+        <translation><!-- Consumer Mentions --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Expected Type</masterLabel>
+        <translation><!-- Expected Type --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Purchase Type</masterLabel>
+        <translation><!-- Purchase Type --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reimbursed or Replaced Indicator</masterLabel>
+        <translation><!-- Reimbursed or Replaced Indicator --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Store Type</masterLabel>
+        <translation><!-- Store Type --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trace Code Location</masterLabel>
+        <translation><!-- Trace Code Location --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

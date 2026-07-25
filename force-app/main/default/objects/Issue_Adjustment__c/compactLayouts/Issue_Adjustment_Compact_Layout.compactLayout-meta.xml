@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Issue_Adjustment_Compact_Layout</fullName>
+    <fields>Name</fields>
+    <fields>Adjustment_Type__c</fields>
+    <fields>IssueNumber__c</fields>
+    <fields>Status__c</fields>
+    <fields>isReviewed__c</fields>
+    <label>Issue Adjustment Compact Layout</label>
+</CompactLayout>

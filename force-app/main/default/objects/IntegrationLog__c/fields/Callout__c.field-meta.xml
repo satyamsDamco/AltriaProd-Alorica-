@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Callout__c</fullName>
+    <label>Callout</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Address Verification</fullName>
+                <default>false</default>
+                <label>Address Verification</label>
+            </value>
+            <value>
+                <fullName>Age Verification</fullName>
+                <default>false</default>
+                <label>Age Verification</label>
+            </value>
+            <value>
+                <fullName>CCN Lookup</fullName>
+                <default>false</default>
+                <label>CCN Lookup</label>
+            </value>
+            <value>
+                <fullName>Full Search Lookup</fullName>
+                <default>false</default>
+                <label>Full Search Lookup</label>
+            </value>
+            <value>
+                <fullName>Profile Update</fullName>
+                <default>false</default>
+                <label>Profile Update</label>
+            </value>
+            <value>
+                <fullName>Token</fullName>
+                <default>false</default>
+                <label>Token</label>
+            </value>
+            <value>
+                <fullName>Zip Lookup</fullName>
+                <default>false</default>
+                <label>Zip Lookup</label>
+            </value>
+            <value>
+                <fullName>CEA Complaint</fullName>
+                <default>false</default>
+                <label>CEA Complaint</label>
+            </value>
+            <value>
+                <fullName>Manufacturing - Core Services</fullName>
+                <default>false</default>
+                <label>Manufacturing - Core Services</label>
+            </value>
+            <value>
+                <fullName>Device ot Kit - Core Services</fullName>
+                <default>false</default>
+                <label>Device ot Kit - Core Services</label>
+            </value>
+            <value>
+                <fullName>IVR Reimbursements</fullName>
+                <default>false</default>
+                <label>IVR Reimbursements</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Acxiom</controllingFieldValue>
+            <valueName>CCN Lookup</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Acxiom</controllingFieldValue>
+            <valueName>Profile Update</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Acxiom</controllingFieldValue>
+            <valueName>Token</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Lexis-Nexis</controllingFieldValue>
+            <valueName>Age Verification</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Melissa</controllingFieldValue>
+            <valueName>Address Verification</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Melissa</controllingFieldValue>
+            <valueName>Zip Lookup</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

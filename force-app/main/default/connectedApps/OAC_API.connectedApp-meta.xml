@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>anne.naef@alorica.com</contactEmail>
+    <label>OAC API</label>
+    <oauthConfig>
+        <callbackUrl>https://altria-prod.my.salesforce.com/</callbackUrl>
+        <consumerKey>3MVG9uudbyLbNPZOxtYy2KF7POIGW0_77_hWkdGbGlruQZ0En30DoQ68RGaCGUnEGW0ZyVwTT6Z3uutMVVu.y</consumerKey>
+        <isAdminApproved>false</isAdminApproved>
+        <isClientCredentialEnabled>false</isClientCredentialEnabled>
+        <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
+        <isCodeCredentialPostOnly>false</isCodeCredentialPostOnly>
+        <isConsumerSecretOptional>false</isConsumerSecretOptional>
+        <isIntrospectAllTokens>false</isIntrospectAllTokens>
+        <isNamedUserJwtEnabled>false</isNamedUserJwtEnabled>
+        <isPkceRequired>false</isPkceRequired>
+        <isRefreshTokenRotationEnabled>false</isRefreshTokenRotationEnabled>
+        <isSecretRequiredForRefreshToken>true</isSecretRequiredForRefreshToken>
+        <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
+        <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
+        <scopes>Full</scopes>
+    </oauthConfig>
+    <oauthPolicy>
+        <ipRelaxation>ENFORCE</ipRelaxation>
+        <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
+        <refreshTokenPolicy>infinite</refreshTokenPolicy>
+    </oauthPolicy>
+</ConnectedApp>

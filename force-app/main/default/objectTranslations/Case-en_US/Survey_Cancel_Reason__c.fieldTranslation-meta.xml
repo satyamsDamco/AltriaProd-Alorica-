@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Survey Cancel Reason --></label>
+    <name>Survey_Cancel_Reason__c</name>
+    <picklistValues>
+        <masterLabel>Customer Busy</masterLabel>
+        <translation><!-- Customer Busy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Customer Declined</masterLabel>
+        <translation><!-- Customer Declined --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Don&apos;t have Time</masterLabel>
+        <translation><!-- Don&apos;t have Time --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Not interested</masterLabel>
+        <translation><!-- Not interested --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other Reason</masterLabel>
+        <translation><!-- Other Reason --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Takes Too Long</masterLabel>
+        <translation><!-- Takes Too Long --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

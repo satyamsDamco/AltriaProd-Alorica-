@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>standard-home</defaultLandingTab>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <tabs>standard-Contact</tabs>
+    <tabs>standard-Account</tabs>
+    <tabs>standard-Lead</tabs>
+    <tabs>standard-Campaign</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <tabs>Store__c</tabs>
+    <tabs>Reimbursement__c</tabs>
+    <tabs>Correspondence_Fulfilment__c</tabs>
+    <tabs>Survey_Issue__c</tabs>
+    <tabs>Attachment_Detail__c</tabs>
+    <tabs>IQOS_Static_Data__c</tabs>
+    <tabs>Variable_Data__c</tabs>
+    <tabs>Survey_Configuration__c</tabs>
+</CustomApplication>

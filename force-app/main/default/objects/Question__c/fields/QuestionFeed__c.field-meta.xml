@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QuestionFeed__c</fullName>
+    <description>Outbound Feed Only.</description>
+    <encryptionScheme>None</encryptionScheme>
+    <label>QuestionFeed</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

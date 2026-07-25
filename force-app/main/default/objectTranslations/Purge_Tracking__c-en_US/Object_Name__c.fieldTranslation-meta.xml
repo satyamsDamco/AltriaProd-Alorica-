@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Object Name --></label>
+    <name>Object_Name__c</name>
+    <picklistValues>
+        <masterLabel>Attachment</masterLabel>
+        <translation><!-- Attachment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contact (Consumer and trade  customer)</masterLabel>
+        <translation><!-- Contact (Consumer and trade  customer) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Correspondence &amp; Fulfilment</masterLabel>
+        <translation><!-- Correspondence &amp; Fulfilment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Integration Log</masterLabel>
+        <translation><!-- Integration Log --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Issue</masterLabel>
+        <translation><!-- Issue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Issue Adjustment (Review Data)</masterLabel>
+        <translation><!-- Issue Adjustment (Review Data) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reimbursement</masterLabel>
+        <translation><!-- Reimbursement --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Store</masterLabel>
+        <translation><!-- Store --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Survey Issue</masterLabel>
+        <translation><!-- Survey Issue --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Transaction Management</masterLabel>
+        <translation><!-- Transaction Management --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Transaction Management History</masterLabel>
+        <translation><!-- Transaction Management History --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

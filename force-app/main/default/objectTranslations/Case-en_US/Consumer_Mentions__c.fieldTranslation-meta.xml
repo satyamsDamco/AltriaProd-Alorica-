@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Consumer Mentions --></label>
+    <name>Consumer_Mentions__c</name>
+    <picklistValues>
+        <masterLabel>Alleged Property Damage</masterLabel>
+        <translation><!-- Alleged Property Damage --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BATTERY 1ST USE</masterLabel>
+        <translation><!-- BATTERY 1ST USE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BATTERY MULTIPLE USE</masterLabel>
+        <translation><!-- BATTERY MULTIPLE USE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BATTERY UNKNOWN USE</masterLabel>
+        <translation><!-- BATTERY UNKNOWN USE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CUSTOMER AWAITING DIRECTION</masterLabel>
+        <translation><!-- CUSTOMER AWAITING DIRECTION --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Canadian Recall</masterLabel>
+        <translation><!-- Canadian Recall --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contacting Attorney</masterLabel>
+        <translation><!-- Contacting Attorney --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contacting Better Business Bureau</masterLabel>
+        <translation><!-- Contacting Better Business Bureau --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contacting FDA</masterLabel>
+        <translation><!-- Contacting FDA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contacting Government Agency</masterLabel>
+        <translation><!-- Contacting Government Agency --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contacting Media</masterLabel>
+        <translation><!-- Contacting Media --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Covid19</masterLabel>
+        <translation><!-- Covid19 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DOJ</masterLabel>
+        <translation><!-- DOJ --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Factory Product Return Request</masterLabel>
+        <translation><!-- Factory Product Return Request --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>GF Changes</masterLabel>
+        <translation><!-- GF Changes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LTI</masterLabel>
+        <translation><!-- LTI --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NSTC Complaint</masterLabel>
+        <translation><!-- NSTC Complaint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PRODUCT MISUSE</masterLabel>
+        <translation><!-- PRODUCT MISUSE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RESHIP REIMBURSEMENT</masterLabel>
+        <translation><!-- RESHIP REIMBURSEMENT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Recall</masterLabel>
+        <translation><!-- Recall --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Switching to a competitor</masterLabel>
+        <translation><!-- Switching to a competitor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Threatens To Post On Social Media</masterLabel>
+        <translation><!-- Threatens To Post On Social Media --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Threatens quitting</masterLabel>
+        <translation><!-- Threatens quitting --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Troubleshooting Successful</masterLabel>
+        <translation><!-- Troubleshooting Successful --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Troubleshooting Unsuccessful</masterLabel>
+        <translation><!-- Troubleshooting Unsuccessful --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USSTC Review Nashville</masterLabel>
+        <translation><!-- USSTC Review Nashville --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VALID REIMB NM EMAIL RCVD</masterLabel>
+        <translation><!-- VALID REIMB NM EMAIL RCVD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Valid Reimb- Lg Qty Script Dlvrd</masterLabel>
+        <translation><!-- Valid Reimb- Lg Qty Script Dlvrd --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Valid Reimb- Prod Ret Rcvd</masterLabel>
+        <translation><!-- Valid Reimb- Prod Ret Rcvd --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

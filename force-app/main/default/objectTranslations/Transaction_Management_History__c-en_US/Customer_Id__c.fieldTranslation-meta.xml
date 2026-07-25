@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Local Customer Id of the Customer associated with the parent Transaction. --></help>
+    <label><!-- Customer Id --></label>
+    <name>Customer_Id__c</name>
+</CustomFieldTranslation>

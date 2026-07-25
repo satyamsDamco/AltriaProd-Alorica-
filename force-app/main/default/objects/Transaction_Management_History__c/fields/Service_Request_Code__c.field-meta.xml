@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Request_Code__c</fullName>
+    <description>Denotes the History type.</description>
+    <inlineHelpText>Denotes the History type.</inlineHelpText>
+    <label>Service Request Code</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AGE_VERIFY</fullName>
+                <default>false</default>
+                <label>AGE_VERIFY</label>
+            </value>
+            <value>
+                <fullName>CCNLOOKUP</fullName>
+                <default>false</default>
+                <label>CCNLOOKUP</label>
+            </value>
+            <value>
+                <fullName>CORSP_OUTBOUND</fullName>
+                <default>false</default>
+                <label>CORSP_OUTBOUND</label>
+            </value>
+            <value>
+                <fullName>CREATE_REIMB</fullName>
+                <default>false</default>
+                <label>CREATE_REIMB</label>
+            </value>
+            <value>
+                <fullName>CREATE_SURVEY</fullName>
+                <default>false</default>
+                <label>CREATE_SURVEY</label>
+            </value>
+            <value>
+                <fullName>CREATECUST</fullName>
+                <default>false</default>
+                <label>CREATECUST</label>
+            </value>
+            <value>
+                <fullName>CREATEISSUE</fullName>
+                <default>false</default>
+                <label>CREATEISSUE</label>
+            </value>
+            <value>
+                <fullName>UPDATE_REIMB</fullName>
+                <default>false</default>
+                <label>UPDATE_REIMB</label>
+            </value>
+            <value>
+                <fullName>UPDATE_SURVEY</fullName>
+                <default>false</default>
+                <label>UPDATE_SURVEY</label>
+            </value>
+            <value>
+                <fullName>UPDATECUST</fullName>
+                <default>false</default>
+                <label>UPDATECUST</label>
+            </value>
+            <value>
+                <fullName>UPDATEISSUE</fullName>
+                <default>false</default>
+                <label>UPDATEISSUE</label>
+            </value>
+            <value>
+                <fullName>ENDCALL</fullName>
+                <default>false</default>
+                <label>ENDCALL</label>
+            </value>
+            <value>
+                <fullName>FULL_SEARCH</fullName>
+                <default>false</default>
+                <label>FULL_SEARCH</label>
+            </value>
+            <value>
+                <fullName>AGE_VERIFICATION_REQUEST</fullName>
+                <default>false</default>
+                <label>AGE_VERIFICATION_REQUEST</label>
+            </value>
+            <value>
+                <fullName>ISSUE_APPROVED</fullName>
+                <default>false</default>
+                <label>ISSUE_APPROVED</label>
+            </value>
+            <value>
+                <fullName>SRPROGRAMALLOCATION</fullName>
+                <default>false</default>
+                <label>SRPROGRAMALLOCATION</label>
+            </value>
+            <value>
+                <fullName>CHAT_START</fullName>
+                <default>false</default>
+                <label>CHAT_START</label>
+            </value>
+            <value>
+                <fullName>EMAIL_ADDRESS_UPDATE</fullName>
+                <default>false</default>
+                <label>EMAIL_ADDRESS_UPDATE</label>
+            </value>
+            <value>
+                <fullName>EMAIL_CONFIRMED_UPDATE</fullName>
+                <default>false</default>
+                <label>EMAIL_CONFIRMED_UPDATE</label>
+            </value>
+            <value>
+                <fullName>REIMBURSEMENT FOUND</fullName>
+                <default>false</default>
+                <label>REIMBURSEMENT FOUND</label>
+            </value>
+            <value>
+                <fullName>NO REIMBURSEMENT FOUND FOR CONSUMER</fullName>
+                <default>false</default>
+                <label>NO REIMBURSEMENT FOUND FOR CONSUMER</label>
+            </value>
+            <value>
+                <fullName>MULTIPLE CONSUMERS FOUND</fullName>
+                <default>false</default>
+                <label>MULTIPLE CONSUMERS FOUND</label>
+            </value>
+            <value>
+                <fullName>NO CONSUMER FOUND</fullName>
+                <default>false</default>
+                <label>NO CONSUMER FOUND</label>
+            </value>
+            <value>
+                <fullName>CONSUMER IS NOT AGE VERIFIED</fullName>
+                <default>false</default>
+                <label>CONSUMER IS NOT AGE VERIFIED</label>
+            </value>
+            <value>
+                <fullName>ONLINE_VF_SENT</fullName>
+                <default>false</default>
+                <label>ONLINE_VF_SENT</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionOnInsert>Allow</actionOnInsert>
+    <actionOnUpdate>Allow</actionOnUpdate>
+    <alertText>You&apos;re creating a duplicate record. We recommend you use an existing record instead.</alertText>
+    <description>To avoid duplicate Package Code.</description>
+    <duplicateRuleFilter>
+        <booleanFilter xsi:nil="true"/>
+        <duplicateRuleFilterItems>
+            <field>PkgCode__c</field>
+            <operation>notEqual</operation>
+            <value>Null</value>
+            <sortOrder>1</sortOrder>
+            <table>DocumentType__c</table>
+        </duplicateRuleFilterItems>
+    </duplicateRuleFilter>
+    <duplicateRuleMatchRules>
+        <matchRuleSObjectType>DocumentType__c</matchRuleSObjectType>
+        <matchingRule>Duplicate_rule_for_Document_Type_matching_rule</matchingRule>
+        <objectMapping xsi:nil="true"/>
+    </duplicateRuleMatchRules>
+    <isActive>true</isActive>
+    <masterLabel>Duplicate rule for Document Type</masterLabel>
+    <operationsOnInsert>Alert</operationsOnInsert>
+    <operationsOnInsert>Report</operationsOnInsert>
+    <operationsOnUpdate>Alert</operationsOnUpdate>
+    <operationsOnUpdate>Report</operationsOnUpdate>
+    <securityOption>BypassSharingRules</securityOption>
+    <sortOrder>1</sortOrder>
+</DuplicateRule>

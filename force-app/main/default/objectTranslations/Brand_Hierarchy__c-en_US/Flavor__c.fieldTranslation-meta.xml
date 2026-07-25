@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Flavor --></label>
+    <name>Flavor__c</name>
+    <picklistValues>
+        <masterLabel>1-PACK</masterLabel>
+        <translation><!-- 1-PACK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 - PACK FOIL $1.75</masterLabel>
+        <translation><!-- 2 - PACK FOIL $1.75 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3 - PACK FOIL</masterLabel>
+        <translation><!-- 3 - PACK FOIL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3-PACK</masterLabel>
+        <translation><!-- 3-PACK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK $3.95 - H</masterLabel>
+        <translation><!-- 5 - PACK $3.95 - H --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK $3.95 - N</masterLabel>
+        <translation><!-- 5 - PACK $3.95 - N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK - H</masterLabel>
+        <translation><!-- 5 - PACK - H --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK - N</masterLabel>
+        <translation><!-- 5 - PACK - N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK - T</masterLabel>
+        <translation><!-- 5 - PACK - T --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK CREAM FILLER</masterLabel>
+        <translation><!-- 5 - PACK CREAM FILLER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK H</masterLabel>
+        <translation><!-- 5 - PACK H --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK N</masterLabel>
+        <translation><!-- 5 - PACK N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>5 - PACK SWEETS FILLER</masterLabel>
+        <translation><!-- 5 - PACK SWEETS FILLER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>APPLE CIDER</masterLabel>
+        <translation><!-- APPLE CIDER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Absolute Tobacco</masterLabel>
+        <translation><!-- Absolute Tobacco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Almond Butter &amp; Cocoa</masterLabel>
+        <translation><!-- Almond Butter &amp; Cocoa --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Amber</masterLabel>
+        <translation><!-- Amber --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Apple</masterLabel>
+        <translation><!-- Apple --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BLUE MENTHOL</masterLabel>
+        <translation><!-- BLUE MENTHOL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BOLD CLASSIC 4.0</masterLabel>
+        <translation><!-- BOLD CLASSIC 4.0 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BOLD MENTHOL 4.0</masterLabel>
+        <translation><!-- BOLD MENTHOL 4.0 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BOURBON BLEND 1.2</masterLabel>
+        <translation><!-- BOURBON BLEND 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BOURBON BLEND 2.5</masterLabel>
+        <translation><!-- BOURBON BLEND 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BVR 2.4</masterLabel>
+        <translation><!-- BVR 2.4 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BVR 2.4L</masterLabel>
+        <translation><!-- BVR 2.4L --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Berry</masterLabel>
+        <translation><!-- Berry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Berry Blast</masterLabel>
+        <translation><!-- Berry Blast --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Black</masterLabel>
+        <translation><!-- Black --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Black and Blueberry</masterLabel>
+        <translation><!-- Black and Blueberry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Blackberry Lemon</masterLabel>
+        <translation><!-- Blackberry Lemon --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Blend No. 27</masterLabel>
+        <translation><!-- Blend No. 27 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Blue Mint</masterLabel>
+        <translation><!-- Blue Mint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Blueberry</masterLabel>
+        <translation><!-- Blueberry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Blueberry Mint</masterLabel>
+        <translation><!-- Blueberry Mint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bold Classic 4.5</masterLabel>
+        <translation><!-- Bold Classic 4.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bold Menthol 4.5</masterLabel>
+        <translation><!-- Bold Menthol 4.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bold Original 4.5</masterLabel>
+        <translation><!-- Bold Original 4.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bold Wintergreen</masterLabel>
+        <translation><!-- Bold Wintergreen --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CAPPUCCINO</masterLabel>
+        <translation><!-- CAPPUCCINO --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CARIBBEAN OASIS 1.2</masterLabel>
+        <translation><!-- CARIBBEAN OASIS 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CARIBBEAN OASIS 2.5</masterLabel>
+        <translation><!-- CARIBBEAN OASIS 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CLASSIC 1.2</masterLabel>
+        <translation><!-- CLASSIC 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CLASSIC 3.5</masterLabel>
+        <translation><!-- CLASSIC 3.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CLASSIC TOBACCO</masterLabel>
+        <translation><!-- CLASSIC TOBACCO --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>COFFEE</masterLabel>
+        <translation><!-- COFFEE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>COOL SPEARMINT</masterLabel>
+        <translation><!-- COOL SPEARMINT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>COPPER STILL 1.2</masterLabel>
+        <translation><!-- COPPER STILL 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>COPPER STILL 2.5</masterLabel>
+        <translation><!-- COPPER STILL 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CVR 2.4</masterLabel>
+        <translation><!-- CVR 2.4 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carmel Latte</masterLabel>
+        <translation><!-- Carmel Latte --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cherry</masterLabel>
+        <translation><!-- Cherry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chia Swirl</masterLabel>
+        <translation><!-- Chia Swirl --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cinnamon</masterLabel>
+        <translation><!-- Cinnamon --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Citrus</masterLabel>
+        <translation><!-- Citrus --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Classic</masterLabel>
+        <translation><!-- Classic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Classic 2.4</masterLabel>
+        <translation><!-- Classic 2.4 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Classic 2.5</masterLabel>
+        <translation><!-- Classic 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cool Menthol</masterLabel>
+        <translation><!-- Cool Menthol --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cool Mint</masterLabel>
+        <translation><!-- Cool Mint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cool Mint Tobacco</masterLabel>
+        <translation><!-- Cool Mint Tobacco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Crisp</masterLabel>
+        <translation><!-- Crisp --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Crisp Blend</masterLabel>
+        <translation><!-- Crisp Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Crisp Mint</masterLabel>
+        <translation><!-- Crisp Mint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DARK FUSION 1.2</masterLabel>
+        <translation><!-- DARK FUSION 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DARK FUSION 2.5</masterLabel>
+        <translation><!-- DARK FUSION 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DARK ORIGINAL 1.2</masterLabel>
+        <translation><!-- DARK ORIGINAL 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DELUX</masterLabel>
+        <translation><!-- DELUX --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dark</masterLabel>
+        <translation><!-- Dark --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dark Blend</masterLabel>
+        <translation><!-- Dark Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>EARL BLEND 1.2</masterLabel>
+        <translation><!-- EARL BLEND 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>EARL BLEND 2.5</masterLabel>
+        <translation><!-- EARL BLEND 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Extra Cool Menthol</masterLabel>
+        <translation><!-- Extra Cool Menthol --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Extra Menthol</masterLabel>
+        <translation><!-- Extra Menthol --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Extra Rich Tobacco</masterLabel>
+        <translation><!-- Extra Rich Tobacco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ExtraBlack and Blueberry</masterLabel>
+        <translation><!-- ExtraBlack and Blueberry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>FRESH MENTHOL</masterLabel>
+        <translation><!-- FRESH MENTHOL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fusion</masterLabel>
+        <translation><!-- Fusion --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fusion 2.5</masterLabel>
+        <translation><!-- Fusion 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>GLACIER MINT</masterLabel>
+        <translation><!-- GLACIER MINT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>GREEN MENTHOL</masterLabel>
+        <translation><!-- GREEN MENTHOL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Grapefruit Citrus</masterLabel>
+        <translation><!-- Grapefruit Citrus --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Green Apple</masterLabel>
+        <translation><!-- Green Apple --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Green Mint</masterLabel>
+        <translation><!-- Green Mint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HARD PACK - JUMBO</masterLabel>
+        <translation><!-- HARD PACK - JUMBO --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HARVEST BLEND 2.5</masterLabel>
+        <translation><!-- HARVEST BLEND 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HAVANA WINE 1.2</masterLabel>
+        <translation><!-- HAVANA WINE 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HAZELNUT CREAM</masterLabel>
+        <translation><!-- HAZELNUT CREAM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Harvest Blend</masterLabel>
+        <translation><!-- Harvest Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ISLAND OASIS 1.2</masterLabel>
+        <translation><!-- ISLAND OASIS 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ISLAND OASIS 2.5</masterLabel>
+        <translation><!-- ISLAND OASIS 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Island Spice</masterLabel>
+        <translation><!-- Island Spice --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Key</masterLabel>
+        <translation><!-- Key --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lime Citrus</masterLabel>
+        <translation><!-- Lime Citrus --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lime Ginger</masterLabel>
+        <translation><!-- Lime Ginger --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MARDI GRAS 2.5</masterLabel>
+        <translation><!-- MARDI GRAS 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MARLBORO HEAT STICK ORIGINAL</masterLabel>
+        <translation><!-- MARLBORO HEAT STICK ORIGINAL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MENTHOL 1.2</masterLabel>
+        <translation><!-- MENTHOL 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MENTHOL 3.5</masterLabel>
+        <translation><!-- MENTHOL 3.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MENTHOL ICE 2.4</masterLabel>
+        <translation><!-- MENTHOL ICE 2.4 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mango</masterLabel>
+        <translation><!-- Mango --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mango Pineapple</masterLabel>
+        <translation><!-- Mango Pineapple --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Menthol</masterLabel>
+        <translation><!-- Menthol --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Menthol 2.4</masterLabel>
+        <translation><!-- Menthol 2.4 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Menthol 2.5</masterLabel>
+        <translation><!-- Menthol 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Menthol Fusion</masterLabel>
+        <translation><!-- Menthol Fusion --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Menthol Ice</masterLabel>
+        <translation><!-- Menthol Ice --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Menthol Smooth</masterLabel>
+        <translation><!-- Menthol Smooth --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mint</masterLabel>
+        <translation><!-- Mint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mocha Mist</masterLabel>
+        <translation><!-- Mocha Mist --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mocha Nut Crunch Mix</masterLabel>
+        <translation><!-- Mocha Nut Crunch Mix --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mountain Clove</masterLabel>
+        <translation><!-- Mountain Clove --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>N/A</masterLabel>
+        <translation><!-- N/A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NOT IN SYSTEM</masterLabel>
+        <translation><!-- NOT IN SYSTEM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Natural</masterLabel>
+        <translation><!-- Natural --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Orange Mango</masterLabel>
+        <translation><!-- Orange Mango --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Original</masterLabel>
+        <translation><!-- Original --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Original Tobacco</masterLabel>
+        <translation><!-- Original Tobacco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PINA COLADA 1.2</masterLabel>
+        <translation><!-- PINA COLADA 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pack</masterLabel>
+        <translation><!-- Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Passionfruit Pineapple</masterLabel>
+        <translation><!-- Passionfruit Pineapple --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Peach</masterLabel>
+        <translation><!-- Peach --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Peach Daiquiri</masterLabel>
+        <translation><!-- Peach Daiquiri --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Peanut Butter &amp; Chocolate</masterLabel>
+        <translation><!-- Peanut Butter &amp; Chocolate --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Peppermint</masterLabel>
+        <translation><!-- Peppermint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Polar Peppermint</masterLabel>
+        <translation><!-- Polar Peppermint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Red Label</masterLabel>
+        <translation><!-- Red Label --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Regular</masterLabel>
+        <translation><!-- Regular --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Regular To Menthol</masterLabel>
+        <translation><!-- Regular To Menthol --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reserve</masterLabel>
+        <translation><!-- Reserve --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rich</masterLabel>
+        <translation><!-- Rich --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rich Blend</masterLabel>
+        <translation><!-- Rich Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rich Tobacco</masterLabel>
+        <translation><!-- Rich Tobacco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Robust</masterLabel>
+        <translation><!-- Robust --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.49</masterLabel>
+        <translation><!-- SINGLES $0.49 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 - E</masterLabel>
+        <translation><!-- SINGLES $0.79 - E --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 - F</masterLabel>
+        <translation><!-- SINGLES $0.79 - F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 - H</masterLabel>
+        <translation><!-- SINGLES $0.79 - H --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 - N</masterLabel>
+        <translation><!-- SINGLES $0.79 - N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 CREAM FILLER</masterLabel>
+        <translation><!-- SINGLES $0.79 CREAM FILLER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 CREAM FILLER - N</masterLabel>
+        <translation><!-- SINGLES $0.79 CREAM FILLER - N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 CREAM FILLER N</masterLabel>
+        <translation><!-- SINGLES $0.79 CREAM FILLER N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 E</masterLabel>
+        <translation><!-- SINGLES $0.79 E --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 F</masterLabel>
+        <translation><!-- SINGLES $0.79 F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 H</masterLabel>
+        <translation><!-- SINGLES $0.79 H --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.79 N</masterLabel>
+        <translation><!-- SINGLES $0.79 N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $0.89 SWEETS FILLER</masterLabel>
+        <translation><!-- SINGLES $0.89 SWEETS FILLER --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES $1.75</masterLabel>
+        <translation><!-- SINGLES $1.75 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES - N</masterLabel>
+        <translation><!-- SINGLES - N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES F</masterLabel>
+        <translation><!-- SINGLES F --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES G</masterLabel>
+        <translation><!-- SINGLES G --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES H</masterLabel>
+        <translation><!-- SINGLES H --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SINGLES N</masterLabel>
+        <translation><!-- SINGLES N --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SMOOTH CLASSIC 1.2</masterLabel>
+        <translation><!-- SMOOTH CLASSIC 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SMOOTH CLASSIC 2.5</masterLabel>
+        <translation><!-- SMOOTH CLASSIC 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SMOOTH CREAM 1.2</masterLabel>
+        <translation><!-- SMOOTH CREAM 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SMOOTH CREAM 2.4</masterLabel>
+        <translation><!-- SMOOTH CREAM 2.4 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SMOOTH MENTHOL</masterLabel>
+        <translation><!-- SMOOTH MENTHOL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SMOOTH MENTHOL 2.4</masterLabel>
+        <translation><!-- SMOOTH MENTHOL 2.4 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SMOOTH WINTERGREEN</masterLabel>
+        <translation><!-- SMOOTH WINTERGREEN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SPICED FRUIT 1.2</masterLabel>
+        <translation><!-- SPICED FRUIT 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>STRAWBERRY BRULEE</masterLabel>
+        <translation><!-- STRAWBERRY BRULEE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SUMMER BLEND 1.2</masterLabel>
+        <translation><!-- SUMMER BLEND 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SUMMER BLEND 2.5</masterLabel>
+        <translation><!-- SUMMER BLEND 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SUMMER FUSION 2.5</masterLabel>
+        <translation><!-- SUMMER FUSION 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SWEET ORIGINAL</masterLabel>
+        <translation><!-- SWEET ORIGINAL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Select Blend</masterLabel>
+        <translation><!-- Select Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Signature Red</masterLabel>
+        <translation><!-- Signature Red --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Signature Red Label</masterLabel>
+        <translation><!-- Signature Red Label --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Smooth Chocolate</masterLabel>
+        <translation><!-- Smooth Chocolate --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Smooth Cream</masterLabel>
+        <translation><!-- Smooth Cream --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Smooth Hickory</masterLabel>
+        <translation><!-- Smooth Hickory --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Smooth Mint</masterLabel>
+        <translation><!-- Smooth Mint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Smooth Mint Tobacco</masterLabel>
+        <translation><!-- Smooth Mint Tobacco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Southern Blend</masterLabel>
+        <translation><!-- Southern Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Southern Gold</masterLabel>
+        <translation><!-- Southern Gold --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sparkling Hibiscus Ginger</masterLabel>
+        <translation><!-- Sparkling Hibiscus Ginger --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sparkling Lemon Black Tea</masterLabel>
+        <translation><!-- Sparkling Lemon Black Tea --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Spearmint</masterLabel>
+        <translation><!-- Spearmint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Special Blend Regular</masterLabel>
+        <translation><!-- Special Blend Regular --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Spicy Mango</masterLabel>
+        <translation><!-- Spicy Mango --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Straight</masterLabel>
+        <translation><!-- Straight --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Strawberry</masterLabel>
+        <translation><!-- Strawberry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Strong</masterLabel>
+        <translation><!-- Strong --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Summer Blend</masterLabel>
+        <translation><!-- Summer Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sweet</masterLabel>
+        <translation><!-- Sweet --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tobacco Flavor</masterLabel>
+        <translation><!-- Tobacco Flavor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tobacco Gold</masterLabel>
+        <translation><!-- Tobacco Gold --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tropical Fruit</masterLabel>
+        <translation><!-- Tropical Fruit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tropical Twist</masterLabel>
+        <translation><!-- Tropical Twist --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UNIT KY LOW PG</masterLabel>
+        <translation><!-- UNIT KY LOW PG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unknown</masterLabel>
+        <translation><!-- Unknown --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unknown Flavor</masterLabel>
+        <translation><!-- Unknown Flavor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VINEYARD BLEND 1.2</masterLabel>
+        <translation><!-- VINEYARD BLEND 1.2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Va Blend</masterLabel>
+        <translation><!-- Va Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vanilla</masterLabel>
+        <translation><!-- Vanilla --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vanilla Dreams</masterLabel>
+        <translation><!-- Vanilla Dreams --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vanilla Mint</masterLabel>
+        <translation><!-- Vanilla Mint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Variety</masterLabel>
+        <translation><!-- Variety --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vineyard Blend 2.5</masterLabel>
+        <translation><!-- Vineyard Blend 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>WEYMANS RESERVE LONG CUT BLACK</masterLabel>
+        <translation><!-- WEYMANS RESERVE LONG CUT BLACK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Watermelon</masterLabel>
+        <translation><!-- Watermelon --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Watermelon Lime</masterLabel>
+        <translation><!-- Watermelon Lime --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>WeymanS Best</masterLabel>
+        <translation><!-- WeymanS Best --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Whiskey Blend</masterLabel>
+        <translation><!-- Whiskey Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Winter Mint</masterLabel>
+        <translation><!-- Winter Mint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Winter Mint 2.5</masterLabel>
+        <translation><!-- Winter Mint 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Winter Mint 3.5</masterLabel>
+        <translation><!-- Winter Mint 3.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Wintergreen</masterLabel>
+        <translation><!-- Wintergreen --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>X-Tra Crisp Blend</masterLabel>
+        <translation><!-- X-Tra Crisp Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>X-Tra Mint</masterLabel>
+        <translation><!-- X-Tra Mint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>X-Tra Rich Blend</masterLabel>
+        <translation><!-- X-Tra Rich Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>X-Tra Wintergreen Blend</masterLabel>
+        <translation><!-- X-Tra Wintergreen Blend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>X-tra Mint Chill</masterLabel>
+        <translation><!-- X-tra Mint Chill --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

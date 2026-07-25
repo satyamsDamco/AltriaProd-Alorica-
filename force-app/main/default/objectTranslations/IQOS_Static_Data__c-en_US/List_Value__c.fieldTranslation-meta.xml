@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- List Value --></label>
+    <name>List_Value__c</name>
+    <picklistValues>
+        <masterLabel>AC Power Adapter</masterLabel>
+        <translation><!-- AC Power Adapter --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carrying Case</masterLabel>
+        <translation><!-- Carrying Case --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carton</masterLabel>
+        <translation><!-- Carton --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cleaning Capsule</masterLabel>
+        <translation><!-- Cleaning Capsule --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cleaning Fluid Bottle</masterLabel>
+        <translation><!-- Cleaning Fluid Bottle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cleaning Stick</masterLabel>
+        <translation><!-- Cleaning Stick --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contacting Attorney</masterLabel>
+        <translation><!-- Contacting Attorney --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contacting Better Business Bureau</masterLabel>
+        <translation><!-- Contacting Better Business Bureau --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contacting FDA</masterLabel>
+        <translation><!-- Contacting FDA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contacting Government Agency</masterLabel>
+        <translation><!-- Contacting Government Agency --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contacting Media</masterLabel>
+        <translation><!-- Contacting Media --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Convenience</masterLabel>
+        <translation><!-- Convenience --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Disposal Unit</masterLabel>
+        <translation><!-- Disposal Unit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Drug Store</masterLabel>
+        <translation><!-- Drug Store --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Duty Free</masterLabel>
+        <translation><!-- Duty Free --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Flea Market</masterLabel>
+        <translation><!-- Flea Market --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Grocery</masterLabel>
+        <translation><!-- Grocery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Holder</masterLabel>
+        <translation><!-- Holder --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Holder Cap</masterLabel>
+        <translation><!-- Holder Cap --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IQOS Door Cover</masterLabel>
+        <translation><!-- IQOS Door Cover --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IQOS Store</masterLabel>
+        <translation><!-- IQOS Store --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Internet</masterLabel>
+        <translation><!-- Internet --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Kit</masterLabel>
+        <translation><!-- Kit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Liquor Store</masterLabel>
+        <translation><!-- Liquor Store --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mass Merchandiser</masterLabel>
+        <translation><!-- Mass Merchandiser --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mobile Sales Unit</masterLabel>
+        <translation><!-- Mobile Sales Unit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Native American</masterLabel>
+        <translation><!-- Native American --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Not Reimbursed</masterLabel>
+        <translation><!-- Not Reimbursed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pack</masterLabel>
+        <translation><!-- Pack --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pocket Charge</masterLabel>
+        <translation><!-- Pocket Charge --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pocket Charger</masterLabel>
+        <translation><!-- Pocket Charger --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Product Misuse</masterLabel>
+        <translation><!-- Product Misuse --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Recall</masterLabel>
+        <translation><!-- Recall --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reimbursed by Avail</masterLabel>
+        <translation><!-- Reimbursed by Avail --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reimbursed by GMR</masterLabel>
+        <translation><!-- Reimbursed by GMR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reimbursed by PFSWeb</masterLabel>
+        <translation><!-- Reimbursed by PFSWeb --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Replacement</masterLabel>
+        <translation><!-- Replacement --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Silicone Sleeve</masterLabel>
+        <translation><!-- Silicone Sleeve --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sleeve</masterLabel>
+        <translation><!-- Sleeve --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Stick</masterLabel>
+        <translation><!-- Stick --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Street Vendor</masterLabel>
+        <translation><!-- Street Vendor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Switching To A Competitor</masterLabel>
+        <translation><!-- Switching To A Competitor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>To be reimbursed by Alorica</masterLabel>
+        <translation><!-- To be reimbursed by Alorica --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tobacco Store</masterLabel>
+        <translation><!-- Tobacco Store --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>USB Cable</masterLabel>
+        <translation><!-- USB Cable --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unknown</masterLabel>
+        <translation><!-- Unknown --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VAPOR SHOP</masterLabel>
+        <translation><!-- VAPOR SHOP --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

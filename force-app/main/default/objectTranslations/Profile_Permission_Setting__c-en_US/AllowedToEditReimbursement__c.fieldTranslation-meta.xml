@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Keeps information about permission to edit a reimbursement record in different transaction. --></help>
+    <label><!-- AllowedToEditReimbursement --></label>
+    <name>AllowedToEditReimbursement__c</name>
+</CustomFieldTranslation>

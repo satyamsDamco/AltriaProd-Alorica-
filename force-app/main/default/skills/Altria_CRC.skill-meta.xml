@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Skill xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <profiles>
+            <profile>Admin</profile>
+            <profile>Administrator</profile>
+            <profile>CRC Agent</profile>
+            <profile>Senior Agent</profile>
+            <profile>Team Manager</profile>
+        </profiles>
+        <users>
+            <user>amy.wilson@alorica.prod.com</user>
+            <user>brian.dunn@alorica.prod.com</user>
+            <user>natalie.augustine@alorica.prod.com</user>
+            <user>tammy.casey@alorica.prod.com</user>
+        </users>
+    </assignments>
+    <label>Altria CRC</label>
+</Skill>

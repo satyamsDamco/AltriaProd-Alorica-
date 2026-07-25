@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Update_Attachment_Detail_File_Type</name>
+        <label>Update Attachment Detail File Type</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.File_Type__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>File_TypeFormula</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Migrated from the: Update File Type workflow rule
+Workflow rule description: Update Attachment Detail File Type</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>File_TypeFormula</name>
+        <dataType>String</dataType>
+        <expression>RIGHT($Record.File_Name__c , LEN($Record.File_Name__c) - FIND(&quot;.&quot;,$Record.File_Name__c ))</expression>
+    </formulas>
+    <interviewLabel>Update File Type {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update File Type</label>
+    <migratedFromWorkflowRuleName>Update File Type</migratedFromWorkflowRuleName>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Attachment_Detail_File_Type</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>File_Name__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Attachment_Detail__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

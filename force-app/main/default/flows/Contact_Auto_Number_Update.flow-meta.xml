@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Migrated from the: Contact Auto Number Update workflow rule
+Updating Customer Detail Id , Customer Id, FeedCreatedDate</description>
+    <environments>Default</environments>
+    <interviewLabel>Contact Auto Number Update {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Contact Auto Number Update</label>
+    <migratedFromWorkflowRuleName>Contact Auto Number Update</migratedFromWorkflowRuleName>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_CustomerDetail_ID_and_CustomerID_and_FeedCreatedDate</name>
+        <label>Update CustomerDetail_ID and CustomerID and FeedCreatedDate</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>CustomerID__c</field>
+            <value>
+                <elementReference>$Record.Customer_Id_Auto_Number__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Customer_Detail_ID__c</field>
+            <value>
+                <elementReference>$Record.Customer_Detail_Id_Auto_Number__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FeedCreatedDate__c</field>
+            <value>
+                <elementReference>$Record.CreatedDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_CustomerDetail_ID_and_CustomerID_and_FeedCreatedDate</targetReference>
+        </connector>
+        <object>Contact</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

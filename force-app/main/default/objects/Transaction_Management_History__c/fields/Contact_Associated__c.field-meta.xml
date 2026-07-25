@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact_Associated__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Hidden Field - Used for updating the history records if the contact is associated later in the Transaction.</description>
+    <label>Contact Associated</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

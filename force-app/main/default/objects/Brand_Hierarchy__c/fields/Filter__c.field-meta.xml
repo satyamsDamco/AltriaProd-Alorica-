@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Filter__c</fullName>
+    <label>Filter</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>2A</fullName>
+                <default>false</default>
+                <label>2A</label>
+            </value>
+            <value>
+                <fullName>2A - PI Approved</fullName>
+                <default>false</default>
+                <label>2A - PI Approved</label>
+            </value>
+            <value>
+                <fullName>500mA</fullName>
+                <default>false</default>
+                <label>500mA</label>
+            </value>
+            <value>
+                <fullName>500mA - EU</fullName>
+                <default>false</default>
+                <label>500mA - EU</label>
+            </value>
+            <value>
+                <fullName>500mA - NZ</fullName>
+                <default>false</default>
+                <label>500mA - NZ</label>
+            </value>
+            <value>
+                <fullName>500mA - UK</fullName>
+                <default>false</default>
+                <label>500mA - UK</label>
+            </value>
+            <value>
+                <fullName>CVR 2.4</fullName>
+                <default>false</default>
+                <label>CVR 2.4</label>
+            </value>
+            <value>
+                <fullName>CVR2.6.8G</fullName>
+                <default>false</default>
+                <label>CVR2.6.8G</label>
+            </value>
+            <value>
+                <fullName>CVR2.6.8G &amp; BVR2.4L</fullName>
+                <default>false</default>
+                <label>CVR2.6.8G &amp; BVR2.4L</label>
+            </value>
+            <value>
+                <fullName>Filter</fullName>
+                <default>false</default>
+                <label>Filter</label>
+            </value>
+            <value>
+                <fullName>Filtered</fullName>
+                <default>false</default>
+                <label>Filtered</label>
+            </value>
+            <value>
+                <fullName>Flavormax</fullName>
+                <default>false</default>
+                <label>Flavormax</label>
+            </value>
+            <value>
+                <fullName>GSAW-001</fullName>
+                <default>false</default>
+                <label>GSAW-001</label>
+            </value>
+            <value>
+                <fullName>LED Green</fullName>
+                <default>false</default>
+                <label>LED Green</label>
+            </value>
+            <value>
+                <fullName>LED Green - UK</fullName>
+                <default>false</default>
+                <label>LED Green - UK</label>
+            </value>
+            <value>
+                <fullName>LED Red</fullName>
+                <default>false</default>
+                <label>LED Red</label>
+            </value>
+            <value>
+                <fullName>LED Red - UK</fullName>
+                <default>false</default>
+                <label>LED Red - UK</label>
+            </value>
+            <value>
+                <fullName>Multifilter</fullName>
+                <default>false</default>
+                <label>Multifilter</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Non-Filtered</fullName>
+                <default>false</default>
+                <label>Non-Filtered</label>
+            </value>
+            <value>
+                <fullName>NULL</fullName>
+                <default>false</default>
+                <label>NULL</label>
+            </value>
+            <value>
+                <fullName>Original</fullName>
+                <default>false</default>
+                <label>Original</label>
+            </value>
+            <value>
+                <fullName>PI Approved</fullName>
+                <default>false</default>
+                <label>PI Approved</label>
+            </value>
+            <value>
+                <fullName>Plastic</fullName>
+                <default>false</default>
+                <label>Plastic</label>
+            </value>
+            <value>
+                <fullName>Test</fullName>
+                <default>false</default>
+                <label>Test</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+            <value>
+                <fullName>US to EU</fullName>
+                <default>false</default>
+                <label>US to EU</label>
+            </value>
+            <value>
+                <fullName>Vapors</fullName>
+                <default>false</default>
+                <label>Vapors</label>
+            </value>
+            <value>
+                <fullName>Wood</fullName>
+                <default>false</default>
+                <label>Wood</label>
+            </value>
+            <value>
+                <fullName>Filter Select</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Filter Select</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Counterfeit_Trace_Codes</fullName>
+    <columns>Trace_Code__c</columns>
+    <columns>NAME</columns>
+    <columns>IsActive__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>CreatedDate__c</columns>
+    <columns>Brand__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>Mfg_Date__c</columns>
+    <columns>FeedSend__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>Counterfeit Trace Codes</label>
+</ListView>

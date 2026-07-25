@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Operating_Company__c</fullName>
+    <description>Operating company of the transaction.</description>
+    <externalId>false</externalId>
+    <formula>TEXT(Transaction_Management__r.Operating_Company__r.OperatingCompany__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Operating company of the transaction.</inlineHelpText>
+    <label>Operating Company</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

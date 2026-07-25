@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CreatedDate__c</fullName>
+    <description>Feed Outbound - DateFormat.</description>
+    <externalId>false</externalId>
+    <formula>IF ( DATEVALUE(CreatedDate) &gt;=
+DATE ( YEAR (DATEVALUE(CreatedDate)),3,1)
++
+(
+14-
+CASE( MOD(DATE ( YEAR (DATEVALUE(CreatedDate)),3,1) - DATE (1900,1,4),4) ,
+0,4,MOD(DATE ( YEAR (DATEVALUE(CreatedDate)),3,1) - DATE (1900,1,4),4))
+)
+&amp;&amp;
+DATEVALUE(CreatedDate) &lt;
+DATE ( YEAR (DATEVALUE(CreatedDate)),11,1)
++
+(
+4-
+CASE( MOD(DATE ( YEAR (DATEVALUE(CreatedDate)),11,1) - DATE (1900,1,4),4) ,
+0,4,MOD(DATE ( YEAR (DATEVALUE(CreatedDate)),11,1) - DATE (1900,1,4),4))
+),
+MID( TEXT(CreatedDate- 4/24) , 6, 2)+&quot;/&quot;+MID( TEXT(CreatedDate- 4/24) , 9, 2)+&quot;/&quot;+MID( TEXT(CreatedDate- 4/24) , 0, 4) + &quot; &quot;+MID(TEXT(CreatedDate- 4/24), 11, 9)
+,
+MID( TEXT(CreatedDate- 5/24) , 6, 2)+&quot;/&quot;+MID( TEXT(CreatedDate- 5/24) , 9, 2)+&quot;/&quot;+MID( TEXT(CreatedDate- 5/24) , 0, 4) + &quot; &quot;+MID(TEXT(CreatedDate- 5/24), 11, 9)
+)</formula>
+    <label>CreatedDate</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

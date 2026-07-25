@@ -1,0 +1,4 @@
+<aura:component implements="lightning:backgroundUtilityItem" access="global">
+    <lightning:workspaceAPI aura:id="workspace"/>
+    <aura:handler event="lightning:omniChannelWorkAccepted" action="{!c.onWorkAccepted}"/>
+</aura:component>

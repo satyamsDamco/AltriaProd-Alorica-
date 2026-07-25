@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reimbursement_Date__c</fullName>
+    <description>For Reporting Purposes</description>
+    <externalId>false</externalId>
+    <formula>IF ( DATEVALUE(FeedCreatedDate__c) &gt;=
+DATE ( YEAR (DATEVALUE(FeedCreatedDate__c)),3,1)
++
+(
+14-
+CASE( MOD(DATE ( YEAR (DATEVALUE(FeedCreatedDate__c)),3,1) - DATE (1900,1,4),4) ,
+0,4,MOD(DATE ( YEAR (DATEVALUE(FeedCreatedDate__c)),3,1) - DATE (1900,1,4),4))
+)
+&amp;&amp;
+DATEVALUE(FeedCreatedDate__c) &lt;
+DATE ( YEAR (DATEVALUE(FeedCreatedDate__c)),11,1)
++
+(
+4-
+CASE( MOD(DATE ( YEAR (DATEVALUE(FeedCreatedDate__c)),11,1) - DATE (1900,1,4),4) ,
+0,4,MOD(DATE ( YEAR (DATEVALUE(FeedCreatedDate__c)),11,1) - DATE (1900,1,4),4))
+),
+MID( TEXT(FeedCreatedDate__c- 4/24) , 6, 2)+&quot;/&quot;+MID( TEXT(FeedCreatedDate__c- 4/24) , 9, 2)+&quot;/&quot;+MID( TEXT(FeedCreatedDate__c- 4/24) , 0, 4) + &quot; &quot;+MID(TEXT(FeedCreatedDate__c- 4/24), 11, 9)
+,
+MID( TEXT(FeedCreatedDate__c- 5/24) , 6, 2)+&quot;/&quot;+MID( TEXT(FeedCreatedDate__c- 5/24) , 9, 2)+&quot;/&quot;+MID( TEXT(FeedCreatedDate__c- 5/24) , 0, 4) + &quot; &quot;+MID(TEXT(FeedCreatedDate__c- 5/24), 11, 9)
+)</formula>
+    <label>Reimbursement Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

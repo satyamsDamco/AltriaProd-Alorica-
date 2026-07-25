@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Check_BirthDate_is_not_null</name>
+        <label>Check BirthDate is not null</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Outcome_1_of_Check_BirthDate_is_not_null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Birthdate1__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>DOB_Feed_Format_Update</targetReference>
+            </connector>
+            <label>Outcome 1 of Check BirthDate is not null</label>
+        </rules>
+    </decisions>
+    <description>Migrated from the: DOB Feed Format workflow rule
+Workflow rule description: Feed Outbound - DOB Format.&quot;</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>Dateofbirthconverttotext</name>
+        <dataType>String</dataType>
+        <expression>TEXT({!$Record.Birthdate1__c})</expression>
+    </formulas>
+    <formulas>
+        <name>DOB_Feed_UpdateFormula</name>
+        <dataType>String</dataType>
+        <expression>IF($Record.Birthdate__c != null &amp;&amp; $Record.Birthdate__c != &apos;&apos; &amp;&amp;  LEN($Record.Birthdate__c) &gt;=8 , MID( TEXT($Record.Birthdate1__c) , 6, 2)+&quot;/&quot;+MID( TEXT($Record.Birthdate1__c) , 9, 2)+&quot;/&quot;+MID( TEXT($Record.Birthdate1__c) , 0, 4)+&quot; 00:00:00&quot;, &apos;&apos;)</expression>
+    </formulas>
+    <label>DOB Feed Format</label>
+    <migratedFromWorkflowRuleName>DOB Feed Format</migratedFromWorkflowRuleName>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>DOB_Feed_Format_Update</name>
+        <label>DOB Feed Format Update</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Birthdate__c</field>
+            <value>
+                <elementReference>Dateofbirthconverttotext</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>DOB_Feed__c</field>
+            <value>
+                <elementReference>DOB_Feed_UpdateFormula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_BirthDate_is_not_null</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Customer_Detail_ID__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>null</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Customer_Detail_ID__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Contact</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

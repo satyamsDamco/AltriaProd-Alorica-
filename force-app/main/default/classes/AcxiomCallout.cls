@@ -76,8 +76,8 @@ public without sharing class AcxiomCallout{
          EndpointURL = settings.TokenEndpointURL__c;
          
          String authURL = 'https://api.insightsc3m.com/altria/oauth2/v2.0/token';
-         String clientID = 'b7df4062-00b4-45bf-955a-1bf2d1a5dbcb';
-         String clientSecret = 'YOUR_CLIENT_SECRET_HERE'; // Store real value in Custom Metadata or Named Credential
+         String clientID = settings.Client_Id__c;
+         String clientSecret = settings.Client_Secret__c;
          String clientScope = 'https://api.insightsc3m.com/.default';
          
          

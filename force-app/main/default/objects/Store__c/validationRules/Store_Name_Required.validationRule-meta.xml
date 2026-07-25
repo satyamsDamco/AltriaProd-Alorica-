@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Store_Name_Required</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF( Issue__r.Issue_Type__c  = &apos;Complaints&apos;  &amp;&amp; ISBLANK(  Store_Name__c ),  true , false)</errorConditionFormula>
+    <errorMessage>Please enter a Store Name</errorMessage>
+</ValidationRule>

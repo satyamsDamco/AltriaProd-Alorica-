@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OperatingCompany__c</fullName>
+    <label>Operating Company</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CRC Direct</fullName>
+                <default>false</default>
+                <label>CRC Direct</label>
+            </value>
+            <value>
+                <fullName>JMC</fullName>
+                <default>false</default>
+                <label>JMC</label>
+            </value>
+            <value>
+                <fullName>NAT_SHERMAN</fullName>
+                <default>false</default>
+                <label>NAT_SHERMAN</label>
+            </value>
+            <value>
+                <fullName>NUMARK</fullName>
+                <default>false</default>
+                <label>NUMARK</label>
+            </value>
+            <value>
+                <fullName>PM Corporate</fullName>
+                <default>false</default>
+                <label>PM Corporate</label>
+            </value>
+            <value>
+                <fullName>PMIP</fullName>
+                <default>false</default>
+                <label>PMIP</label>
+            </value>
+            <value>
+                <fullName>PMUSA</fullName>
+                <default>false</default>
+                <label>PMUSA</label>
+            </value>
+            <value>
+                <fullName>Trade</fullName>
+                <default>false</default>
+                <label>Trade</label>
+            </value>
+            <value>
+                <fullName>USST</fullName>
+                <default>false</default>
+                <label>USST</label>
+            </value>
+            <value>
+                <fullName>USSTC</fullName>
+                <default>false</default>
+                <label>USSTC</label>
+            </value>
+            <value>
+                <fullName>HELIX</fullName>
+                <default>false</default>
+                <label>HELIX</label>
+            </value>
+            <value>
+                <fullName>NJOY</fullName>
+                <default>false</default>
+                <label>NJOY</label>
+            </value>
+            <value>
+                <fullName>6601 Ventures</fullName>
+                <default>false</default>
+                <label>6601 Ventures</label>
+            </value>
+            <value>
+                <fullName>NUMRK</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>NUMRK</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

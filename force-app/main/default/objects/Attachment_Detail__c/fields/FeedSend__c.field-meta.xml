@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FeedSend__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field is being used by the attachment extraction process.  The process looks for a value of false and then will extract the attachment.</description>
+    <label>FeedSend</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

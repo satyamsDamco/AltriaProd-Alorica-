@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <layouts>
+        <layout>Contact Layout</layout>
+        <sections>
+            <label><!-- Address --></label>
+            <section>Address</section>
+        </sections>
+        <sections>
+            <label><!-- Birthdate --></label>
+            <section>Birthdate</section>
+        </sections>
+        <sections>
+            <label><!-- Consumer Information --></label>
+            <section>Consumer Information</section>
+        </sections>
+        <sections>
+            <label><!-- Contact Information --></label>
+            <section>Contact Information</section>
+        </sections>
+        <sections>
+            <label><!-- System Information --></label>
+            <section>System Information</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Consumer --></label>
+        <name>Consumer</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Trade Customer --></label>
+        <name>Trade_Customer</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage><!-- Alternate Telephone: Please enter valid 10 digit Alternate Telephone. --></errorMessage>
+        <name>Alternate_Telephone</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Field cannot contain commas --></errorMessage>
+        <name>Apt_Comma_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You cannot enter a last name with an Apostrophy --></errorMessage>
+        <name>Check_Last_Name_for_Apostrophy</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please Enter at least 2 characters for Last Name. --></errorMessage>
+        <name>Consumer_Last_Name</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Invalid Date Of Birth. Not qualifying minimum age requirement. --></errorMessage>
+        <name>DOB</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Mobile Phone: Please enter valid 10 digit Mobile Phone. --></errorMessage>
+        <name>MobilePhone</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Telephone: Please enter a valid 10 digit Telephone. --></errorMessage>
+        <name>Phone_Number</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Telephone: Please enter a valid 10 digit Telephone. --></errorMessage>
+        <name>Phone_Number_for_FSF</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Date of Birth is required for Customer Type = CONSUMER --></errorMessage>
+        <name>RequiredDOB_for_CONSUMER</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please enter value in required field(s). --></errorMessage>
+        <name>RequiredField_Error_Consumer</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please enter a value in required field(s). --></errorMessage>
+        <name>RequiredField_Error_Field_Sale_Force</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please enter value in required field(s). --></errorMessage>
+        <name>RequiredField_Error_Trade_Retailer_Whole</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Field cannot contain commas --></errorMessage>
+        <name>Street_Address_for_Comma</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Date Of Birth: Future Date Not Allowed --></errorMessage>
+        <name>ValidDOB</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please verify address. --></errorMessage>
+        <name>Verify_Address</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please enter valid zip code --></errorMessage>
+        <name>ZipCode_Validation</name>
+    </validationRules>
+</CustomObjectTranslation>
