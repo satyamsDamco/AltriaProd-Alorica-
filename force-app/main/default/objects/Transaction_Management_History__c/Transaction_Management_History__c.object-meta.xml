@@ -179,9 +179,11 @@
         <searchFilterFields>Service_Group_Code__c</searchFilterFields>
         <searchFilterFields>Service_Request_Code__c</searchFilterFields>
         <searchFilterFields>Transaction_Management_Id__c</searchFilterFields>
-        <searchResultsAdditionalFields>Service_Group_Code__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Service_Request_Code__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Transaction_Management_Id__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Service_Request_Code__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Issue_Id__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OWNER.ALIAS</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

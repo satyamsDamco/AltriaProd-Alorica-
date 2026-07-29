@@ -1,5 +1,6 @@
-<apex:page controller="IssueSurveySectionController" action="{!StartSurvey}">
- <apex:includeScript value="/support/console/37.0/integration.js"/>
+<apex:page controller="IssueSurveySectionController" action="{!StartSurvey}" lightningStylesheets="true" standardStylesheets="true">
+    <apex:slds />
+ <apex:includeScript value="/support/console/62.0/integration.js"/>
      
     <apex:sectionHeader title="Survey" subtitle="I-{!issueObj.CaseNumber__c}" id="titleHeader"/>   
     <apex:form id="frm">
@@ -17,37 +18,47 @@
                     } 
                 }                               
             }
-            
-            function closeCurrentTab() {
-                //First find the ID of the current tab to close it
-                sforce.console.getEnclosingTabId(closeSubtab);
-            }
-          
-            
-            var closeSubtab = function closeSubtab(result) {
-                //Now that we have the tab ID, we can close it
-                var tabId = result.id;
-                sforce.console.closeTab(tabId);
-            };
-            
-            function CloseSurveyTab() {
-                var saveErrorVal = document.getElementById("{!$Component.frm:saveError}").value;
-                if(saveErrorVal != true && saveErrorVal != 'true'){
-                    sforce.console.getEnclosingTabId(closeSubtab);
-                }
-            }
-            
-            function CloseSurveyCancelTab() {                
-                var errorCheck = document.getElementById("{!$Component.frm:cancelPan:messagePbCancel}");
-                if(errorCheck.innerHTML != null && errorCheck.innerHTML == ''){
-                     sforce.console.getEnclosingTabId(closeSubtab);
-                }                
-            }
+ 
         
-        	function scrollUp(){
-                scroll(0,0);
-            }
+  
+        function closeCurrentTab() {
+     if (typeof sforce !== 'undefined' && sforce.one) {
+        sforce.one.navigateToURL('/apex/Issue_Detail?id={!issueObj.Id}');
+    } else {
+        window.location.href = '/apex/Issue_Detail?id={!issueObj.Id}';
+    }
+}
+
+    function CloseSurveyTab() {
+
+        var saveErrorVal = document.getElementById("{!$Component.frm:saveError}").value;
+
+        if (saveErrorVal !== true && saveErrorVal !== 'true') {
+            closeCurrentTab();
+        }
+    }
+        
+        function CloseSurveyCancelTab() {
+
+    var errorCheck = document.getElementById("{!$Component.frm:cancelPan:messagePbCancel}");
+
+    var hasError =
+        errorCheck &&
+        errorCheck.innerText &&
+        errorCheck.innerText.trim().length > 0;
+
+    if (!hasError) {
+        setTimeout(closeCurrentTab, 100);
+    }
+}
+
+    function scrollUp() {
+        window.scrollTo(0, 0);
+    }
+
+
         </script>
+       
         <style>
             .colorBorder{
                 border-left:2px solid #ff0000;
@@ -67,12 +78,36 @@
             <apex:inputHidden id="saveError" value="{!saveError}" />            
             <apex:pageBlock id="cancelPan" rendered="{!cancelScreen}"  title="Please select a survey{!if(endSurveyType == 'Cancel',' cancellation reason',' termination reason')}">
                 <apex:pageMessages id="messagePbCancel"></apex:pageMessages> 
-                <apex:pageBlockButtons location="bottom">
-                    <apex:commandButton value="Previous" immediate="true" status="status1" rendered="{!If(endSurveyType == 'Cancel',false,true)}" action="{!preRoute}"/>
-                    <apex:commandButton value="Save" status="status1" rendered="{!If(endSurveyType == 'Cancel',true,false)}" action="{!saveReason}" reRender="messagePbCancel" oncomplete="CloseSurveyCancelTab(); return false;"/>
-                    <apex:commandButton value="Save" status="status1" rendered="{!If(endSurveyType == 'Cancel',false,true)}" action="{!customSaveSurvey}" reRender="messagePbCancel" oncomplete="CloseSurveyCancelTab(); return false;"/>
-                    <apex:commandButton value="Close" onclick="closeCurrentTab(); return false;"/>
-                </apex:pageBlockButtons>
+                
+                <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+                    <apex:commandButton value="Previous"
+                                        immediate="true"
+                                        status="status1"
+                                        rendered="{!If(endSurveyType == 'Cancel',false,true)}"
+                                        action="{!preRoute}"
+                                        styleClass="slds-button slds-button_neutral"/>
+                    
+                    <apex:commandButton value="Save"
+                                        status="status1"
+                                        rendered="{!If(endSurveyType == 'Cancel',true,false)}"
+                                        action="{!saveReason}"
+                                        reRender="messagePbCancel"
+                                        oncomplete="CloseSurveyCancelTab(); return false;"
+                                        styleClass="slds-button slds-button_brand slds-m-left_small"/>
+                    
+                    <apex:commandButton value="Save"
+                                        status="status1"
+                                        rendered="{!If(endSurveyType == 'Cancel',false,true)}"
+                                        action="{!customSaveSurvey}"
+                                        reRender="messagePbCancel"
+                                        oncomplete="CloseSurveyCancelTab();return false;"
+                                        styleClass="slds-button slds-button_brand slds-m-left_small"/>
+                    
+                    <apex:commandButton value="Close"
+                                        onclick="closeCurrentTab(); return false;"
+                                        styleClass="slds-button slds-button_outline-brand slds-m-left_small"/>
+                </div>
+               
                 <table style="width:100%">
                     <tr>
                         <td style="text-align:right; width:200px;">
@@ -112,10 +147,22 @@
                 <apex:actionFunction name="terminateReason" action="{!TerminateSurvey}"/>
                 <apex:outputPanel id="pbEnd" style="width:100%">
                     <apex:pageBlock id="pbEnd1" rendered="{!If(section == null,true,false)}">
-                        <apex:pageBlockButtons location="top" style="Padding-left:200px;">
-                            <apex:commandButton value="Previous" status="status1" action="{!preRoute}" />
-                            <apex:commandButton value="Submit Survey" id="end2" status="status1"  action="{!SaveSurvey}" reRender="saveError,messagePb" oncomplete="CloseSurveyTab();return false;"/>
-                        </apex:pageBlockButtons>
+                       
+                        <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+                            <apex:commandButton value="Previous"
+                                                status="status1"
+                                                action="{!preRoute}"
+                                                styleClass="slds-button slds-button_neutral"/>
+                            
+                            <apex:commandButton value="Submit Survey"
+                                                id="end2"
+                                                status="status1"
+                                                action="{!SaveSurvey}"
+                                                reRender="saveError,messagePb"
+                                                oncomplete="CloseSurveyTab();return false;"
+                                                styleClass="slds-button slds-button_brand slds-m-left_small"/>
+                        </div>
+                       
                         <table style="width:100%">
                             <tr>
                                 <td align="center">
@@ -134,12 +181,37 @@
                     <apex:pageMessages id="messagePb" escape="false"></apex:pageMessages>
                 </apex:outputPanel> 
                 <apex:pageBlock rendered="{!if(section == null,false,true)}">
-                        <apex:pageBlockButtons >                                                           
-                            <apex:commandButton value="Previous"  action="{!preRoute}" reRender="innerPanel" status="status1" style="display:{!if(section != '1','inline','none')}" oncomplete="scrollUp()"/>
-                            <apex:commandButton value="Next"  action="{!nextRoute}" reRender="innerPanel" status="status1" oncomplete="scrollUp()"/>
-                            <apex:commandButton value="End Survey" id="end1" status="status1" action="{!requiredQuestionValidation}" reRender="questionRequired,messagePb,saveError"   oncomplete="requiredQuestion()"/>
-                            <apex:commandButton value="Close" onclick="closeCurrentTab(); return false;"/>
-                        </apex:pageBlockButtons> 
+                   
+                    <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+                    
+                        <apex:commandButton value="Previous"
+                                            action="{!preRoute}"
+                                            reRender="innerPanel"
+                                            status="status1"
+                                            style="display:{!if(section != '1','inline','none')}"
+                                            oncomplete="scrollUp()"
+                                            styleClass="slds-button slds-button_neutral"/>
+                        
+                        <apex:commandButton value="Next"
+                                            action="{!nextRoute}"
+                                            reRender="innerPanel"
+                                            status="status1"
+                                            oncomplete="scrollUp()"
+                                            styleClass="slds-button slds-button_neutral slds-m-left_small"/>
+                        
+                        <apex:commandButton value="End Survey"
+                                            id="end1"
+                                            status="status1"
+                                            action="{!requiredQuestionValidation}"
+                                            reRender="questionRequired,messagePb,saveError"
+                                            oncomplete="requiredQuestion()"
+                                            styleClass="slds-button slds-button_brand slds-m-left_small"/>
+                        
+                        <apex:commandButton value="Close"
+                                            onclick="closeCurrentTab(); return false;"
+                                            styleClass="slds-button slds-button_outline-brand slds-m-left_small"/>
+                    </div>
+                  
 
                 <apex:repeat value="{!SurveyQuestionIds}"  var="ques">
                     <apex:repeat value="{!wrpList[ques]}" var="quesSeq" id="rp">

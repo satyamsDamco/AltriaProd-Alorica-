@@ -165,7 +165,19 @@
         <type>ConnectedApp</type>
     </appMenuItems>
     <appMenuItems>
-        <name>Altria_Support_New</name>
+        <name>standard__AllTabSet</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>ESW_CRC_Chat_1784959947287</name>
+        <type>Network</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>Altria_Support_CRC_Agent</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>Altria_Support_Console</name>
         <type>CustomApplication</type>
     </appMenuItems>
 </AppMenu>

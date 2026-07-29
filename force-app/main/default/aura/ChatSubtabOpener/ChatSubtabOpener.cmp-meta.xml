@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AuraDefinitionBundle xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>59.0</apiVersion>
-    <description>Background utility item: auto-opens the Consumer Search subtab when an agent accepts a chat via Omni-Channel</description>
+    <apiVersion>66.0</apiVersion>
+    <description>Background utility that opens the Consumer Search VF page as a subtab when an agent accepts a chat via Omni-Channel</description>
 </AuraDefinitionBundle>

@@ -1,7 +1,3 @@
-/* Created By: Infogain Pvt. Ltd.
-   Created Date: 7/12/2016
-   Purpose: Controller for Search Page of Consumer
-*/
 public class ConsumerSearchController {    
    
     public Id tranid{get;set;}    
@@ -76,7 +72,7 @@ public class ConsumerSearchController {
         if(ApexPages.currentPage().getParameters().get('Addr1') != null && ApexPages.currentPage().getParameters().get('Addr1') != '')
             conObj.Street_Address__c = ApexPages.currentPage().getParameters().get('Addr1');
          
- 		if(ApexPages.currentPage().getParameters().get('Addr2') != null && ApexPages.currentPage().getParameters().get('Addr2') != '')
+        if(ApexPages.currentPage().getParameters().get('Addr2') != null && ApexPages.currentPage().getParameters().get('Addr2') != '')
             conObj.Street_Address__c = ApexPages.currentPage().getParameters().get('Addr2');
 
         if(ApexPages.currentPage().getParameters().get('City') != null && ApexPages.currentPage().getParameters().get('City') != '')
@@ -147,12 +143,12 @@ public class ConsumerSearchController {
             genRequest.writeStringField('SurveyResponseFlag','N');
             genRequest.writeStringField('FullViewFlag','N');
             genRequest.writeStringField('ChannelContactFlag','Y');
-        		genRequest.writeFieldName('ChannelTypeDataCd');
+                genRequest.writeFieldName('ChannelTypeDataCd');
                 genRequest.writeStartArray();
                     genRequest.writeStartObject(); 
                     genRequest.writeStringField('ChannelTypeInputFlag','ALL');
                     genRequest.writeEndObject();
-        		genRequest.writeEndArray();
+                genRequest.writeEndArray();
             genRequest.writeStringField('WebsiteFlag','N');
             genRequest.writeStringField('RecentScoresFlag','N');
             genRequest.writeStringField('QualificationFlag','Y');
@@ -163,7 +159,7 @@ public class ConsumerSearchController {
             genRequest.writeStringField('AuthenticationFlag','Y');
             genRequest.writeEndObject();
         genRequest.writeStringField('SessionId', sessionId);
-		genRequest.writeEndObject();
+        genRequest.writeEndObject();
       
         String searchRequest = genRequest.getAsString();
         System.debug('SearchRequest Full: ' + searchRequest);
@@ -385,7 +381,7 @@ public class ConsumerSearchController {
             String dateOutput = '';
             String [] dateSplit;
             string dateOutput1 = '';
-           	if(conObj.BirthDate1__c != null){
+            if(conObj.BirthDate1__c != null){
                 Date yourDate = conObj.Birthdate1__c;
                 dateOutput = yourDate.format();
                 dateSplit = dateOutput.split('/');
@@ -478,7 +474,7 @@ public class ConsumerSearchController {
             if(conObj.Email != null && conObj.Email != ''){
                 newSearchType = false;
                 //if(soslCondition != '') {soslCondition += ' AND '+conObj.Email.trim() ;}
-               	//else { 
+                //else { 
                     soslCondition = conObj.Email.trim();
                 //}
             }
@@ -488,24 +484,24 @@ public class ConsumerSearchController {
             }else{
                 whereCondition =  ' Where RecordType.Name = \'Consumer\' and Active__c = true ';
             }
-			
+            
             String soslCondition2 = '';
             //Start: RITM1098283 - SCR 21-04-29 2021 Customer Search Enhancement
             //Do the search only if Street Address is not filled && CCN, Phone Number, Email, Issue Number, and Customer ID are not being searched
             if(conObj.Street_Address__c == null || conObj.Street_Address__c == ''){
-               	if((conObj.LastName != null && conObj.LastName  != '') && (conObj.Birthdate1__c != null)
-                  	&& (conObj.Zip_Code__c != null && conObj.Zip_Code__c != '') && (conObj.FirstName != null && conObj.FirstName  != '')){
+                if((conObj.LastName != null && conObj.LastName  != '') && (conObj.Birthdate1__c != null)
+                    && (conObj.Zip_Code__c != null && conObj.Zip_Code__c != '') && (conObj.FirstName != null && conObj.FirstName  != '')){
                     soslCondition2 = '(' + conObj.FirstName.trim()+'* AND ' + conObj.LastName.trim()+ '* AND ('+dateOutput+' or '+dateOutput1+') AND ' + conObj.Zip_Code__c + ')';
                 }
                 if((conObj.LastName != null && conObj.LastName  != '') && (conObj.Birthdate1__c != null )){
                     if(soslCondition2 != '') {soslCondition2 += ' OR (' + conObj.LastName.trim()+ '* AND ('+dateOutput+' or '+dateOutput1+'))';}
-                	else {soslCondition2 += '('+ conObj.LastName.trim()+ '* AND ('+dateOutput+' or '+dateOutput1+'))';}
+                    else {soslCondition2 += '('+ conObj.LastName.trim()+ '* AND ('+dateOutput+' or '+dateOutput1+'))';}
                 }
-            	if((conObj.LastName != null && conObj.LastName  != '') && (conObj.Zip_Code__c != null && conObj.Zip_Code__c != '')){
+                if((conObj.LastName != null && conObj.LastName  != '') && (conObj.Zip_Code__c != null && conObj.Zip_Code__c != '')){
                     if(soslCondition2 != '') {soslCondition2 += ' OR (' + conObj.LastName.trim()+'* AND ' + conObj.Zip_Code__c + '))';}
                     else {soslCondition2 += '('+ conObj.LastName.trim()+'* AND ' + conObj.Zip_Code__c + ')';}    
-            	}  
-               	whereCondition =  ' Where RecordType.Name = \'Consumer\' and Active__c = true ';
+                }  
+                whereCondition =  ' Where RecordType.Name = \'Consumer\' and Active__c = true ';
             }          
             //End: RITM1098283 - SCR 21-04-29 2021 Customer Search Enhancement
             
@@ -522,7 +518,7 @@ public class ConsumerSearchController {
                 
                 if(newSearchType)
                 {
-                	firstSearch = secondSearch;    
+                    firstSearch = secondSearch;    
                 }
                 List<Contact> contactData = new List<Contact>();
                 List<List <sObject>> searchList = new List<List <sObject>>();
@@ -629,20 +625,29 @@ public class ConsumerSearchController {
 
             }
             
-            if(conlst.isEmpty() || conlst.Size() == 0){               
-                if(conObj.Country__c == 'United States'){
+            if(conlst.isEmpty() || conlst.Size() == 0){
+                // Check if searching by primary-only fields (no extended search allowed)
+                Boolean isPrimarySearchOnly = (conObj.Phone != null && conObj.Phone != '') ||
+                                              (conObj.Email != null && conObj.Email != '') ||
+                                              (conObj.ccn__c != null && conObj.ccn__c != '') ||
+                                              (issueid != null && issueid != '') ||
+                                              (iqosid != null && iqosid != '') ||
+                                              (tranSelectedValue != null && tranSelectedValue != '') ||
+                                              (conObj.CustomerID__c != null && conObj.CustomerID__c != '');
+
+                if(conObj.Country__c == 'United States' && !isPrimarySearchOnly){
                     if(conObj.FirstName == null || conObj.FirstName == ''  || conObj.LastName == null || conObj.LastName == '' || conObj.Zip_Code__c == null || conObj.Zip_Code__c == '' ||  conObj.Street_Address__c ==  null || conObj.Street_Address__c == '' || conObj.BirthDate1__c == null || conObj.city__c == null || conObj.city__c == '' || conObj.state__c == null || conObj.state__c == ''){
                         ApexPages.addMessage(new ApexPages.Message(apexpages.severity.Error, 'No Consumer Information found in Local CRC Database. Please enter FN, LN, DOB, Zip Code, Street Address, City, and State for an Extended Search.'));
                     }else{
-                        conlst.clear();  
+                        conlst.clear();
                         getfullsearchList();
                         if(conlst.isEmpty() || conlst.Size() == 0){
-                            RadioDisplay=false;                    
+                            RadioDisplay=false;
                             ApexPages.addMessage(new ApexPages.Message(apexpages.severity.info, 'No record found, Please create new consumer.'));
                         }else{
                             RadioDisplay=false;
                         }
-                    }  
+                    }
                 }else{
                      ApexPages.addMessage(new ApexPages.Message(apexpages.severity.info, 'No record found, Please create new consumer.'));
                 }              
@@ -655,6 +660,8 @@ public class ConsumerSearchController {
                 return null;
             }else{
                 RadioDisplay=true;
+                isConsumerBtnVisible = false;  // Enable "New Consumer" button
+                isIssueBtnVisible = false;     // Enable "New Issue" button
                 return null;
             }
         }
@@ -694,7 +701,7 @@ public class ConsumerSearchController {
     //Method that is called remotely to call the CCN Lookup service to get the consumer details from Axciom.
     @RemoteAction
     public static AcxiomClasses.CCNLookupFinalResponse CCNLookup(string CCNNumber, string tranidData){
-       	
+        
         //Create the JSON body for the request to be sent
         JSONGenerator genRequest = JSON.createGenerator(true);
         
@@ -704,33 +711,33 @@ public class ConsumerSearchController {
         genRequest.writeStartObject();
         genRequest.writeStringField('CCN', CCNNumber);
         genRequest.writeFieldName('DataFlags');
-        	genRequest.writeStartObject(); 	
-        	genRequest.writeStringField('SurveyResponseFlag', 'N');
-        	genRequest.writeStringField('FullViewFlag', 'N');
-        	genRequest.writeStringField('ChannelContactFlag', 'Y');
-			genRequest.writeFieldName('ChannelTypeDataCd');
-        		genRequest.writeStartArray();
+            genRequest.writeStartObject();  
+            genRequest.writeStringField('SurveyResponseFlag', 'N');
+            genRequest.writeStringField('FullViewFlag', 'N');
+            genRequest.writeStringField('ChannelContactFlag', 'Y');
+            genRequest.writeFieldName('ChannelTypeDataCd');
+                genRequest.writeStartArray();
                     genRequest.writeStartObject(); 
                     genRequest.writeStringField('ChannelType', 'ALL');
                     genRequest.writeEndObject();
-        		genRequest.writeEndArray();
-       		genRequest.writeStringField('ChannelDataShortFlag', 'N');
-        	genRequest.writeFieldName('ChannelTypeDataShortCd');
-        		genRequest.writeStartArray();
+                genRequest.writeEndArray();
+            genRequest.writeStringField('ChannelDataShortFlag', 'N');
+            genRequest.writeFieldName('ChannelTypeDataShortCd');
+                genRequest.writeStartArray();
                     genRequest.writeStartObject(); 
                     genRequest.writeStringField('ChannelType', 'ALL');
                     genRequest.writeEndObject();
-        		genRequest.writeEndArray();
-       		genRequest.writeStringField('WebsiteFlag', 'N');
-        	genRequest.writeStringField('FlexDataFlag', 'N');
-        	genRequest.writeStringField('PromoRedemptionFlag', 'N');
-        	genRequest.writeStringField('RecentScoresFlag', 'N');
-        	genRequest.writeStringField('QualificationFlag', 'Y');
-        	genRequest.writeStringField('AvailabilityFlag', 'N');
-        	genRequest.writeStringField('PreferenceFlag', 'N');
-        	genRequest.writeStringField('SubscriptionFlag', 'N');
-        	genRequest.writeStringField('OwnerListFlag', 'Y');
-			genRequest.writeEndObject();
+                genRequest.writeEndArray();
+            genRequest.writeStringField('WebsiteFlag', 'N');
+            genRequest.writeStringField('FlexDataFlag', 'N');
+            genRequest.writeStringField('PromoRedemptionFlag', 'N');
+            genRequest.writeStringField('RecentScoresFlag', 'N');
+            genRequest.writeStringField('QualificationFlag', 'Y');
+            genRequest.writeStringField('AvailabilityFlag', 'N');
+            genRequest.writeStringField('PreferenceFlag', 'N');
+            genRequest.writeStringField('SubscriptionFlag', 'N');
+            genRequest.writeStringField('OwnerListFlag', 'Y');
+            genRequest.writeEndObject();
         genRequest.writeStringField('SessionId', sessionId);
         genRequest.writeEndObject();
       

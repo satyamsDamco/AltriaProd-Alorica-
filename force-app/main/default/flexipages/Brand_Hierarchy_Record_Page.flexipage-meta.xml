@@ -34,6 +34,10 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>hideSlackAction</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>numVisibleActions</name>
                     <value>3</value>
                 </componentInstanceProperties>
@@ -70,7 +74,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Short_Cut__c</fieldItem>
                 <identifier>RecordShort_Cut_cField</identifier>
@@ -90,7 +94,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Taste__c</fieldItem>
                 <identifier>RecordTaste_cField</identifier>
@@ -100,7 +104,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Packaging__c</fieldItem>
                 <identifier>RecordPackaging_cField</identifier>
@@ -110,7 +114,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Filter__c</fieldItem>
                 <identifier>RecordFilter_cField</identifier>
@@ -120,7 +124,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Cut__c</fieldItem>
                 <identifier>RecordCut_cField</identifier>
@@ -130,7 +134,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Brand_MM_Code__c</fieldItem>
                 <identifier>RecordBrand_MM_Code_cField</identifier>
@@ -140,7 +144,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Price_Category__c</fieldItem>
                 <identifier>RecordPrice_Category_cField</identifier>
@@ -150,7 +154,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Units_Per_Pack__c</fieldItem>
                 <identifier>RecordUnits_Per_Pack_cField</identifier>
@@ -160,7 +164,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Brand_Classification__c</fieldItem>
                 <identifier>RecordBrand_Classification_cField</identifier>
@@ -170,7 +174,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reporting_Brand_Family__c</fieldItem>
                 <identifier>RecordReporting_Brand_Family_cField</identifier>
@@ -180,7 +184,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Ust_Date_Type__c</fieldItem>
                 <identifier>RecordUst_Date_Type_cField</identifier>
@@ -190,7 +194,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Product_Type__c</fieldItem>
                 <identifier>RecordProduct_Type_cField</identifier>
@@ -204,7 +208,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Active__c</fieldItem>
                 <identifier>RecordActive_cField</identifier>
@@ -214,7 +218,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Pm_Brand_Code__c</fieldItem>
                 <identifier>RecordPm_Brand_Code_cField</identifier>
@@ -234,7 +238,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.UPC__c</fieldItem>
                 <identifier>RecordUPC_cField</identifier>
@@ -244,7 +248,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Length__c</fieldItem>
                 <identifier>RecordLength_cField</identifier>
@@ -254,7 +258,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Flavor__c</fieldItem>
                 <identifier>RecordFlavor_cField</identifier>
@@ -264,7 +268,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.PaperType__c</fieldItem>
                 <identifier>RecordPaperType_cField</identifier>
@@ -274,7 +278,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Brand_Sas_Code__c</fieldItem>
                 <identifier>RecordBrand_Sas_Code_cField</identifier>
@@ -284,7 +288,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Product_Desc__c</fieldItem>
                 <identifier>RecordProduct_Desc_cField</identifier>
@@ -294,7 +298,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.License_Group__c</fieldItem>
                 <identifier>RecordLicense_Group_cField</identifier>
@@ -304,7 +308,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Brand_Status__c</fieldItem>
                 <identifier>RecordBrand_Status_cField</identifier>
@@ -314,7 +318,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Pack_Type__c</fieldItem>
                 <identifier>RecordPack_Type_cField</identifier>
@@ -324,7 +328,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Pick_Up_Policy_Weeks__c</fieldItem>
                 <identifier>RecordPick_Up_Policy_Weeks_cField</identifier>

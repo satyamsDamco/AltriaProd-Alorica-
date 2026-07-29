@@ -1,47 +1,80 @@
-<apex:page standardController="Case" extensions="IssueSurveyListController" sidebar="false">    
-    <apex:includeScript value="/support/console/37.0/integration.js"/>
+<apex:page standardController="Case" extensions="IssueSurveyListController" sidebar="false" lightningStyleSheets="true" title="Survey">
+    <apex:slds />
+
+    <apex:includeScript value="/support/console/62.0/integration.js" />
     <apex:form id="frm">
-         <script type="text/javascript">          
+        <script type="text/javascript"> 
             function CloseTabList() {
-               if('{!ReviewPage}' == 'false'){ 
-                   sforce.console.getEnclosingTabId(closeSubtab);
-               }else{
-                   window.close();
-               }
+                if ('{!ReviewPage}' == 'false') {
+                    // Try the Console API first (works for both Classic console
+                    // and Lightning console subtabs, since integration.js v42+
+                    // bridges these methods into Lightning Experience too).
+                    if (typeof sforce !== 'undefined' && sforce.console && sforce.console.isInConsole()) {
+                        sforce.console.getEnclosingTabId(closeSubtab);
+                    }
+                    // Salesforce1 / Lightning navigation fallback.
+                    // NOTE: this only navigates back, it does NOT close the tab,
+                    // so it's deliberately checked AFTER the console branch above.
+                    else if (typeof sforce !== 'undefined' && sforce.one) {
+                        sforce.one.back(true);
+                    }
+                    // Standard navigation fallback
+                    else {
+                        window.history.back();
+                    }
+                } else {
+                    window.close();
+                }
             }
-            
-            
+            // Console callback handler - closes the subtab once we have its ID
             var closeSubtab = function closeSubtab(result) {
-                //Now that we have the tab ID, we can close it
                 var tabId = result.id;
                 sforce.console.closeTab(tabId);
-            }; 
-            
+            };
         </script>
-        <apex:pageBlock title="Survey">           
-           <apex:outputPanel rendered="{!(IssueSurvyeList.size <=0)}">
-               No records to display
-           </apex:outputPanel> 
-           
-           <apex:pageBlockButtons rendered="{!(IssueSurvyeList.size >0)}">
+
+        <apex:pageBlock >
+            <h1 class="slds-page-header__title slds-truncate">Survey</h1>
+                  
+            <apex:outputPanel rendered="{!(IssueSurvyeList.size <=0)}">
+                No records to display
+            </apex:outputPanel>
+
+     
+               <div class="slds-grid slds-grid_align-center slds-m-bottom_small"
+         rendered="{!IssueSurvyeList.size > 0}">
+
+        <apex:commandButton action="{!previous}"
+                            value="Previous"
+                            rendered="{!hasPrevious}"/>
+
+        <apex:commandButton action="{!next}"
+                            value="Next"
+                            rendered="{!hasNext}"/>
+
+        <apex:commandButton value="Close"
+                            onclick="CloseTabList(); return false;"/>
+    </div>
+           <apex:pageBlockButtons location="bottom"  rendered="{!(IssueSurvyeList.size >0)}">
                <apex:commandButton action="{!previous}"  value="Previous" rendered="{!hasPrevious}"/>
                <apex:commandButton action="{!next}" rendered="{!hasNext}" value="Next"/>
                <apex:commandButton value="Close" onclick="CloseTabList(); return false;"/>               
            </apex:pageBlockButtons>
-           <apex:pageBlockTable value="{!IssueSurvyeList}" var="sn" rendered="{!(IssueSurvyeList.size >0)}">
-               <apex:column headerValue="Survey Name">
-                   &nbsp;&nbsp;<apex:OutputText value="{!sn.Survey_Name__c}"/>
-               </apex:column>
-               <apex:column headerValue="Question">
-                    <apex:OutputText value="{!sn.QuestionText__c}"/>
-               </apex:column>
-               <apex:column headerValue="Answer">
-                    <apex:OutputText value="{!sn.AnswerText__c }"/>
-               </apex:column>               
-               <apex:column headerValue="Comments">
-                    <apex:OutputText value="{!sn.Comment__c}"/>
-               </apex:column>            
-           </apex:pageBlockTable>
+            <apex:pageBlockTable value="{!IssueSurvyeList}" var="sn" rendered="{!(IssueSurvyeList.size >0)}">
+                <apex:column headerValue="Survey Name">
+                    &nbsp;&nbsp;
+                    <apex:OutputText value="{!sn.Survey_Name__c}" />
+                </apex:column>
+                <apex:column headerValue="Question">
+                    <apex:OutputText value="{!sn.QuestionText__c}" />
+                </apex:column>
+                <apex:column headerValue="Answer">
+                    <apex:OutputText value="{!sn.AnswerText__c }" />
+                </apex:column>
+                <apex:column headerValue="Comments">
+                    <apex:OutputText value="{!sn.Comment__c}" />
+                </apex:column>
+            </apex:pageBlockTable>
         </apex:pageBlock>
     </apex:form>
 </apex:page>

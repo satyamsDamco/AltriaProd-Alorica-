@@ -1,5 +1,6 @@
-<apex:page standardController="Contact" extensions="ConsumerDetailController">
-    
+<apex:page standardController="Contact" extensions="ConsumerDetailController"  lightningStyleSheets="True">
+    <apex:slds />
+
     <apex:form >
         <apex:pageBlock >
             <!-- Consumer Information Section -->
@@ -51,10 +52,10 @@
         </apex:pageBlock>
     </apex:form>
    <apex:form >
-	 <apex:pageBlock id="caseListId1" title="Issues">
+     <apex:pageBlock id="caseListId1" title="Issues">
                 <apex:pageBlockTable value="{!cases}" var="c" rendered="{!NOT(ISNULL(cases))}" rows="100">
             
-				<apex:column >
+                <apex:column >
                     <apex:facet name="header">
                         <apex:commandLink action="{!toggleSort}" value="Issue Number {!IF(sortExpression == 'CaseNumber__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort10">
                             <apex:param value="CaseNumber__c" name="column" assignTo="{!sortExpression}" />
@@ -119,8 +120,8 @@
                         </apex:commandLink>
                     </apex:facet>
                 </apex:column>
-        	</apex:pageBlockTable>
-    	</apex:pageBlock>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
      </apex:form>
     
 </apex:page>

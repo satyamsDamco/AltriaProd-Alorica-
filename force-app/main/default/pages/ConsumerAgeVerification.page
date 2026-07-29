@@ -1,7 +1,8 @@
-<apex:page showheader="false" sidebar="false" standardController="Contact" extensions="ConsumerAgeVerificationController">
-    <apex:includeScript value="/support/console/37.0/integration.js"/>
-    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"/>   
-    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
+<apex:page showheader="false" sidebar="false" standardController="Contact" extensions="ConsumerAgeVerificationController" lightningStylesheets="true" standardStylesheets="true" title="Age Verify">
+    <apex:slds />
+    <apex:includeScript value="/support/console/62.0/integration.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"/>   
+  
     
     <apex:form id="fm">
          <style>
@@ -47,9 +48,21 @@
                    document.getElementById("{!$Component.fm:pb:pbs1:state}").value = '';
                }
            }
-            function CloseAgeVerfyTab(){
-                sforce.console.getEnclosingTabId(closeSubtabVar);
-            }
+     
+        function CloseAgeVerfyTab() {
+            sforce.console.getEnclosingTabId(function(result) {
+                console.log('Tab Result:', result);
+                
+                if(result.success && result.id) {
+                    sforce.console.closeTab(result.id);
+                } else {
+                    console.error(result);
+                }
+            });
+            
+            return false;
+        }
+        
             var closeSubtabVar = function closeSubtab(result) {
                 //Now that we have the tab ID, we can close it
                 var tabId = result.id;
@@ -88,6 +101,11 @@
              }); 
          </script>
         <apex:pageBlock title="Consumer Age Verification" mode="edit" id="pb">
+            <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+                <apex:commandButton value="Verify" action="{!ageVerify}" reRender="mg" styleClass="slds-button slds-button_brand"/>
+                <apex:commandButton value="Reset" action="{!reset}" styleClass="slds-button slds-button_outline-brand" />
+                <apex:commandButton value="Close" onclick="CloseAgeVerfyTab();return false;" styleClass="slds-button slds-button_outline-brand"/>
+            </div>
             <apex:actionFunction name="getCityData" action="{!getcitystate}" rerender="state,city,mg"/>
             <apex:pageMessages id="mg"></apex:pageMessages>
             <apex:pageBlockSection title="Consumer Information" id="pbs">
@@ -107,11 +125,11 @@
             <apex:pageBlockSection title="Birthdate">
                 <apex:inputField value="{!conObj.Birthdate1__c}"  label="Date Of Birth" onclick="updateCalYearPicker();"/>
             </apex:pageBlockSection>
-            <apex:pageBlockButtons >
-                <apex:commandButton value="Verify" action="{!ageVerify}" reRender="mg"/>
-                <apex:commandButton value="Reset" action="{!reset}" />
-                <apex:commandButton value="Close" onclick="CloseAgeVerfyTab();return false;"/>
-            </apex:pageBlockButtons>
+            <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+                <apex:commandButton value="Verify" action="{!ageVerify}" reRender="mg" styleClass="slds-button slds-button_brand"/>
+                <apex:commandButton value="Reset" action="{!reset}" styleClass="slds-button slds-button_outline-brand" />
+                <apex:commandButton value="Close" onclick="CloseAgeVerfyTab();return false;" styleClass="slds-button slds-button_outline-brand"/>
+            </div>
         </apex:pageBlock>
     </apex:form>
 </apex:page>

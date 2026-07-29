@@ -169,6 +169,11 @@
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>MassChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>PrintableListView</excludedStandardButtons>
+        <searchResultsAdditionalFields>Store_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Store_Type_Text__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Store_City__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Store_Address1__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Store_State__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

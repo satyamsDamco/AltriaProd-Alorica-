@@ -1,6 +1,8 @@
-<apex:page id="page1" standardController="Store__c" docType=" html-5.0"   extensions="StoreEditController" >
+<apex:page id="page1" standardController="Store__c" docType=" html-5.0"   extensions="StoreEditController" lightningStyleSheets="True" title="{!IF(store.Name != null && store.Name != '', 'S - ' & store.Name, 'Store')}"
+ >
+<apex:slds />
     
-    <apex:includeScript value="/support/console/37.0/integration.js"/>
+    <apex:includeScript value="/support/console/60.0/integration.js"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -57,38 +59,20 @@
             nonRerenderFunction();       
         } 
     }
-    
-        function SetTabTitleStore() {
-            sforce.console.getEnclosingTabId(function(result) {
-               var storeid = '{!store.id}';  
-               if(storeid != null && storeid != '' && storeid != 'null'){
-                   sforce.console.setTabTitle('S-'+'{!store.Name}', result.id);
-               }
-               sforce.console.setTabLink();
-            });
-         }
-        
-        var pageLoad = window.onload;
-        
-        window.onload = function() {
-            if (pageLoad) {
-                    pageLoad();
+             
+    function closeCancelTab() {
+        sforce.console.getEnclosingTabId(function (result) {
+            console.log('Tab Result:', result);
+
+            if (result.success && result.id) {
+                sforce.console.closeTab(result.id);
+            } else {
+                console.error(result);
             }
-            SetTabTitleStore();
-        } 
-            
-        function closeCancelTab() {
-            var storeid = '{!store.id}'; 
-            
-            if(storeid == null || storeid == '' || storeid == 'null'){
-                 sforce.console.getEnclosingTabId(closeSubtab);
-            }else{
-                CancelRedirect();
-                //sforce.console.getEnclosingPrimaryTabId(openSubtabStore);                
-            } 
-           
-        }
-        
+        });
+
+        return false;
+    }   
         
         var closeSubtab = function closeSubtab(result) {
             //Now that we have the tab ID, we can close it
@@ -121,15 +105,15 @@
              <apex:actionFunction id="reRenderFunction" action="{!submitStore}" name="reRenderFunction" reRender="block1" />
             <apex:actionFunction id="nonRerenderFunction" action="{!submitStore}" name="nonRerenderFunction" />
             <apex:actionFunction name="getCityState" action="{!getCityState}" reRender="message,City,State"/>
-                      
-            <apex:pageBlockButtons >
-                
+                    
+             <div class="slds-grid slds-grid_align-center slds-m-bottom_small">
               	<apex:commandButton id="Save"  value="Save"  onclick="passStoreNew()" oncomplete="loadAuto()"/>
-                <!-- 10/30/19 JD: RITM0052177 - SCR 19-10-18 Stores - Allow Only 1 Per Issue ver 1.0 
-              	<apex:commandButton id="SaveNew"  value="Save & New" onclick="passStoreNewSave()"  action="{!saveNew}" oncomplete="loadAuto()" reRender="block1" />
-				-->
               	<apex:commandButton id="Cancel" value="Cancel" onclick="closeCancelTab();return false;"/>
-            </apex:pageBlockButtons> 
+            </div>
+            <apex:pageBlockButtons location="bottom" style="text-align:center;">
+              	<apex:commandButton id="Save"  value="Save"  onclick="passStoreNew()" oncomplete="loadAuto()"/>
+              	<apex:commandButton id="Cancel" value="Cancel" onclick="closeCancelTab();return false;"/>
+            </apex:pageBlockButtons>
             
             <apex:pageBlockSection id="section1" columns="1">                  
                 
@@ -159,11 +143,13 @@
                 <apex:inputHidden id="storeNameApex" value="{!store.Store_Name__c}" />
                 
             </apex:pageBlockSection>
-            
-        </apex:pageBlock> 
+           
+            <!-- Slds for button "end" By SaraD" -->
+                          
+        </apex:pageBlock>        
         
         <!-- RITM2147263 -->
-    	 <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
+         <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
                        height: 100%;opacity:0.65;width:100%;display:none;"> 
              <div class="waitingHolder" style="top: 74.2px; width: 91px;">
                  <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />

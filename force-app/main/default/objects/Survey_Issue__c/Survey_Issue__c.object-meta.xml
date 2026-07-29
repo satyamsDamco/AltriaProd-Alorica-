@@ -169,6 +169,9 @@
         <excludedStandardButtons>MassChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>PrintableListView</excludedStandardButtons>
         <excludedStandardButtons>MassAssignRecordLabel</excludedStandardButtons>
+        <searchResultsAdditionalFields>Issue__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Survey_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Transaction__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

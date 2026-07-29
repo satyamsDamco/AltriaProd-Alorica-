@@ -1,11 +1,12 @@
-<apex:page standardController="case"  extensions="IssueEntryController" sidebar="False" id="pg" showHeader="false">
+<apex:page standardController="case"  extensions="IssueEntryController" sidebar="False" id="pg" showHeader="false" lightningStyleSheets="true" title="Clone Issue - {!case.CaseNumber__c}">
+<apex:slds />
 
     <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"/>
-    
-   <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"/>
    <apex:includeScript value="{!URLFOR($Resource.JNumeric, 'JNumeric/JNumeric.js')}"/>
-   <apex:includeScript value="/support/console/37.0/integration.js" /> 
+   <apex:includeScript value="/support/console/62.0/integration.js" />
     <apex:form id="frm1">
         <style>
             .class1{
@@ -19,20 +20,30 @@
         
         var j$ = jQuery.noConflict();
         
-        $(document).ready(function(){
+        j$(document).ready(function(){
             setFieldsValidation();  
             var currentTime = new Date();
             var year = currentTime.getFullYear();
-            $("#calYearPicker").html('');
+            j$("#calYearPicker").html('');
             for(var i = 1956; i <= year;  i++){
-                $("#calYearPicker").append("<option value='"+ i +"'>" + i + "</option>")
+                j$("#calYearPicker").append("<option value='"+ i +"'>" + i + "</option>")
             }          
         });   
     
-         //close current Tab from cancel button.
-        function testCloseTab() {
-            //First find the ID of the current tab to close it
-            sforce.console.getEnclosingTabId(closeSubtab);
+   
+     function testCloseTab() {
+            
+            sforce.console.getEnclosingTabId(function(result) {
+                console.log('Tab Result:', JSON.stringify(result));
+                
+                if(result.success && result.id) {
+                    sforce.console.closeTab(result.id);
+                } else {
+                    console.error(result);
+                }
+            });
+            
+            return false;
         }
         
         var closeSubtab = function closeSubtab(result) {
@@ -42,19 +53,19 @@
         };     
         
         function setFieldsValidation() {
-            var control = $('[id$="purchaseQty"]');
+            var control = j$('[id$="purchaseQty"]');
             if (control != null) 
                 control.numeric({ decimal: false, negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });            
             
-            control = $('[id$="expectQty"]');
+            control = j$('[id$="expectQty"]');
             if (control != null)
                 control.numeric({ decimal: false, negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });
            
-           control = $('[id$="affectQty"]');
+           control = j$('[id$="affectQty"]');
             if (control != null)
                 control.numeric({ decimal: false, negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });  
             
-            control = $('[id$="returnedQty"]');
+            control = j$('[id$="returnedQty"]');
             if (control != null)
                 control.numeric({ decimal: false, negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });
                 
@@ -63,7 +74,7 @@
          }
          
          function setFieldsPriceValidation() {
-            var control = $('[id$="purchasePrice"]');
+            var control = j$('[id$="purchasePrice"]');
             if (control != null)
                 control.numeric({ negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); }); 
             
@@ -92,8 +103,8 @@
                 }                
             }
             
-            renderNMIFunction();
-            rerenderOP1(); 
+           // renderNMIFunction();
+           // rerenderOP1(); 
                   
         }
         
@@ -113,25 +124,25 @@
             document.getElementById('pg:frm1:IssEntryBlock:BrandHier:brand1').value = '';   
                 
             document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value = '';
-            $('.labeltaste').show();
+            j$('.labeltaste').show();
             
             document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionLength:length').value = '';
-            $('.labellength').show();
+            j$('.labellength').show();
             
             document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionPackaging:packaging').value = '';
-            $('.labelpackaging').show();
+            j$('.labelpackaging').show();
             
             document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFlavor:flavor').value = '';
-            $('.labelflavor').show();
+            j$('.labelflavor').show();
             
             document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFilter:filter').value = '';
-            $('.labelFilter').show();            
+            j$('.labelFilter').show();            
                 
             document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionpaperType:paperType').value = '';  
-            $('.labelpaperType').show();                 
+            j$('.labelpaperType').show();                 
                 
             document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionCut:cut').value = '';
-            $('.labelcut').show(); 
+            j$('.labelcut').show(); 
             
             hidingBrandFields();                
             rerenderOP1();    
@@ -346,7 +357,7 @@
             return false;
         }
     
-    var newWin1=null;   
+            var newWin1=null;   
             function launchNaturalLang(id,issueHierCode,issueType,reason,cause,groupcode,classification)
             {
             
@@ -455,7 +466,7 @@
                 
             }
         
-        function hidingBrandFields(){
+      /*  function hidingBrandFields(){
              if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value == '0'){
                     $('.labeltaste').hide();
                 }else{
@@ -497,7 +508,68 @@
                 }else{
                     $('.labelcut').show(); 
                 }  
-        }
+        } */
+        //added by pratiksha
+           function hidingBrandFields() {
+                var selectedPL = document.getElementById('pg:frm1:IssEntryBlock:product:productPblock:product').value;
+                // Product lines where Filter/Length/PaperType/Cut never apply, regardless of underlying Brand Hierarchy data
+                var forceHideFields = ['TOBACCO DERIVED NICOTINE POUCH'];
+
+                if (forceHideFields.indexOf(selectedPL) > -1) {
+                    j$('.labeltaste').show();
+                    j$('.labelpackaging').show();
+                    j$('.labelflavor').show();
+                    j$('.labelFilter').hide();
+                    j$('.labellength').hide();
+                    j$('.labelpaperType').hide();
+                    j$('.labelcut').hide();
+                    return;
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value == '0') {
+                    j$('.labeltaste').hide();
+                } else {
+                    j$('.labeltaste').show();
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionLength:length').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionLength:length').value == '0') {
+                    j$('.labellength').hide();
+                } else {
+                    j$('.labellength').show();
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionPackaging:packaging').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionPackaging:packaging').value == '0') {
+                    j$('.labelpackaging').hide();
+                } else {
+                    j$('.labelpackaging').show();
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFlavor:flavor').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFlavor:flavor').value == '0') {
+                    j$('.labelflavor').hide();
+                } else {
+                    j$('.labelflavor').show();
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFilter:filter').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFilter:filter').value == '0') {
+                    j$('.labelFilter').hide();
+                } else {
+                    j$('.labelFilter').show();
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionpaperType:paperType').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionpaperType:paperType').value == '0') {
+                    j$('.labelpaperType').hide();
+                } else {
+                    j$('.labelpaperType').show();
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionCut:cut').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionCut:cut').value == '0') {
+                    j$('.labelcut').hide();
+                } else {
+                    j$('.labelcut').show();
+                }
+
+            }
+            //ends here 
         function showValidation(){
                 var ErrorMessage = document.getElementById('pg:frm1:IssEntryBlock:traceCodeErrorMessage').value;
                 var ErrorAlert = document.getElementById('pg:frm1:IssEntryBlock:traceCodeError').value;
@@ -513,12 +585,13 @@
             
             
             function getPrimaryIdTraceDocument(productLineId) {
-                //First find the ID of the primary tab to put the new subtab in
-                sforce.console.getEnclosingPrimaryTabId(function (result) {
-                    //Now that we have the primary tab ID, we can open a new subtab in it
-                    var primaryTabId = result.id;
-                    sforce.console.openSubtab(primaryTabId , '/apex/traceCodeDocument?id='+productLineId, true, 'Trace Code'+productLineId, null, openSuccess, 'Trace Code'+productLineId);
-                });
+                var url = '/apex/traceCodeDocument?id=' + productLineId;
+
+                if (typeof sforce !== 'undefined' && sforce.one) {
+                    sforce.one.navigateToURL(url);
+                } else {
+                    window.location.href = url;
+                }
             }
             
             function showDateCodeValidation(){
@@ -541,7 +614,13 @@
             
             //2-19-2017: Part of IQOS Project
             function disabledFields(){
-                var val = document.getElementById('pg:frm1:IssEntryBlock:IqosInfo:serialNumber').value;
+               var serialObj = document.getElementById('pg:frm1:IssEntryBlock:IqosInfo:serialNumber');
+
+                if (!serialObj) {
+                    return;
+                }
+
+                var val = serialObj.value;
                 if(val != null && val != ''){
                     document.getElementById('pg:frm1:IssEntryBlock:IssDetail:tcSerialNum').disabled = true;
                     document.getElementById('pg:frm1:IssEntryBlock:IssDetail:tcSerialNum').value = '';
@@ -553,7 +632,7 @@
                     document.getElementById('pg:frm1:IssEntryBlock:IssDetail:tcSerialNum').disabled = false;
                     document.getElementById('pg:frm1:IssEntryBlock:IssDetail:traceCode').disabled = false;
                 }
-            }
+            } 
     </script> 
  
     <style>
@@ -572,9 +651,13 @@
            <apex:inputHidden id="traceCodeError" value="{!traceCodeError}"/>
            <apex:inputHidden id="productLineId" value="{!productLineId}"/>
            <apex:inputHidden id="dateCodeError" value="{!dateCodeError}"/>
-           <apex:pageBlockButtons id="btn">
-                <apex:commandButton Value="Save" onclick="checkRequiredFields();"  reRender="message"/>
-                <apex:commandButton Value="Cancel" onclick="testCloseTab();return false;"/>              
+           <apex:pageBlockButtons location="top" style=" padding-left:200px;">
+                <apex:commandButton styleClass="slds-button slds-button_brand" id="savebtn" Value="Save" onclick="checkRequiredFields();" reRender="message,savebtn" />
+                <apex:commandButton Value="Cancel" onclick="testCloseTab();return false;"/>               
+           </apex:pageBlockButtons>
+           <apex:pageBlockButtons location="Bottom" style="text-align:center; padding:10px;">
+                <apex:commandButton styleClass="slds-button slds-button_brand" id="savebtn" Value="Save" onclick="checkRequiredFields();" reRender="message,savebtn" />
+                <apex:commandButton Value="Cancel" onclick="testCloseTab();return false;"/>               
            </apex:pageBlockButtons>
            <div role="alert" style="display:none;" id="errorMessages"></div> 
            <apex:pageMessages id="message"/> 
@@ -604,31 +687,41 @@
                 <apex:inputHidden id="productLine" value="{!selectedProductLine}" />
             </apex:pageBlockSection>
              <apex:pageBlockSection title="Issue Hierarchy" id="IssHier">
-                <apex:commandButton value="Issue Hierarchy"  onclick="launchIssueHier('{!$Component.idfield}','{!$Component.issueHierCode}','{!$Component.issueType}','{!$Component.reason}','{!$Component.cause}','{!$Component.groupcode}','{!$Component.classification}'); return false;" />
-                 <apex:commandButton value="Natural Language"  onclick="launchNaturalLang('{!$Component.idfield}','{!$Component.issueHierCode}','{!$Component.issueType}','{!$Component.reason}','{!$Component.cause}','{!$Component.groupcode}','{!$Component.classification}'); return false;" oncomplete="rerenderPurchaseInfo();"/>
-                <apex:outputLabel ></apex:outputLabel>
-                <apex:inputHidden value="{!caseObj.Issue_Hierarchy_Code__c}" id="idfield"/>                
-                <apex:inputHidden value="{!caseObj.Classificationtxt__c}" id="classification1"/>  
-                <apex:outputLabel ></apex:outputLabel>
+                <!-- Row 1: Button (left) | Classification (right) -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value=""></apex:outputLabel>
+                    <apex:commandButton value="Issue Hierarchy" onclick="launchIssueHier('{!$Component.idfield}','{!$Component.issueHierCode}','{!$Component.issueType}','{!$Component.reason}','{!$Component.cause}','{!$Component.groupcode}','{!$Component.classification}'); return false;"/>
+                </apex:pageBlockSectionItem>
+                <apex:outputText value=" " label=" "/>
                 <apex:inputText value="{!caseObj.Classificationtxt__c}" id="classification" label="Classification" disabled="true"/>
-                <apex:inputText value="{!caseObj.Reasontxt__c}" id="reason" label="Reason"  disabled="true"/>
-                <apex:inputText value="{!caseObj.Issue_Type__c}" id="issueType" label="Issue Type" disabled="true"/>                
-                <apex:inputText value="{!caseObj.Causetxt__c}" id="cause" label="Cause"  disabled="true"/>
+                <!-- Row 2: Reason (left) | Issue Type (right) -->
+                <apex:inputText value="{!caseObj.Reasontxt__c}" id="reason" label="Reason" disabled="true"/>
+                <apex:inputText value="{!caseObj.Issue_Type__c}" id="issueType" label="Issue Type" disabled="true"/>
+                <!-- Row 3: Cause (left) | Group Code (right) -->
+                <apex:inputText value="{!caseObj.Causetxt__c}" id="cause" label="Cause" disabled="true"/>
                 <apex:inputText value="{!caseObj.Group_Code__c}" id="groupcode" label="Group Code" disabled="true"/>
+                <!-- Hidden fields -->
+                <apex:inputHidden value="{!caseObj.Issue_Hierarchy_Code__c}" id="idfield"/>
+                <apex:inputHidden value="{!caseObj.Classificationtxt__c}" id="classification1"/>
                 <apex:inputHidden value="{!caseObj.Issue_Hierarchy_Code__r.Name}" id="issueHierCode"/>
-                
             </apex:pageBlockSection>
-            
+           
            
             <apex:pageBlockSection title="Brand Hierarchy" id="BrandHier">
-                                      
-                <apex:commandButton value="Brand Hierarchy"  onclick="launchBrandHier('{!$Component.targetId}','{!$Component.upc}','{!$Component.brand}'); return false;" />
-                
-                <apex:inputHidden value="{!caseObj.Crc_Brand_Hierarchy_Code__c}" id="targetId"/>
-                
-                <apex:inputText value="{!caseObj.UPC_code__c}" id="upc" label="UPC"   disabled="true"/>
-                <apex:inputText value="{!caseObj.Brandcode__c}" id="brand" label="Brand" disabled="true" onchange="brandFun();"/>                
-                
+                <!-- Row 1: Button (left) | Brand (right) -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value=""></apex:outputLabel>
+                    <apex:commandButton value="Brand Hierarchy" onclick="launchBrandHier('{!$Component.targetId}','{!$Component.upc}','{!$Component.brand}'); return false;"/>
+                </apex:pageBlockSectionItem>
+                <apex:outputText value=" " label=" "/>
+               <!-- <apex:inputText value="{!caseObj.Brandcode__c}" id="brand" label="Brand" disabled="true" onchange="brandFun();"/> -->
+                <!-- Row 2: UPC (left) | empty (right) -->
+               <!-- <apex:inputText value="{!caseObj.UPC_code__c}" id="upc" label="UPC" disabled="true"/> -->
+                <!-- added by Pratiksha -->
+                <!-- Row 2: UPC (left) | empty (right) -->
+               <apex:inputText value="{!case.UPC_code__c}" id="upc" label="UPC" disabled="true"/>
+               <apex:inputText value="{!case.Brandcode__c}" id="brand" label="Brand" disabled="true" onchange="brandFun();"/>
+               <!-- ends here -->
                 <apex:pageBlockSectionItem dataStyleClass="labeltaste" labelStyleClass="labeltaste" id="sectionTaste">
                     <apex:outputLabel value="Taste"></apex:outputLabel>
                     <apex:inputText value="{!caseObj.Taste__c}" label="Taste" id="taste" disabled="true"/>
@@ -663,7 +756,10 @@
                     <apex:outputLabel value="Cut"></apex:outputLabel>
                     <apex:inputText value="{!caseObj.Cut__c}" label="Cut" id="cut" disabled="true"/>
                 </apex:pageBlockSectionItem>
-                <apex:inputhidden value="{!caseObj.Brandcode__c}" id="brand1"/> 
+                <apex:inputhidden value="{!caseObj.Brandcode__c}" id="brand1"/>
+                <apex:outputText value=" " label=" "/>
+                <!-- Hidden field -->
+                <apex:inputHidden value="{!caseObj.Crc_Brand_Hierarchy_Code__c}" id="targetId"/>
              </apex:pageBlockSection>
  
             <!-- ================ IQOS Section ====================== -->
@@ -699,7 +795,8 @@
             <!-- ================ IQOS END ========================== -->
             
             <apex:pageBlockSection title="Purchase Information" id="PurchaseInfo">
-                <apex:inputField value="{!caseObj.Purchase_Price__c}" id="purchasePrice" label="Purchase Price"   styleClass="{!IF(caseObj.Classificationtxt__c != null && caseObj.Classificationtxt__c != 'Not a Complaint','class1','class2')}"  />
+                <!-- <apex:inputField value="{!caseObj.Purchase_Price__c}" id="purchasePrice" label="Purchase Price"   styleClass="{!IF(caseObj.Classificationtxt__c != null && caseObj.Classificationtxt__c != 'Not a Complaint','class1','class2')}"  /> -->
+                <apex:inputField value="{!case.Purchase_Price__c}" id="purchasePrice" label="Purchase Price" style="{!IF(case.Classificationtxt__c != null && case.Classificationtxt__c != 'Not a Complaint', 'border-left:2px solid #FF0000;', '')}" />
                 <apex:inputField value="{!caseObj.Affected_Type__c}" label="Affected Type" id="affectType"/>
                 <apex:inputField value="{!caseObj.Purchase_Date__c}" label="Purchase Date" id="purchaseDate"/>
                 <apex:inputField value="{!caseObj.AffectedQty__c}" label="Affected Quantity"  id="affectQty"/> 
@@ -709,7 +806,7 @@
                 <apex:inputField value="{!caseObj.ExpectedQty__c}" label="Expected Quantity" id="expectQty"/>
                 <apex:inputField value="{!caseObj.PurchaseQty__c}" label="Purchase Quantity" id="purchaseQty"/>
                 <apex:inputField value="{!case.Returned_Type__c}" label="Returned Type" id="returnedType"/>
-				<apex:outputText value=" " label=" " />
+                <apex:outputText value=" " label=" " />
                 <apex:inputField value="{!case.Returned_Quantity__c}" label="Returned Quantity" id="returnedQty"/>
             </apex:pageBlockSection>
             
@@ -719,7 +816,7 @@
                     <apex:selectOptions value="{!TraceCodeLocation}"/>
                 </apex:selectList>
                 <apex:inputField value="{!caseObj.Suspected_Counterfiet__c}" label="Suspected Counterfeit" id="susCounter"  rendered="{!selectedProductLine != '0'}"/>
-                <apex:inputField value="{!caseObj.Mfg_Trace_code__c}" styleClass="text-uppercase"  label="Mfg/Trace code" onblur="TraceCodeValidation()" id="traceCode"  rendered="{!selectedProductLine != '0'}"/>
+                <apex:inputField value="{!caseObj.Mfg_Trace_code__c}" styleClass="{!IF(selectedProductLine == 'PLOOM HEATED TOBACCO', '', 'text-uppercase')}"  label="Mfg/Trace code" onblur="TraceCodeValidation()" id="traceCode"  rendered="{!selectedProductLine != '0'}"/>
                 
                 <apex:outputtext rendered="{!iqosTrue}" />
                 
@@ -739,7 +836,7 @@
                  
                 <apex:inputField value="{!caseObj.Date_Code__c}"  styleClass="text-uppercase"  onblur="DateCodeValidation();" id="datecode" rendered="{!selectedProductLine=='MST'||selectedProductLine=='Pouch'|| selectedProductLine=='Green Smoke E-Vapor'||  selectedProductLine=='USSTC Snus' ||selectedProductLine=='E-Cigarette' || selectedProductLine=='Tobacco-Derived Nicotine Product'}"/>
                                 
-                <apex:inputField value="{!case.Machine_Code__c}" id="machineCode" rendered="{!IF(selectedProductLine=='Cigars' || selectedProductLine=='TOBACCO DERIVED NICOTINE POUCH'  	
+                <apex:inputField value="{!case.Machine_Code__c}" id="machineCode" rendered="{!IF(selectedProductLine=='Cigars' || selectedProductLine=='TOBACCO DERIVED NICOTINE POUCH'     
                                                                                             || selectedProductLine=='Dry Snuff' || selectedProductLine=='Pouch' || selectedProductLine=='MST'
                                                                                             || selectedProductLine=='USSTC Snus',true,false)}"/>                                                                                  
            

@@ -12,7 +12,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>APIDataFeed_ClientSecret</shortDescription>
-        <value>SET_IN_SETUP_CUSTOM_LABELS_DO_NOT_COMMIT_REAL_VALUE</value>
+        <value>hvI8Q~0t9CzVqq67EYg-nj-vnW0Hn5tcH62x8aEk</value>
     </labels>
     <labels>
         <fullName>APIDataFeed_MasterDataUrl</fullName>
@@ -82,7 +82,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Core Service Client Secret</shortDescription>
-        <value>SET_IN_SETUP_CUSTOM_LABELS_DO_NOT_COMMIT_REAL_VALUE</value>
+        <value>u~I8Q~jGpaKKxyWvOjtR~yw2PAtafVuKYtsU6aME</value>
     </labels>
     <labels>
         <fullName>Core_Service_URL</fullName>

@@ -31,6 +31,10 @@
         <translation><!-- IVR Reimbursements --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>Issue Feed</masterLabel>
+        <translation><!-- Issue Feed --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>Manufacturing - Core Services</masterLabel>
         <translation><!-- Manufacturing - Core Services --></translation>
     </picklistValues>

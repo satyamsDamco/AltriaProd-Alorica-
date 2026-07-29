@@ -717,4 +717,328 @@ private class ConsumerSearchControllerTest{
         
         Test.stopTest();
     }
+
+    // ------------------------------------------------------------------
+    // NEW TESTS ADDED TO INCREASE COVERAGE
+    // ------------------------------------------------------------------
+
+    // Covers the constructor's "tranid via URL parameter" branch (the
+    // ELSE of the cookie check) and, because tranid is non-null, also
+    // covers the tranObj query, customerRecordTypeHelper call, and the
+    // customerNumber handling block (Phone/Country__c assignment +
+    // in-constructor call to Search()) - none of which were previously
+    // exercised because no existing test set a matching 'tranid' cookie
+    // or URL parameter with the exact key the controller reads.
+    static testMethod void validateConstructorTranidUrlParamWithCustomerNumber() {
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'47714',bdate,'Test Street', true, true);
+        insert testCont;
+        Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','PMUSA',true);
+        insert testOpCo;
+        TFN__c testTFN = TestDataSetup.createTFN(True,'0001',1,testOpCo);
+        insert testTFN;
+        Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo,testTFN);
+        insert testTM;
+        Case testCase = TestDataSetup.createTestCase(testAcc, 1200, testCont.Id, testTM.Id,testOpCo.id);
+        insert testCase;
+
+        // Set the URL parameter using the exact key the controller reads ('tranid').
+        ApexPages.currentPage().getParameters().put('tranid', testTM.Id);
+        ApexPages.currentPage().getParameters().put('customerNumber','1234567890');
+
+        Test.startTest();
+        ConsumerSearchController controller = new ConsumerSearchController(new ApexPages.StandardController(testCont));
+        System.assertEquals(testTM.Id, controller.tranObj.Id, 'tranObj should be populated when tranid is present');
+        Test.stopTest();
+    }
+
+    // Covers the same tranid != null block, but WITHOUT the customerNumber
+    // parameter, so the inner customerNumber if-block is skipped, exercising
+    // the false branch of that condition.
+    static testMethod void validateConstructorTranidUrlParamNoCustomerNumber() {
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'47714',bdate,'Test Street', true, true);
+        insert testCont;
+        Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','PMUSA',true);
+        insert testOpCo;
+        TFN__c testTFN = TestDataSetup.createTFN(True,'0001',1,testOpCo);
+        insert testTFN;
+        Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo,testTFN);
+        insert testTM;
+        Case testCase = TestDataSetup.createTestCase(testAcc, 1200, testCont.Id, testTM.Id,testOpCo.id);
+        insert testCase;
+
+        ApexPages.currentPage().getParameters().put('tranid', testTM.Id);
+
+        Test.startTest();
+        ConsumerSearchController controller = new ConsumerSearchController(new ApexPages.StandardController(testCont));
+        System.assertEquals(testTM.Id, controller.tranObj.Id, 'tranObj should still be populated when tranid is present, even without customerNumber');
+        Test.stopTest();
+    }
+
+    // Covers the init() branches that were never exercised:
+    // - dob containing '-' (ISO/dash format instead of slash format)
+    // - Addr2 parameter
+    static testMethod void validateInitDashFormatDobAndAddr2() {
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'47714',bdate,'Test Street', true, true);
+        insert testCont;
+
+        ApexPages.currentPage().getParameters().put('Fname','Jane');
+        ApexPages.currentPage().getParameters().put('Lname','Doe');
+        ApexPages.currentPage().getParameters().put('Addr1','100 Main St');
+        ApexPages.currentPage().getParameters().put('Addr2','Apt 200');
+        ApexPages.currentPage().getParameters().put('dob','1988-11-22T00:00:00.000Z');
+        ApexPages.currentPage().getParameters().put('zip','47714');
+        ApexPages.currentPage().getParameters().put('city','Washington');
+        ApexPages.currentPage().getParameters().put('state','DC');
+        ApexPages.currentPage().getParameters().put('email','jane.doe@test.com');
+        ApexPages.currentPage().getParameters().put('country','United States');
+
+        Test.startTest();
+        ConsumerSearchController controller = new ConsumerSearchController(new ApexPages.StandardController(testCont));
+        controller.init();
+        System.assertEquals('Apt 200', controller.conObj.Street_Address__c, 'Addr2 should overwrite Street_Address__c');
+        System.assertEquals(Date.newInstance(1988,11,22), controller.conObj.Birthdate1__c, 'Dash-format DOB should be parsed correctly');
+        Test.stopTest();
+    }
+
+    // Direct unit test of the escapeMetaCharacters() helper, covering the
+    // branch where meta characters ARE present in the input string.
+    static testMethod void validateEscapeMetaCharacters() {
+        Test.startTest();
+        ConsumerSearchController controller = new ConsumerSearchController(new ApexPages.StandardController(new Contact()));
+        String result = controller.escapeMetaCharacters('Te$t (Name) [123]-Co&Co');
+        System.assert(result.contains('\\$'), 'Special character $ should be escaped');
+        System.assert(result.contains('\\('), 'Special character ( should be escaped');
+
+        // Also cover the branch where NO meta characters are present.
+        String plainResult = controller.escapeMetaCharacters('PlainText');
+        System.assertEquals('PlainText', plainResult, 'Plain text without meta characters should be unchanged');
+        Test.stopTest();
+    }
+
+    // Covers the Search() branch that builds the SOQL/SOSL query using
+    // conObj.CustomerID__c, which was never populated in any existing test.
+    static testMethod void validateSearchByCustomerId() {
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'47714',bdate,'Test Street', true, true);
+        insert testCont;
+        Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','PMUSA',true);
+        insert testOpCo;
+        TFN__c testTFN = TestDataSetup.createTFN(True,'0001',1,testOpCo);
+        insert testTFN;
+        Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo,testTFN);
+        insert testTM;
+        Case testCase = TestDataSetup.createTestCase(testAcc, 1200, testCont.Id, testTM.Id,testOpCo.id);
+        insert testCase;
+
+        Test.startTest();
+        ConsumerSearchController controller = new ConsumerSearchController(new ApexPages.StandardController(testCont));
+        controller.conObj.CustomerID__c = 'CUST-TEST-12345';
+        controller.Search();
+        Test.stopTest();
+    }
+
+    // Covers the Search() branch where tranSelectedValue matches an actual
+    // Transaction_Management__c Name and that record has a linked Contact
+    // (ConsumerId / ConName gets populated from the transaction lookup).
+    static testMethod void validateSearchByTranSelectedValueMatch() {
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'47714',bdate,'Test Street', true, true);
+        insert testCont;
+        Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','PMUSA',true);
+        insert testOpCo;
+        TFN__c testTFN = TestDataSetup.createTFN(True,'0001',1,testOpCo);
+        insert testTFN;
+        Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo,testTFN);
+        testTM.Contact__c = testCont.Id;
+        insert testTM;
+        Case testCase = TestDataSetup.createTestCase(testAcc, 1200, testCont.Id, testTM.Id,testOpCo.id);
+        insert testCase;
+
+        Transaction_Management__c reQueriedTM = [SELECT Id, Name, Contact__c FROM Transaction_Management__c WHERE Id = :testTM.Id];
+
+        Test.startTest();
+        ConsumerSearchController controller = new ConsumerSearchController(new ApexPages.StandardController(testCont));
+        controller.tranSelectedValue = reQueriedTM.Name;
+        controller.Search();
+        Test.stopTest();
+    }
+
+    // Covers the "isPrimarySearchOnly" true branch inside Search(): when a
+    // primary field (Phone, in this case) is used but no matching record is
+    // found, the controller should go straight to the "No record found"
+    // message instead of the "Please enter FN, LN, DOB..." extended-search
+    // prompt.
+    static testMethod void validateSearchPrimaryOnlyNoResultsFound() {
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'47714',bdate,'Test Street', true, true);
+        insert testCont;
+        Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','PMUSA',true);
+        insert testOpCo;
+        TFN__c testTFN = TestDataSetup.createTFN(True,'0001',1,testOpCo);
+        insert testTFN;
+        Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo,testTFN);
+        insert testTM;
+        Case testCase = TestDataSetup.createTestCase(testAcc, 1200, testCont.Id, testTM.Id,testOpCo.id);
+        insert testCase;
+
+        Test.startTest();
+        ConsumerSearchController controller = new ConsumerSearchController(new ApexPages.StandardController(testCont));
+        controller.conObj.Country__c = 'United States';
+        controller.conObj.FirstName = null;
+        controller.conObj.LastName = null;
+        controller.conObj.Street_Address__c = null;
+        controller.conObj.Zip_Code__c = null;
+        controller.conObj.Birthdate1__c = null;
+        controller.conObj.Phone = '9999999999';
+        controller.Search();
+        Test.stopTest();
+    }
+
+    // Covers the getCityState() path where Country__c == Label.Country but
+    // Zip_Code__c is blank, so the zip-lookup callout block is skipped
+    // entirely (only city/state get reset to blank).
+    static testMethod void validateGetCityStateBlankZip() {
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'47714',bdate,'Test Street', true, true);
+        testCont.Country__c = 'United States';
+        testCont.City__c = 'Huntsville';
+        testCont.State__c = 'MI';
+        insert testCont;
+        Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','PMUSA',true);
+        insert testOpCo;
+        TFN__c testTFN = TestDataSetup.createTFN(True,'0001',1,testOpCo);
+        insert testTFN;
+        Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo,testTFN);
+        insert testTM;
+        Case testCase = TestDataSetup.createTestCase(testAcc, 1200, testCont.Id, testTM.Id,testOpCo.id);
+        insert testCase;
+
+        Test.startTest();
+        ConsumerSearchController controller = new ConsumerSearchController(new ApexPages.StandardController(testCont));
+        // Clear the zip only on the in-memory conObj (not on the inserted
+        // record) so getCityState() takes the "blank zip" skip-branch
+        // without tripping any required-field/validation rule on insert.
+        controller.conObj.Zip_Code__c = null;
+        controller.getCityState();
+        System.assertEquals('', controller.conObj.city__c, 'City should be blank when zip lookup is skipped');
+        Test.stopTest();
+    }
+
+    // ------------------------------------------------------------------
+    // NEW TESTS: checkContact() branches
+    // ------------------------------------------------------------------
+    // None of the existing tests actually get tranid resolved at
+    // construction time (the cookie in prior tests is named 'tranId' with
+    // a capital I, but the controller reads the lowercase 'tranid'), so
+    // tranObj stayed null in every prior checkContact()/RefreshContact()
+    // test and only the "tranObj is null" debug branch ever ran. These
+    // three tests use the correct lowercase URL parameter key to reach
+    // the three real branches inside checkContact().
+
+    // Covers checkContact()'s ELSE branch: tranObj.Contact__c is already
+    // populated at query time, so checkContact = true immediately with
+    // no requery needed.
+    static testMethod void validateCheckContactDirectMatch() {
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'47714',bdate,'Test Street', true, true);
+        insert testCont;
+        Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','PMUSA',true);
+        insert testOpCo;
+        TFN__c testTFN = TestDataSetup.createTFN(True,'0001',1,testOpCo);
+        insert testTFN;
+        Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo,testTFN);
+        testTM.Contact__c = testCont.Id;
+        insert testTM;
+        Case testCase = TestDataSetup.createTestCase(testAcc, 1200, testCont.Id, testTM.Id,testOpCo.id);
+        insert testCase;
+
+        ApexPages.currentPage().getParameters().put('tranid', testTM.Id);
+
+        Test.startTest();
+        ConsumerSearchController controller = new ConsumerSearchController(new ApexPages.StandardController(testCont));
+        Boolean result = controller.checkContact();
+        System.assert(result, 'checkContact should return true when tranObj.Contact__c is already populated');
+        Test.stopTest();
+    }
+
+    // Covers checkContact()'s requery branch where tranObj.Contact__c is
+    // null at query time, but a fresh SOQL requery inside checkContact()
+    // finds it has since been populated.
+    static testMethod void validateCheckContactRequeryFindsContact() {
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'47714',bdate,'Test Street', true, true);
+        insert testCont;
+        Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','PMUSA',true);
+        insert testOpCo;
+        TFN__c testTFN = TestDataSetup.createTFN(True,'0001',1,testOpCo);
+        insert testTFN;
+        // Insert WITHOUT Contact__c so the controller's initial query sees it as null.
+        Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo,testTFN);
+        insert testTM;
+        Case testCase = TestDataSetup.createTestCase(testAcc, 1200, testCont.Id, testTM.Id,testOpCo.id);
+        insert testCase;
+
+        ApexPages.currentPage().getParameters().put('tranid', testTM.Id);
+
+        Test.startTest();
+        ConsumerSearchController controller = new ConsumerSearchController(new ApexPages.StandardController(testCont));
+        System.assertEquals(null, controller.tranObj.Contact__c, 'Sanity check: Contact__c should be null right after construction');
+
+        // Update the underlying record directly (not through controller.tranObj)
+        // so checkContact()'s requery picks up the new value.
+        testTM.Contact__c = testCont.Id;
+        update testTM;
+
+        Boolean result = controller.checkContact();
+        System.assert(result, 'checkContact should return true after requery finds Contact__c populated');
+        Test.stopTest();
+    }
+
+    // Covers checkContact()'s requery branch where the requery still finds
+    // Contact__c null (the if-body inside the requery block is skipped,
+    // exercising the false side of that condition).
+    static testMethod void validateCheckContactRequeryStillNull() {
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'47714',bdate,'Test Street', true, true);
+        insert testCont;
+        Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','PMUSA',true);
+        insert testOpCo;
+        TFN__c testTFN = TestDataSetup.createTFN(True,'0001',1,testOpCo);
+        insert testTFN;
+        Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo,testTFN);
+        insert testTM;
+        Case testCase = TestDataSetup.createTestCase(testAcc, 1200, testCont.Id, testTM.Id,testOpCo.id);
+        insert testCase;
+
+        ApexPages.currentPage().getParameters().put('tranid', testTM.Id);
+
+        Test.startTest();
+        ConsumerSearchController controller = new ConsumerSearchController(new ApexPages.StandardController(testCont));
+        Boolean result = controller.checkContact();
+        System.assert(!result, 'checkContact should return false when requery still finds Contact__c null');
+        Test.stopTest();
+    }
     }

@@ -1,19 +1,37 @@
-<apex:page standardController="Hot_Zip__c" extensions="HotZipController">
-    <apex:includeScript value="/support/console/37.0/integration.js"/>
+<apex:page standardController="Hot_Zip__c" extensions="HotZipController" lightningStyleSheets="true">
+    <apex:slds />
+    
+    
+    <apex:includeScript value="/support/console/62.0/integration.js"/>
+    
+    
+    
     <script>
+    
+    
     function CloseTab() {
-               sforce.console.getEnclosingTabId(closeSubtab);
+        sforce.console.getEnclosingTabId(function(result) {
+            console.log('Tab Result:', result);
+            
+            if(result.success && result.id) {
+                sforce.console.closeTab(result.id);
+            } else {
+                console.error(result);
             }
-            var closeSubtab = function closeSubtab(result) {
-                var tabId = result.id;
-                sforce.console.closeTab(tabId);
-            };
-	</script>
+        });
+        
+        return false;
+    }
+    
+    
+    </script>
     <apex:form >    
         <apex:pageBlock title="Hot Zips">
-            <apex:pageBlockButtons >
-           		<apex:commandButton value="Close" onclick="CloseTab();return false;"/>
-            </apex:pageBlockButtons>
+            <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+                <apex:commandButton value="Close"
+                                    onclick="CloseTab();return false;"
+                                    styleClass="slds-button slds-button_neutral"/>
+            </div>
             <apex:pageBlockSection >
                 <apex:outputField value="{!hz.Zip_Code_Documentation__c}" label="" />
             </apex:pageBlockSection>
@@ -28,5 +46,10 @@
                 <apex:outputText value="{!conObj.OtherPhone}" label="Alternate Telephone" />
             </apex:pageBlockSection>
         </apex:pageBlock>
+        <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+            <apex:commandButton value="Close"
+                                onclick="CloseTab();return false;"
+                                styleClass="slds-button slds-button_neutral"/>
+        </div>
     </apex:form>
 </apex:page>

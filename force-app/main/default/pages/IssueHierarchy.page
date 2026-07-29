@@ -1,5 +1,5 @@
-<apex:page standardController="Issue_Hierarchy__c" extensions="IssueHierarchyController" sidebar="false" id="pg" showHeader="false" docType="html-5.0">
-  
+<apex:page standardController="Issue_Hierarchy__c" extensions="IssueHierarchyController" sidebar="false" id="pg" showHeader="false" docType="html-5.0" lightningStylesheets="true">
+  <apex:slds />
     <apex:stylesheet value="{!$Resource.AutoCompleteCSSmin}"/><!--using static resource-->
     <apex:stylesheet value="{!$Resource.AutoCompleteThemeCssmin}"/><!--using static resource-->
     <apex:stylesheet value="https://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css"/>  <!--show Reason list as picklist formate] -->
@@ -15,7 +15,7 @@
            if('{!issueHierId}' != null && '{!issueHierId}' != ''){
               onSelectionPopulateData('onload');
               
-           }else{ 
+           }else{
            
                var productLine = document.getElementById('pg:frm1:pb1:pageblSection1:pgBlSectionItem1:productLineId').value;
                if(productLine != null && productLine != '' && productLine != '0'){
@@ -79,9 +79,7 @@
                   }
               }
           }
-          
-            
-              
+
           var availablereason1;
        
             Visualforce.remoting.Manager.invokeAction(
@@ -124,11 +122,11 @@
                  {buffer: false, escape: false, timeout: 30000}
             );
             
-            var availablecause1;
+          var availablecause1;
             
              Visualforce.remoting.Manager.invokeAction(
                     '{!$RemoteAction.IssueHierarchyController.getCauseStatic}',
-                    productLine, issueType, reason,'{!customerRecType}',
+                    productLine, issueType, reason, '{!customerRecType}',
                     function(result, event){
                         if (event.status) {
                             
@@ -260,16 +258,6 @@
               alert('Please fill the Cause.');              
               return false;          
           }
-          
-         /* if(type == 'submit'){
-              var d=document.getElementById("pg:frm1:issueHierId").value;
-           
-               if(d==''){
-                   alert('Please select the Issue Hierarchy.');
-                   
-                   return false;
-                }
-          }  */
      }
     
     /* for closing the popup window after populating the field values */
@@ -311,8 +299,194 @@
            onSelectionPopulateData('product');
         }  
     }
-          
-  </script>    
+                    
+                    function closeListIfClickedOutside(containerId, listId, evt) {
+                        var container = document.getElementById(containerId);
+                        var list = document.getElementById(listId);
+                        if (!container || !list || list.style.display === 'none') {
+                            return;
+                        }
+                        if (container.contains(evt.target)) {
+                            return;
+                        }
+                        list.style.display = 'none';
+                        onSelectionPopulateData(listId === 'reasonList' ? 'reason' : 'cause');
+                    }
+
+                    function handleOutsideInteraction(evt) {
+                        closeListIfClickedOutside('pgBlSectionItem3', 'reasonList', evt);
+                        closeListIfClickedOutside('pgBlSectionItem4', 'causeList', evt);
+                    }
+
+                    document.addEventListener('click', handleOutsideInteraction);
+
+                    function showDropdown() {
+                        var ddl   = document.getElementById("reasonList");
+                        var input = document.getElementById("reason");
+                        var rect  = input.getBoundingClientRect();
+                        var gap   = 4;
+
+                        /* Space below and above in the viewport */
+                        var spaceBelow = window.innerHeight - rect.bottom - gap - 20;
+                        var spaceAbove = rect.top - gap - 20;
+                        var maxAllowed = Math.min(220, Math.max(spaceBelow, 60));
+
+                        /* Flip upward when more room exists above */
+                        if (spaceBelow < 80 && spaceAbove > spaceBelow) {
+                            maxAllowed = Math.min(220, Math.max(spaceAbove, 60));
+                            ddl.style.top    = 'auto';
+                            ddl.style.bottom = '100%';
+                        } else {
+                            ddl.style.top    = '100%';
+                            ddl.style.bottom = 'auto';
+                        }
+
+                        ddl.style.maxHeight = maxAllowed + 'px';
+                        ddl.style.height    = 'auto';
+                        ddl.style.display   = 'block';
+                    }
+                    
+                    function hideDropdownWithDelay() {
+                        document.getElementById("reasonList").style.display = "none";
+                        onSelectionPopulateData('reason');
+                    }
+                    
+                    function toggleDropdown() {
+                        var ddl = document.getElementById("reasonList");
+                        
+                        if (ddl.style.display === "block") {
+                            ddl.style.display = "none";
+                        } else {
+                            showDropdown();
+                        }
+                    }
+                    
+                    function filterReasons() {
+                        var input = document.getElementById("reason").value.toLowerCase();
+                        var select = document.getElementById("reasonList");
+                        var options = select.options;
+                        
+                        for (var i = 0; i < options.length; i++) {
+                            var txt = options[i].text.toLowerCase();
+                            options[i].style.display = txt.includes(input) ? "" : "none";
+                        }
+                    }
+                    
+                    function selectReasonFromList(sel) {
+                        var selectedOption = sel.options[sel.selectedIndex];
+                        
+                        document.getElementById("reason").value = selectedOption.text;
+                        document.getElementById("idValue").value = selectedOption.value;
+                        
+                        sel.style.display = "none";
+                        
+                        onSelectionPopulateData('reason');
+                    }
+                    function showCauseDropdown() {
+                        var ddl   = document.getElementById("causeList");
+                        var input = document.getElementById("cause");
+                        var rect  = input.getBoundingClientRect();
+                        var gap   = 4;
+
+                        /* Space below and above in the viewport */
+                        var spaceBelow = window.innerHeight - rect.bottom - gap - 20;
+                        var spaceAbove = rect.top - gap - 20;
+                        var maxAllowed = Math.min(220, Math.max(spaceBelow, 60));
+
+                        /* Flip upward when more room exists above */
+                        if (spaceBelow < 80 && spaceAbove > spaceBelow) {
+                            maxAllowed = Math.min(220, Math.max(spaceAbove, 60));
+                            ddl.style.top    = 'auto';
+                            ddl.style.bottom = '100%';
+                        } else {
+                            ddl.style.top    = '100%';
+                            ddl.style.bottom = 'auto';
+                        }
+
+                        ddl.style.maxHeight = maxAllowed + 'px';
+                        ddl.style.height    = 'auto';
+                        ddl.style.display   = 'block';
+                    }
+                    
+                    function hideCauseDropdownWithDelay() {
+                        document.getElementById("causeList").style.display = "none";
+                        onSelectionPopulateData('cause');
+                    }
+                    
+                    function toggleCauseDropdown() {
+                        var ddl = document.getElementById("causeList");
+                        
+                        if (ddl.style.display === "block") {
+                            ddl.style.display = "none";
+                        } else {
+                            showCauseDropdown();
+                        }
+                    }
+                    
+                    function filterCauses() {
+                        var input = document.getElementById("cause").value.toLowerCase();
+                        var select = document.getElementById("causeList");
+                        var options = select.options;
+                        
+                        for (var i = 0; i < options.length; i++) {
+                            var txt = options[i].text.toLowerCase();
+                            options[i].style.display = txt.includes(input) ? "" : "none";
+                        }
+                    }
+                    
+                    function selectCauseFromList(sel) {
+                        var selectedOption = sel.options[sel.selectedIndex];
+                        
+                        document.getElementById("cause").value = selectedOption.text;
+                        document.getElementById("idValuecause").value = selectedOption.value;
+                        
+                        sel.style.display = "none";
+                        
+                        onSelectionPopulateData('cause');
+                    }
+
+  </script> 
+ 
+
+    <!-- Fix Salesforce clipping + viewport-aware dropdown overflow -->
+    <style>
+        /* Prevent every Salesforce ancestor from clipping fixed-position dropdowns */
+        .apexPageBlockSection,
+        .apexPageBlockSectionItem,
+        .pbSubsection,
+        .pbBody td, .pbBody tr, .pbBody,
+        .pbBlock, .bPageBlock,
+        .bPageBlockSection, .bPageBlockSectionRow {
+            overflow: visible !important;
+        }
+
+        /* Dropdown wrapper must be the positioning context for absolute children */
+        #pgBlSectionItem3 div[style*="position:relative"],
+        #pgBlSectionItem4 div[style*="position:relative"] {
+            overflow: visible !important;
+        }
+
+        /* Viewport-aware height: grow up to 220px but never overflow the page */
+        #reasonList,
+        #causeList {
+            max-height: 150px !important;
+            height: auto !important;
+            overflow-y: auto !important;
+            box-sizing: border-box !important;
+        }
+
+        .ui-autocomplete {
+            display: none !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+
+        #reasonList,
+        #causeList {
+            z-index: 999999 !important;
+            position: absolute !important;
+        }
+    </style>
    
     <apex:form id="frm1">       
             <apex:actionFunction name="IssueHierarchyFun" action="{!getIssueHierarchyData}"  reRender="resultPanel,pgu" status="saveStatus">
@@ -326,11 +500,11 @@
                  <apex:param name="productParam"  value="" />
             </apex:actionFunction>
             
-            <apex:actionFunction name="resetData" action="{!reset}" oncomplete="reset1()" reRender="issueHierId,pgu,productLineId,issueTypeId,pgBlSectionItem3,pgBlSectionItem4" status="saveStatus" />
+            <apex:actionFunction name="resetData" action="{!reset}" oncomplete="reset1()" reRender="issueHierId,pgu,productLineId,issueTypeId,pgBlSectionItem3,pgBlSectionItem4" status="saveStatus" /> 
             <apex:actionFunction name="filterFun" status="filter"/>
             <apex:actionFunction name="restTable"  action="{!restTable}" reRender="pgu,table,issueHierId"/>
             
-            <apex:pageBlock title="" mode="edit" id="pb1"> 
+           <apex:pageBlock title="" mode="edit" id="pb1"> 
                 <apex:pageBlockButtons id="pbb1" location="bottom">
                        <apex:actionStatus id="saveStatus">
                             <apex:facet name="start">
@@ -349,7 +523,7 @@
                                 </apex:outputpanel>
                             </apex:facet>
                     </apex:actionStatus>                                     
-                </apex:pageBlockButtons> 
+                </apex:pageBlockButtons>
                 <apex:pageBlockSection title="Issue Hierarchy Search"/>
                 <!-- show fields on page-->
            <apex:pageBlockSection id="pageblSection1">           
@@ -357,45 +531,121 @@
                         <apex:outputLabel value="Product Line"></apex:outputLabel>                        
                          <apex:selectList id="productLineId" value="{!selectedProductLine}"  style="width:175px;border-left:2px solid #FF0000;" size="1" >
                              <apex:selectOptions value="{!productLineList}"/>
-                             <apex:actionSupport event="onchange" reRender="issueTypeId,pgBlSectionItem3,pgBlSectionItem4" action="{!onChangeproductLine}" oncomplete="onSelectionPopulateData('product')"/>
-                        </apex:selectList>
-                    </apex:pageBlockSectionItem>                    
+                             <apex:actionSupport event="onchange" reRender="issueTypeId,pgBlSectionItem3,pgBlSectionItem4" action="{!onChangeproductLine}" oncomplete="onSelectionPopulateData('product')"/> 
+                             </apex:selectlist>
+                     </apex:pageBlockSectionItem>  
+                       
                     
                     <apex:pageBlockSectionItem id="pgBlSectionItem2">
                         <apex:outputLabel value="Issue Type"></apex:outputLabel>
                         <apex:selectList id="issueTypeId" value="{!selectedIssueType}"  style="width:175px;border-left:2px solid #FF0000;" size="1" onchange="onSelectionPopulateData('issue')">
                               <apex:selectOptions value="{!issueTypeList}"/>
-                        </apex:selectList>
+                        </apex:selectList> 
                    </apex:pageBlockSectionItem>
-                    
+                 
+
                     <apex:pageBlockSectionItem id="pgBlSectionItem3">
-                        <apex:outputLabel value="Reason"></apex:outputLabel>
+                    <apex:outputLabel value="Reason" />
+                    
+                    <div style="position:relative; width:320px;">
                         
-                        <div style="position:relative;width:200px;height:20px;border:0;padding:0;margin:0;">
-                            <select id="reasonList" style="position:absolute;top:0px;left:0px;width:200px; height:20px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('reason').value=this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;onSelectionPopulateData('reason');">
-                            </select>
-                            <input ng-model="q" name="reason" value="{!reasonStr}" placeholder="Find available reason..." id="reason" style="position:absolute;top:0px;left:0px;width:180px;width:177px\9;#width:177px;height:17px; height:15px\9;#height:18px;border-top:1px solid #556;border-bottom:1px solid #556;border-left:2px solid #FF0000;" onfocus="this.select()" type="text" onblur="onSelectionPopulateData('reason');" />
-                            <input name="idValue" id="idValue" type="hidden"/>
-                       </div>
+                        <!-- Input + button -->
+                        <span style="display:inline-flex; align-items:center; width:320px; height:32px; border:1px solid #d8dde6; border-left:3px solid #FF0000; border-radius:0.25rem; background:white; box-sizing:border-box; overflow:hidden;">
+                            
+                            <input
+                                   type="text"
+                                   id="reason"
+                                   name="reason"
+                                   value="{!reasonStr}"
+                                   placeholder="Search Reason..."
+                                   autocomplete="off"
+                                   onfocus="showDropdown()"
+                                   onkeyup="filterReasons()"
+                                   style="flex:1; height:100%; border:none !important; outline:none; box-shadow:none !important; padding:0 6px; font-size:13px; background:transparent; color:#16325c; min-width:0;"
+                                   />
+                            
+                            <button type="button"
+                                    onclick="toggleDropdown()"
+                                    style="width:26px; height:100%; border:none; border-left:1px solid #e0e5ee; background:#f4f6f9; cursor:pointer;">
+                                ▼
+                            </button>
+                        </span>
+                        
+                        <!-- Dropdown -->
+                        <select id="reasonList"
+                                size="8"
+                                onclick="selectReasonFromList(this)"
+                                style="display:none; position:absolute; top:100%; left:0; z-index:99999;
+                                       border:1px solid #d8dde6; background:white;
+                                       overflow-y:auto; width:100%;
+                                       border-radius:4px;
+                                       box-shadow:0 2px 6px rgba(0,0,0,0.2);
+                                       box-sizing:border-box;">
+                        </select>
+                        
+                        <!-- Hidden value -->
+                        <input type="hidden" id="idValue" name="idValue"/>
+                    </div>
+                   
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pgBlSectionItem4">
+                    <apex:outputLabel value="Cause" />
                     
-                    </apex:pageBlockSectionItem>
-                    
-                    <apex:pageBlockSectionItem id="pgBlSectionItem4">
-                        <apex:outputLabel value="Cause"></apex:outputLabel>
-                        <div style="position:relative;width:200px;height:20px;border:0;padding:0;margin:0;">
-                            <select id="causeList" style="position:absolute;top:0px;left:0px;width:200px; height:20px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('cause').value=this.options[this.selectedIndex].text; document.getElementById('idValuecause').value=this.options[this.selectedIndex].value;onSelectionPopulateData('cause');">
-                            </select>
-                            <input ng-model="q" name="cause" value="{!causeStr}" placeholder="Find available cause..." id="cause" style="position:absolute;top:0px;left:0px;width:180px;width:177px\9;#width:177px;height:17px; height:15px\9;#height:18pxborder-top:1px solid #556;border-bottom:1px solid #556;border-left:2px solid #FF0000;" onfocus="this.select()" type="text" onblur="onSelectionPopulateData('cause');" />
-                            <input name="idValuecause" id="idValuecause" type="hiddencause"/>
-                       </div>                    
-                    </apex:pageBlockSectionItem> 
-                    
-                </apex:pageBlockSection>   
+                    <div style="position:relative; width:320px;">
+                        
+                        <!-- Same UI wrapper as Reason -->
+                        <span style="display:inline-flex; align-items:center; width:320px; height:32px; 
+                                     border:1px solid #d8dde6; border-left:3px solid #FF0000; 
+                                     border-radius:0.25rem; background:white; box-sizing:border-box; overflow:hidden;">
+                            
+                            <!-- SAME input (no changes to id/functions) -->
+                            <input
+                                   type="text"
+                                   id="cause"
+                                   name="cause"
+                                   value="{!causeStr}"
+                                   placeholder="Search Cause..."
+                                   autocomplete="off"
+                                   onfocus="showCauseDropdown()"
+                                   onkeyup="filterCauses()"
+                                   style="flex:1; height:100%; border:none !important; outline:none; 
+                                          box-shadow:none !important; padding:0 6px; font-size:13px; 
+                                          background:transparent; color:#16325c; min-width:0;"
+                                   />
+                            
+                            <!-- SAME button style as Reason -->
+                            <button type="button"
+                                    onclick="toggleCauseDropdown()"
+                                    style="width:26px; height:100%; border:none; 
+                                           border-left:1px solid #e0e5ee; background:#f4f6f9; cursor:pointer;">
+                                ▼
+                            </button>
+                        </span>
+                        
+                        <!-- SAME dropdown styling as Reason -->
+                        <select id="causeList"
+                                size="8"
+                                onclick="selectCauseFromList(this)"
+                                style="display:none; position:absolute; top:100%; left:0; z-index:99999;
+                                       border:1px solid #d8dde6; background:white;
+                                       overflow-y:auto; width:100%;
+                                       border-radius:4px;
+                                       box-shadow:0 2px 6px rgba(0,0,0,0.2);
+                                       box-sizing:border-box;">
+                        </select>
+                        
+                        <!-- Hidden value (unchanged) -->
+                        <input type="hidden" id="idValuecause" name="idValuecause"/>
+                    </div>
+           
+                </apex:pageBlockSectionItem>
+              
+            </apex:pageBlockSection> 
+                
              </apex:pageBlock> 
-             
-             <!-- show grid on the basis of reason and cause-->
-           <apex:outputpanel id="pgu" >   
-               <apex:pageBlock id="inlinetablesec">                                                      
+         <apex:outputpanel id="pgu" layout="none">   
+               <apex:pageBlock id="inlinetablesec" rendered="{!issueHierList.size > 0}">                                                      
                     <apex:pageBlockTable id="table" value="{!issueHierList}" var="eachRecord" rendered="{!If(issueHierList.size >0,true,false)}">
                         <apex:column >
                             <input type="radio" name="issueHier" id="{!eachRecord.issuehierarchyObj.Id}" value="{!eachRecord.issuehierarchyObj.Id}" onclick="getIssueHierId(this.id, '{!eachRecord.issuehierarchyObj.Name}','{!eachRecord.groupName}','{!eachRecord.classification}','{!eachRecord.issuehierarchyObj.Product_Line__r.Name}','{!eachRecord.issuetype}','{!eachRecord.reason}','{!eachRecord.cause}')" />
@@ -409,6 +659,9 @@
                     </apex:pageblockTable>             
               </apex:pageBlock>
           </apex:outputpanel>
+             
+             <!-- show grid on the basis of reason and cause-->
+          
           <apex:inputHidden id="issueHierId" value="{!issueHierId}"/>
           <apex:inputHidden id="issueHierCode"/>
           <apex:inputHidden id="groupCode"/>

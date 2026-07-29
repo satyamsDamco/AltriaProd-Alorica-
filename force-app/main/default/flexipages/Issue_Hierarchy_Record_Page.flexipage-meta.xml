@@ -37,6 +37,10 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>hideSlackAction</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>numVisibleActions</name>
                     <value>3</value>
                 </componentInstanceProperties>
@@ -73,7 +77,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.CauseId__c</fieldItem>
                 <identifier>RecordCauseId_cField</identifier>
@@ -103,7 +107,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Escalate_Flag__c</fieldItem>
                 <identifier>RecordEscalate_Flag_cField</identifier>
@@ -113,7 +117,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Issue_Rollup__c</fieldItem>
                 <identifier>RecordIssue_Rollup_cField</identifier>
@@ -123,7 +127,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Pqrb_Rtp_Category__c</fieldItem>
                 <identifier>RecordPqrb_Rtp_Category_cField</identifier>
@@ -133,7 +137,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Select__c</fieldItem>
                 <identifier>RecordSelect_cField</identifier>
@@ -143,7 +147,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Alert_Distribution__c</fieldItem>
                 <identifier>RecordAlert_Distribution_cField</identifier>
@@ -153,7 +157,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Manf_Investigation_Level__c</fieldItem>
                 <identifier>RecordManf_Investigation_Level_cField</identifier>
@@ -163,7 +167,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Threshold_With_Prod_Desc_Only__c</fieldItem>
                 <identifier>RecordThreshold_With_Prod_Desc_Only_cField</identifier>
@@ -173,7 +177,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Survey_Requirements__c</fieldItem>
                 <identifier>RecordSurvey_Requirements_cField</identifier>
@@ -183,7 +187,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.SUBJECT_CODE__c</fieldItem>
                 <identifier>RecordSUBJECT_CODE_cField</identifier>
@@ -193,7 +197,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.SUBJECT_DESC__c</fieldItem>
                 <identifier>RecordSUBJECT_DESC_cField</identifier>
@@ -207,7 +211,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Active__c</fieldItem>
                 <identifier>RecordActive_cField</identifier>
@@ -247,7 +251,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.RptCategory__c</fieldItem>
                 <identifier>RecordRptCategory_cField</identifier>
@@ -257,7 +261,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Issue_Association__c</fieldItem>
                 <identifier>RecordIssue_Association_cField</identifier>
@@ -267,7 +271,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Factory_Controllable_Flag__c</fieldItem>
                 <identifier>RecordFactory_Controllable_Flag_cField</identifier>
@@ -277,7 +281,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Visible__c</fieldItem>
                 <identifier>RecordVisible_cField</identifier>
@@ -287,7 +291,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Product_Return_Level__c</fieldItem>
                 <identifier>RecordProduct_Return_Level_cField</identifier>
@@ -297,7 +301,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Alcs_Investigation_Level__c</fieldItem>
                 <identifier>RecordAlcs_Investigation_Level_cField</identifier>
@@ -307,7 +311,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Threshold_With_Manf_Info__c</fieldItem>
                 <identifier>RecordThreshold_With_Manf_Info_cField</identifier>
@@ -317,7 +321,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Cust_Cons_Flag__c</fieldItem>
                 <identifier>RecordCust_Cons_Flag_cField</identifier>

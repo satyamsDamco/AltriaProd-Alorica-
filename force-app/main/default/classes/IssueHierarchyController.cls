@@ -5,7 +5,7 @@ Functionality to select Issue Hierarchy
 
 public with sharing class IssueHierarchyController{    
     
-
+    
     public List<causeWrapper> issueHierList{get;set;} /* List to hold selected issue hierarchy data */
     public boolean ShowpageBlock{get;set;} /* Flag for pageblock */
     public boolean controllerBoolTrueVar {get;set;} /**/
@@ -29,15 +29,15 @@ public with sharing class IssueHierarchyController{
         if(counter != null) {
             customerRecType = counter.getValue();
         }
-             
+        
         issueHierId =  apexpages.currentpage().getparameters().get('issueHierId');
         if(apexpages.currentpage().getparameters().get('productlineName')  !=  null)
             selectedProductLine = apexpages.currentpage().getparameters().get('productlineName');    
-            
+        
         productLineListData();
         if(issueHierId != null && issueHierId  != '')
-        IssueHierarchyDataOnLoad();        
-       
+            IssueHierarchyDataOnLoad();        
+        
     }
     
     /* Reset values on click of Reset button */
@@ -72,10 +72,10 @@ public with sharing class IssueHierarchyController{
         return null;
     }
     
-   /* Create the Product Line List from Issue Hierarchy data using aggregate method */
+    /* Create the Product Line List from Issue Hierarchy data using aggregate method */
     private void productLineListData()
     {    
-        productLineList = new List<SelectOption>();     
+        productLineList = new List<SelectOption>();
         
         if(selectedProductLine != null && selectedProductLine != ''){
             productLineList.add(new SelectOption(selectedProductLine, selectedProductLine));
@@ -87,9 +87,9 @@ public with sharing class IssueHierarchyController{
             for(Product_Line__c pl :productLineObj){
                 productLineList.add(new SelectOption(pl.name, pl.name));
             } 
-        }               
+        }
     }
-
+    
     /* Create the Issue Type List from Issue Hierarchy data when Product Line item is selected using aggregate method */
     public void issueTypeListData()
     {   
@@ -99,29 +99,25 @@ public with sharing class IssueHierarchyController{
             
             string reasonStr =Apexpages.currentPage().getParameters().get('firstParam');
             string causeStr =Apexpages.currentPage().getParameters().get('secondParam'); 
-            string product =Apexpages.currentPage().getParameters().get('productParam');                                                 
-                                                
+            string product =Apexpages.currentPage().getParameters().get('productParam');
             String query = 'Select Count(id), Issue_Type__r.Description__c From Issue_Hierarchy__c Where Active__c = true and Issue_Type__c != null';
-        
-            query += ' and Product_Line__r.Name = \''+ selectedProductLine +'\'';
             
+            query += ' and Product_Line__r.Name = \''+ selectedProductLine +'\'';
+
             if(reasonStr != '' && reasonStr !=  '0')
                 query += 'and reason__r.Description__c =\''+ reasonStr+'\'';
-                
+            
             if(causeStr != '' && causeStr !=  '0')
                 query += 'and Cause__r.Description__c =\''+ causeStr+'\'';
-                
+
             if(customerRecType != ''){
                 if(customerRecType == 'consumer')    
                     query += ' and (Cust_Cons_Flag__c = \'ALL\' or Cust_Cons_Flag__c = \'CONS\' or Cust_Cons_Flag__c = \'IQOS\') '; 
                 else
                     query += ' and (Cust_Cons_Flag__c = \'ALL\' or Cust_Cons_Flag__c = \'CUST\') '; 
             }
-                                                
             query += ' Group by Issue_Type__r.Description__c';
-            
-            system.debug('test query  res'+query );    
-            string issueType;            
+            string issueType;
             for (AggregateResult ar : (List<AggregateResult>)Database.query(query)){
                 issueType = String.ValueOf(ar.get('Description__c'));
                 issueTypeList.add(new SelectOption(String.ValueOf(ar.get('Description__c')), String.ValueOf(ar.get('Description__c'))));
@@ -129,7 +125,7 @@ public with sharing class IssueHierarchyController{
             if(issueTypeList.size() == 2 && issueHierId != null && issueHierId !=  ''){
                 selectedIssueType = issueType.trim();
             }
-        }              
+        }
     }
     
     /* Get Issue Hierarchy data on page load */
@@ -139,60 +135,60 @@ public with sharing class IssueHierarchyController{
         List<Issue_Hierarchy__c> selectedIssueHierarchy = new List<Issue_Hierarchy__c>();
         issueHierList = new List<causeWrapper>();
         
-       selectedIssueHierarchy  = new List<Issue_Hierarchy__c>([
-                                      Select Id,Name, Reason__c,Reason__r.Name,Reason__r.Description__c,
-                                      Product_Line__c,Product_Line__r.Name,
-                                      Issue_Type__c,Issue_Type__r.Description__c,Issue_Type__r.Name,
-                                      Cause__c,Cause__r.Description__c ,Cause__r.Name,
-                                      Classification__c,Classification__r.Description__c,Classification__r.Name,
-                                      Group__c, Group__r.Description__c, Group__r.Name 
-                                      From Issue_Hierarchy__c 
-                                      Where id =:issueHierId
-                                      Limit 1
-                                      ]);
-                                      
-        if(!selectedIssueHierarchy.isEmpty() && selectedIssueHierarchy.size() >0){
+        selectedIssueHierarchy  = new List<Issue_Hierarchy__c>([
+            Select Id,Name, Reason__c,Reason__r.Name,Reason__r.Description__c,
+            Product_Line__c,Product_Line__r.Name,
+            Issue_Type__c,Issue_Type__r.Description__c,Issue_Type__r.Name,
+            Cause__c,Cause__r.Description__c ,Cause__r.Name,
+            Classification__c,Classification__r.Description__c,Classification__r.Name,
+            Group__c, Group__r.Description__c, Group__r.Name 
+            From Issue_Hierarchy__c 
+            Where id =:issueHierId
+            Limit 1
+        ]);
         
+        if(!selectedIssueHierarchy.isEmpty() && selectedIssueHierarchy.size() >0){
+            
             selectedProductLine = selectedIssueHierarchy[0].Product_Line__r.Name;
             
             issueTypeListData();
-             
+
             selectedIssueType = selectedIssueHierarchy[0].Issue_Type__r.Description__c;
             reasonStr = selectedIssueHierarchy[0].Reason__r.Description__c;
             causeStr = selectedIssueHierarchy[0].Cause__r.Description__c;
-            
+
             if(customerRecType != ''){
                 if(customerRecType == 'consumer'){ 
                     listIssueHierarchy.addAll([
-                                    Select Id,Name, Reason__c,Reason__r.Name,Reason__r.Description__c,
-                                    Product_Line__c,Product_Line__r.Name,
-                                    Issue_Type__c,Issue_Type__r.Description__c,Issue_Type__r.Name,
-                                    Cause__c,Cause__r.Description__c ,Cause__r.Name,
-                                    Classification__c,Classification__r.Description__c,Classification__r.Name,
-                                    Group__c, Group__r.Description__c, Group__r.Name
-                                    From Issue_Hierarchy__c 
-                                    Where Active__c = true and Reason__r.Description__c =:reasonStr and Cause__r.Description__c =:causeStr 
-                                    and Product_Line__r.Name =: selectedProductLine  and  Issue_Type__r.Description__c =:selectedIssueType
-                                    and (Cust_Cons_Flag__c = 'ALL' or Cust_Cons_Flag__c = 'CONS' or Cust_Cons_Flag__c = 'IQOS') 
-                                    Limit 1000 
-                                    ]);
-                  }else{
-                  
-                      listIssueHierarchy.addAll([
-                                    Select Id,Name, Reason__c,Reason__r.Name,Reason__r.Description__c,
-                                    Product_Line__c,Product_Line__r.Name,
-                                    Issue_Type__c,Issue_Type__r.Description__c,Issue_Type__r.Name,
-                                    Cause__c,Cause__r.Description__c ,Cause__r.Name,
-                                    Classification__c,Classification__r.Description__c,Classification__r.Name,
-                                    Group__c, Group__r.Description__c, Group__r.Name
-                                    From Issue_Hierarchy__c 
-                                    Where Active__c = true and Reason__r.Description__c =:reasonStr and Cause__r.Description__c =:causeStr 
-                                    and Product_Line__r.Name =: selectedProductLine  and  Issue_Type__r.Description__c =:selectedIssueType
-                                    and (Cust_Cons_Flag__c = 'ALL' or Cust_Cons_Flag__c = 'CUST') 
-                                    Limit 1000 
-                                    ]);
-                  
-                  }
+                        Select Id,Name, Reason__c,Reason__r.Name,Reason__r.Description__c,
+                        Product_Line__c,Product_Line__r.Name,
+                        Issue_Type__c,Issue_Type__r.Description__c,Issue_Type__r.Name,
+                        Cause__c,Cause__r.Description__c ,Cause__r.Name,
+                        Classification__c,Classification__r.Description__c,Classification__r.Name,
+                        Group__c, Group__r.Description__c, Group__r.Name
+                        From Issue_Hierarchy__c 
+                        Where Active__c = true and Reason__r.Description__c =:reasonStr and Cause__r.Description__c =:causeStr 
+                        and Product_Line__r.Name =: selectedProductLine  and  Issue_Type__r.Description__c =:selectedIssueType
+                        and (Cust_Cons_Flag__c = 'ALL' or Cust_Cons_Flag__c = 'CONS' or Cust_Cons_Flag__c = 'IQOS') 
+                        Limit 1000 
+                    ]);
+                }else{
+
+                    listIssueHierarchy.addAll([
+                        Select Id,Name, Reason__c,Reason__r.Name,Reason__r.Description__c,
+                        Product_Line__c,Product_Line__r.Name,
+                        Issue_Type__c,Issue_Type__r.Description__c,Issue_Type__r.Name,
+                        Cause__c,Cause__r.Description__c ,Cause__r.Name,
+                        Classification__c,Classification__r.Description__c,Classification__r.Name,
+                        Group__c, Group__r.Description__c, Group__r.Name
+                        From Issue_Hierarchy__c 
+                        Where Active__c = true and Reason__r.Description__c =:reasonStr and Cause__r.Description__c =:causeStr 
+                        and Product_Line__r.Name =: selectedProductLine  and  Issue_Type__r.Description__c =:selectedIssueType
+                        and (Cust_Cons_Flag__c = 'ALL' or Cust_Cons_Flag__c = 'CUST') 
+                        Limit 1000 
+                    ]);
+                    
+                }
             }
             if(!listIssueHierarchy.isEmpty()){      
                 for(Issue_Hierarchy__c ih : listIssueHierarchy){
@@ -200,11 +196,11 @@ public with sharing class IssueHierarchyController{
                         issueHierList.add(new causeWrapper(true,ih)); //w.radio=true;
                     else
                         issueHierList.add(new causeWrapper(false,ih)); //w.radio=false;
-                    
-                    ShowpageBlock=true;              
-                }   
-            }     
-        }                                     
+
+                    ShowpageBlock=true;
+                }
+            }
+        }
         return null;
     }
     
@@ -215,13 +211,13 @@ public with sharing class IssueHierarchyController{
         set<string> tempReason = new set<string>();
         String query = 'Select id, Name,Reason__c, Reason__r.Description__c From Issue_Hierarchy__c Where Active__c = true';
         query += ' and Product_Line__r.Name = \''+produtLine+'\'';
-        
+
         if(issueType != '' && issueType  !=  '0')
             query += 'and Issue_Type__r.Description__c =\''+ issueType +'\'';
-            
+        
         if(cause != '' && cause !=  '0')
             query += 'and Cause__r.Description__c =\''+ cause +'\'';
-        
+
         if(customerRecType != ''){
             if(customerRecType == 'consumer')    
                 query += ' and (Cust_Cons_Flag__c = \'ALL\' or Cust_Cons_Flag__c = \'CONS\' or Cust_Cons_Flag__c = \'IQOS\') '; 
@@ -236,7 +232,6 @@ public with sharing class IssueHierarchyController{
         system.debug('test tempReason '+tempReason);
         return tempReason;
     }
-    
     /* Get Cause data */
     @RemoteAction
     public static set<string> getCauseStatic(String produtLine, String issueType, String reason, String customerRecType){
@@ -244,13 +239,13 @@ public with sharing class IssueHierarchyController{
         set<string> CauseList = new set<string>();
         String query = 'Select id,Name, Cause__c, Cause__r.Description__c From Issue_Hierarchy__c Where Active__c = true';
         query += ' and Product_Line__r.Name = \''+produtLine+'\'';
-        
+
         if(issueType != '' && issueType  !=  '0')
             query += 'and Issue_Type__r.Description__c =\''+ issueType +'\'';
-            
+        
         if(reason != '' && reason !=  '0')
             query += 'and Reason__r.Description__c =\''+ reason +'\'';
-        
+
         if(customerRecType != ''){
             if(customerRecType == 'consumer')    
                 query += ' and (Cust_Cons_Flag__c = \'ALL\' or Cust_Cons_Flag__c = \'CONS\' or Cust_Cons_Flag__c = \'IQOS\') '; 
@@ -261,13 +256,13 @@ public with sharing class IssueHierarchyController{
         system.debug('test query '+query);        
         
         for(Issue_Hierarchy__c ih : (List<Issue_Hierarchy__c>)Database.query(query)){
-           CauseList.add(ih.Cause__r.Description__c);
-              
+            CauseList.add(ih.Cause__r.Description__c);
+
         }
         
         return CauseList;
     }
-    
+
     /* Get Issue Hierarchy data */
     public PageReference getIssueHierarchyData(){
         List<Issue_Hierarchy__c> listIssueHierarchy = new List<Issue_Hierarchy__c>();
@@ -279,7 +274,7 @@ public with sharing class IssueHierarchyController{
         if(reasonStr!=null && reasonStr!='' && causeStr!=null && causeStr!=''){
             if(customerRecType != ''){
                 if(customerRecType == 'consumer') 
-                     listIssueHierarchy.addAll([
+                    listIssueHierarchy.addAll([
                         Select Id,Name, Reason__c,Reason__r.Name,Reason__r.Description__c,
                         Product_Line__c ,Product_Line__r.Name,
                         Issue_Type__c,Issue_Type__r.Description__c,Issue_Type__r.Name,
@@ -291,10 +286,9 @@ public with sharing class IssueHierarchyController{
                         and Product_Line__r.Name =: selectedProductLine  and  Issue_Type__r.Description__c =:selectedIssueType
                         and (Cust_Cons_Flag__c = 'ALL' or Cust_Cons_Flag__c = 'CONS' or Cust_Cons_Flag__c = 'IQOS') 
                         Limit 1000
-                        ]);
+                    ]);
                 else
-                     
-                     listIssueHierarchy.addAll([
+                    listIssueHierarchy.addAll([
                         Select Id,Name, Reason__c,Reason__r.Name,Reason__r.Description__c,
                         Product_Line__c,Product_Line__r.Name,
                         Issue_Type__c,Issue_Type__r.Description__c,Issue_Type__r.Name,
@@ -306,25 +300,19 @@ public with sharing class IssueHierarchyController{
                         and Product_Line__r.Name =: selectedProductLine  and  Issue_Type__r.Description__c =:selectedIssueType
                         and (Cust_Cons_Flag__c = 'ALL' or Cust_Cons_Flag__c = 'CUST') 
                         Limit 1000
-                        ]);
+                    ]);
             }
-           system.debug('-----listIssueHierarchy-----'+listIssueHierarchy);
-            if(!listIssueHierarchy.isEmpty()){                           
+            system.debug('-----listIssueHierarchy-----'+listIssueHierarchy);
+            if(!listIssueHierarchy.isEmpty()){
                 for(Issue_Hierarchy__c ih : listIssueHierarchy){
-                                      
                     issueHierList.add(new causeWrapper(false,ih)); 
-                            
-                    ShowpageBlock=true;              
+                    ShowpageBlock=true;
                 }
             }
         }
-        
         return null;
     }
-    
-    
-    
-    
+
     /* Wrapper Class */
     Public class causeWrapper{
         Public Boolean radio{get;set;}
@@ -340,14 +328,14 @@ public with sharing class IssueHierarchyController{
             system.debug('----this.issuehierarchyObj---------'+this.issuehierarchyObj);
             this.reason = '';
             system.debug('----this.reason-------'+this.reason);
-                        system.debug('----Description__c-----'+ih.Reason__r.Description__c);
+            system.debug('----Description__c-----'+ih.Reason__r.Description__c);
             this.reason = ih.Reason__r.Description__c.replace('\'','\\'+'\'');
             this.cause = ih.Cause__r.Description__c.replace('\'','\\'+'\'');    
             this.groupName = ih.Group__r.Description__c.replace('\'','\\'+'\'');
             this.classification = ih.Classification__r.Description__c.replace('\'','\\'+'\'');
             this.issuetype = ih.Issue_Type__r.Description__c.replace('\'','\\'+'\'');
         }
-        Public causeWrapper(){}          
-    } 
-   
+        Public causeWrapper(){}
+    }
+
 }

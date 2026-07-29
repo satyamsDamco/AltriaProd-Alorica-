@@ -1,17 +1,68 @@
-<apex:page standardController="Case" extensions="IssueReviewController" sidebar="false" tabStyle="Issue_Review__tab">    
-   
+<apex:page standardController="Case" extensions="IssueReviewController" sidebar="false" tabStyle="Issue_Review__tab" lightningStyleSheets="true">    
+   <apex:slds />
+   <apex:includeScript value="/support/console/67.0/integration.js"/>
+
     <apex:form id="frm">
-       
+
+        <!-- AJAX callback used to refresh the table data without a full page reload -->
+        <apex:actionFunction name="refreshOnFocus" action="{!ViewData}" reRender="theaddrs, pbButtons" />
+
+        <script type="text/javascript">
+            var CURRENT_TAB_ID = null;
+            var tabFocusedChannel = "{!$MessageChannel.lightning__tabFocused}";
+            var subscription;
+
+            window.onload = function () {
+                getPrimaryTabId();
+
+                // Subscribe to the console's tab-focused event
+                if (typeof sforce !== 'undefined' && sforce.one) {
+                    subscription = sforce.one.subscribe(tabFocusedChannel, handleTabClick, { scope: "APPLICATION" });
+                    console.log("Subscribed to tab focus events.");
+                }
+            };
+
+            function getPrimaryTabId() {
+                if (typeof sforce !== 'undefined' && sforce.console) {
+                    sforce.console.getEnclosingPrimaryTabId(function (result) {
+                        if (result.success) {
+                            CURRENT_TAB_ID = result.id;
+                            console.log("CURRENT_TAB_ID:" + CURRENT_TAB_ID);
+                        }
+                    });
+                }
+            }
+
+            function handleTabClick(message) {
+                if (message) {
+                    var currentTabId = message.currentTabId;
+                    // Only refresh when THIS tab is the one that became focused
+                    if (CURRENT_TAB_ID == currentTabId) {
+                        console.log("Issue Review tab focused - refreshing data.");
+                        refreshOnFocus();
+                    }
+                }
+            }
+
+            // Clean up the subscription when the page unloads
+            window.onunload = function () {
+                if (subscription) {
+                    sforce.one.unsubscribe(subscription);
+                }
+            };
+        </script>
+
        <apex:pageBlock title="Issue Review">           
            <apex:outputPanel rendered="{!(IssueReviewList.size <=0)}">
                No records to display
            </apex:outputPanel> 
-           
-           <apex:pageBlockButtons rendered="{!(IssueReviewList.size >0)}">
+                      
+            <apex:pageBlockButtons id="pbButtons" rendered="{!(IssueReviewList.size >0)}" location="Bottom">
                <apex:commandButton action="{!previous}"  value="Previous" rendered="{!hasPrevious && PageSize >5}"/>
                <apex:commandButton action="{!next}" rendered="{!hasNext && PageSize >5}" value="Next"/>
            </apex:pageBlockButtons>
            <apex:pageBlockTable value="{!IssueReviewList}" var="ir" rendered="{!(IssueReviewList.size >0)}"  id="theaddrs" styleClass="tablesorter" headerClass="header">
+                      
                
                <apex:column width="7%">
                    <apex:facet name="header">
@@ -19,7 +70,7 @@
                            <apex:param value="cn" name="column" assignTo="{!sortExpression}" ></apex:param>
                        </apex:commandLink>
                    </apex:facet>
-                   &nbsp;&nbsp;<apex:OutputLink value="apex/IssueReviewDetail?id={!ir.Id}">{!ir.CaseNumber__c}</apex:outputLink>
+                   &nbsp;&nbsp;<apex:OutputLink value="apex/IssueReviewDetail?id={!ir.Id}"  >{!ir.CaseNumber__c}</apex:outputLink>
                </apex:column>
                <apex:column headerValue="Name"  width="10%">
                     <apex:OutputText value="{!ir.Contact.Name}"/>
@@ -66,8 +117,8 @@
                </apex:column>
                <apex:column headerValue="Comments"  width="20%">
                     <apex:OutputText value="{!ir.Comment__c}"/>
-               </apex:column>            
-           </apex:pageBlockTable>
+               </apex:column> 
+            </apex:pageBlockTable>
            <br/>
         </apex:pageBlock>
     </apex:form>

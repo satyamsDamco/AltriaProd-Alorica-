@@ -1,686 +1,60 @@
 public class TraceCodeHelper{
-    
-    String production_date = '';
-    String lv_year = '/201';
-    String lv_year1 = '/20';
-    Integer ln_cnt = 0;
-    Integer ln_days = 0; 
-    String lv_leap_year = '20';
-    String lv_year_new = '/202'; 
-    Integer ln_lastdigit_year;
-    string lv_cur_year;
-    Integer CounterfeitTraceCode = 0;
-    string first_char = '';
-    string first_number = '';
-    string second_char = '';
-    string second_number = '';
-    string third_char = '';
-    string fourth_number = '';
-    String third_number = '';
-    String cigar7position = '';
-    string ln_leap = '0';
-    string lv_temp_year;
-    string lv_month;
-    string lv_day;
-    string lv_year2; 
-    string year_leep;
-    Integer ln_lasttwodigit_year;        
-    string lv_year_new1= '20';
-    Set<String>  charSet = new Set<String>();
-    String productLineCode = '';
-    String traceCode = '';
-    String fiscal_week = '';
-    Financial_Week__c fw = new Financial_Week__c();
-    
-    
+
+    public String production_date = '';
+    public String lv_year = '/201';
+    public String lv_year1 = '/20';
+    public Integer ln_cnt = 0;
+    public Integer ln_days = 0;
+    public String lv_leap_year = '20';
+    public String lv_year_new = '/202';
+    public Integer ln_lastdigit_year;
+    public string lv_cur_year;
+    public Integer CounterfeitTraceCode = 0;
+    public string first_char = '';
+    public string first_number = '';
+    public string second_char = '';
+    public string second_number = '';
+    public string third_char = '';
+    public string fourth_number = '';
+    public String third_number = '';
+    public String cigar7position = '';
+    public string ln_leap = '0';
+    public string lv_temp_year;
+    public string lv_month;
+    public string lv_day;
+    public string lv_year2;
+    public string year_leep;
+    public Integer ln_lasttwodigit_year;
+    public string lv_year_new1= '20';
+    public Set<String> charSet = new Set<String>();
+    public String productLineCode = '';
+    public String traceCode = '';
+    public String fiscal_week = '';
+    public Financial_Week__c fw = new Financial_Week__c();
+
+
     public Boolean JulianDateChecker(String julday, Integer calyear)
     {
-        Boolean isValid = true;
-        
-        //Check if Julian date value is correct
-        if(julday.isNumeric())
-        {
-            if(Integer.valueOf(julday) == 0)
-            {
-                isValid = false; //Invalid Julian day
-            }
-            else
-            {
-                if (date.isLeapYear(calyear))
-                {
-                    if(Integer.valueOf(julday) > 366) 
-                    {
-                        isValid = false; //invalid julian date since leap year is only up to 366 days
-                    }
-                }
-                else
-                {
-                    if(Integer.valueOf(julday) > 365) 
-                    {
-                        isValid = false; //invalid julian date since non leap year is only up to 365 days
-                    }
-                }   
-            }   
-        }
-        else
-        {
-            isValid = false; //Julian date provided is invalid    
-        }
-        
-        return isValid;
+        return TraceCodeHelperCore.JulianDateChecker(julday, calyear);
     }
     
     public String ProductDateCalculator(String traceCode, String productCode)
     {
-        if(productCode == 'IQ')
-        {
-            //Made calculation dynamic
-            String lv_year,lv_cur_year,lv_year_new,lv_leap_year, ln_leap='0', production_date;
-            Integer ln_days;
-            
-            lv_cur_year = string.valueOf(System.today().year());
-            lv_year = '/' + string.valueOf((integer.valueOf(lv_cur_year) - 10)).substring(0,3);
-            lv_year_new = '/' + lv_cur_year.substring(0,3);
-            
-            String second_number  =  traceCode.subString( 4, 5);
-            String third_number  =  traceCode.subString( 5, 8);
-            String fourth_number =   traceCode.subString( 8,  10);
-            String lv_temp_year;
-            
-            if(second_number.isNumeric() && integer.valueof(third_number) >= 001 && integer.valueof(third_number) <= 366 && integer.valueof(fourth_number) >= 00 && integer.valueof(fourth_number) <= 23)
-            {
-                if((Integer.valueOf(lv_cur_year) - Integer.valueOf( lv_year_new.subString(1,4) + String.valueOf(second_number))) <0)
-                {
-                    lv_temp_year  = String.valueOf(lv_year.subString(3, 4)) + String.valueOf(second_number);
-                }
-                else
-                {
-                    lv_temp_year  = String.valueOf(lv_cur_year.subString(2, 3)) + String.ValueOf(second_number);
-                }
-                lv_year  = '01/01/' + lv_cur_year.subString(0, 2) + lv_temp_year;   
-                production_date  =   date.parse(lv_year).addDays(Integer.valueOf(third_number) - 1).format();
-                ln_days  =  date.parse(production_date).daysBetween(System.today());                   
-                
-                if(ln_days <= 0)
-                {
-                    System.debug('========================================== IQOS days fail');
-                    return 'fail';
-                }
-                else
-                { 
-                    System.debug('========================================== IQOS success');
-                    return production_date;
-                } 
-            }
-            else
-            {
-                System.debug('========================================== IQOS Fail');
-                return 'fail';
-            }
-        }
-        else if (productCode == 'TDNP') // Product code is TDNP - Tobacco Derived Nicotine Pouch
-        {
-            //RITM0266931: SCR 20-02-25 Trace Codes - Helix ON 9 and 7 Character Codes Ver 2.0
-            String prodYear, prodDayAndMonth;
-            String productionDate = null;
-            Integer final_year;
-            Integer final_month;
-            Integer yearStart_cycle = 0;
-            Date final_date;
-            List<String> pattern = new List<String>();
-            Date dateToProcess = System.today();
-            //Use custom label for testing with future dates
-            if(Label.Override_date != 'yyyy-mm-dd') 
-            {
-                dateToProcess = date.valueOf(Label.Override_date);
-            }
-            //Start: RITM0846391
-            if(traceCode.length() == 1)
-            {
-                if(traceCode.contains('M') || traceCode.contains('U') || traceCode.contains('S') ){
-                    productionDate = 'NODATE';    
-                }else{
-                    productionDate = null;
-                }
-                
-            }
-            if(traceCode.length() == 6){
-                //RITM2836453
-                system.debug('control in 6 charcter');
-                productionDate = sixCharacterProductDate(traceCode);
-                return productionDate; 
-            }
-            
-            //End: RITM0846391
-            if(traceCode.length() == 7)
-            {
-                prodYear = traceCode.substring(0,1);
-                prodDayAndMonth = traceCode.substring(1,2);
-                
-                if(prodYear == 'W')
-                {
-                    final_year = 2019;
-                }
-                else if(prodYear == 'U' || prodYear == 'X')
-                {
-                    final_year = 2020;
-                }
-                else if(prodYear == 'Y')
-                {
-                    final_year = 2021;
-                }
-                else if(prodYear == 'Z')
-                {
-                    final_year = 2022;
-                }
-                else
-                { 
-                    return null; //Invalid First Character
-                }
-                
-                if(prodDayAndMonth.isAlpha())
-                {
-                    pattern.addAll(new List<String>{'A', 'B', 'C', 'D','E','F','G','H','I','K','L','M'});
-                    if(pattern.contains(prodDayAndMonth))
-                    {
-                        for(Integer i = 0; i<12; i++)
-                        {
-                            if(prodDayAndMonth == pattern[i]){final_month = i+1; break;}  
-                        }
-                    }
-                }
-                else
-                {
-                    return null; //Invalid 2nd character
-                }
-                
-                final_date = date.newInstance(final_year,final_month,1);
-                //Check if derived date is less than the system date
-                if(final_date < dateToProcess)
-                {
-                    //date format to pass MM/DD/YYYY
-                    productionDate = String.valueOf(final_date.format());       
-                }
-                else
-                {
-                    return null; //Production date must be less than the System Date.
-                }
-                
-            }
-            if(traceCode.length() == 9 || traceCode.length() == 10)
-            {
-                //SCR 2025-11-03: 10-character trace codes use same logic as 9-character for production date
-                //The 10th character is only used for Machine Code calculation (handled in DateCodeHelper)
-                prodYear = traceCode.substring(0,1);
-                prodDayAndMonth = traceCode.substring(1,4);//D261N0912
-                /*
-if(prodYear == 'D'){yearStart_cycle = 2024;}
-else if(prodYear == 'R'){yearStart_cycle = 2021;}
-else if(prodYear == 'C'){yearStart_cycle = 2022;}
-else if(prodYear == 'M') {yearStart_cycle = 2023;}
-else{return null;} // Invalid First Character
-
-pattern.addAll(new List<String>{'D', 'R', 'C', 'M'});
-
-Integer current_year = integer.valueOf(dateToProcess.year());
-Integer base_year = current_year - 2020;
-Integer addYears = 0;
-Boolean first_cycle = true;
-if (base_year > 3) //If 4 years or more is the difference we are in a new cycle
-{
-Integer cycles = base_year / 4;
-addYears = cycles * 4;
-final_year =  2020 + addYears;
-base_year = current_year - final_year;
-first_cycle = false;
-}
-
-//Get allowed characters for the year, this is only done on the first cycle
-List<String> validChar = new List<String>();
-for(Integer i=0;i<=base_year;i++)
-{
-validChar.add(pattern[i]);
-}
-
-if(!(validChar.contains(prodYear)) && first_cycle == true)
-{
-return null; //firstChar is not valid
-}
-
-if(validChar.contains(prodYear))
-{
-final_year = yearStart_cycle + addYears;
-}
-else
-{
-final_year = yearStart_cycle + addYears - 4;
-}
-*/
-                Map<String, Integer> yearMapping = new Map<String, Integer>{
-                    'R' => 2021, 'C' => 2022, 'M' => 2023, 'D' => 2024,
-                        '5' => 2025, '6' => 2026, '7' => 2027, '8' => 2028, '9' => 2029,
-                        '0' => 2030, '1' => 2031, '2' => 2032, '3' => 2033, '4' => 2034
-                        };
-                            
-                            if (yearMapping.containsKey(prodYear)) {
-                                final_year = yearMapping.get(prodYear);
-                            } else {
-                                return null; // Invalid First Character
-                            }
-                
-                if(!JulianDateChecker(prodDayAndMonth,final_year)){
-                    return null; //Julian provided is invalid
-                }
-                
-                final_date = date.newInstance(final_year,1,1);
-                final_date = final_date.addDays(Integer.valueOf(prodDayAndMonth)-1);
-                //Check if derived date is less than the system date
-                if(final_date < dateToProcess)
-                {
-                    //date format to pass MM/DD/YYYY
-                    productionDate = String.valueOf(final_date.format());
-                }
-                else
-                {
-                    return null; //Production Date must be less than System Date
-                }
-                
-            }
-            return productionDate;   
-        } 
-        else if (productCode == 'PT')//Start: RITM0906850 - SCR 21-01-11 Trace Codes - Pipe Tobacco 12 Character
-        {
-            String julian_date = tracecode.substring(1, 4);
-            String year_char = tracecode.substring(5, 6);
-            Integer final_year;
-            string production_date;
-            Date dateToProcess = System.today();
-            
-            if(!year_char.isNumeric()){
-                return null;// Should be numeric
-            }
-            //To test future dates
-            if(Label.Override_date != 'yyyy-mm-dd') 
-            {
-                dateToProcess = date.valueOf(Label.Override_date);
-            }
-            
-            Integer current_year = integer.valueOf(dateToProcess.year());
-            Integer base_year = current_year - 2020; 
-            Integer addYears = 0;
-            if (base_year > 9) //If 10 years or more is the difference we are in a new cycle 
-            {
-                Integer cycles = base_year / 10;
-                addYears = cycles * 10; 
-                final_year =  2020 + addYears + integer.valueOf(year_char);   
-            }
-            else{
-                final_year = 2020 + integer.valueOf(year_char);
-            }
-            
-            if(final_year > current_year){
-                final_year = final_year - 10;
-            }
-            
-            if(!JulianDateChecker(julian_date,final_year)){
-                return null; //Julian provided is invalid
-            }
-            
-            Date final_date;                
-            final_date = date.newInstance(final_year,1,1);
-            final_date = final_date.addDays(Integer.valueOf(julian_date)-1);
-            
-            System.debug(final_date);
-            //Check if derived date is less than the system date
-            if(final_date < dateToProcess)
-            {
-                //date format to pass MM/DD/YYYY
-                production_date = String.valueOf(final_date.format());      
-            }
-            else
-            {
-                return null; //Production Date must be less than System Date
-            }
-            
-            return production_date;
-        }//End: RITM0906850
-        
-        //Added by Sachin Shah
-        //Start :Product Code is SNP - SYNTHETIC NICOTINE POUCH
-        else if(productCode == 'SNP'){
-            String prodYear, prodDayAndMonth;
-            String productionDate = null;
-            Integer final_year;
-            Integer final_month;
-            Integer yearStart_cycle = 0;
-            Date final_date;
-            List<String> pattern = new List<String>();
-            Date dateToProcess = System.today();
-            
-            if(Label.Override_date != 'yyyy-mm-dd') 
-            {
-                dateToProcess = date.valueOf(Label.Override_date);
-            }
-            
-            if(traceCode.length() == 9)
-            {
-                prodYear = traceCode.substring(0,1);
-                prodDayAndMonth = traceCode.substring(1,4);
-                
-                if(prodYear == 'D'){yearStart_cycle = 2020;}
-                else if(prodYear == 'R'){yearStart_cycle = 2021;}
-                else if(prodYear == 'C'){yearStart_cycle = 2022;}
-                else if(prodYear == 'M') {yearStart_cycle = 2023;}
-                else{return null;} // Invalid First Character
-                
-                pattern.addAll(new List<String>{'D', 'R', 'C', 'M'});
-                
-                Integer current_year = integer.valueOf(dateToProcess.year());
-                Integer base_year = current_year - 2020; 
-                Integer addYears = 0;
-                Boolean first_cycle = true;
-                if (base_year > 3) //If 4 years or more is the difference we are in a new cycle 
-                {
-                    Integer cycles = base_year / 4;
-                    addYears = cycles * 4; 
-                    final_year =  2020 + addYears;
-                    base_year = current_year - final_year;
-                    first_cycle = false;
-                }
-                
-                //Get allowed characters for the year, this is only done on the first cycle
-                List<String> validChar = new List<String>();
-                for(Integer i=0;i<=base_year;i++)
-                {
-                    validChar.add(pattern[i]);
-                }
-                
-                if(!(validChar.contains(prodYear)) && first_cycle == true)
-                {
-                    return null; //firstChar is not valid
-                }
-                
-                if(validChar.contains(prodYear))
-                {
-                    final_year = yearStart_cycle + addYears;    
-                }
-                else
-                {
-                    final_year = yearStart_cycle + addYears - 4;
-                }
-                
-                if(!JulianDateChecker(prodDayAndMonth,final_year)){
-                    return null; //Julian provided is invalid
-                } 
-                
-                final_date = date.newInstance(final_year,1,1);
-                final_date = final_date.addDays(Integer.valueOf(prodDayAndMonth)-1);
-                //Check if derived date is less than the system date
-                if(final_date < dateToProcess)
-                {
-                    //date format to pass MM/DD/YYYY
-                    productionDate = String.valueOf(final_date.format());       
-                }
-                else
-                {
-                    return null; //Production Date must be less than System Date
-                }
-                
-                
-            }
-            
-            
-            return productionDate;
-        }
-        
-        //Added by Affirma RITM1898013 
-        //Start :Product Code is TDNS - Tobacco Derived Nicotine Spray
-        else if(productCode == 'TDNS')
-        {
-            String prodYear, prodDayAndMonth;
-            String productionDate = null;
-            Integer final_year;
-            Integer final_month;
-            Integer yearStart_cycle = 0;
-            Date final_date;
-            List<String> pattern = new List<String>();
-            Date dateToProcess = System.today();
-            
-            if(Label.Override_date != 'yyyy-mm-dd') 
-            {
-                dateToProcess = date.valueOf(Label.Override_date);
-            }
-            
-            if(traceCode.length() == 9)
-            {
-                prodYear = traceCode.substring(0,1);
-                prodDayAndMonth = traceCode.substring(1,4);
-                
-                if(prodYear == 'D'){yearStart_cycle = 2020;}
-                else if(prodYear == 'R'){yearStart_cycle = 2021;}
-                else if(prodYear == 'C'){yearStart_cycle = 2022;}
-                else if(prodYear == 'M') {yearStart_cycle = 2023;}
-                else{return null;} // Invalid First Character
-                
-                pattern.addAll(new List<String>{'D', 'R', 'C', 'M'});
-                
-                Integer current_year = integer.valueOf(dateToProcess.year());
-                Integer base_year = current_year - 2020; 
-                Integer addYears = 0;
-                Boolean first_cycle = true;
-                if (base_year > 3) //If 4 years or more is the difference we are in a new cycle 
-                {
-                    Integer cycles = base_year / 4;
-                    addYears = cycles * 4; 
-                    final_year =  2020 + addYears;
-                    base_year = current_year - final_year;
-                    first_cycle = false;
-                }
-                
-                //Get allowed characters for the year, this is only done on the first cycle
-                List<String> validChar = new List<String>();
-                for(Integer i=0;i<=base_year;i++)
-                {
-                    validChar.add(pattern[i]);
-                }
-                
-                if(!(validChar.contains(prodYear)) && first_cycle == true)
-                {
-                    return null; //firstChar is not valid
-                }
-                
-                if(validChar.contains(prodYear))
-                {
-                    final_year = yearStart_cycle + addYears;    
-                }
-                else
-                {
-                    final_year = yearStart_cycle + addYears - 4;
-                }
-                
-                if(!JulianDateChecker(prodDayAndMonth,final_year)){
-                    return null; //Julian provided is invalid
-                } 
-                
-                final_date = date.newInstance(final_year,1,1);
-                final_date = final_date.addDays(Integer.valueOf(prodDayAndMonth)-1);
-                //Check if derived date is less than the system date
-                if(final_date < dateToProcess)
-                {
-                    //date format to pass MM/DD/YYYY
-                    productionDate = String.valueOf(final_date.format());       
-                }
-                else
-                {
-                    return null; //Production Date must be less than System Date
-                }
-                
-                
-            }
-            
-            
-            return productionDate;
-        }
-        //End 
-        else //productCode == 'AS' and productCode == 'GP'
-        {
-            //position 2,3,4, first number, numeric  --- <<<production day and month>>>
-            String first_number  =  traceCode.substring(1,4);
-            //position 6, second number, numeric --- <<<productin year>>>
-            String second_number  =  traceCode.substring(5,6);
-            
-            //Made calculation dynamic
-            String lv_year,lv_cur_year,lv_year_new,lv_leap_year, ln_leap='0', production_date;
-            Integer ln_days;
-            
-            lv_cur_year = string.valueOf(System.today().year());
-            lv_year = '/' + string.valueOf((integer.valueOf(lv_cur_year) - 10)).substring(0,3);
-            lv_year_new = '/' + lv_cur_year.substring(0,3);
-            
-            
-            if(( Integer.valueOf( first_number)>= 1 && Integer.valueOf( first_number) <=366 ) && ( Integer.valueOf( second_number)>= 0 && Integer.valueOf( second_number) <= 9)){
-                
-                if (Integer.valueOf( second_number)== Integer.valueOf(lv_cur_year.substring(3,4)))
-                { 
-                    lv_year  = '01/01' + lv_year_new.subString( 0, 4)+ second_number.subString( 0, 1);
-                }else{ 
-                    if(Integer.valueOf( lv_cur_year)>= Integer.valueOf( lv_year_new.subString(1,4) + second_number.subString( 0, 1)))
-                    { 
-                        lv_year  = '01/01' + lv_year_new.subString( 0, 4)+ second_number.subString( 0, 1);
-                    }else{ 
-                        lv_year  = '01/01' + lv_year.subString( 0, 4)+ second_number.subString( 0, 1);
-                    }
-                    
-                }
-                lv_leap_year = '20';   
-                if(second_number.length() >= 2){
-                    lv_leap_year  = lv_leap_year + second_number.subString(0,2);
-                }else{
-                    lv_leap_year  = lv_leap_year + '0' + second_number; 
-                }                                    
-                Date dt = Date.parse('02/01/'+String.valueOf(lv_leap_year)).addMonths(1);
-                ln_leap  = String.ValueOf(dt.addDays(-dt.day()).day());
-                if(Integer.valueOf(ln_leap) == 28)
-                {
-                    if (Integer.valueOf( first_number) > 365) 
-                    {
-                        System.debug('========================================== 71');
-                        return 'fail';
-                    }else{   
-                        production_date  =  date.parse(lv_year).addDays(Integer.valueOf( first_number) - 1).format();
-                    } 
-                }else{   
-                    production_date  =  date.parse(lv_year).addDays(Integer.valueOf( first_number) - 1).format();
-                } 
-                ln_days  =  date.parse(production_date).daysBetween(System.today());
-                
-                if(productCode == 'AS')
-                {
-                    return production_date;
-                }else
-                {
-                    if (ln_days <= 0){ 
-                        System.debug('========================================== 72');
-                        return 'fail';
-                    }else{ 
-                        System.debug('========================================== 73');
-                        return production_date;
-                    } 
-                }
-                
-            }else{ 
-                System.debug('========================================== 74');
-                return 'fail';
-            }
-        }
+        return TraceCodeHelperCore.ProductDateCalculator(traceCode, productCode);
     }
     
     public String sixCharacterProductDate(string traceCode){
-        Map<string,string> firstDigit = new Map<string,string>{
-            'W' => '2019',
-                'X' => '2020',
-                'Y' => '2021',
-                'Z' => '2022',
-                'A' => '2023',
-                'B' => '2024',
-                'C' => '2025',
-                'D' => '2026',
-                'E' => '2027',
-                'F' => '2028',
-                'G' => '2029',
-                'H' => '2030'
-                };
-                    
-                    Map<string,String> secondDigit = new Map<string,string>{
-                        'A' => '01',
-                            'B' => '02',
-                            'C' => '03',
-                            'D' => '04',
-                            'E' => '05',
-                            'F' => '06',
-                            'G' => '07',
-                            'H' => '08',
-                            'I' => '09',
-                            'K' => '10',
-                            'L' => '11',
-                            'M' => '12'
-                            };
-                                boolean validOrNot = true;    
-        string Month;
-        string Year; 
-        if(firstDigit.containsKey(traceCode.substring(0, 1))){
-            Year = firstDigit.get(traceCode.substring(0, 1));
-            system.debug('Year Value' + Year);
-        }
-        else{
-            validOrNot= false;
-        }
-        if(secondDigit.containsKey(traceCode.substring(1, 2))){
-            Month = secondDigit.get(traceCode.substring(1, 2));
-            system.debug('Month' + Month);
-        } 
-        else{
-            validOrNot = false;
-        }
-        
-        string DateValue = Month +'/01/' +Year ;
-        system.debug('Valid or Not '+ validOrNot);
-        String numericSubstring = traceCode.substring(2, 6);
-        
-        system.debug('Date is '+DateValue);
-        if(validOrNot && Date.today() >= Date.parse(DateValue) && numericSubstring.isNumeric()) {
-            
-            Return DateValue;
-        }
-        else{
-            return null;
-        }
-        
+        return TraceCodeHelperCore.sixCharacterProductDate(traceCode);
     }
     
     public Date convertProductDate(String production_date)
     {
-        //Convert production_date to readable date format
-        String pmonth,pday,pyear;
-        pmonth = production_date.substring(0,production_date.indexOf('/'));
-        production_date = production_date.substring(production_date.indexOf('/')+1,production_date.length());
-        pday = production_date.substring(0,production_date.indexOf('/'));
-        production_date = production_date.substring(production_date.indexOf('/')+1,production_date.length());
-        pyear = production_date;   
-        return Date.newInstance(Integer.valueOf(pyear), Integer.valueOf(pmonth), Integer.valueOf(pday));
+        return TraceCodeHelperCore.convertProductDate(production_date);
     }
     
     public static Boolean checkCounterfeitTraceCode(String traceCode){
-        List<CounterfeitTraceCode__c>  coutTrace = new List<CounterfeitTraceCode__c>([Select id,Production_Date__c from CounterfeitTraceCode__c where Trace_Code__c=:traceCode and IsActive__c = true]);
-        
-        if(!coutTrace.isEmpty() && coutTrace.size() >0)
-        {
-            System.debug('========================================== 1');
-            return true;
-        }
-        System.debug('========================================== 2');
-        return  false;
-    }     
+        return TraceCodeHelperCore.checkCounterfeitTraceCode(traceCode);
+    }
     
     public String traceCodeValidation(string productLine, string traceCodeObj, string oprCompany, string traceCodeLocation, case caseObj){
         try
@@ -698,7 +72,9 @@ final_year = yearStart_cycle + addYears - 4;
             Boolean goodDate = false;
             String dayString = '';
             Date myRetDate;
-            
+            System.debug('workTraceCode-->'+workTraceCode);
+            System.debug('workTraceCode length-->'+workTraceCode.length());
+            System.debug('productLine -->'+productLine);
             //First rule:  Is the trace code length 9
             if (workTraceCode.length() == 9)
             {
@@ -1129,6 +505,10 @@ final_year = yearStart_cycle + addYears - 4;
                 {
                     return 'fail';
                 }
+                else if (productLineCode == 'PL' && traceCode.length() != 12)
+                {
+                    return 'fail';
+                }
             }
             else
             {
@@ -1265,7 +645,8 @@ final_year = yearStart_cycle + addYears - 4;
                             return 'fail';
                         }
                         
-                    }else if  (traceCode.length() == 15){
+                    }
+                    else if  (traceCode.length() == 15){
                         
                         if ( !traceCode.substring(0,1).isNumeric()  && traceCode.substring(1,4).isNumeric() && !traceCode.substring(4,5).isNumeric()
                             && traceCode.substring(5,6).isNumeric() && !traceCode.substring(6,7).isNumeric()&& traceCode.substring(7,15).isNumeric() )
@@ -1340,6 +721,7 @@ final_year = yearStart_cycle + addYears - 4;
                     {
                         // RITM0227478
                         production_date = ProductDateCalculator(traceCode,productLineCode.toUpperCase());
+						System.debug('production_date-------------'+production_date);
                         String result = production_date.toUpperCase();
                         if(result != 'FAIL')
                         {
@@ -1533,1058 +915,11 @@ final_year = yearStart_cycle + addYears - 4;
                 }
                 else if(productLineCode == 'GP')
                 {
-                    if(traceCode.length() == 7)
-                    {    
-                        first_char  =  traceCode.subString(5, 7);
-                        second_char  =  traceCode.subString(2, 3);
-                        third_char  =  traceCode.subString(3, 4);
-                        first_number  =  traceCode.subString(0, 2);
-                        second_number  =  traceCode.subString(4, 5);
-                        Integer CHECK = 0; 
-                        
-                        if (!first_number.subString(1,2).isNumeric() || !second_number.isNumeric())
-                        {
-                            System.debug('========================================== 37');
-                            return 'fail';
-                        }
-                        
-                        if( first_number.subString(0,1) == 'X' || first_number.subString(0,1) == 'P')
-                        {
-                            CHECK= 1;
-                        }
-                        
-                        if(!first_number.subString(0).isNumeric() && CHECK !=1 )
-                        {
-                            System.debug('========================================== 38');
-                            return 'fail'; 
-                        }
-                        
-                        if(!first_number.substring(1,2).isNumeric()) 
-                        {
-                            System.debug('========================================== 39');
-                            return 'fail';
-                        }
-                        
-                        if(first_number.substring(0,1).isNumeric() && CHECK != 1){               
-                            if (Integer.valueOf(first_number.substring(1,2)) < 1 || Integer.valueOf(first_number.substring(1,2))> 15 && CHECK !=1 ) 
-                            {                           
-                                System.debug('========================================== 40');          
-                                return 'fail';
-                            }      
-                        }
-                        if(Integer.valueOf(second_number)< 1 ||  Integer.valueOf(second_number) > 3 )
-                        { 
-                            System.debug('========================================== 41');
-                            return 'fail';
-                        }
-                        
-                        if(first_char.subString(0, 1) != 'B' &&  first_char.subString(0, 1) != 'L' &&  first_char.subString(0, 1) != 'A' &&  first_char.subString(0, 1) != 'C' &&  first_char.subString(0, 1) != 'K' 
-                           &&  first_char.subString(0, 1) != 'S' &&  first_char.subString(0, 1) != 'M' &&  first_char.subString(0, 1) != 'I' &&  first_char.subString(0, 1) != 'T' &&  first_char.subString(0, 1) != 'H' )
-                        {
-                            System.debug('========================================== 42');
-                            return 'fail';
-                        }
-                        
-                        if(first_char.subString(1, 2) != 'B' && first_char.subString(1, 2) != 'L' && first_char.subString(1, 2) != 'A' && first_char.subString(1, 2) != 'C' && first_char.subString(1, 2) != 'K' 
-                           && first_char.subString(1, 2) != 'S' && first_char.subString(1, 2) != 'M' && first_char.subString(1, 2) != 'I' && first_char.subString(1, 2) != 'T' && first_char.subString(1, 2) != 'H' )
-                        {
-                            System.debug('========================================== 43');
-                            return 'fail';
-                        }
-                        
-                        if(second_char !=  'B' && second_char != 'L' && second_char != 'A' && second_char != 'C' && second_char != 'K' && second_char != 'S' && second_char != 'M' && second_char != 'I' && second_char != 'T' && second_char != 'H' && second_char != 'E' && second_char != 'R' )
-                        { 
-                            System.debug('========================================== 44');
-                            return 'fail';
-                        }
-                        
-                        if(third_char != 'B' && third_char != 'L' && third_char != 'A' && third_char != 'C' && third_char != 'K' && third_char != 'S' && third_char != 'M' && third_char != 'I' && third_char != 'T' && third_char != 'H' )
-                        {
-                            System.debug('========================================== 45');
-                            return 'fail';
-                        }
-                        
-                        lv_day  =  first_Char.replace('B', '1').replace('L', '2').replace('A', '3').replace('C', '4').replace('K', '5').replace('S', '6').replace( 'M', '7').replace( 'I', '8').replace( 'T', '9').replace( 'H', '0');
-                        
-                        lv_month  =  second_Char.replace('B','01').replace('L', '02').replace('A', '03').replace('C', '04').replace('K', '05').replace('S', '06').replace('M', '07').replace('I', '08').replace('T', '09').replace('H', '10').replace('E', '11').replace('R', '12');
-                        
-                        lv_year2  =  third_Char.replace('B', '01').replace('L', '02').replace('A', '03').replace('C', '04').replace('K', '05').replace('S', '06').replace('M', '07').replace('I', '08').replace('T', '09').replace('H', '00');
-                        
-                        if(Integer.ValueOf(lv_day) > 31)
-                        {
-                            System.debug('========================================== 46');
-                            return 'fail';
-                        }
-                        
-                        if(Integer.ValueOf(lv_month) > 12)
-                        {
-                            System.debug('========================================== 47');
-                            return 'fail';
-                        }
-                        
-                        if ((Integer.valueOf(lv_month) == 4 || Integer.valueOf(lv_month) == 6 || Integer.valueOf(lv_month) == 9 || Integer.valueOf(lv_month) == 11)  && (Integer.valueOf(lv_day) >=31 ))
-                        {
-                            System.debug('========================================== 48');
-                            return 'fail'; 
-                        }
-                        
-                        if(Integer.valueOf(lv_cur_year) >= Integer.valueOf( '201' + lv_year2.subString(1, 2))){
-                            lv_year2  = lv_cur_year.subString(2, 3)+ lv_year2.subString(1, 2);
-                            
-                            if (Integer.valueOf(lv_cur_year) == Integer.valueOf( '201' + lv_year2.subString( 1, 2))){          
-                                
-                                production_date  =  String.valueOf(lv_month) + '/' + String.valueOf(lv_day) + String.valueOf(lv_year1) + String.valueOf(lv_year2);
-                                //IsValidDate                           
-                                try{
-                                    date dt = date.parse(production_date);
-                                    
-                                    if(date.parse(production_date) >=  System.today())
-                                        lv_year2  = lv_year.subString(2, 3)+ lv_year2.subString(1, 2);
-                                }catch(Exception ex){
-                                    
-                                }             
-                                
-                            }
-                        }else{ 
-                            lv_year2  = lv_year.subString( 2, 3)+ lv_year2.subString( 1, 2);
-                        }
-                        
-                        year_leep =  lv_year1.subString(1,3)+ String.valueOf(lv_year2);   
-                        
-                        If (Date.parse('02/28/'+String.valueOf(year_leep)).addDays(1).Month() == 2){
-                            
-                            If ( Integer.valueOf( lv_month) == 2  && Integer.valueOf( lv_day)>= 30){
-                                
-                                return 'fail';
-                            }
-                        }  
-                        else 
-                            if ( Integer.valueOf( lv_month) == 2 && Integer.valueOf( lv_day)>=29)
-                        {
-                            System.debug('========================================== 49');
-                            return 'fail';
-                        }
-                        
-                        if( production_date  != 'fail' ){
-                            
-                            production_date  =  String.valueOf(lv_month) + '/' + String.valueOf(lv_day) + String.valueOf(lv_year1) + String.valueOf(lv_year2);
-                        }
-                        
-                        ln_days  =  date.parse(production_date).daysBetween(system.today());                  
-                        
-                        
-                        if (ln_days <= 0)
-                        {
-                            System.debug('========================================== 50');
-                            return 'fail';
-                        }
-                        else
-                        {
-                            System.debug('========================================== 51');
-                            return production_date;
-                        } 
-                        
-                    }
-                    else if (traceCode.length() == 5)
-                    {
-                        second_char  =  traceCode.subString( 0, 1);
-                        third_char  =  traceCode.subString( 1, 2);
-                        second_number  =  traceCode.subString( 2, 3);
-                        first_char  =  traceCode.subString( 3, 5);
-                        
-                        if (!second_number.isNumeric())
-                        {              
-                            System.debug('========================================== 52');                  
-                            Return 'fail';
-                        }
-                        IF ( Integer.valueOf( second_number)< 1 || Integer.valueOf( second_number)> 3 )
-                        {
-                            System.debug('========================================== 53');
-                            return 'fail';
-                        }
-                        
-                        charSet.clear();
-                        charSet.add('B'); charSet.add('L'); charSet.add('A'); charSet.add('C'); charSet.add('K'); charSet.add('S');
-                        charSet.add('M'); charSet.add('I');charSet.add('T');charSet.add('H');
-                        
-                        if(!charSet.contains(first_char.subString( 0, 1)))
-                        {
-                            System.debug('========================================== 54');
-                            return 'fail';
-                        }
-                        
-                        if(!charSet.contains(first_char.subString( 1, 2)))
-                        {
-                            System.debug('========================================== 55');
-                            return 'fail';
-                        }               
-                        
-                        charSet.add('E'); charSet.add('R');
-                        if(!charSet.contains(second_char))
-                        {
-                            System.debug('========================================== 56');
-                            return 'fail';
-                        }
-                        
-                        charSet.remove('E'); charSet.remove('R');
-                        
-                        if(!charSet.contains(third_char))
-                        {
-                            System.debug('========================================== 57');
-                            return 'fail';
-                        }
-                        
-                        lv_day  =  first_Char.replace('B', '1').replace( 'L', '2').replace( 'A', '3').replace( 'C', '4').replace( 'K', '5').replace( 'S', '6').replace( 'M', '7').replace( 'I', '8').replace( 'T', '9').replace( 'H', '0');            
-                        lv_month  =  second_Char.replace('B', '01').replace( 'L', '02').replace( 'A', '03').replace( 'C', '04').replace( 'K', '05').replace( 'S', '06').replace( 'M', '07').replace( 'I', '08').replace( 'T', '09').replace( 'H', '10').replace( 'E', '11').replace( 'R', '12');            
-                        lv_year2  =  third_Char.replace('B', '01').replace( 'L', '02').replace( 'A', '03').replace( 'C', '04').replace( 'K', '05').replace( 'S', '06').replace( 'M', '07').replace( 'I', '08').replace( 'T', '09').replace( 'H', '00');
-                        
-                        if(Integer.valueOf( lv_day)> 31)
-                        {
-                            System.debug('========================================== 58');
-                            return 'fail';
-                        }
-                        
-                        if (Integer.valueOf( lv_month)> 12)
-                        {
-                            System.debug('========================================== 59');
-                            return 'fail';
-                        }
-                        
-                        if(Integer.valueOf( lv_cur_year)>= Integer.valueOf( '201' + lv_year2.subString(1, 2))){
-                            lv_year2  = lv_cur_year.subString( 2, 3)+ lv_year2.subString( 1, 2);
-                        }else{
-                            lv_year2  = lv_year.subString( 2, 3)+ lv_year2.subString( 1, 2);
-                        }     
-                        
-                        year_leep = lv_year1.subString(1,3)+String.valueOf(lv_year2);   
-                        
-                        if(date.parse(('02/28/'+String.valueOf(year_leep))).addDays(1).month() == 2){
-                            
-                            If (( Integer.valueOf( lv_month)== 2 ) && (Integer.valueOf( lv_day)>= 30))
-                            {
-                                System.debug('========================================== 60');
-                                return 'fail';
-                            }
-                        }  
-                        else 
-                            If ( ( Integer.valueOf( lv_month)== 2 ) && (Integer.valueOf( lv_day)>=29))
-                        {
-                            System.debug('========================================== 61');
-                            return 'fail';
-                        }    
-                        
-                        If (( Integer.valueOf( lv_month) == 4 || Integer.valueOf( lv_month) == 6 || Integer.valueOf( lv_month) == 9 || Integer.valueOf( lv_month) == 11) 
-                            && (Integer.valueOf( lv_day)>=31))
-                        {
-                            System.debug('========================================== 62');
-                            return 'fail';  
-                        }    
-                        
-                        if( production_date  != 'fail' ){
-                            production_date  =  String.valueOf(lv_month) + '/' + String.valueOf(lv_day) + String.valueOf(lv_year1) + String.valueOf(lv_year2);
-                        }
-                        
-                        ln_days  =  date.parse(production_date).daysBetween(System.today());
-                        
-                        if(ln_days <= 0)
-                        {
-                            System.debug('========================================== 63');
-                            return 'fail';
-                        }
-                        else
-                        { 
-                            System.debug('========================================== 64');
-                            return production_date;
-                        } 
-                        
-                    }
-                    else IF (traceCode.length()==8)
-                    {
-                        //============================================================================
-                        //============================================================================
-                        //============================================================================
-                        //Modifying code for 8 character Cigar trace codes as per SCR 17-07-17
-                        //Clean up of code where I modify the changes to improve original code from Infogain
-                        //                  ---------- Oldwen Adriano 8/28/2017
-                        //============================================================================
-                        first_char  =  traceCode.subString( 0, 1);
-                        first_number  =  traceCode.subString( 1, 4);
-                        second_char  =  traceCode.subString( 4, 5);
-                        second_number  =  traceCode.subString( 5, 6);
-                        third_number  =  traceCode.subString( 6, 8);
-                        
-                        //SCR adds an alpha numeric value allowed for position 7.  We are creating a separate
-                        //variable to be used to validate and process this.
-                        cigar7position = traceCode.substring(6,7);
-                        
-                        if(!first_number.isNumeric() || !second_number.isNumeric() || (!third_number.isNumeric() && cigar7position != 'P'))
-                        {
-                            System.debug('========================================== 65');
-                            return 'fail';
-                        }
-                        
-                        if ( ( first_char == 'A' || first_char == 'B' || first_char == 'C' || first_char == 'D' || first_char == 'E' || first_char == 'F' || first_char == 'G'
-                              || first_char == 'H' || first_char == 'I' || first_char == 'J' || first_char == 'K' || first_char == 'L' || first_char == 'M' || first_char == 'N'
-                              || first_char == 'S' || first_char == 'T' || first_char == 'X' || first_char == 'Z' 
-                              || first_char == 'R' || first_char == 'V') 
-                            && ( second_char == 'X' || second_char == 'Y' || second_char == 'Z' ) 
-                            && ( Integer.valueOf( first_number)>= 1 &&  Integer.valueOf( first_number) <=366 ) 
-                            && ( Integer.valueOf( second_number)>=0 && Integer.valueOf( second_number) <=9 ))
-                        {
-                            
-                            if(Integer.valueOf( second_number) == Integer.valueOf( ln_lastdigit_year)){
-                                lv_year  = '01/01' + lv_year_new.subString( 0, 4)+ second_number.subString( 0, 1);
-                            }else{ 
-                                if(Integer.valueOf( lv_cur_year)>= Integer.valueOf( '201' + second_number.subString( 0, 1))){
-                                    lv_year  = '01/01' + lv_year_new.subString( 0, 4)+ second_number.subString( 0, 1);
-                                }else{
-                                    lv_year  = '01/01' + lv_year.subString( 0, 4)+ second_number.subString( 0, 1);                                        
-                                }
-                            }
-                            lv_leap_year = '20';
-                            if(second_number.length() >= 2){
-                                lv_leap_year  = lv_leap_year + second_number.subString(0,2);
-                            }else{
-                                lv_leap_year  = lv_leap_year + '0' + second_number; 
-                            }
-                            
-                            Date dt = Date.parse('02/01/'+String.valueOf(lv_leap_year)).addMonths(1);                                                            
-                            ln_leap  = String.ValueOf(dt.addDays(-dt.day()).day());
-                            
-                            if (Integer.ValueOf(ln_leap) == 28){
-                                if (Integer.valueOf( first_number) > 365)
-                                {
-                                    System.debug('========================================== 66');
-                                    return 'fail';
-                                }else{
-                                    production_date  = date.parse(lv_year).addDays(Integer.valueOf( first_number) - 1).format();
-                                } 
-                            }else{   
-                                production_date  =  date.parse(lv_year).addDays(Integer.valueOf( first_number) - 1).format();
-                            } 
-                            ln_days  =  date.parse(production_date).daysBetween(System.today());
-                            
-                            
-                            if(ln_days <= 0)
-                            {
-                                System.debug('========================================== 67');
-                                return 'fail';
-                            }
-                            else
-                            { 
-                                System.debug('========================================== 68');
-                                return production_date;
-                            }               
-                        }
-                        else
-                        { 
-                            System.debug('========================================== 69');
-                            return 'fail';
-                        }
-                        //============================================================================
-                        //============================================================================
-                        //============================================================================
-                    }
-                    else if (traceCode.length() == 11)
-                    {
-                        if (String.isNotBlank(traceCode) && traceCode.isNumeric()) {
-                            string productionDate = TraceCodeHelperSecondClass.NjoyTraceCode(traceCode);
-                            return productionDate;
-                        }
-                        //Start: RITM0970660 - SCR 21-01-11 Cigar New 11 Character Trace Codes3.0
-                        first_char  =  traceCode.subString( 0, 1);
-                        second_char  =  traceCode.substring(4,5).toUpperCase();
-                        String military_time = traceCode.substring(7,11);
-                        
-                        // Get list of valid Position 1 char on table
-                        List<Tracecode_Matrix_Table__c> tmt = new List<Tracecode_Matrix_Table__c>();
-                        
-                        tmt = [SELECT Position_1__c FROM Tracecode_Matrix_Table__c 
-                               WHERE Character_Length__c =: traceCode.length() 
-                               AND Product_Line_Code__c =: productLineCode];
-                        
-                        List<String> lString = new List<String>();
-                        
-                        for (Tracecode_Matrix_Table__c st: tmt)
-                        {
-                            lString.add(st.Position_1__c);
-                        }
-                        
-                        if(!lString.contains(first_char)) 
-                        {
-                            System.debug('================== Cigar 11 characters fail -- Invalid First Character ===');
-                            Return 'fail';
-                        } 
-                        //Validate Shift Char
-                        if(second_char != 'X' && second_char != 'Y' && second_char != 'Z'){
-                            return 'fail';
-                        }
-                        
-                        //Validate Military Time
-                        if(military_time.isNumeric()){
-                            String militaryHour = traceCode.substring(7,9);
-                            String militaryMinute = traceCode.substring(9,11);
-                            
-                            if(Integer.ValueOf(militaryHour) > 23 || Integer.ValueOf(militaryMinute) > 59)
-                            {                               
-                                return 'fail';
-                            }
-                        }else{
-                            return 'fail';
-                        } 
-                        
-                        production_date = ProductDateCalculator(tracecode,productLineCode.toUpperCase());
-                        return production_date;
-                        //End: RITM0970660 - SCR 21-01-11 Cigar New 11 Character Trace Codes3.0             
-                    }  
-                    else if (traceCode.length() ==12)
-                    {
-                        //======================================================
-                        //Cigar 12 character trace codes
-                        //======================================================
-                        
-                        //RITM2548147 - SCR 19-07-26 2019 Cigar v.05 - Jannel
-                        first_char  =  traceCode.subString( 0, 1); // v = Position 1
-                        
-                        // Get list of valid Position 1 char on table
-                        List<Tracecode_Matrix_Table__c> tmt = new List<Tracecode_Matrix_Table__c>();
-                        
-                        tmt = [SELECT Position_1__c FROM Tracecode_Matrix_Table__c 
-                               WHERE Character_Length__c =: traceCode.length() 
-                               AND Product_Line_Code__c =: productLineCode];
-                        
-                        List<String> lString = new List<String>();
-                        
-                        for (Tracecode_Matrix_Table__c st: tmt)
-                        {
-                            lString.add(st.Position_1__c);
-                        }
-                        
-                        if(!lString.contains(first_char)) 
-                        {
-                            System.debug('================== Cigar 12 characters fail -- Invalid First Character ===');
-                            Return 'fail';
-                        } 
-                        production_date = ProductDateCalculator(tracecode,productLineCode.toUpperCase());
-                        return production_date;
-                    }   
-                    //12-1-2017 ggcutchon: SCR 17-10-23 2017 Cigar 9 Character Trace Code
-                    else if (traceCode.length() == 9) // V200X88P4 sample tracecode
-                    {
-                        first_char  =  traceCode.subString( 0, 1); // v = Position 1
-                        first_number  =  traceCode.subString( 1, 4); // 200 = Position 2,3,4
-                        second_char  =  traceCode.subString( 4, 5); // X = Position 5
-                        second_number  =  traceCode.subString( 5, 6); // 8 = Position 6
-                        third_number = traceCode.subString( 6,  7); // 8 = Position 7
-                        third_char  =  traceCode.subString( 7,  8); // P = Position 8                       
-                        fourth_number = traceCode.subString( 8, 9); // 4 = Position 9
-                        
-                        //RITM2548147 - SCR 19-07-26 2019 Cigar v.05 - Jannel
-                        
-                        // Get list of valid Position 1 char on table
-                        List<Tracecode_Matrix_Table__c> tmt = new List<Tracecode_Matrix_Table__c>();
-                        
-                        tmt = [SELECT Position_1__c FROM Tracecode_Matrix_Table__c 
-                               WHERE Character_Length__c =: traceCode.length() 
-                               AND Product_Line_Code__c =: productLineCode];
-                        
-                        List<String> lString = new List<String>();
-                        
-                        for (Tracecode_Matrix_Table__c st: tmt)
-                        {
-                            lString.add(st.Position_1__c);
-                        }
-                        
-                        if(!first_number.isNumeric() || Integer.valueof(first_number) > 366 
-                           || Integer.valueof(first_number) < 001 || (second_char != 'X' & second_char != 'Y' && second_char != 'Z') 
-                           || Integer.valueof(second_number) > 9 || !second_number.isNumeric()|| Integer.valueof(third_number) != 8 || third_char != 'P' 
-                           || !fourth_number.isNumeric() || (Integer.valueof(fourth_number) > 9 || Integer.valueof(fourth_number) == 0) || (first_char.isNumeric() 
-                                                                                                                                            || !lString.contains(first_char)))
-                        {
-                            System.debug('================== Cigar 9 characters fail');
-                            Return 'fail';
-                        }
-                        
-                        //INC0081518 - Fix production date issue 
-                        production_date = ProductDateCalculator(tracecode,productLineCode.toUpperCase());
-                        return production_date;
-                    }
-                    //--------------------------------------------------------------------
+                    return TraceCodeHelperValidation.processGP(this);
                 }
                 else if (productLineCode == 'PT')
                 {
-                    if(traceCode.length() == 4)
-                    { //bclm lm
-                        
-                        //checker
-                        String chk_firstChar = traceCode.subString( 0, 1);
-                        String chk_secondChar = traceCode.subString( 1, 2);
-                        String chk_thirdChar = traceCode.subString( 2, 3);
-                        String chk_fourthChar = traceCode.subString( 3, 4);
-                        
-                        //Old Functionality which tracecodes are all non-numeric
-                        if(!chk_firstChar.isNumeric() && !chk_secondChar.isNumeric() && !chk_thirdChar.isNumeric() && !chk_thirdChar.isNumeric()){
-                            
-                            first_char  =  traceCode.subString( 2, 4);
-                            second_char  =  traceCode.subString( 0, 1);
-                            third_char  =  traceCode.subString( 1, 2);                                
-                            charSet.clear();
-                            charSet.add('B');charSet.add('L');charSet.add('A');charSet.add('C');charSet.add('K');charSet.add('S');charSet.add('M');charSet.add('I');charSet.add('T');charSet.add('H');
-                            if(!charSet.contains(first_char.subString( 0, 1)))
-                            { 
-                                System.debug('========================================== 75');
-                                return 'fail';
-                            }
-                            if(!charSet.contains(first_char.subString( 1, 2)))
-                            { 
-                                System.debug('========================================== 76');
-                                return 'fail';
-                            }
-                            charSet.add('E');charSet.add('R');
-                            if(!charSet.contains(second_char))
-                            { 
-                                System.debug('========================================== 77');
-                                return 'fail';
-                            }                 
-                            charSet.remove('E');charSet.remove('R');
-                            if(!charSet.contains(third_char))
-                            { 
-                                System.debug('========================================== 78');
-                                return 'fail';
-                            }
-                            
-                            lv_day  =  first_Char.replace('B', '1').replace( 'L', '2').replace( 'A', '3').replace( 'C', '4').replace( 'K', '5').replace( 'S', '6').replace( 'M', '7').replace( 'I', '8').replace( 'T', '9').replace( 'H', '0');
-                            
-                            lv_month  =  second_Char.replace( 'B', '01').replace( 'L', '02').replace( 'A', '03').replace( 'C', '04').replace( 'K', '05').replace( 'S', '06').replace( 'M', '07').replace('I', '08').replace( 'T', '09').replace( 'H', '10').replace( 'E', '11').replace( 'R', '12');
-                            
-                            lv_year2  =  third_Char.replace( 'B', '01').replace( 'L', '02').replace( 'A', '03').replace( 'C', '04').replace( 'K', '05').replace( 'S', '06').replace( 'M', '07').replace( 'I', '08').replace( 'T', '09').replace( 'H', '00');
-                            
-                            IF (Integer.valueOf( lv_day)> 31)
-                            { 
-                                System.debug('========================================== 79');
-                                return 'fail';
-                            }
-                            
-                            IF (Integer.valueOf( lv_month)> 12) 
-                            { 
-                                System.debug('========================================== 80');
-                                return 'fail';
-                            }
-                            
-                            IF (Integer.valueOf(lv_cur_year)>= Integer.valueOf( '201' + lv_year2.subString( 1, 2)))
-                            { 
-                                lv_year2  = lv_cur_year.subString( 2, 3)+ lv_year2.subString( 1, 2);
-                            }else{ 
-                                lv_year2  = lv_year.subString( 2, 3)+ lv_year2.subString( 1, 2);
-                            }
-                            
-                            //--  ADDING  FOR LEAP YEAR           
-                            year_leep =   lv_year1.subString(1,3)+String.valueOf(lv_year2);   
-                            
-                            If ( date.parse(('02/28/'+String.valueOf(year_leep))).addDays(1).month() == 2)
-                            {
-                                If ( ( Integer.valueOf( lv_month)== 2 ) && (Integer.valueOf( lv_day)>= 30))
-                                { 
-                                    System.debug('========================================== 81');
-                                    return 'fail';
-                                }  
-                            }  
-                            else 
-                                If ( ( Integer.valueOf( lv_month)== 2 ) && (Integer.valueOf( lv_day)>=29))
-                            { 
-                                System.debug('========================================== 82');
-                                return 'fail';
-                            }    
-                            
-                            If ( ( Integer.valueOf( lv_month)== 4 || Integer.valueOf( lv_month) == 6  || Integer.valueOf( lv_month) == 9  || Integer.valueOf( lv_month) ==11)  && (Integer.valueOf( lv_day)>=31))
-                            { 
-                                System.debug('========================================== 83');
-                                return 'fail';  
-                            } 
-                            
-                            IF (production_date  != 'fail')   
-                            {
-                                production_date  =  String.valueOf(lv_month) + '/' + String.valueOf(lv_day) + String.valueOf(lv_year1) + String.valueOf(lv_year2);
-                            }
-                            
-                            ln_days  =  date.parse(production_date).daysBetween(System.today());                  
-                            
-                            
-                            IF (ln_days <= 0) 
-                            { 
-                                System.debug('========================================== 84');
-                                return 'fail';
-                            }
-                            else
-                            { 
-                                System.debug('========================================== 85');
-                                return production_date;
-                            }
-                        }
-                        
-                        //New Functionality which the last 3 digits are numeric
-                        else{
-                            first_char = traceCode.subString( 0, 1);
-                            second_number = traceCode.subString( 1, 3);
-                            fourth_number = traceCode.subString( 3, 4);
-                            
-                            if (!second_number.isNumeric() || !fourth_number.isNumeric())
-                            {
-                                return 'fail';
-                            }
-                            if(Integer.valueOf(second_number) < 0 || Integer.valueOf(second_number) > 53){
-                                return 'fail';
-                            }
-                            
-                            if (first_char == 'L' || first_char == 'J' || first_char == 'P' || first_char == 'W'){
-                                String lv_cur_year  = String.ValueOf(System.Today().year());
-                                Integer lv_cur_year_4th = Integer.valueOf(lv_cur_year.subString( 3, 4));
-                                Integer prodDate;
-                                
-                                if(lv_cur_year_4th == Integer.valueOf(fourth_number)){
-                                    prodDate = Integer.valueOf(lv_cur_year);
-                                }
-                                else if(lv_cur_year_4th < Integer.valueOf(fourth_number)){
-                                    Integer yearDiff = Integer.valueOf(fourth_number) - lv_cur_year_4th;
-                                    prodDate = (Integer.valueOf(lv_cur_year) - 10) + yearDiff;
-                                }
-                                else{
-                                    prodDate = (Integer.valueOf(lv_cur_year) - lv_cur_year_4th) + Integer.valueOf(fourth_number);
-                                }
-                                
-                                fiscal_week = second_number + String.valueOf(prodDate).substring(2,4);
-                                
-                                if(fiscal_week != '' || fiscal_week != null){
-                                    fw = [Select PRODUCTION_DATE__c, FISCAL_WEEK_YEAR__c from Financial_Week__c where FISCAL_WEEK_YEAR__c =: fiscal_week limit 1];
-                                    if(fw != null){
-                                        production_date = fw.PRODUCTION_DATE__c;
-                                    }
-                                }  
-                                ln_days  =  date.parse(production_date).daysBetween(System.today());
-                                
-                                if(ln_days <= 0)
-                                {
-                                    return 'fail';
-                                }
-                                else
-                                { 
-                                    return production_date;
-                                }                               
-                            }
-                            else{
-                                return 'fail';
-                            }
-                        }
-                    }
-                    if(traceCode.length() == 6)
-                    {
-                        first_char = traceCode.subString( 0, 1);
-                        second_number = traceCode.subString( 1, 4);
-                        String fifth_number = traceCode.subString( 4, 5);
-                        String sixth_number = traceCode.subString( 5, 6);
-                        
-                        if (!second_number.isNumeric() || !fifth_number.isNumeric()  || !sixth_number.isNumeric())
-                        {
-                            return 'fail';
-                        }
-                        if(Integer.valueOf(second_number) <= 0 || Integer.valueOf(second_number) > 366){
-                            return 'fail';
-                        }
-                        
-                        if (first_char == 'L' || first_char == 'J' || first_char == 'P' || first_char == 'W'){
-                            String lv_cur_year  = String.ValueOf(System.Today().year());
-                            Integer lv_cur_year_4th = Integer.valueOf(lv_cur_year.subString( 3, 4));
-                            Integer prodDate;
-                            
-                            if(lv_cur_year_4th == Integer.valueOf(fifth_number)){
-                                prodDate = Integer.valueOf(lv_cur_year);
-                            }
-                            else if(lv_cur_year_4th < Integer.valueOf(fifth_number)){
-                                Integer yearDiff = Integer.valueOf(fifth_number) - lv_cur_year_4th;
-                                prodDate = (Integer.valueOf(lv_cur_year) - 10) + yearDiff;
-                            }
-                            else{
-                                prodDate = (Integer.valueOf(lv_cur_year) - lv_cur_year_4th) + Integer.valueOf(fifth_number);
-                            }
-                            
-                            lv_leap_year = '20';
-                            lv_year1  = '01/01' + lv_year1 + String.valueOf(prodDate).substring(2,4);
-                            lv_leap_year  = lv_leap_year + String.valueOf(prodDate).substring(2,4);
-                            Date dt = Date.parse('02/01/'+String.valueOf(lv_leap_year)).addMonths(1);                                                              
-                            ln_leap  = String.ValueOf(dt.addDays(-dt.day()).day());
-                            
-                            if(Integer.ValueOf(ln_leap) == 29){
-                                production_date  =  date.parse(lv_year1).addDays(Integer.valueOf( second_number) - 1).format();
-                            }else{
-                                if(Integer.valueOf( second_number)> 60){
-                                    production_date  =  date.parse(lv_year1).addDays(Integer.valueOf( second_number) - 1).format();   
-                                }else{ 
-                                    production_date  =  date.parse(lv_year1).addDays(Integer.valueOf( second_number) - 1).format();
-                                }
-                            }
-                            
-                            ln_days  =  date.parse(production_date).daysBetween(System.today());
-                            
-                            if(ln_days <= 0)
-                            {
-                                return 'fail';
-                            }
-                            else
-                            { 
-                                return production_date;
-                            }                               
-                        }
-                        else{
-                            return 'fail';
-                        }
-                    }
-                    else if(traceCode.length() == 2)
-                    {
-                        first_char  =  traceCode.subString( 1, 2);
-                        second_char  =  traceCode.subString( 0, 1);
-                        
-                        charSet.clear();
-                        charSet.add('B'); charSet.add('L'); charSet.add('A'); charSet.add('C'); charSet.add('K'); charSet.add('S'); charSet.add('M'); charSet.add('I'); charSet.add( 'T'); charSet.add('H');
-                        
-                        IF(!charSet.Contains(first_char))
-                        { 
-                            System.debug('========================================== 86');
-                            return 'fail';
-                        }                         
-                        charSet.add('E');charSet.add('R');
-                        IF(!charSet.Contains(second_char))
-                        { 
-                            System.debug('========================================== 87');
-                            return 'fail';
-                        } 
-                        
-                        lv_day  =  '1';
-                        
-                        lv_month  =  second_Char.replace('B', '01').replace( 'L', '02').replace( 'A', '03').replace( 'C', '04').replace( 'K', '05').replace( 'S', '06').replace( 'M', '07').replace( 'I', '08').replace( 'T', '09').replace( 'H', '10').replace( 'E', '11').replace( 'R', '12');
-                        
-                        lv_year2  =  first_char.replace( 'B', '01').replace( 'L', '02').replace( 'A', '03').replace( 'C', '04').replace( 'K', '05').replace( 'S', '06').replace( 'M', '07').replace( 'I', '08').replace( 'T', '09').replace( 'H', '00');
-                        
-                        
-                        IF (Integer.valueOf( lv_month)> 12) 
-                        { 
-                            System.debug('========================================== 88');
-                            return 'fail';
-                        }                 
-                        
-                        IF(Integer.valueOf( lv_cur_year)>= Integer.valueOf( '201' + lv_year2.subString( 1, 2)))
-                        { 
-                            lv_year2  = lv_cur_year.subString( 2, 3)+ lv_year2.subString( 1, 2);
-                        }else{ 
-                            lv_year2  = lv_year.subString( 2, 3)+ lv_year2.subString( 1, 2);
-                        }
-                        
-                        year_leep=   lv_year1.subString(1,3)+String.valueOf(lv_year2);   
-                        
-                        If (date.parse(('02/28/'+String.valueOf(year_leep))).addDays(1).month() ==2 )
-                        {
-                            If ( ( Integer.valueOf( lv_month)== 2 ) && (Integer.valueOf( lv_day)>= 30))
-                            { 
-                                System.debug('========================================== 89');
-                                return 'fail';
-                            }  
-                        }  
-                        else 
-                            If ( ( Integer.valueOf( lv_month)== 2 ) && (Integer.valueOf( lv_day)>=29))
-                        { 
-                            System.debug('========================================== 90');
-                            return 'fail';
-                        }    
-                        
-                        If ( ( Integer.valueOf( lv_month) == 4 || Integer.valueOf( lv_month) == 6 || Integer.valueOf( lv_month) == 9 || Integer.valueOf( lv_month) == 11)  && (Integer.valueOf( lv_day)>=31))
-                        { 
-                            System.debug('========================================== 91');
-                            return 'fail';  
-                        }  
-                        
-                        
-                        //-- FOR LEEP YEAR && CHECKING FOR DAYS i.e., 30 OR 31     
-                        
-                        IF (production_date  != 'fail')  
-                        {
-                            production_date  =  String.valueOf(lv_month) + '/' + String.valueOf(lv_day) + String.valueOf(lv_year1) + String.valueOf(lv_year2);
-                        }
-                        
-                        ln_days  =  date.parse(production_date).daysBetween(System.today());                  
-                        
-                        
-                        IF (ln_days <= 0)
-                        { 
-                            System.debug('========================================== 92');
-                            return 'fail';
-                        }
-                        else
-                        { 
-                            System.debug('========================================== 93');
-                            return production_date;
-                        }
-                        
-                    }
-                    else if(traceCode.length() == 7)
-                    {
-                        first_char  =  traceCode.subString( 1, 3);
-                        second_char  =  traceCode.subString( 3, 4);
-                        third_char  =  traceCode.subString( 5, 6);
-                        
-                        charSet.clear();
-                        charSet.add('B'); charSet.add('L'); charSet.add('A'); charSet.add('C'); charSet.add('K'); charSet.add('S'); charSet.add('M'); charSet.add('I'); charSet.add('T'); charSet.add('H');
-                        IF(!charSet.Contains(first_char.subString( 0, 1)))
-                        { 
-                            System.debug('========================================== 94');
-                            return 'fail';
-                        }
-                        IF(!charSet.Contains(first_char.subString( 1, 2)))
-                        { 
-                            System.debug('========================================== 95');
-                            return 'fail';
-                        }
-                        charSet.add('E');charSet.add('R');
-                        IF(!charSet.Contains(second_char))
-                        { 
-                            System.debug('========================================== 96');
-                            return 'fail';
-                        }
-                        charSet.remove('E');charSet.remove('R');
-                        IF(!charSet.Contains(third_char))
-                        { 
-                            System.debug('========================================== 97');
-                            return 'fail';
-                        }
-                        
-                        lv_day  =  first_Char.replace('B', '1').replace( 'L', '2').replace( 'A', '3').replace( 'C', '4').replace( 'K', '5').replace( 'S', '6').replace( 'M', '7').replace( 'I', '8').replace( 'T', '9').replace( 'H', '0');
-                        
-                        lv_month  =  second_Char.replace( 'B', '01').replace( 'L', '02').replace( 'A', '03').replace( 'C', '04').replace( 'K', '05').replace( 'S', '06').replace( 'M', '07').replace( 'I', '08').replace( 'T', '09').replace( 'H', '10').replace( 'E', '11').replace( 'R', '12');
-                        
-                        lv_year2  =  third_Char.replace( 'B', '01').replace( 'L', '02').replace( 'A', '03').replace( 'C', '04').replace( 'K', '05').replace( 'S', '06').replace( 'M', '07').replace( 'I', '08').replace( 'T', '09').replace( 'H', '00');
-                        
-                        
-                        IF (Integer.valueOf( lv_day)> 31 )
-                        { 
-                            System.debug('========================================== 98');
-                            return 'fail';
-                        }
-                        
-                        IF (Integer.valueOf( lv_month)> 12 )
-                        { 
-                            System.debug('========================================== 99');
-                            return 'fail';
-                        }
-                        
-                        IF (Integer.valueOf( lv_cur_year)>= Integer.valueOf( '201' + lv_year2.subString( 1, 2)))
-                        { 
-                            lv_year2  = lv_cur_year.subString( 2, 3)+ lv_year2.subString( 1, 2);
-                        }else{ 
-                            lv_year2  = lv_year.subString( 2, 3)+ lv_year2.subString( 1, 2);
-                        }
-                        
-                        //--  ADDING  FOR LEAP YEAR           
-                        year_leep=   lv_year1.subString(1,3)+String.valueOf(lv_year2);   
-                        
-                        If (Date.parse(('02/28/'+String.valueOf(year_leep))).addDays(1).month() ==2 )
-                        {
-                            If ( ( Integer.valueOf( lv_month)== 2 ) && (Integer.valueOf( lv_day)>= 30))
-                            { 
-                                System.debug('========================================== 100');
-                                return 'fail';
-                            }  
-                        }  
-                        else 
-                            If ( ( Integer.valueOf( lv_month)== 2 ) && (Integer.valueOf( lv_day)>=29))
-                        { 
-                            System.debug('========================================== 101');
-                            return 'fail';
-                        }    
-                        
-                        If ( ( Integer.valueOf( lv_month)== 4 || Integer.valueOf( lv_month) == 6 || Integer.valueOf( lv_month) == 9 || Integer.valueOf( lv_month) == 11)  && (Integer.valueOf( lv_day)>=31))
-                        { 
-                            System.debug('========================================== 102');
-                            return 'fail';  
-                        }  
-                        
-                        
-                        //-- FOR LEEP YEAR AND CHECKING FOR DAYS i.e., 30 OR 31     
-                        
-                        IF (production_date  != 'fail')  
-                        {
-                            production_date  =  String.valueOf(lv_month) + '/' + String.valueOf(lv_day) + String.valueOf(lv_year1) + String.valueOf(lv_year2);
-                            ln_days  =  date.parse(production_date).daysBetween(System.today());
-                        }
-                        
-                        
-                        IF (ln_days <= 0) 
-                        { 
-                            System.debug('========================================== 103');
-                            return 'fail';
-                        }
-                        else
-                        { 
-                            System.debug('========================================== 104');
-                            return production_date;
-                        }  
-                    }
-                    //Start: RITM0906850 - SCR 21-01-11 Trace Codes - Pipe Tobacco 12 Character
-                    else if(traceCode.length() == 12)
-                    {
-                        first_char = tracecode.substring(0, 1);                        
-                        String fifth_char = tracecode.substring(4, 5); 
-                        String module_char = tracecode.substring(6, 8);
-                        String mil_hour = tracecode.substring(8, 10);
-                        String mil_minute = tracecode.substring(10, 12);
-                        
-                        //Validate first characters
-                        List<String> firstChar = new List<String>();
-                        firstChar.addAll(new List<String>{'S','O','K','X','H','M'});
-                        if(!firstChar.contains(first_char)){
-                            return 'fail';
-                        }
-                        //Validate fifth character
-                        List<String> fifthChar = new List<String>();
-                        fifthChar.addAll(new List<String>{'X','Y','Z'});
-                        if(!fifthChar.contains(fifth_char)){
-                            return 'fail';
-                        }
-                        //Validate module
-                        if(!module_char.isNumeric()){
-                            return 'fail';  
-                        }
-                        
-                        if(mil_hour.isNumeric()){
-                            if(Integer.valueOf(mil_hour) > 23){
-                                return 'fail'; //Should be 0-23 for hour
-                            }
-                        }else{
-                            return 'fail'; //Should be numeric
-                        }
-                        
-                        if(mil_minute.isNumeric()){
-                            if(Integer.valueOf(mil_minute) > 59){
-                                return 'fail'; //Should be 0-59 for minutes
-                            }
-                        }else{
-                            return 'fail'; //Should be numeric
-                        }
-                        production_date = ProductDateCalculator(traceCode,productLineCode.toUpperCase());
-                        return production_date;
-                    }
-                    //End: RITM0906850 - SCR 21-01-11 Trace Codes - Pipe Tobacco 12 Character
-                    else
-                    {
-                        first_char  =  traceCode.subString( 2, 4);
-                        second_char  =  traceCode.subString( 0, 1);
-                        third_char  =  traceCode.subString( 1, 2);
-                        first_number  =  traceCode.subString( 4, 5);
-                        
-                        if (!first_number.isNumeric())
-                        {
-                            System.debug('========================================== 105');
-                            Return 'fail';
-                        }
-                        
-                        if ( Integer.valueOf( first_number)< 1 || Integer.valueOf( first_number)> 4 ) 
-                        { 
-                            System.debug('========================================== 106');
-                            return 'fail';
-                        }
-                        charSet.clear();
-                        charSet.add('B');charSet.add('L');charSet.add('A');charSet.add('C');charSet.add('K');charSet.add('S');charSet.add('M');charSet.add('I');charSet.add('T');charSet.add('H');
-                        if(!charSet.contains(first_char.subString( 0, 1)))
-                        { 
-                            System.debug('========================================== 107');
-                            return 'fail';
-                        }
-                        
-                        if(!charSet.contains(first_char.subString( 1, 2))) 
-                        { 
-                            System.debug('========================================== 108');
-                            return 'fail';
-                        }
-                        charSet.add('E');charSet.add('R');
-                        IF (!charSet.contains(second_char)) 
-                        { 
-                            return 'fail';
-                        }
-                        charSet.remove('E');charSet.remove('R');
-                        IF (!charSet.contains(third_char)) 
-                        { 
-                            System.debug('========================================== 109');
-                            return 'fail';
-                        }
-                        
-                        lv_day  =  first_Char.replace( 'B', '1').replace( 'L', '2').replace( 'A', '3').replace( 'C', '4').replace( 'K', '5').replace( 'S', '6').replace( 'M', '7').replace( 'I', '8').replace( 'T', '9').replace( 'H', '0');
-                        
-                        
-                        lv_month  =  second_Char.replace( 'B', '01').replace( 'L', '02').replace( 'A', '03').replace( 'C', '04').replace( 'K', '05').replace( 'S', '06').replace( 'M', '07').replace( 'I', '08').replace( 'T', '09').replace( 'H', '10').replace( 'E', '11').replace( 'R', '12');
-                        
-                        
-                        lv_year2  =  third_Char.replace( 'B', '01').replace( 'L', '02').replace( 'A', '03').replace( 'C', '04').replace( 'K', '05').replace( 'S', '06').replace( 'M', '07').replace( 'I', '08').replace( 'T', '09').replace( 'H', '00');
-                        
-                        
-                        IF(Integer.valueOf( lv_day)> 31) 
-                        { 
-                            System.debug('========================================== 110');
-                            return 'fail';
-                        }
-                        
-                        IF(Integer.valueOf( lv_month)> 12) 
-                        { 
-                            return 'fail';
-                        }
-                        
-                        IF (Integer.valueOf( lv_cur_year)>= Integer.valueOf( '201' + lv_year2.subString( 1, 2)))
-                        { 
-                            lv_year2  = lv_cur_year.subString( 2, 3)+ lv_year2.subString( 1, 2);
-                        }else{ 
-                            lv_year2  = lv_year.subString( 2, 3)+ lv_year2.subString( 1, 2);
-                        }
-                        year_leep=   lv_year1.subString(1,3)+String.valueOf(lv_year2);                                    
-                        
-                        
-                        If (Date.parse(('02/28/'+String.valueOf(year_leep))).addDays(1).month() ==2) 
-                        {
-                            If ( ( Integer.valueOf( lv_month)== 2 ) && (Integer.valueOf( lv_day)>= 30))
-                            { 
-                                System.debug('========================================== 111');
-                                return 'fail';
-                            }  
-                        }  
-                        else 
-                            If ( ( Integer.valueOf( lv_month)== 2 ) && (Integer.valueOf( lv_day)>=29))
-                        { 
-                            System.debug('========================================== 112');
-                            return 'fail';
-                        }    
-                        
-                        If ( ( Integer.valueOf( lv_month) == 4 || Integer.valueOf( lv_month) ==6 || Integer.valueOf( lv_month) ==9 || Integer.valueOf( lv_month) ==11 ) && (Integer.valueOf( lv_day)>=31))
-                        { 
-                            System.debug('========================================== 113');
-                            return 'fail';  
-                        }  
-                        
-                        
-                        IF (production_date  != 'fail') 
-                        {
-                            production_date  =  String.valueOf(lv_month) + '/' + String.valueOf(lv_day) + String.valueOf(lv_year1) + String.valueOf(lv_year2);
-                        }
-                        
-                        ln_days  =  date.parse(production_date).daysBetween(System.today());                  
-                        
-                        
-                        IF (ln_days <= 0) 
-                        { 
-                            System.debug('========================================== 114');
-                            return 'fail';
-                        }
-                        else
-                        { 
-                            System.debug('========================================== 115');
-                            return production_date;
-                        }
-                        
-                    }
+                    return TraceCodeHelperValidation.processPT(this);
                 }
                 else if(productLineCode == 'EC')
                 {       //e-cigarette           
@@ -2898,7 +1233,7 @@ final_year = yearStart_cycle + addYears - 4;
                         System.debug('========================================== 132');
                         return production_date;
                     }
-                    //12-6-2017 ggcutchon: SCR 17-05-12 NuMark Date Code – Handling of Invalids
+                    //12-6-2017 ggcutchon: SCR 17-05-12 NuMark Date Code â€“ Handling of Invalids
                     else if(traceCode.length() >= 10){
                         system.debug('========================================== Date Code DNUA');
                         return traceCode;
@@ -3112,7 +1447,7 @@ final_year = yearStart_cycle + addYears - 4;
                         }
                     }
                 }
-                //12-6-2017 ggcutchon: SCR 17-05-12 NuMark Date Code – Handling of Invalids
+                //12-6-2017 ggcutchon: SCR 17-05-12 NuMark Date Code â€“ Handling of Invalids
                 else if(productLineCode.length() == 1 || productLineCode == 'NULL')
                 {
                     system.debug('========================================== Date Code');
@@ -3288,13 +1623,92 @@ return null; //Invalid Module
                     }
                 }
                 //end Product Code TDNS
-                
-                
+
+                //SCR 2026-05-01: Trace Codes - PLOOM Devices
+                else if(productLineCode == 'PL')
+                {
+					System.debug('here in ploom-->');
+                    // Char 1: only 'U' valid â†’ Production Location & Factory: INDONESIA
+                    String char1 = traceCode.substring(0, 1);
+                    // Char 2: Production Unit/Module - E, F, G, H, J, K, L
+                    String char2 = traceCode.substring(1, 2);
+                    // Chars 3-9: Serial Number - numeric, 2000000 to 3200000
+                    String serialNum = traceCode.substring(2, 9);
+                    // Char 10: Production Year
+                    String yearChar = traceCode.substring(9, 10);
+                    // Char 11: Production Month
+                    String monthChar = traceCode.substring(10, 11);
+                    // Char 12: Production Day - use original traceCodeObj to preserve lowercase 'd'
+                    String dayChar = traceCodeObj.substring(11, 12);
+
+                    if (char1 != 'U') { return 'fail'; }
+
+                    Set<String> validModules = new Set<String>{'E', 'F', 'G', 'H', 'J', 'K', 'L'};
+                    if (!validModules.contains(char2)) { return 'fail'; }
+
+                    if (!serialNum.isNumeric()) { return 'fail'; }
+                    Integer serialNumInt = Integer.valueOf(serialNum);
+                    if (serialNumInt < 2000000 || serialNumInt > 3200000) { return 'fail'; }
+
+                    Map<String, Integer> yearMapping = new Map<String, Integer>{
+                        '5' => 2025, '6' => 2026, '7' => 2027, '8' => 2028, '9' => 2029,
+                        'A' => 2030, 'B' => 2031, 'C' => 2032
+                    };
+                    if (!yearMapping.containsKey(yearChar)) { return 'fail'; }
+                    Integer prodYear = yearMapping.get(yearChar);
+
+                    Map<String, Integer> monthMapping = new Map<String, Integer>{
+                        'A' => 1, 'B' => 2, 'C' => 3, 'D' => 4, 'E' => 5, 'F' => 6,
+                        'G' => 7, 'H' => 8, 'I' => 9, 'J' => 10, 'K' => 11, 'L' => 12
+                    };
+                    if (!monthMapping.containsKey(monthChar)) { return 'fail'; }
+                    Integer prodMonth = monthMapping.get(monthChar);
+					System.debug('prodMonth-->'+prodMonth);
+                    // 'd' must remain lowercase per SCR critical implementation note
+                    Map<String, Integer> dayMapping = new Map<String, Integer>{
+                        '1' => 1,  '2' => 2,  '3' => 3,  '4' => 4,  '5' => 5,
+                        '6' => 6,  '7' => 7,  '8' => 8,  '9' => 9,
+                        'A' => 10, 'B' => 11, 'C' => 12, 'd' => 13, 'E' => 14,
+                        'F' => 15, 'G' => 16, 'H' => 17, 'J' => 18, 'K' => 19,
+                        'L' => 20, 'M' => 21, 'N' => 22, 'P' => 23, 'R' => 24,
+                        'T' => 25, 'U' => 26, 'V' => 27, 'W' => 28, 'X' => 29,
+                        'Y' => 30, '0' => 31
+                    };
+                    if (!dayMapping.containsKey(dayChar)) { return 'fail'; }
+                    Integer prodDay = dayMapping.get(dayChar);
+					System.debug('prodDay-->'+prodDay);
+                    Date dateToProcess = System.today();
+                    if (Label.Override_date != 'yyyy-mm-dd') {
+                        dateToProcess = Date.valueOf(Label.Override_date);
+                        System.debug('dateToProcess-->'+dateToProcess);
+                    }
+                    try {
+                        Date productionDate = Date.newInstance(prodYear, prodMonth, prodDay);
+                        System.debug('productionDate-->'+productionDate);
+
+                        // Date.newInstance is lenient: an out-of-range day (e.g. Feb 31) rolls
+                        // over into the next month (Feb 31, 2025 -> Mar 3, 2025) instead of
+                        // throwing. Reject the trace code if the constructed date's month/day
+                        // no longer match the values encoded in Char11/Char12 - this enforces
+                        // the full leap-year-aware day-restraints matrix (Feb 29 valid only in
+                        // leap years, 30-day months reject day 31, etc.) without a separate table.
+                        if (productionDate.month() != prodMonth || productionDate.day() != prodDay) {
+                            return 'fail';
+                        }
+
+                        if (productionDate >= dateToProcess) { return 'fail'; }
+                        return productionDate.format();
+                    } catch (Exception ex) {
+                        return 'fail';
+                    }
+                }
+                //end Product Code PL
+
                 else
                 {
                     System.debug('========================================== 134');
                     return 'fail';
-                }   
+                }
                 
             }
             else{
@@ -3680,56 +2094,11 @@ return null; //Invalid Module
     } 
     
     public date nextDay(string vDate, String vDay){
-        Integer I =1;
-        while (I <= 7){
-            
-            Datetime dt = DateTime.newInstance(date.parse(vDate).addDays(I), Time.newInstance(0, 0, 0, 0));                   
-            String wName  =  dt.format('EEEE');
-            
-            if(wName.toUpperCase() == vDay.toUpperCase())
-                return  Date.parse(vDate).addDays(I);
-            I += 1;
-        }
-        return  Date.parse(vDate).addDays(I);
+        return TraceCodeHelperCore.nextDay(vDate, vDay);
     }
     
     public string mondayDate(String year, String WeekNumber){
-        Date startdate;
-        Date enddate;
-        Integer ctr;
-        
-        Date dt = Date.parse('01/01/'+Year).addMonths(-1);
-        Date lastDate = Date.parse('12/31/'+String.valueOf(dt.year()));
-        DateTime dtNew = DateTime.newInstance(lastDate, Time.newInstance(0, 0, 0, 0));     
-        String WeekName =  dtNew.format('EEE').toUpperCase();
-        
-        if(WeekName == 'MON')
-            startdate = lastDate;
-        else if(WeekName == 'TUE')
-            startdate = lastDate.addDays(-1);
-        else if(WeekName == 'WED')
-            startdate = lastDate.addDays(-2);   
-        else if(WeekName == 'THU')
-            startdate = lastDate.addDays(-3);
-        else if(WeekName == 'FRI')
-            startdate = lastDate.addDays(-4);       
-        else if(WeekName == 'SAT')
-            startdate = lastDate.addDays(-5);
-        else
-            startdate = lastDate.addDays(-6);
-        
-        
-        enddate = Date.Parse('12/31/'+String.valueOf(Integer.ValueOf(Year) + 1));
-        ctr = 1;
-        while(enddate >= startdate){
-            if (Integer.valueOf(WeekNumber) == ctr){
-                break;  
-            }
-            ctr += 1;   
-            startdate = startdate.addDays(7);
-        }
-        
-        return startdate.format();
+        return TraceCodeHelperCore.mondayDate(year, WeekNumber);
     }    
     public string methodOne(){
         //One:

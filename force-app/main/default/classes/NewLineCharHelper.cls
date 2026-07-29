@@ -34,6 +34,7 @@ public void newlineCase(List<Case> caseUpdate) {
         usstc9CharacterTraceCode(caseUpdate);
         enjoyTraceCode(CaseUpdate);
         thirdPartyManufacture(caseUpdate);
+        ploomTraceCode(caseUpdate);
         for(case caseObj:caseUpdate){
             caseId.add(caseObj.id);
             if(caseObj.Comment__c !=null){
@@ -761,6 +762,40 @@ public void newlineCase(List<Case> caseUpdate) {
         
     }
     
+    // SCR 2026-05-01: Trace Codes - PLOOM Devices
+    // Populates Production Location/Factory/Date/Unit/Serial Number for the 12-character
+    // PLOOM HEATED TOBACCO trace code. Location & Factory are always set (per SCR, always
+    // INDONESIA); the remaining detail fields are only set when the trace code is valid,
+    // and are cleared if a previously valid code is edited into an invalid one.
+    public void ploomTraceCode(List<Case> caseValue) {
+        for (Case caseObj : caseValue) {
+            if (caseObj.Mfg_Trace_code__c != null && caseObj.Mfg_Trace_code__c != ''
+                    && caseObj.Product_Line__c == 'PLOOM HEATED TOBACCO'
+                    && caseObj.Mfg_Trace_code__c.length() == 12) {
+
+                String traceCodeOrig  = caseObj.Mfg_Trace_code__c;
+                String traceCodeUpper = traceCodeOrig.toUpperCase();
+
+                PLProductLineHelper.PLResult result = PLProductLineHelper.calculateDateCode(traceCodeUpper, traceCodeOrig);
+
+                caseObj.DateCodeLocation__c   = result.location;
+                caseObj.DateCodeRptFactory__c = result.factory;
+
+                if (result.productionDate != 'FAIL') {
+                    caseObj.Production_date__c = Date.parse(result.productionDate);
+                    caseObj.DateCodeUnit__c     = result.unit;
+                    caseObj.Serial_Number__c    = result.serialNumber;
+                    caseObj.ValidTraceCode__c   = true;
+                } else {
+                    caseObj.Production_date__c = null;
+                    caseObj.DateCodeUnit__c     = '';
+                    caseObj.Serial_Number__c    = '';
+                    caseObj.ValidTraceCode__c   = false;
+                }
+            }
+        }
+    }
+
     public void Helix1CharcterCode(List<case> caseUpdate){
         for(case caseObj:caseUpdate){
             if((caseObj.Mfg_Trace_code__c).length() == 1  &&   caseObj.Product_Line__c == 'Tobacco Derived Nicotine pouch' && caseObj.PLCode__c == 'TDNP' && 

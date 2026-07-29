@@ -1,129 +1,205 @@
-<apex:page standardController="contact" extensions="ConsumerDetailController" id="pg">
-   <apex:sectionHeader title="{!If(Customershow,'Consumer Detail','Trade Customer')}" subtitle="{!contact.CustomerID__c}"/>
-   <apex:includeScript value="/support/console/37.0/integration.js"/>
-     
-   <apex:form id="frm">    
-       <script type="text/javascript">
-      
+<apex:page standardController="contact" extensions="ConsumerDetailController" id="pg" lightningStyleSheets="True" title="C - {!contact.CustomerID__c}">
+    <apex:slds />
+    
+    
+    <apex:sectionHeader title="{!If(Customershow,'Consumer Detail','Trade Customer')}" subtitle="{!contact.CustomerID__c}"/>
+    <apex:includeScript value="/support/console/62.0/integration.js"/>
+    
+    <apex:form id="frm"> 
         
-        function OpenSubtabCorres() {
-            //First find the ID of the primary tab to put the new subtab in
-            sforce.console.getEnclosingPrimaryTabId(openSubtabCorrespondence);
+        <style>
+            .Header {
+            display: none !important;
+            }
+            
+            .Title {
+            display: none !important;
+            }
+        </style>
+        
+        <script type="text/javascript">
+        
+        // lifetime of the page (i.e., until this specific tab is reloaded)
+        /* var CURRENT_TAB_ID = null;
+        var pageLoad = window.onload;
+        
+        // Reference the standard Lightning Console Tab Focused message channel
+        // Note: the channel name requires the "__c" suffix when imported in Visualforce
+        var tabFocusedChannel = "{!$MessageChannel.lightning__tabFocused}";
+        var subscription;
+        
+        window.onload = function() {
+            if (pageLoad) {
+                pageLoad();
+            }
+            
+            hidingCloseLink();
+            showProductReturnAlert();
+            // history hide logic
+            setTimeout(function(){
+                var historyDiv = document.getElementById("historyList");
+                
+                if(historyDiv){
+                    var text = historyDiv.innerText || '';
+                    
+                    // exact text match
+                    if(text.includes("No records") || text.includes("NO RECORDS TO DISPLAY")){
+                        historyDiv.style.display = "none";
+                    }
+                }
+            }, 800);
+            
+            // Subscribe to the tab focused channel so this page can detect
+            // when its own primary tab is (re)focused
+            if (typeof sforce !== 'undefined' && sforce.one) {
+                subscription = sforce.one.subscribe(tabFocusedChannel, handleTabClick, { scope: "APPLICATION" });
+                console.log("Subscribed to tab focus events.");
+            }
+            
+            if (typeof sforce !== 'undefined' && sforce.console) {
+                sforce.console.getEnclosingPrimaryTabId(function(result) {
+                    if (result.success) {
+                        CURRENT_TAB_ID = result.id;
+                        console.log("CURRENT_TAB_ID:" + CURRENT_TAB_ID);
+                    }
+                });
+            }
+        };
+        
+        // Handle the event when a tab is clicked/focused.
+        // If it's this page's own primary tab being focused, refresh
+        // immediately - same behaviour as the Issue Detail page.
+        function handleTabClick(message) {
+            if (message) {
+                var currentTabId = message.currentTabId;
+                var previousTabId = message.previousTabId;
+                if (CURRENT_TAB_ID == currentTabId) {
+                    window.location.reload(true);
+                }
+                
+                console.log("Tab Clicked! Current Tab ID: " + currentTabId);
+                console.log("Previous Tab ID: " + previousTabId);
+                console.log("CURRENT_TAB_ID:" + CURRENT_TAB_ID);
+            }
         }
         
-        var openSubtabCorrespondence = function openSubtab(result) {
-            //Now that we have the primary tab ID, we can open a new subtab in it
-            var primaryTabId = result.id;
-            var conid= '{!$CurrentPage.parameters.id}';
-            
-            sforce.console.openSubtab(primaryTabId , '/apex/CorrespondencePage?contid='+conid, true, 
-                'Correspondence', null, openSuccess, 'Correspondence Tab');
-        };
+        // Clean up the subscription if the page unloads
+        var pageUnload = window.onunload;
+        window.onunload = function() {
+            if (pageUnload) {
+                pageUnload();
+            }
+            if (subscription) {
+                sforce.one.unsubscribe(subscription);
+            }
+        };*/
         
-        function testSetTabTitle() {
-            sforce.console.getEnclosingTabId(function(result) {
-               sforce.console.setTabTitle('C-'+'{!contact.CustomerID__c}', result.id);
-               sforce.console.setTabLink();
-            });
-         }
-        window.onload = function() {
-              testSetTabTitle();
-              hidingCloseLink();
-              showProductReturnAlert();
-        };
+        function OpenSubtabCorres() {   // changed open in self tab so directly call CorrespondencePage
+            
+            var conid = '{!$CurrentPage.parameters.id}';
+            var retURL = '{!JSENCODE($CurrentPage.parameters.retURL)}';
+            
+            var url = '/apex/CorrespondencePage?contid=' + conid +
+                '&retURL=' + encodeURIComponent(retURL);
+            
+            if (typeof sforce !== 'undefined' && sforce.one) {
+                sforce.one.navigateToURL(url);
+            } else {
+                window.open(url, '_self');
+            }
+        }
+        
         function showProductReturnAlert(){
-            var val = document.getElementById("{!$Component.frm:pb11:pb13:ProductReturnRequired}").checked;
-            //alert(val); 
+            
+            var productReturnRequiredObj = document.getElementById("{!$Component.frm:pb11:pb13:ProductReturnRequired}");
+            var val;
+            
+            if (productReturnRequiredObj != null) {
+                val = productReturnRequiredObj.checked;
+            }
             if(val !== "undefined"){
                 if(val){
-                	alert('Product Return is required for all reimbursements for this consumer.');
+                    alert('Product Return is required for all reimbursements for this consumer.');
                 }
                 
             }
-           
+            
         }
-       
-       function hidingCloseLink(){
-
-          var tds = document.getElementById("historyList").getElementsByTagName("td");
-           for (var i = 0; i<tds.length; i++) {       
-               if (tds[i].className == "actionColumn") {
-                   var data = tds[i].innerHTML;
-                   var EditLink = data.split('|');
-                   tds[i].innerHTML = EditLink[0];                   
-              }
-           }
-                   
+        
+        function hidingCloseLink(){
+            
+            var tds = document.getElementById("historyList").getElementsByTagName("td");
+            for (var i = 0; i<tds.length; i++) {       
+                if (tds[i].className == "actionColumn") {
+                    var data = tds[i].innerHTML;
+                    var EditLink = data.split('|');
+                    tds[i].innerHTML = EditLink[0];                   
+                }
+            }
+            
             var tds = document.getElementsByTagName("div");
             for (var i = 0; i<tds.length; i++) {       
-               if (tds[i].className == "pShowMore") {
-                   var data = tds[i].innerHTML;
-                   var EditLink = data.split('|');
-                   tds[i].innerHTML = EditLink[1];                   
-               }
+                if (tds[i].className == "pShowMore") {
+                    var data = tds[i].innerHTML;
+                    var EditLink = data.split('|');
+                    tds[i].innerHTML = EditLink[1];                   
+                }
             }          
-       }
-       
-       function subtabIssue() {
-            //First find the ID of the primary tab to put the new subtab in
-         sforce.console.getEnclosingPrimaryTabId(openSubtabIssue);
-              
         }
         
-        var openSubtabIssue = function openSubtabIssue(result){
-            //Now that we have the primary tab ID, we can open a new subtab in it
-            var primaryTabId = result.id;
-            var conid= '{!$CurrentPage.parameters.id}';
+        function subtabIssue() {
+            var conid = '{!$CurrentPage.parameters.id}';
             var issue = document.getElementById("{!$Component.frm:issueNum}").value;
-             var pageNumber = 0;
-            if(issue == null || issue == 'null'){
+            var pageNumber = 0;
+            
+            if (issue == null || issue == 'null' || issue == '') {
                 pageNumber = 1;
                 document.getElementById("{!$Component.frm:issueNum}").value = 1;
-            }else{
+            } else {
                 pageNumber = issue;
-                document.getElementById("{!$Component.frm:issueNum}").value = issue +1;
-            }            
+                document.getElementById("{!$Component.frm:issueNum}").value = parseInt(issue) + 1;
+            }
             
-            sforce.console.openSubtab(primaryTabId , '/apex/IssueEntryPage?pageNumber='+pageNumber+'&contid='+conid, true, 'New Issue', null,openSuccess, 'NewIssueTab'+pageNumber);
-        
-        };
-        
-    
-   
-        function openPrimaryTabEndCall(){
-              sforce.console.getEnclosingPrimaryTabId(openSubtabEndCall);
+            // Lightning navigation (same tab)
+            //var retURL = '{!JSENCODE($CurrentPage.parameters.retURL)}';
+            var retURL = window.location.href;
+            
+            var url = '/apex/IssueEntryPage?pageNumber=' + pageNumber +
+                '&contid=' + conid +
+                '&retURL=' + encodeURIComponent(retURL);
+            
+            if (typeof sforce !== 'undefined' && sforce.one) {
+                sforce.one.navigateToURL(url);
+            } else {
+                window.location.href = url;
+            }
         }
-        var openSubtabEndCall = function openSubtab(result) {
-           var primaryTabId = result.id;
-
-          sforce.console.openSubtab(primaryTabId,'/apex/EndCall', true, 'End Call', null, openSuccess,'EndCall' );
-           
+        
+        function openPrimaryTabEndCall(){
+            var retURL = '{!JSENCODE($CurrentPage.parameters.retURL)}';
+            //window.open('/apex/EndCall?retURL=' + encodeURIComponent(retURL), '_Self');
+            sforce.one.navigateToURL('/apex/EndCall?retURL=' + encodeURIComponent(retURL));
         }
         
         var subTabConsumer = '';
-         function currentTabRefresh() {
-            //First find the ID of the current tab to refresh it
-            sforce.console.getEnclosingTabId(refreshCurrentTab);
-        }
-        var refreshCurrentTab = function refreshSubtab(result){
-            var subTabId = result.id;
-            if(subTabConsumer == subTabId || subTabConsumer.trim() == ''){  
-                subTabConsumer = ''; 
-                caseListRefresh();   
+        function currentTabRefresh() {
+            if (subTabConsumer == '' || subTabConsumer == null) {
+                subTabConsumer = '';
+                caseListRefresh(); 
             }
         }
-            
+        
         var openSuccess = function openSuccess(result) {
             //Report whether we succeeded in opening the subtab
-           
+            
             if (result.success == true) {
                 //alert('subtab successfully opened');
             } else {
                 //alert('subtab cannot be opened');
             }
         };
-            
-       var onFocusedSubtabCallback = function (result) {
+        
+        var onFocusedSubtabCallback = function (result) {
             var entityId = result.objectId;
             subTabConsumer =  result.id;
             if(document.getElementById("{!$Component.frm:pb11:btn:refresh1}") != null){
@@ -133,48 +209,103 @@
             }                        
         };  
         
-        sforce.console.onFocusedSubtab(onFocusedSubtabCallback);
+        //   sforce.console.onFocusedSubtab(onFocusedSubtabCallback);
         
         var newWin=null;
-        function openPrimaryTabAgeVerifyPage(){
-            sforce.console.getEnclosingPrimaryTabId(openSubtabAgeVerify);            
+        
+        function openPrimaryTabAgeVerifyPage() {
+            var contactId = '{!contact.Id}';
+            var retURL = '{!JSENCODE($CurrentPage.parameters.retURL)}';
+            
+            var url = '/apex/ConsumerAgeVerification?id=' + contactId +
+                '&retURL=' + encodeURIComponent(retURL);
+            
+            if (typeof sforce !== 'undefined' && sforce.one) {
+                sforce.one.navigateToURL(url);
+            } else {
+                window.location.href = url;
+            }
         }
         var openSubtabAgeVerify=function openSubtab(result) {
             var primaryTabId = result.id;
             sforce.console.openSubtab(primaryTabId,'/apex/ConsumerAgeVerification?id='+'{!contact.Id}', true, 'Age Verify', null, openSuccess );
         } 
         
-        function hotzip(){
+        function hotzip() {
+            
             alert('The ZIP code for the consumer belongs to one of the restricted Zip Codes. Please follow the verification guidelines specified.');
-            sforce.console.getEnclosingPrimaryTabId(openSubtabHotzip);
+            var contactId = '{!conObj.Id}';
+            var zipCode = '{!conObj.Zip_Code__c}';
+            var retURL = '{!JSENCODE($CurrentPage.parameters.retURL)}';
+            
+            var url = '/apex/HotZip?contactId=' + contactId +
+                '&zipcode=' + encodeURIComponent(zipCode) +
+                '&retURL=' + encodeURIComponent(retURL);
+            
+            if (typeof sforce !== 'undefined' && sforce.one) {
+                sforce.one.navigateToURL(url);
+            } else {
+                window.open(url, '_self');
+            }
         }
-        var openSubtabHotzip = function openSubtabHotzip(result) {
-                var primaryTabId = result.id;            
-                var contactId= '{!conObj.id}';  
-            	var zipCode = '{!conObj.Zip_Code__c}';
-                sforce.console.openSubtab(primaryTabId ,'/apex/HotZip?contactId='+contactId+'&zipcode='+zipCode, true, 'HZ-'+zipCode,null, openSuccess);
-            };
-      	
-        function reimbHist(){
-            sforce.console.getEnclosingPrimaryTabId(openSubtabreimbHist);
-        }
-        var openSubtabreimbHist = function openSubtabreimbHist(result) {
-                var primaryTabId = result.id;
-				var contactName = '{!conObj.LastName}';            
-                var contactId= '{!conObj.id}';  
-            	var zipCode = '{!conObj.Zip_Code__c}';
-                sforce.console.openSubtab(primaryTabId ,'/apex/ReimbursementHistory?contactId='+contactId, true, 'RI-'+contactName + '-' + zipCode,null, openSuccess);
-            };
         
-   </script>
-    <style>
-        .actionLink1{
+        function reimbHist() {
+            var contactId = '{!conObj.id}';
+            var contactName = '{!conObj.LastName}';
+            var zipCode = '{!conObj.Zip_Code__c}';
+            
+            var url = '/apex/ReimbursementHistory?contactId=' + contactId + '&retURL=' + encodeURIComponent('{!JSENCODE($CurrentPage.parameters.retURL)}');
+            if (typeof sforce !== 'undefined' && sforce.one) {
+                sforce.one.navigateToURL(url);
+            } else {
+                window.open(url, '_self');
+            }
+        }
+        
+        function editConsumer() {
+            
+            var consumerId = '{!conObj.Id}';
+            
+            if (consumerId && consumerId !== 'null') {
+                
+                var url = '/apex/ConsumerEntry?id=' + consumerId;
+                
+                if (typeof sforce !== 'undefined' && sforce.one) {
+                    sforce.one.navigateToURL(url);
+                } else {
+                    window.open(url, '_self');
+                }
+            }
+        }
+        function deleteRecord(recordId, objectApiName) {
+            if(confirm('Are you sure you want to delete this record?')) {
+                var sessionId = '{!$Api.Session_ID}';
+                var xhr = new XMLHttpRequest();
+                xhr.open('DELETE', '/services/data/v39.0/sobjects/' + objectApiName + '/' + recordId, true);
+                xhr.setRequestHeader('Authorization', 'Bearer ' + sessionId);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState == 4) {
+                        if(xhr.status == 204) {
+                            location.reload();
+                        } else {
+                            alert('Delete failed. Status: ' + xhr.status + ' - ' + xhr.responseText);
+                        }
+                    }
+                };
+                xhr.send();
+            }
+        }
+        
+        </script>
+        <style>
+            .actionLink1{
             color:#015ba7;
             text-decoration: none;
             font-weight:normal;
-        }
-        
-        .reimbHist {
+            }
+            
+            .reimbHist {
             background-color: #004A7F;
             -webkit-border-radius: 10px;
             border-radius: 10px;
@@ -187,300 +318,337 @@
             padding: 5px 10px;
             text-align: center;
             text-decoration: none;
-        }
-        @-webkit-keyframes glowing {
+            }
+            @-webkit-keyframes glowing {
             0% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
             50% { background-color: #FF0000; -webkit-box-shadow: 0 0 40px #FF0000; }
             100% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
-        }
-        
-        @-moz-keyframes glowing {
+            }
+            
+            @-moz-keyframes glowing {
             0% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
             50% { background-color: #FF0000; -moz-box-shadow: 0 0 40px #FF0000; }
             100% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
-        }
-        
-        @-o-keyframes glowing {
+            }
+            
+            @-o-keyframes glowing {
             0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
             50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
             100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
-        }
-        
-        @keyframes glowing {
+            }
+            
+            @keyframes glowing {
             0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
             50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
             100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
-        }
-        
-        .reimbHist{
+            }
+            
+            .reimbHist{
             -webkit-animation: glowing 1500ms infinite;
-            -moz-animation: glowing 1	500ms infinite;
+            -moz-animation: glowing 1   500ms infinite;
             -o-animation: glowing 1500ms infinite;
-            animation: glowing 1500ms infinite;
-        }
-       </style>   
-       	
+            animation: glowing 1500ms infinite; 
+            }
+            
+        </style>   
+        
         <apex:pageBlock id="pb11" rendered="{!Customershow}">
-        <apex:pageMessages id="pMess"></apex:pageMessages>
-        <apex:actionFunction name="caseListRefresh" action="{!refreshpage}" oncomplete="hidingCloseLink()"/>  
-
-        <apex:pageBlockButtons id="btn">
-            <apex:commandButton action="{!editConsumer}" value="Edit"  rendered="{!currentTran != null}" id="edit"/>
-            <apex:commandButton value="New Issue" onclick="subtabIssue();return false;" rendered="{!currentTran != null}"/>
-            <apex:commandButton value="New Correspondence" onclick="OpenSubtabCorres();return false;" rendered="{!currentTran != null}"/>
-            <apex:commandButton value="Verify Age" onclick="openPrimaryTabAgeVerifyPage();return false" id="ageVerify" rendered="{!isAgeVerificationReq && currentTran != null}"/>
-            <apex:commandButton styleClass="reimbHist" value="Reimb Hist" onclick="reimbHist();return false" id="reimbHistYes" rendered="{!isReimbHist}"/>
-            <apex:commandButton styleClass="" value="Reimb Hist" onclick="reimbHist();return false" id="reimbHistNo" rendered="{!!isReimbHist}" disabled="true"/>
-            <apex:commandButton value="Refresh" onclick="currentTabRefresh();return false" id="refresh1" oncomplete="hidingCloseLink()" rendered="{!currentTran != null}"/>
-            <apex:commandButton value="End call"  onclick="openPrimaryTabEndCall();return false" id="btnEnd" rendered="{!currentTran != null}"/>
-        </apex:pageBlockButtons>
-        
-        <apex:pageBlockSection title="Consumer Information" id="pb13">
-            <apex:outputField value="{!contact.CustomerType__c}" id="type"/>
-            <apex:outputField value="{!contact.Salutation}" Label="Prefix"/>
-            <apex:outputField value="{!contact.FirstName}"/>
-            <apex:outputField value="{!contact.Suffix__c}"/>
-            <apex:outputField value="{!contact.LastName}" />
-            <apex:outputField value="{!contact.Repeat_Complainer__c}"  />
-            <apex:outputField value="{!contact.DoNotUse__c}"/>
-			<!--<apex:outputField value="{!contact.ConsumerProductReturnRequired__c}" Label="Product Return Required" id="pb13prr"/>-->	
-			<apex:inputcheckbox value="{!contact.ConsumerProductReturnRequired__c}" id="ProductReturnRequired" disabled="true" Label="Product Return Required" />
-        </apex:pageBlockSection>
-                
-        <apex:pageBlockSection title="Address" id="pb12">
-            <apex:outputField value="{!contact.Street_Address__c}"/>
-             <apex:outputField value="{!contact.City__c}"/>
-            <apex:outputField value="{!contact.Apt_Lot__c}"/> 
-            <apex:outputField value="{!contact.State__c}"/>  
-            <apex:outputField value="{!contact.Zip_Code__c}"/>
-            <apex:outputField value="{!contact.Country__c}" id="country"/> 
-            <apex:outputField value="{!contact.Address_Verified__c}" rendered="{!If(contact.Country__c == $Label.Country,true,false)}"/>
-                <apex:outputField value="{!contact.Verify_Address__c}" label="Consumer Verify Address" rendered="{!If(contact.Country__c == $Label.Country,true,false)}"/>
-        </apex:pageBlockSection>
-             
-        <apex:pageBlockSection title="Contact Information">
-            <apex:outputField value="{!contact.Phone}" label="Telephone"/>
-            <apex:outputField value="{!contact.OtherPhone}" label="Alternate Telephone"/>
-            <apex:outputField value="{!contact.MobilePhone}" label="Mobile Phone"/>
-            <apex:outputLabel ></apex:outputLabel>
-            <apex:outputField value="{!contact.Email}" label="Email Address"/>
-            <apex:outputField value="{!contact.Email_Verified__c}" label="Email Verified"/>
-         </apex:pageBlockSection>
-         
-         <apex:pageBlockSection title="Birthdate" rendered="{!contact.CustomerType__c==$Label.CustomerType}" id="bdayId">
-                <apex:outputText value="{0,date,MM/dd/yyyy}" label="Date Of Birth"> 
-                            <apex:param value="{!contact.Birthdate1__c}" /> 
-                </apex:outputText>
-         </apex:pageBlockSection>  
-         
-         <apex:pageBlockSection title="Age Verification" rendered="{!isAgeVerificationReq}" id="ageVerifyId">
-            <apex:outputField value="{!contact.AVF_GIID_Received__c}"/>
-            <apex:outputField value="{!contact.Age_Verification_Source__c}"/>
-         </apex:pageBlockSection>
-      </apex:pageBlock>
-      
-     <apex:pageBlock rendered="{!!Customershow}" id="pbs2">
-      
-        <!--apex:actionFunction name="caseListRefresh" reRender="caseListId,historyListId,Correspondence"/-->
-         <apex:actionFunction name="caseListRefresh" action="{!refreshpage}" oncomplete="hidingCloseLink()"/>
-        <apex:pageMessages id="pMess"></apex:pageMessages>
-        
-        <apex:pageBlockButtons id="btn1">
-            <apex:commandButton action="{!editConsumer}" value="Edit"   rendered="{!currentTran != null}"/>
-            <apex:commandButton value="New Issue" onclick="subtabIssue();return false;"   rendered="{!currentTran != null}"/>
-            <apex:commandButton value="New Correspondence" onclick="OpenSubtabCorres();return false;"   rendered="{!currentTran != null}"/>
-            <apex:commandButton value="Refresh" onclick="currentTabRefresh();return false" id="refresh2"   rendered="{!currentTran != null}"/>
-            <apex:commandButton value="End call"  onclick="openPrimaryTabEndCall();return false" id="btnEnd"   rendered="{!currentTran != null}"/>
+            <apex:pageMessages id="pMess"></apex:pageMessages>
+            <apex:actionFunction name="caseListRefresh" action="{!refreshpage}" oncomplete="hidingCloseLink()"/>
+            
+            <div class="slds-grid slds-wrap slds-grid_align-center slds-m-vertical_medium">
+                <apex:commandButton action="{!editConsumer}" value="Edit"  rendered="{!currentTran != null}" id="edit"/>
+                <!-- <apex:commandButton value="Edit" onclick="editConsumer(); return false;" rendered="{!currentTran != null}" id="edit"/> -->
+                <apex:commandButton value="New Issue" onclick="subtabIssue();return false;" rendered="{!currentTran != null}"/>
+                <apex:commandButton value="New Correspondence" onclick="OpenSubtabCorres();return false;" rendered="{!currentTran != null}"/>
+                <apex:commandButton value="Verify Age" onclick="openPrimaryTabAgeVerifyPage();return false" id="ageVerify" rendered="{!isAgeVerificationReq && currentTran != null}"/>
+                <apex:commandButton styleClass="reimbHist" value="Reimb Hist" onclick="reimbHist();return false" id="reimbHistYes" rendered="{!isReimbHist}"/>
+                <apex:commandButton styleClass="" value="Reimb Hist" onclick="reimbHist();return false" id="reimbHistNo" rendered="{!!isReimbHist}" disabled="true"/>
+                <apex:commandButton value="Refresh" onclick="currentTabRefresh();return false" id="refresh1" oncomplete="hidingCloseLink()" rendered="{!currentTran != null}"/>
+                <apex:commandButton value="End call"  onclick="openPrimaryTabEndCall();return false" id="btnEnd" rendered="{!currentTran != null}"/>
+            </div>
+            <apex:pageBlockButtons location="Bottom" style="text-align:center">
+                <apex:commandButton action="{!editConsumer}" value="Edit"  rendered="{!currentTran != null}" id="edit"/>
+                <!-- <apex:commandButton value="Edit" onclick="editConsumer(); return false;" rendered="{!currentTran != null}" id="edit"/>  -->
+                <apex:commandButton value="New Issue" onclick="subtabIssue();return false;" rendered="{!currentTran != null}"/>
+                <apex:commandButton value="New Correspondence" onclick="OpenSubtabCorres();return false;" rendered="{!currentTran != null}"/>
+                <apex:commandButton value="Verify Age" onclick="openPrimaryTabAgeVerifyPage();return false" id="ageVerify" rendered="{!isAgeVerificationReq && currentTran != null}"/>
+                <apex:commandButton styleClass="reimbHist" value="Reimb Hist" onclick="reimbHist();return false" id="reimbHistYes" rendered="{!isReimbHist}"/>
+                <apex:commandButton styleClass="" value="Reimb Hist" onclick="reimbHist();return false" id="reimbHistNo" rendered="{!!isReimbHist}" disabled="true"/>
+                <apex:commandButton value="Refresh" onclick="currentTabRefresh();return false" id="refresh1" oncomplete="hidingCloseLink()" rendered="{!currentTran != null}"/>
+                <apex:commandButton value="End call"  onclick="openPrimaryTabEndCall();return false" id="btnEnd" rendered="{!currentTran != null}"/>
             </apex:pageBlockButtons>
-
-          <apex:pageBlockSection title=" Trade Information" id="pb13">
-              <apex:outputField value="{!contact.CustomerType__c}" />
-             <apex:outputField value="{!contact.Company_Name__c}" rendered="{!contact.CustomerType__c  ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer}" />            
-              <apex:outputField value="{!contact.DBA_Name__c}" rendered="{!contact.CustomerType__c ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer}"/>
-              <apex:outputField value="{!contact.Account_No__c}" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler}"/>
-              <apex:outputField value="{!contact.Retail_control__c}" rendered="{!contact.CustomerType__c   ==$Label.Retailer}"/>
-              <apex:outputField value="{!contact.Company_Name__c}" label="Agent Name" rendered="{!contact.CustomerType__c  ==$Label.Field_Sales_Force}"/>
-              
-              <!-- Reseach Panelist Section -->
-            <apex:outputField value="{!contact.Research_Panelist_ID__c}" id="respanID" label="Research Panelist ID" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
             
-            <apex:outputField label="Participant ID" value="{!contact.Participant_ID__c}" id="partID" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
-            
-            <apex:outputField label="Study ID" value="{!contact.Study_ID__c}" id="studID" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" />
-            
-            <apex:outputField label="Blinding Code" value="{!contact.Blinding_Code__c}" id="billCode" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+            <apex:pageBlockSection title="Consumer Information" id="pb13">
+                <apex:outputField value="{!contact.CustomerType__c}" id="type"/>
+                <apex:outputField value="{!contact.CustomerID__c}" id="custId"/> <!--added new field-->
+                <apex:outputField value="{!contact.Salutation}" Label="Prefix"/>
+                <apex:outputField value="{!contact.FirstName}"/>
+                <apex:outputField value="{!contact.Suffix__c}"/>
+                <apex:outputField value="{!contact.LastName}" />
+                <apex:outputField value="{!contact.Repeat_Complainer__c}"  />
+                <apex:outputField value="{!contact.DoNotUse__c}"/>
+                <!--<apex:outputField value="{!contact.ConsumerProductReturnRequired__c}" Label="Product Return Required" id="pb13prr"/>--> 
+                <apex:inputcheckbox value="{!contact.ConsumerProductReturnRequired__c}" id="ProductReturnRequired" disabled="true" Label="Product Return Required" />
             </apex:pageBlockSection>
-                
-           <apex:pageBlockSection title="Address" id="pb12" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler||contact.CustomerType__c   ==$Label.Retailer}">
-              <apex:outputField value="{!contact.Street_Address__c}" />
-              <apex:outputField value="{!contact.Apt_Lot__c}" />
-              <apex:outputField value="{!contact.Zip_Code__c}" />
-              <apex:outputField value="{!contact.City__c}" />
-              <apex:outputField value="{!contact.State__c}" /> 
-               <apex:outputField value="{!contact.Country__c}" id="country1" />
-           </apex:pageBlockSection>
             
-           <apex:pageBlockSection title="Contact Information">
-              <apex:outputField value="{!contact.Phone}" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer}"/>
-              <apex:outputField value="{!contact.Phone}" Label="FSF Phone" rendered="{!contact.CustomerType__c ==$Label.Field_Sales_Force}"/>
-              <apex:outputField value="{!contact.Email}" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer}"/>
-              <apex:outputField value="{!contact.Email}" label="FSF Email" rendered="{!contact.CustomerType__c ==$Label.Field_Sales_Force}"/>
-              
-              <!-- Reseach Panelist Section -->
-            <apex:outputField value="{!contact.Research_Company__c}" id="resCom" label="Research Company" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+            <apex:pageBlockSection title="Address" id="pb12">
+                <apex:outputField value="{!contact.Street_Address__c}"/>
+                <apex:outputField value="{!contact.City__c}"/>
+                <apex:outputField value="{!contact.Apt_Lot__c}"/> 
+                <apex:outputField value="{!contact.State__c}"/>  
+                <apex:outputField value="{!contact.Zip_Code__c}"/>
+                <apex:outputField value="{!contact.Country__c}" id="country"/> 
+                <apex:outputField value="{!contact.Address_Verified__c}" rendered="{!If(contact.Country__c == $Label.Country,true,false)}"/>
+                <apex:outputField value="{!contact.Verify_Address__c}" label="Consumer Verify Address" rendered="{!If(contact.Country__c == $Label.Country,true,false)}"/>
+            </apex:pageBlockSection>
             
-            <apex:outputField value="{!contact.Research_Location__c}" id="resLoc" label="Research Location" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+            <apex:pageBlockSection title="Contact Information">
+                <apex:outputField value="{!contact.Phone}" label="Telephone"/>
+                <apex:outputField value="{!contact.OtherPhone}" label="Alternate Telephone"/>
+                <apex:outputField value="{!contact.MobilePhone}" label="Mobile Phone"/>
+                <apex:outputLabel ></apex:outputLabel>
+                <apex:outputField value="{!contact.Email}" label="Email Address"/>
+                <apex:outputField value="{!contact.Email_Verified__c}" label="Email Verified"/>
+            </apex:pageBlockSection>
             
-            <apex:outputField value="{!contact.Salutation}" id="prefix" label="Prefix" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" />
+            <apex:pageBlockSection title="Birthdate" rendered="{!contact.CustomerType__c==$Label.CustomerType}" id="bdayId">
+                <apex:outputText value="{0,date,MM/dd/yyyy}" label="Date Of Birth"> 
+                    <apex:param value="{!contact.Birthdate1__c}" /> 
+                </apex:outputText>
+            </apex:pageBlockSection>  
             
-            <apex:outputField value="{!contact.Research_Panelist_Name__c}" id="rname" label="Name" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
-            
-            <apex:outputField value="{!contact.Research_Panelist_Address__c}" id="rAdd" label="Address" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
-            
-           </apex:pageBlockSection>
-         
-          <apex:pageBlockSection title="Other Information">
-            <apex:outputField value="{!contact.Direct_Purchase__c}" rendered="{!contact.CustomerType__c == $Label.Wholesaler}"/>
-            <apex:outputField value="{!contact.Store__c}"  rendered="{!contact.CustomerType__c ==$Label.Wholesaler}"/>
-            <apex:outputField value="{!contact.Territory__c}" rendered="{!contact.CustomerType__c  ==$Label.Field_Sales_Force}"/>
-            <apex:outputField value="{!contact.Hours_of_operation__c}" rendered="{!contact.CustomerType__c ==$Label.Wholesaler||contact.CustomerType__c   ==$Label.Retailer}"/>
-            <apex:outputField value="{!contact.ALSD_Rep__c}" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler||contact.CustomerType__c    ==$Label.Retailer}"/>
-            
-             <!-- Reseach Panelist Section -->
-            <apex:outputField value="{!contact.Participation_Date__c}" id="partDate" label="Participation Date" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
-            
-            <apex:outputField value="{!contact.Project_Flavor_Type__c}" id="proFlaType" label="Project Flavor/Type" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
-            
-            <apex:outputField value="{!contact.Customer_Has_Product__c}" id="custHasProd" label="Customer Has Product" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
-            
-            <apex:outputField value="{!contact.Research_Panelist_Notes__c}" id="resPanNotes" label="Customer Notes" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
-          </apex:pageBlockSection>  
+            <apex:pageBlockSection title="Age Verification" rendered="{!isAgeVerificationReq}" id="ageVerifyId">
+                <apex:outputField value="{!contact.AVF_GIID_Received__c}"/>
+                <apex:outputField value="{!contact.Age_Verification_Source__c}"/>
+            </apex:pageBlockSection>
         </apex:pageBlock>
         
-       <apex:pageBlock >
-           <apex:actionFunction name="test" rendered="true" action="subtabIssue();return false;"/>
-       </apex:pageBlock>
-       
-       <apex:inputHidden id="refreshTag"/>
-       <apex:inputHidden id="issueNum" /> 
-       <apex:inputHidden rendered="{!isHotZip}">
-            <script>hotzip();</script>
-       </apex:inputHidden>
-    </apex:form>
-    
-    <!-- <apex:relatedList list="Cases" pageSize="100" id="caseListId"/> RITM3055816  --> 
-    <apex:pageBlock title="Household Information" rendered="{!Customershow}">
-        <!-- Household List -->
-        <apex:pageBlockTable value="{!householdMembers}" var="member">
-            <apex:column headerValue="Name">
-                <apex:outputLink value="/apex/consumerHouseholdInformation?id={!member.Id}">
-   				 {!member.Name}
-				</apex:outputLink>
-            </apex:column>
-            <apex:column value="{!member.Birthdate__c}"/>
-            <apex:column value="{!member.CustomerID__c}"/>
-            <apex:column value="{!member.Street_Address__c}"/>
-            <apex:column value="{!member.City__c}"/>
-            <apex:column value="{!member.State__c}"/>
-            <apex:column value="{!member.Zip_Code__c}"/>
-        </apex:pageBlockTable>
-    </apex:pageBlock>    
-	<apex:form >
-	 <apex:pageBlock id="caseListId1" title="Issues">
-                <apex:pageBlockTable value="{!cases}" var="c" rendered="{!NOT(ISNULL(cases))}" rows="100">
-                    <apex:column >
-                        <apex:facet name="header">Actions</apex:facet>
-						
-                        <apex:outputLink value="/apex/IssueEntryPage?id={!c.Id}"> Edit </apex:outputLink><space/>
-                            
-                </apex:column>
-				
-				<apex:column >
-                    <apex:facet name="header">
-                        <apex:commandLink action="{!toggleSort}" value="Issue Number {!IF(sortExpression == 'CaseNumber__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort10">
-                            <apex:param value="CaseNumber__c" name="column" assignTo="{!sortExpression}" />
-                        </apex:commandLink>
-                    </apex:facet>
-                    <apex:outputLink value="/{!c.Id}" >{!c.CaseNumber__c}</apex:outputLink>
-                </apex:column>
-                <apex:column >
-                    <apex:facet name="header">
-                        <apex:commandLink action="{!toggleSort}" value="Brand Code {!IF(sortExpression == 'Brandcode__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort1">
-                            <apex:param value="Brandcode__c" name="column" assignTo="{!sortExpression}" />
-                        </apex:commandLink>
-                    </apex:facet>
-                           <apex:outputText value="{!c.Brandcode__c}" />
-                </apex:column>
-                <apex:column value="{!c.Product_Line__c}">
-                    <apex:facet name="header">
-                        <apex:commandLink action="{!toggleSort}" value="Product Line {!IF(sortExpression == 'Product_Line__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort2">
-                            <apex:param value="Product_Line__c" name="column" assignTo="{!sortExpression}" />
-                        </apex:commandLink>
-                    </apex:facet>
-                </apex:column>
-                <apex:column value="{!c.Classificationtxt__c}">
-                    <apex:facet name="header">
-                        <apex:commandLink action="{!toggleSort}" value="Classification {!IF(sortExpression == 'Classificationtxt__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort3">
-                            <apex:param value="Classificationtxt__c" name="column" assignTo="{!sortExpression}" />
-                        </apex:commandLink>
-                    </apex:facet>
-                </apex:column>
-                <apex:column value="{!c.Reasontxt__c}">
-                    <apex:facet name="header">
-                        <apex:commandLink action="{!toggleSort}" value="Reason {!IF(sortExpression == 'Reasontxt__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort4">
-                            <apex:param value="Reasontxt__c" name="column" assignTo="{!sortExpression}" />
-                        </apex:commandLink>
-                    </apex:facet>
-                </apex:column>
-                <apex:column value="{!c.Causetxt__c}">
-                    <apex:facet name="header">
-                        <apex:commandLink action="{!toggleSort}" value="Cause {!IF(sortExpression == 'Causetxt__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort5">
-                            <apex:param value="Causetxt__c" name="column" assignTo="{!sortExpression}" />
-                        </apex:commandLink>
-                    </apex:facet>
-                </apex:column>
-                <apex:column value="{!c.CreatedDate}">
-                    <apex:facet name="header">
-                        <apex:commandLink action="{!toggleSort}" value="Date/Time Opened {!IF(sortExpression == 'CreatedDate', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort6">
-                            <apex:param value="CreatedDate" name="column" assignTo="{!sortExpression}" />
-                        </apex:commandLink>
-                    </apex:facet>
-                </apex:column>
-                <apex:column value="{!c.Reimbchk__c}">
-                    <apex:facet name="header">
-                        <apex:commandLink action="{!toggleSort}" value="Reimbursement {!IF(sortExpression == 'Reimbchk__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort7">
-                            <apex:param value="Reimbchk__c" name="column" assignTo="{!sortExpression}" />
-                        </apex:commandLink>
-                    </apex:facet>
-                </apex:column>
-                <apex:column value="{!c.Survey__c}">
-                    <apex:facet name="header">
-                        <apex:commandLink action="{!toggleSort}" value="Survey {!IF(sortExpression == 'Survey__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort8">
-                            <apex:param value="Survey__c" name="column" assignTo="{!sortExpression}" />
-                        </apex:commandLink>
-                    </apex:facet>
-                </apex:column>
-        	</apex:pageBlockTable>
-    	</apex:pageBlock>
-     </apex:form>
         
-    <apex:relatedList list="Correspondence_Fulfilments__r" pageSize="10" id="Correspondence" />
-    <div class ="history" id="historyList">
-        <apex:relatedList list="Transaction_Management_History__r" pageSize="10" id="historyListId"  /> 
-    </div>
-    <apex:pageBlock id="ChatHistId" title="Chat History">
-        <apex:pageBlockTable value="{!ChatHistory}" var="c" rendered="{!NOT(ISNULL(ChatHistory))}" rows="20">
-            <apex:column value="{!c.Chat_ID__c}"/>
-            <apex:column value="{!c.CreatedDate}"/>
-            <apex:column value="{!c.CreatedBy.Name}" headerValue="Created By"/>
-            <apex:column value="{!c.Issue_ID__c}"/>
-            <apex:column value="{!c.WaitTime}"/>
-            <apex:column value="{!c.StartTime}"/>
-            <apex:column value="{!c.EndTime}"/>
-            <apex:column value="{!c.LastModifiedDate}"/>
-            <apex:column value="{!c.LastModifiedBy.Name}" headerValue="Last Modified By"/>
-        </apex:pageBlockTable>
-        <apex:outputLabel value="No records to display" rendered="{!(ISNULL(ChatHistory))}"/>
-    </apex:pageBlock>
-    
-</apex:page>
+        <apex:pageBlock rendered="{!!Customershow}" id="pbs2">
+            
+            <!--apex:actionFunction name="caseListRefresh" reRender="caseListId,historyListId,Correspondence"/-->
+            <apex:actionFunction name="caseListRefresh" action="{!refreshpage}" oncomplete="hidingCloseLink()"/>
+            <apex:pageMessages id="pMess"></apex:pageMessages>
+            
+            <apex:pageBlockButtons id="btn1">
+                <apex:commandButton action="{!editConsumer}" value="Edit"   rendered="{!currentTran != null}"/>
+                <apex:commandButton value="New Issue" onclick="subtabIssue();return false;"   rendered="{!currentTran != null}"/>
+                <apex:commandButton value="New Correspondence" onclick="OpenSubtabCorres();return false;"   rendered="{!currentTran != null}"/>
+                <apex:commandButton value="Refresh" onclick="currentTabRefresh();return false" id="refresh2"   rendered="{!currentTran != null}"/>
+                <apex:commandButton value="End call"  onclick="openPrimaryTabEndCall();return false" id="btnEnd"   rendered="{!currentTran != null}"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection title=" Trade Information" id="pb13">
+                <apex:outputField value="{!contact.CustomerType__c}" />
+                <apex:outputField value="{!contact.Company_Name__c}" rendered="{!contact.CustomerType__c  ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer}" />            
+                <apex:outputField value="{!contact.DBA_Name__c}" rendered="{!contact.CustomerType__c ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer}"/>
+                <apex:outputField value="{!contact.Account_No__c}" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler}"/>
+                <apex:outputField value="{!contact.Retail_control__c}" rendered="{!contact.CustomerType__c   ==$Label.Retailer}"/>
+                <apex:outputField value="{!contact.Company_Name__c}" label="Agent Name" rendered="{!contact.CustomerType__c  ==$Label.Field_Sales_Force}"/>
+                
+                <!-- Reseach Panelist Section -->
+                <apex:outputField value="{!contact.Research_Panelist_ID__c}" id="respanID" label="Research Panelist ID" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField label="Participant ID" value="{!contact.Participant_ID__c}" id="partID" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField label="Study ID" value="{!contact.Study_ID__c}" id="studID" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" />
+                
+                <apex:outputField label="Blinding Code" value="{!contact.Blinding_Code__c}" id="billCode" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Address" id="pb12" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler||contact.CustomerType__c   ==$Label.Retailer}">
+                <apex:outputField value="{!contact.Street_Address__c}" />
+                <apex:outputField value="{!contact.Apt_Lot__c}" />
+                <apex:outputField value="{!contact.Zip_Code__c}" />
+                <apex:outputField value="{!contact.City__c}" />
+                <apex:outputField value="{!contact.State__c}" /> 
+                <apex:outputField value="{!contact.Country__c}" id="country1" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Contact Information">
+                <apex:outputField value="{!contact.Phone}" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer}"/>
+                <apex:outputField value="{!contact.Phone}" Label="FSF Phone" rendered="{!contact.CustomerType__c ==$Label.Field_Sales_Force}"/>
+                <apex:outputField value="{!contact.Email}" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler || contact.CustomerType__c ==$Label.Retailer}"/>
+                <apex:outputField value="{!contact.Email}" label="FSF Email" rendered="{!contact.CustomerType__c ==$Label.Field_Sales_Force}"/>
+                
+                <!-- Reseach Panelist Section -->
+                <apex:outputField value="{!contact.Research_Company__c}" id="resCom" label="Research Company" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField value="{!contact.Research_Location__c}" id="resLoc" label="Research Location" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField value="{!contact.Salutation}" id="prefix" label="Prefix" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}" />
+                
+                <apex:outputField value="{!contact.Research_Panelist_Name__c}" id="rname" label="Name" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField value="{!contact.Research_Panelist_Address__c}" id="rAdd" label="Address" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Other Information">
+                <apex:outputField value="{!contact.Direct_Purchase__c}" rendered="{!contact.CustomerType__c == $Label.Wholesaler}"/>
+                <apex:outputField value="{!contact.Store__c}"  rendered="{!contact.CustomerType__c ==$Label.Wholesaler}"/>
+                <apex:outputField value="{!contact.Territory__c}" rendered="{!contact.CustomerType__c  ==$Label.Field_Sales_Force}"/>
+                <apex:outputField value="{!contact.Hours_of_operation__c}" rendered="{!contact.CustomerType__c ==$Label.Wholesaler||contact.CustomerType__c   ==$Label.Retailer}"/>
+                <apex:outputField value="{!contact.ALSD_Rep__c}" rendered="{!contact.CustomerType__c   ==$Label.Wholesaler||contact.CustomerType__c    ==$Label.Retailer}"/>
+                
+                <!-- Reseach Panelist Section -->
+                <apex:outputField value="{!contact.Participation_Date__c}" id="partDate" label="Participation Date" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField value="{!contact.Project_Flavor_Type__c}" id="proFlaType" label="Project Flavor/Type" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField value="{!contact.Customer_Has_Product__c}" id="custHasProd" label="Customer Has Product" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+                
+                <apex:outputField value="{!contact.Research_Panelist_Notes__c}" id="resPanNotes" label="Customer Notes" rendered="{!contact.CustomerType__c == $Label.Research_Panelist}"/>
+            </apex:pageBlockSection>  
+        </apex:pageBlock>
+        
+        <apex:inputHidden id="refreshTag"/>
+        <apex:inputHidden id="issueNum" /> 
+        <apex:inputHidden rendered="{!isHotZip}">
+            <script>hotzip();</script>
+            </apex:inputHidden>
+            </apex:form>
+            
+            <!-- <apex:relatedList list="Cases" pageSize="100" id="caseListId"/> RITM3055816  --> 
+                <apex:pageBlock title="Household Information" rendered="{!Customershow}">
+                    <!-- Household List -->
+                        <apex:pageBlockTable value="{!householdMembers}" var="member">
+                            <apex:column headerValue="Name">
+                                <apex:outputLink value="/apex/consumerHouseholdInformation?id={!member.Id}">
+                                    {!member.Name}
+                                </apex:outputLink>
+                                </apex:column>
+                                <apex:column value="{!member.Birthdate__c}"/>
+                                    <apex:column value="{!member.CustomerID__c}"/>
+                                        <apex:column value="{!member.Street_Address__c}"/>
+                                            <apex:column value="{!member.City__c}"/>
+                                                <apex:column value="{!member.State__c}"/>
+                                                    <apex:column value="{!member.Zip_Code__c}"/>
+                                                        </apex:pageBlockTable>
+                                                    </apex:pageBlock>    
+                                                    <apex:form >
+                                                        <!-- <apex:pageBlock id="caseListId1" title="Issues"> -->
+                                                            <apex:pageBlock id="caseListId1" title="Issues" rendered="{!NOT(ISNULL(cases)) && cases.size > 0}">
+                                                                <apex:pageBlockTable value="{!cases}" var="c" rendered="{!NOT(ISNULL(cases))}" rows="100">
+                                                                    <apex:column >
+                                                                        <apex:facet name="header">Actions</apex:facet>
+                                                                        
+                                                                        <apex:outputLink value="/apex/IssueEntryPage?id={!c.Id}&retURL={!URLENCODE($CurrentPage.parameters.retURL)}">Edit</apex:outputLink>
+                                                                        
+                                                                        </apex:column>
+                                                                        
+                                                                        <apex:column >
+                                                                            <apex:facet name="header">
+                                                                                <apex:commandLink action="{!toggleSort}" rerender="caseListId1"
+                                                                                value="Issue Number {!IF(sortExp == 'CaseNumber__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}">
+                                                                                    <apex:param name="column" value="CaseNumber__c" assignTo="{!sortExpression}"/>
+                                                                                        </apex:commandLink>
+                                                                                    </apex:facet>
+                                                                                    
+                                                                                    <apex:outputLink value="/apex/Issue_Detail?id={!c.Id}">{!c.CaseNumber__c}</apex:outputLink>
+                                                                                    </apex:column>
+                                                                                    <apex:column >
+                                                                                        <apex:facet name="header">
+                                                                                            <apex:commandLink action="{!toggleSort}" value="Brand Code {!IF(sortExpression == 'Brandcode__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort1">
+                                                                                                <apex:param value="Brandcode__c" name="column" assignTo="{!sortExpression}" />
+                                                                                                    </apex:commandLink>
+                                                                                                </apex:facet>
+                                                                                                <apex:outputText value="{!c.Brandcode__c}" />
+                                                                                                    </apex:column>
+                                                                                                <apex:column value="{!c.Product_Line__c}">
+                                                                                                    <apex:facet name="header">
+                                                                                                        <apex:commandLink action="{!toggleSort}" value="Product Line {!IF(sortExpression == 'Product_Line__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort2">
+                                                                                                            <apex:param value="Product_Line__c" name="column" assignTo="{!sortExpression}" />
+                                                                                                                </apex:commandLink>
+                                                                                                            </apex:facet>
+                                                                                                            </apex:column>
+                                                                                                            <apex:column value="{!c.Classificationtxt__c}">
+                                                                                                                <apex:facet name="header">
+                                                                                                                    <apex:commandLink action="{!toggleSort}" value="Classification {!IF(sortExpression == 'Classificationtxt__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort3">
+                                                                                                                        <apex:param value="Classificationtxt__c" name="column" assignTo="{!sortExpression}" />
+                                                                                                                            </apex:commandLink>
+                                                                                                                        </apex:facet>
+                                                                                                                        </apex:column>
+                                                                                                                        <apex:column value="{!c.Reasontxt__c}">
+                                                                                                                            <apex:facet name="header">
+                                                                                                                                <apex:commandLink action="{!toggleSort}" value="Reason {!IF(sortExpression == 'Reasontxt__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort4">
+                                                                                                                                    <apex:param value="Reasontxt__c" name="column" assignTo="{!sortExpression}" />
+                                                                                                                                        </apex:commandLink>
+                                                                                                                                    </apex:facet>
+                                                                                                                                    </apex:column>
+                                                                                                                                    <apex:column value="{!c.Causetxt__c}">
+                                                                                                                                        <apex:facet name="header">
+                                                                                                                                            <apex:commandLink action="{!toggleSort}" value="Cause {!IF(sortExpression == 'Causetxt__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort5">
+                                                                                                                                                <apex:param value="Causetxt__c" name="column" assignTo="{!sortExpression}" />
+                                                                                                                                                    </apex:commandLink>
+                                                                                                                                                </apex:facet>
+                                                                                                                                                </apex:column>
+                                                                                                                                                <apex:column value="{!c.CreatedDate}">
+                                                                                                                                                    <apex:facet name="header">
+                                                                                                                                                        <apex:commandLink action="{!toggleSort}" value="Date/Time Opened {!IF(sortExpression == 'CreatedDate', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort6">
+                                                                                                                                                            <apex:param value="CreatedDate" name="column" assignTo="{!sortExpression}" />
+                                                                                                                                                                </apex:commandLink>
+                                                                                                                                                            </apex:facet>
+                                                                                                                                                            </apex:column>
+                                                                                                                                                            <apex:column value="{!c.Reimbchk__c}">
+                                                                                                                                                                <apex:facet name="header">
+                                                                                                                                                                    <apex:commandLink action="{!toggleSort}" value="Reimbursement {!IF(sortExpression == 'Reimbchk__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort7">
+                                                                                                                                                                        <apex:param value="Reimbchk__c" name="column" assignTo="{!sortExpression}" />
+                                                                                                                                                                            </apex:commandLink>
+                                                                                                                                                                        </apex:facet>
+                                                                                                                                                                        </apex:column>
+                                                                                                                                                                        <apex:column value="{!c.Survey__c}">
+                                                                                                                                                                            <apex:facet name="header">
+                                                                                                                                                                                <apex:commandLink action="{!toggleSort}" value="Survey {!IF(sortExpression == 'Survey__c', IF(sortDirection == 'ASC', '▼', '▲'), '')}" id="cmdSort8">
+                                                                                                                                                                                    <apex:param value="Survey__c" name="column" assignTo="{!sortExpression}" />
+                                                                                                                                                                                        </apex:commandLink>
+                                                                                                                                                                                    </apex:facet>
+                                                                                                                                                                                    </apex:column>
+                                                                                                                                                                                    </apex:pageBlockTable>
+                                                                                                                                                                                    </apex:pageBlock>
+                                                                                                                                                                                    </apex:form>
+                                                                                                                                                                                    
+                                                                                                                                                                                    <!-- <apex:relatedList list="Correspondence_Fulfilments__r" pageSize="10" id="Correspondence" /> -->
+                                                                                                                                                                                        <apex:pageBlock title="Correspondence/Fulfilments" id="correspondenceBlock">
+                                                                                                                                                                                            <apex:pageBlockTable value="{!contact.Correspondence_Fulfilments__r}" var="cf" rows="10">
+                                                                                                                                                                                                <apex:column headerValue="Action">
+                                                                                                                                                                                                    <apex:outputLink value="/apex/CorrespondencePage?id={!cf.Id}&amp;IssueId={!$CurrentPage.parameters.id}" style="color:#0070d2;">Edit</apex:outputLink>
+                                                                                                                                                                                                    &nbsp;|&nbsp;
+            <a href="#" onclick="deleteRecord('{!cf.Id}', 'Correspondence_Fulfilment__c'); return false;" style="color:#0070d2;">Del</a>
+            </apex:column>
+            <apex:column headerValue="Correspondence Fulfilment ID">
+                <apex:outputLink value="/apex/CorrespondenceDetail?id={!cf.Id}" style="color:#0070d2;">{!cf.Name}</apex:outputLink>
+                </apex:column>
+                <apex:column value="{!cf.LetterDesc__c}" headerValue="Letter"/>
+                    <apex:column value="{!cf.LetterDate__c}" headerValue="Letter Date"/>
+                        </apex:pageBlockTable>
+                    <apex:outputPanel rendered="{!corrFulfilmentCount > 10}">
+                        <div style="padding:5px;">
+                            <a href="#" onclick="window.open(window.location.origin + '/lightning/r/Contact/{!contact.Id}/related/Correspondence_Fulfilments__r/view', '_self'); return false;" style="color:#0070d2;">
+                                Go to list ({!corrFulfilmentCount}) »
+                                </a>
+                                </div>
+                                </apex:outputPanel>
+                                </apex:pageBlock>
+                                
+                                <div class="history" id="historyList">
+                                    <apex:relatedList list="Transaction_Management_History__r" pageSize="10" id="historyListId"  /> 
+                                        </div>
+                                
+                                                        <apex:pageBlock id="ChatHistId" title="Messaging Sessions" rendered="{!NOT(ISNULL(chatHistory)) && chatHistory.size > 0}">
+                                                        <apex:pageBlockTable value="{!chatHistory}" var="ms" rows="20">
+                                                            <apex:column value="{!ms.Messaging_ID__c}" headerValue="Messaging ID"/>
+                                                            <apex:column value="{!ms.CreatedDate}" headerValue="Created Date"/>
+                                                            <apex:column value="{!ms.CreatedBy.Name}" headerValue="Created By"/>
+                                                            <apex:column value="{!ms.Issue_ID__c}" headerValue="Issue ID"/>
+                                                            <apex:column value="{!ms.StartTime}" headerValue="Start Time"/>
+                                                            <apex:column value="{!ms.EndTime}" headerValue="End Time"/>    
+                                                            <apex:column value="{!ms.LastModifiedDate}" headerValue="Last Modified Date"/>
+                                                            <apex:column value="{!ms.LastModifiedBy.Name}" headerValue="Last Modified By"/>
+                                                                                                                                        </apex:pageBlockTable>
+                                                        <apex:outputLabel value="No records to display"
+                                                                        rendered="{!ISNULL(chatHistory) || chatHistory.size = 0}"/>
+                                                                                    </apex:pageBlock>
+                                                                                
+                                                                                </apex:page>

@@ -64,6 +64,11 @@
                 <default>false</default>
                 <label>IVR Reimbursements</label>
             </value>
+            <value>
+                <fullName>Issue Feed</fullName>
+                <default>false</default>
+                <label>Issue Feed</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Acxiom</controllingFieldValue>

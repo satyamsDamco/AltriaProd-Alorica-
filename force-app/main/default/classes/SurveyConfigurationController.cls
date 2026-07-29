@@ -364,14 +364,14 @@ Public class SurveyConfigurationController{
     }   
     
     public class answerData{
-        string nameObj;
-        string idObj;        
+        public String nameObj {get;set;}
+        public String idObj {get;set;}    
         public answerData(string idVal,String nameVal){
             idObj =  idVal;
             nameObj = nameVal;
         }
     }
-    
+ 
      public List<SelectOption> getSection() {
         List<SelectOption> options = new List<SelectOption>();
         options.add(new SelectOption('1', '1'));

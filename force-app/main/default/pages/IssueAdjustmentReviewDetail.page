@@ -1,12 +1,32 @@
-<apex:page StandardController="Case" extensions="IssueAdjustmentReviewDetailController" sidebar="false" id="pg" tabStyle="Issue_Review__tab">
+<apex:page StandardController="Case" extensions="IssueAdjustmentReviewDetailController" sidebar="false" id="pg" tabStyle="Issue_Review__tab" lightningStylesheets="true">
+     <apex:slds />
+     <apex:includeScript value="/support/console/60.0/integration.js"/>
     <apex:form id="frm"> 
+        <script>
+        function closeCancelTab() {
+            if (typeof sforce !== 'undefined' && sforce.console) {
+                sforce.console.getEnclosingTabId(function(result) {
+                    console.log('Tab Result:', result);
+                    if (result.success && result.id) {
+                        sforce.console.closeTab(result.id);
+                    } else {
+                        console.error(result);
+                    }
+                });
+            } 
+            return false;
+        }
+        </script>
         <apex:sectionHeader title="Issue Detail" subtitle="{!case.CaseNumber__c}" />
-        <apex:outputLink value="/apex/IssueAdjustmentReview?ReviewType={!$CurrentPage.parameters.ReviewType}">«Back to Issue Adjustment Review List</apex:outputLink>
-        <apex:pageblock title="Issue Details" mode="detail"  id="pb">
-            <apex:pageBlockButtons id="pbButton">
-                <apex:commandButton value="Review" action="{!setReview}" id="refresh" disabled="{!issueAdjustment.isReviewed__c}"/>
-            </apex:pageBlockButtons>
-             <apex:pageBlockSection title="Review Comment">
+       <apex:outputLink onclick="return closeCancelTab();">«Back to Issue Adjustment Review List</apex:outputLink>   
+            <apex:pageblock title="Issue Details" mode="detail"  id="pb">
+         
+            <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+                <apex:commandButton value="Review" action="{!setReview}" id="refreshTop" disabled="{!issueAdjustment.isReviewed__c}" styleClass="slds-button slds-button_brand"
+                />
+            </div>
+            
+            <apex:pageBlockSection title="Review Comment">
                 <apex:outputField value="{!issueAdjustment.Comment__c}" label="Review Comments" rendered="{!issueAdjustment.isReviewed__c}"/>
                 <apex:inputField value="{!issueAdjustment.Comment__c}" label="Review Comments" style="width:100%;height:120px;;"   required="true" rendered="{!!issueAdjustment.isReviewed__c}"/>
             </apex:pageBlockSection>
@@ -119,6 +139,10 @@
                 <apex:outputField value="{!case.IsReviewed__c}"/>
             </apex:pageBlockSection>            
             <apex:inputHidden id="reviewed" value="{!issueAdjustment.isReviewed__c}"/>
-        </apex:pageblock>        
-    </apex:form>
+            <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+                <apex:commandButton value="Review" action="{!setReview}" id="refreshBottom" disabled="{!issueAdjustment.isReviewed__c}" styleClass="slds-button slds-button_brand"
+                />
+            </div>
+        </apex:pageblock>  
+        </apex:form>
 </apex:page>

@@ -1,13 +1,87 @@
-<apex:page controller="DNISSearchController" sidebar="false" action="{!searchOnLoad}"> 
-   <apex:includeScript value="/support/console/37.0/integration.js"/>
+<apex:page controller="DNISSearchController" sidebar="false" action="{!searchOnLoad}" lightningStylesheets="true"> 
+    <apex:slds />
+   <apex:includeScript value="/support/console/67.0/integration.js"/>
     <apex:form >
      <script type="text/javascript">
+     var CURRENT_TAB_ID = null;
+      var tabFocusedChannel = "{!$MessageChannel.lightning__tabFocused}";
+            var subscription;
            window.onload = function() {
                  SetTabTitleDNIS();
                  getPrimaryTabId();
                  closingTab();
-                
-             };
+                // autoHideErrorMsg(); //added by Pratiksha
+               if (sforce && sforce.one) {
+                    subscription = sforce.one.subscribe(tabFocusedChannel, handleTabClick, { scope: "APPLICATION" });
+                    console.log("Subscribed to tab focus events.");
+                }
+ 
+                sforce.console.getEnclosingPrimaryTabId(function(result) {
+                    if (result.success) {
+                        //console.log("CURRENT_TAB_ID:" + result.id);
+                        CURRENT_TAB_ID = result.id;
+                        console.log("CURRENT_TAB_ID:" + CURRENT_TAB_ID);
+                    }
+                });
+
+                }
+
+                        function handleTabClick(message) {
+                if (message) {
+                    var currentTabId = message.currentTabId;
+                    var previousTabId = message.previousTabId;
+                    if(CURRENT_TAB_ID==currentTabId){
+                        closeOtherPrimaryTabs(CURRENT_TAB_ID);
+                        window.location.reload(true);
+                    }
+                   
+                    console.log("Tab Clicked! Current Tab ID: " + currentTabId);
+                    console.log("Previous Tab ID: " + previousTabId);
+                    console.log("CURRENT_TAB_ID:" + CURRENT_TAB_ID);
+                   
+                    // Place your custom logic here (e.g., refreshing data, tracking user action)
+                }
+                            
+                        }
+        function closeOtherPrimaryTabs(keepTabId) {
+            sforce.console.getPrimaryTabIds(function (result) {
+                if (result && result.success && result.ids) {
+                    result.ids.forEach(function (tabId) {
+                        if (!tabId) {
+                            return;
+                        }
+                        if (tabId === keepTabId) {
+                            // Closing "other" primary tabs closes their subtabs automatically,
+                            // but subtabs nested under the tab we're KEEPING (DNIS Search)
+                            // are never touched by that. Lightning pages open subtabs directly
+                            // under this primary tab, so we have to close those explicitly.
+                            closeAllSubtabsOf(tabId);
+                        } else {
+                            sforce.console.closeTab(tabId);
+                        }
+                    });
+                }
+            });
+        }
+
+        function closeAllSubtabsOf(primaryTabId) {
+            sforce.console.getSubtabIds(primaryTabId, function (subResult) {
+                if (subResult && subResult.success && subResult.ids) {
+                    subResult.ids.forEach(function (subTabId) {
+                        if (subTabId) {
+                            sforce.console.closeTab(subTabId);
+                        }
+                    });
+                }
+            });
+        }
+ 
+            // 5. Clean up the subscription if the page unloads
+            window.onunload = function() {
+                if (subscription) {
+                    sforce.one.unsubscribe(subscription);
+                }
+            };
             
              function SetTabTitleDNIS() {
                 document.cookie = "apex__tranid= ; expires = Wed, 01 Jan 2020 00:00:00 GMT; path=/";
@@ -43,6 +117,25 @@
                         
                     }
                 });
+                //added by Pratiksha 
+                 document.addEventListener('click', function(e) {
+                 if (e.target && e.target.classList.contains('dnisCloseBtn')) {
+                     var msgBox = document.getElementById('msgContainer');
+                     if (msgBox) {
+                         msgBox.style.display = 'none';
+                     }
+                 }
+             });
+
+             function autoHideErrorMsg() {
+                 var msgBox = document.getElementById('msgContainer');
+                 if (msgBox) {
+                     setTimeout(function () {
+                         msgBox.style.display = 'none';
+                     }, 6000);
+                 }
+             }
+                //block ends here 
              }
         </script>
         <style>
@@ -63,31 +156,50 @@
             }
         </style> 
         <apex:pageBlock >  
-            <apex:pageMessages id="showmsg"></apex:pageMessages>
-                <center>   
-                <table style="padding-top:25px">
-                <tr>
-                <td>
-                    <apex:outputLabel value="Operating Company"></apex:outputLabel>
-                </td>
-                <td style="padding-left:30px;">
-                     <apex:selectList id="opSelected" required="true" style="text-align:left;border-left:3px solid #FF0000" size="1" value="{!opCompany}" >
+            <!-- added by Pratiksha -->
+        <apex:outputPanel id="showmsg" layout="block">
+            <div id="msgContainer" style="position:relative;">
+                <apex:pageMessages id="pgMsg" />
+                <span class="dnisCloseBtn" title="Close" style="position:absolute; top:10px; right:14px; cursor:pointer; font-size:18px; font-weight:bold; color:#fff; line-height:1;">
+                    &times;
+                </span>
+            </div>
+        </apex:outputPanel>
+          <!--  <apex:pageMessages id="showmsg" /> -->
+               <div class="slds-grid slds-grid_align-center">
+                <div class="slds-col slds-size_1-of-2">
+
+                    <!-- Label + Select Box -->
+                    <div class="slds-grid slds-grid_vertical-align-center">
+
+                        <div class="slds-col slds-size_4-of-12">
+                            <label class="slds-form-element__label"
+                                   for="{!$Component.opDropdown.opSelected}">
+                                Operating Company
+                            </label>
+                        </div>
+
+                        <div class="slds-col slds-size_3-of-12">
+                            <apex:outputPanel id="opDropdown">
+                                <apex:selectList id="opSelected" required="true" style="text-align:left;border-left:3px solid #FF0000" size="1" value="{!opCompany}" >
                         <apex:selectOptions value="{!opCompanyList}" /> 
                     </apex:selectList>
-                </td>
-                </tr>
-                <tr>
-                    <td>
-                        &nbsp;
-                    </td>
-                </tr>
-                <tr height="30px">
-                    <td colspan="2" style="text-align:center;margin-top:30px;">                                         
-                       <apex:commandButton value="Select" action="{!search}" reRender="showmsg" />
-                    </td>    
-                </tr>
-                </table>
-                </center>
+                                
+                            </apex:outputPanel>
+                        </div>
+
+                    </div>
+
+                    <!-- Button -->
+                    <div class="slds-grid slds-grid_align-center slds-m-top_medium slds-m-bottom_medium">
+                        <div class="slds-col slds-size_3-of-12">
+                           <apex:commandButton value="Select" action="{!search}" reRender="showmsg" oncomplete="autoHideErrorMsg();" styleClass="slds-button slds-button_brand slds-m-bottom_small"/> <!-- added oncomplete="autoHideErrorMsg();" -->
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
         </apex:pageBlock>
     </apex:form>
 </apex:page>

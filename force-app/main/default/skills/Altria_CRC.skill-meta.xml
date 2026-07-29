@@ -9,10 +9,18 @@
             <profile>Team Manager</profile>
         </profiles>
         <users>
+            <user>abid.hussain@alorica.com</user>
+            <user>amanda.bogle@alorica.com</user>
             <user>amy.wilson@alorica.prod.com</user>
+            <user>anne.sharpe@alorica.com</user>
+            <user>bernadette.biel@alorica.prod.com</user>
             <user>brian.dunn@alorica.prod.com</user>
+            <user>frank.kietzke@alorica.com</user>
             <user>natalie.augustine@alorica.prod.com</user>
+            <user>patricia.reed@alorica.com</user>
+            <user>paul.kerlicker@alorica.com</user>
             <user>tammy.casey@alorica.prod.com</user>
+            <user>taylor.patrick@alorica.com</user>
         </users>
     </assignments>
     <label>Altria CRC</label>

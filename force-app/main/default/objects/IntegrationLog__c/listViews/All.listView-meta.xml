@@ -15,5 +15,10 @@
         <field>CREATED_DATE</field>
         <operation>lessThan</operation>
     </filters>
+    <filters>
+        <field>Callout__c</field>
+        <operation>equals</operation>
+        <value>Issue Feed</value>
+    </filters>
     <label>All</label>
 </ListView>

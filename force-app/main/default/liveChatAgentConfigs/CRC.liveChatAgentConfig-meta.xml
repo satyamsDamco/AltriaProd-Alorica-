@@ -5,6 +5,7 @@
             <profile>Admin</profile>
             <profile>Administrator</profile>
             <profile>CRC Agent</profile>
+            <profile>Senior Agent</profile>
             <profile>Team Manager</profile>
         </profiles>
         <users>

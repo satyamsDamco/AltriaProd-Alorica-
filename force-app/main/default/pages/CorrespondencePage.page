@@ -1,54 +1,65 @@
-<apex:page standardController="Correspondence_Fulfilment__c" extensions="CorrespondenceController" id="pg">
-    <apex:includeScript value="/support/console/37.0/integration.js"/>
+<apex:page standardController="Correspondence_Fulfilment__c" extensions="CorrespondenceController" id="pg" lightningStyleSheets="True" title="{!IF(Correspondence_Fulfilment__c.Name != null && Correspondence_Fulfilment__c.Name != '', 'CF - ' & Correspondence_Fulfilment__c.Name, 'Correspondence')}">
+<apex:slds />
+    <apex:includeScript value="/support/console/64.0/integration.js"/>
     <apex:form id="fm1">  
         
-        <script>
-             function SetTabTitleCorrespondence() {
-                sforce.console.getEnclosingTabId(function(result) {
-                   var CorresId = '{!codObj.id}'; 
-                   if(CorresId != null && CorresId != '' && CorresId != 'null'){ 
-                       sforce.console.setTabTitle('CF-'+'{!Correspondence_Fulfilment__c.Name}', result.id);
-                   }
-                   sforce.console.setTabLink();
-                   
-                });
+       <script>
+    function setPageTitle() {
+        var CorresId = '{!codObj.id}';
+if(CorresId != null && CorresId != '' && CorresId != 'null')
+       { document.title = 'CF-' + '{!Correspondence_Fulfilment__c.Name}';}
+    }
+
+    var pageLoad = window.onload;
+
+    window.onload = function () {
+
+        var CorresId = '{!codObj.id}';
+
+        if (CorresId != null && CorresId != '' && CorresId != 'null') {
+            CancelRedirect();
+        }
+
+        if (pageLoad) {
+            pageLoad();
+        }
+
+        setPageTitle();
+        setCommentBlur();
+    };
+
+    function CloseTabCorrespondence() {
+        sforce.console.getEnclosingTabId(function (result) {
+            console.log('Tab Result:', result);
+
+            if (result.success && result.id) {
+                sforce.console.closeTab(result.id);
+            } else {
+                console.error(result);
             }
-                
-            var pageLoad = window.onload;
-            window.onload = function() {
-                var CorresId = '{!codObj.id}';
-                if(CorresId != null && CorresId != '' && CorresId != 'null'){
-                    CancelRedirect();
-                }
-                if (pageLoad) {
-                        pageLoad();
-                }
-                SetTabTitleCorrespondence();
-                setCommentBlur();
-            }   
-            function CloseTabCorrespondence() {
-                var CorresId = '{!codObj.id}'; 
-                if(CorresId == null || CorresId == '' || CorresId == 'null'){
-                     sforce.console.getEnclosingTabId(closeSubtab);
-                }else{
-                    CancelRedirect();               
-                }   
-            }        
-            var closeSubtab = function closeSubtab(result) {
-                var tabId = result.id;
-                sforce.console.closeTab(tabId);
-            };
-            function setCommentBlur(){
-                if("{!!newFulfillment}" == "true"){
-                    document.getElementById('pg:fm1:pgBlock:pgBlckSec2:comment').disabled = true;
-                }
-            }
-        </script>
+        });
+ 
+    return false;
+    }
+    
+    function setCommentBlur() {
+
+        if ("{!!newFulfillment}" == "true") {
+
+            document.getElementById('pg:fm1:pgBlock:pgBlckSec2:comment').disabled = true;
+        }
+    }
+</script>
         
         <apex:pageBlock title="Correspondence/Fulfilment" id="pgBlock">
             <apex:pageMessages id="message"></apex:pageMessages>
-            <apex:pageBlockButtons >
-                <apex:commandButton value="Save" action="{!SaveRecord}" status="loadingstatus" id="saveBtn" disabled="{!!newFulfillment}" reRender="message,saveBtn"/>
+            <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+                <apex:commandButton value="Save" action="{!SaveRecord}" status="loadingstatus" id="saveBtnTop" disabled="{!!newFulfillment}" reRender="message,saveBtn"/>
+                <apex:commandButton value="Clear" action="{!Clear}" rendered="{!If(codObj.id == null,true,false)}" disabled="{!!newFulfillment}"/>
+                <apex:commandButton value="Cancel" onclick="CloseTabCorrespondence(); return false;"/>
+            </div>
+            <apex:pageBlockButtons location="bottom" style="text-align:center;">
+                <apex:commandButton value="Save" action="{!SaveRecord}" status="loadingstatus" id="saveBtnBottom" disabled="{!!newFulfillment}" reRender="message,saveBtn"/>
                 <apex:commandButton value="Clear" action="{!Clear}" rendered="{!If(codObj.id == null,true,false)}" disabled="{!!newFulfillment}"/>
                 <apex:commandButton value="Cancel" onclick="CloseTabCorrespondence(); return false;"/>
             </apex:pageBlockButtons>
@@ -81,9 +92,10 @@
                 </apex:pageBlockSection>
             </apex:outputPanel>
             
-            <apex:pageBlockSection columns="1" id="pgBlckSec2">
-                <apex:inputField value="{!codObj.Comments__c}"  style="width:100%;height:120px;" id="comment"/>
+            <apex:pageBlockSection columns="2" id="pgBlckSec2">
+                <apex:inputField value="{!codObj.Comments__c}"  style="width:50%;height:120px;" id="comment"/>
             </apex:pageBlockSection>
+            
         </apex:pageBlock>
         
         <!-- RITM2147263 -->

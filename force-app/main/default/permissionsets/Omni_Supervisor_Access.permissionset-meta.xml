@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Grants visibility of the Omni Supervisor tab for chat supervisors monitoring Enhanced Messaging sessions.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Omni Supervisor Access</label>
+</PermissionSet>

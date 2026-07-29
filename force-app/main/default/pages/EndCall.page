@@ -1,72 +1,183 @@
-<apex:page standardController="Transaction_Management__c"  extensions="EndCallController" sidebar="False" id="pg" showHeader="false">
-    <apex:includeScript value="/support/console/37.0/integration.js"/>
-    <apex:form id="frm1">
-        <script>            
-            function closeCancelTab() {
-              sforce.console.getEnclosingTabId(closeSubtab1);
-            }  
-            var closeSubtab1 = function closeSubtab1(result) {
-                //Now that we have the tab ID, we can close it
-                var tabId = result.id;
-                sforce.console.closeTab(tabId);
-            };
-           
-           function closeAllTab() { 
-              var errorCheck = document.getElementById("{!$Component.frm1:EndCallBlock:message}");  
-              
-              if(errorCheck.innerHTML != null && errorCheck.innerHTML == '')
-                sforce.console.getEnclosingPrimaryTabId(closeSubtab);
-           } 
-           var tabIdName = ''; 
-           var closeSubtab = function closeSubtab(result) {
-                //Now that we have the tab ID, we can close it
-                var tabId = result.id;
-                sforce.console.closeTab(tabId); 
-                testDisableTabCloseFalseWithoutId(tabId);                
-           };
-           
-           function testDisableTabCloseFalseWithoutId(tabId) {
-               tabIdName = tabId;
-               sforce.console.disableTabClose(false, tabId,displayResultsCallback);
-           }
-           
-           function displayResultsCallback(result){
-               sforce.console.openPrimaryTab(tabIdName , '/apex/DNISSearchPage', true, 'DNIS Search', openSuccess, 'DNIS Search');
-           }
+<apex:page standardController="Transaction_Management__c" docType="html-5.0" extensions="EndCallController" sidebar="False" id="pg" showHeader="false" lightningStyleSheets="true" standardStylesheets="false" title="End Call">
+    
+<apex:slds />
+
+    <apex:includeScript value="/support/console/58.0/integration.js"/>
+    <apex:form id="frm1" >
+        <script> 
+     function closeCancelTab() {
+         sforce.console.getEnclosingTabId(closeSubtab1);
+         console.log("sforce.console.getEnclosingTabId(closeSubtab1)");
             
-            var openSuccess = function openSuccess(result) {
-                //Report whether we succeeded in opening the subtab
-                if (result.success == true) {
-                    //alert('tab successfully opened');
-                } else {
-                    //alert('tab cannot be opened');
-                }
-            };   
-        </script>
-        <apex:pageBlock title="End Call"  id="EndCallBlock">
-            <apex:pageMessages id="message"></apex:pageMessages>
-            <apex:pageBlockButtons id="btn">
-                    <apex:commandButton Value="Save" action="{!customSave}" status="loadingstatus" id="saveBtn" disabled="{!isError}" reRender="message,saveBtn"  oncomplete="closeAllTab();return false;"/>
-                    <apex:commandButton Value="Cancel" onclick="closeCancelTab();return false;"/>               
-            </apex:pageBlockButtons>
-             <apex:pageBlockSection title="End Call Reason" columns="1">
-                <apex:inputField value="{!tranObj.Disposition__c}" required="True" />
-                <apex:inputField value="{!tranObj.Comments__c}"  required="true" style="width:100%;height:120px;"/>
-                <apex:inputHidden value="{!tranObj.Id}" id="theHiddenInput" />                
-            </apex:pageBlockSection>            
-        </apex:pageBlock>
+        }
+    
+        var closeSubtab1 = function closeSubtab1(result) {
+            //Now that we have the tab ID, we can close it
+            var tabId = result.id;
+            sforce.console.closeTab(tabId);
+        };
+        function closeAllTab() {
+            var errorCheck = document.getElementById("{!$Component.frm1:EndCallBlock:message}");
+            
+            if (errorCheck.innerHTML != null && errorCheck.innerHTML == '') {
+                getAllTabsAndClose();
+            }
+        }
         
+          function getAllTabsAndClose() {
+        sforce.console.getPrimaryTabIds(function(result) {
+            if (result.success) {
+                var tabIds = result.ids;
+                console.log('Total primary tabs found: ' + tabIds.length);
+
+                // Find the primary tab this End Call page itself is running in,
+                // so we can force it to close LAST. If it closes earlier, this
+                // script's own execution context can be torn down mid-loop and
+                // any tabs that come after it would never get closed.
+                sforce.console.getEnclosingPrimaryTabId(function(selfResult) {
+                    var selfTabId = (selfResult && selfResult.id) ? selfResult.id : null;
+                    var orderedIds = tabIds.slice();
+
+                    if (selfTabId) {
+                        orderedIds = orderedIds.filter(function(id) {
+                            return id !== selfTabId;
+                        });
+                        orderedIds.push(selfTabId);
+                    }
+
+                    closePrimaryTabs(orderedIds, 0);
+                });
+            } else {
+                console.error('Failed to get tabs: ' + result.message);
+            }
+        });
+    }
+
+    // Recursively close primary tabs one by one. Each primary tab's subtabs
+    // are closed first, since getPrimaryTabIds() only returns top-level tabs
+    // and won't include subtabs on its own.
+    function closePrimaryTabs(tabIds, index) {
+        if (index >= tabIds.length) {
+            console.log('All tabs closed.');
+            return;
+        }
+
+        var primaryTabId = tabIds[index];
+
+        sforce.console.getSubtabIds(primaryTabId, function(subResult) {
+            var subtabIds = (subResult && subResult.success && subResult.ids) ? subResult.ids : [];
+            console.log('Primary tab ' + primaryTabId + ' has ' + subtabIds.length + ' subtab(s).');
+
+            closeSubtabsThenPrimary(primaryTabId, subtabIds, 0, function() {
+                closePrimaryTabs(tabIds, index + 1);
+            });
+        });
+    }
+
+    // Closes every subtab of a primary tab, then closes the primary tab itself
+    function closeSubtabsThenPrimary(primaryTabId, subtabIds, subIndex, done) {
+        if (subIndex >= subtabIds.length) {
+            sforce.console.closeTab(primaryTabId, function(closeResult) {
+                if (closeResult.success) {
+                    console.log('Closed primary tab: ' + primaryTabId);
+                } else {
+                    console.warn('Could not close primary tab: ' + primaryTabId);
+                }
+                done();
+            });
+            return;
+        }
+
+        sforce.console.closeTab(subtabIds[subIndex], function(closeResult) {
+            if (closeResult.success) {
+                console.log('Closed subtab: ' + subtabIds[subIndex]);
+            } else {
+                console.warn('Could not close subtab: ' + subtabIds[subIndex]);
+            }
+            closeSubtabsThenPrimary(primaryTabId, subtabIds, subIndex + 1, done);
+        });
+    }
+        var tabIdName = ''; 
+        var closeSubtab = function closeSubtab(result) {
+            //Now that we have the tab ID, we can close it
+            var tabId = result.id;
+            sforce.console.closeTab(tabId); 
+            testDisableTabCloseFalseWithoutId(tabId);                
+        };
+        
+        function testDisableTabCloseFalseWithoutId(tabId) {
+            tabIdName = tabId;
+            sforce.console.disableTabClose(false, tabId,displayResultsCallback);
+        }
+        
+        function displayResultsCallback(result){
+            sforce.console.openPrimaryTab(tabIdName , '/apex/DNISSearchPage', true, 'DNIS Search', openSuccess, 'DNIS Search');
+            console.log("displayResultsCallback--- "+ tabIdName);
+          
+        }
+        
+        var openSuccess = function openSuccess(result) {
+            //Report whether we succeeded in opening the subtab
+            if (result.success == true) {
+                //alert('tab successfully opened');
+            } else {
+                //alert('tab cannot be opened');
+            }
+        };
+
+        window.onload = function() {
+            setTimeout(function() {
+        console.log('Textarea:', document.querySelector('textarea')?.value);
+        console.log('Select:', document.querySelector('select')?.value);
+
+        document.querySelectorAll('textarea').forEach(function(el){
+            el.value = '';
+        });
+
+        document.querySelectorAll('None').forEach(function(el){
+            el.selectedIndex = 0;
+        });
+    }, 1);
+
+   
+        };
+</script>
+       <apex:pageBlock title="End Call"  id="EndCallBlock" >
+             <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+              <apex:commandButton Value="Save" action="{!customSave}" status="loadingstatus" id="saveBtn" disabled="{!isError}" reRender="message,saveBtn,EndCallBlock"  oncomplete="closeAllTab();return false;"/>
+                     &nbsp;
+                 <apex:commandButton value="Cancel"
+                        onclick="closeCancelTab();return false;"/>
+                 
+            </div>
+             
+            <apex:pageMessages id="message"></apex:pageMessages>
+           
+             <apex:pageBlockSection title="End Call Reason" columns="1" >
+                <apex:inputField value="{!tranObj.Disposition__c}" required="True"  />
+                <apex:inputField value="{!tranObj.Comments__c}"  required="true" style="width:100%;height:120px;" />
+                <apex:inputHidden value="{!tranObj.Id}" id="theHiddenInput" />
+            </apex:pageBlockSection>  
+            
+           <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+              <apex:commandButton Value="Save" action="{!customSave}" status="loadingstatus" id="saveBtn1" disabled="{!isError}" reRender="message,saveBtn1,EndCallBlock"  oncomplete="closeAllTab();return false;"/>
+                    &nbsp;
+
+                 <apex:commandButton value="Cancel" onclick="closeCancelTab();return false;"/>
+                 
+            </div>
+        </apex:pageBlock>
+         
         <!-- RITM2147263 -->
         <apex:actionstatus id="loadingstatus">
             <apex:facet name="start">
-                <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
-                       height: 100%;opacity:0.65;width:100%;"> 
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb; height: 100%;opacity:0.65;width:100%;"> 
                     <div class="waitingHolder" style="top: 74.2px; width: 91px;">
                         <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
                         <span class="waitingDescription">Loading...</span>
                     </div>
                 </div>
             </apex:facet>
-         </apex:actionstatus>
+        </apex:actionstatus>
     </apex:form>
 </apex:page>

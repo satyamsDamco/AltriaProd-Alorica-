@@ -1,18 +1,25 @@
-<apex:page standardController="Reimbursement__c" extensions="ReimbursementHistoryController">
-    <apex:includeScript value="/support/console/37.0/integration.js"/>
+<apex:page standardController="Reimbursement__c" extensions="ReimbursementHistoryController" lightningStylesheets="true" title="{!IF(reimbFirstName != null && reimbFirstName != '', 'RI - ' & reimbFirstName, 'Reimbursement History')}" >
+<apex:slds />
+    <apex:includeScript value="/support/console/62.0/integration.js"/>
     <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"/>
     <apex:includeScript value="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" />
     <script>
-    function CloseTab() {
-               sforce.console.getEnclosingTabId(closeSubtab);
+     function CloseTab() {
+        sforce.console.getEnclosingTabId(function(result) {
+            console.log('Tab Result:', result);
+
+            if(result.success && result.id) {
+                sforce.console.closeTab(result.id);
+            } else {
+                console.error(result);
             }
-            var closeSubtab = function closeSubtab(result) {
-                var tabId = result.id;
-                sforce.console.closeTab(tabId);
-            };
-    </script>
+        });
+
+        return false;
+    }
+  </script>
     <script type="text/javascript">
-    	j$ = jQuery.noConflict();
+        j$ = jQuery.noConflict();
         j$(document).ready(function () {
             j$('[id$=rhTable]').DataTable( {
                 "bSort" : false,
@@ -23,28 +30,37 @@
                 "scrollX": true
             } );
         });
-	</script>
+    </script>
     <style>
-		.tabTable{
- 			hover {background-color: #f5f5f5;};
-        	height: 200px;
-        }  
-        
-        div.dataTables_wrapper {
-            width: 1300px;
-            margin: 0 auto;
-        }
+    
+          table.dataTable,
+    table.dataTable th,
+    table.dataTable td {
+        border: 1px solid #d8dde6 !important;
+        border-collapse: collapse !important;
+        text-align: left !important;
+    }
+
+    table.dataTable th {
+        font-weight: bold;
+        text-align: left !important;
+    }
+
+    table.dataTable td {
+        white-space: nowrap;
+        text-align: left !important;
+    }
     </style>
-	<apex:form >
+    <apex:form >
         <apex:pageBlock title="Reimbursement History">
-                <apex:pageBlockButtons >
-                    <apex:commandButton value="Close" onclick="CloseTab();return false;" />
-                </apex:pageBlockButtons>
-            <apex:pageBlockSection >
-                <apex:pageBlockTable value="{!reimbHist}" var="r" id="rhTable"> 
+         <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+            <apex:commandButton value="Close" onclick="CloseTab();return false;" styleClass="slds-button slds-button_neutral" />
+         </div>
+        <apex:pageBlockSection columns="1">
+                 <apex:pageBlockTable value="{!reimbHist}" var="r" id="rhTable"> 
                         <apex:column value="{!r.IssueID__c}"/>
                         <apex:column value="{!r.Issue__r.CreatedDate}" headerValue="Issue Created Date" />
-			            <apex:column value="{!r.CreatedDate}" headerValue="Reimbursement Created Date"/>
+                        <apex:column value="{!r.CreatedDate}" headerValue="Reimbursement Created Date"/>
                         <apex:column value="{!r.Cheque_Amount__c}" headerValue="Amount"/>
                         <apex:column value="{!r.Ship_Date__c}"/>
                         <apex:column value="{!r.First_Name__c}" />
@@ -64,6 +80,9 @@
                         <apex:column value="{!r.Card_Number__c}" headerValue="Check / Card Number"/>
                     </apex:pageBlockTable>
             </apex:pageBlockSection>
+             <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+            <apex:commandButton value="Close" onclick="CloseTab();return false;" styleClass="slds-button slds-button_neutral" />
+             </div>
         </apex:pageBlock>
-    </apex:form>    
+        </apex:form>    
 </apex:page>

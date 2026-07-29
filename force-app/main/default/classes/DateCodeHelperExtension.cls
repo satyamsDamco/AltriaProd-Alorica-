@@ -1,26 +1,26 @@
 public class DateCodeHelperExtension {
     
     /*public class DateCode
-    {
-        public string ProductionDate;
-        public string DateCodeLocation;
-        public string DateCodeShift;
-        public string DateCodeUnit;
-        public string DateCodeColdStorage;
-        public string DateCodeRptBay;
-        public string DateCodeRptFactory;
-        public string DateCodeMilitaryTime;
-        public string UstDateCode;
-    }*/
-   /* public class TraceCodeValue
-    {
-        public string ProductionDate;
-        public string lvLocation;
-        public string lvDateCodeRptFactory;
-        public string lvMilitaryTime;
-        public string lvDateCodeColdStorage;
-        public integer lnDays;
-    }*/
+{
+public string ProductionDate;
+public string DateCodeLocation;
+public string DateCodeShift;
+public string DateCodeUnit;
+public string DateCodeColdStorage;
+public string DateCodeRptBay;
+public string DateCodeRptFactory;
+public string DateCodeMilitaryTime;
+public string UstDateCode;
+}*/
+    /* public class TraceCodeValue
+{
+public string ProductionDate;
+public string lvLocation;
+public string lvDateCodeRptFactory;
+public string lvMilitaryTime;
+public string lvDateCodeColdStorage;
+public integer lnDays;
+}*/
     
     public class Data{
         public string location1;    
@@ -95,63 +95,63 @@ public class DateCodeHelperExtension {
     public DateCodeHelperExtension.Data DateCodeFields(string productLineCode, string traceCode, string oprCompany, string TraceCodeLocation, string ustDateType, string ustDateCode, case caseObj){
         
         Data newdata = new Data();
-      /* if(traceCode.length() == 1) 
-        {
-            first_char  =  traceCode.subString( 0, 1); 
-            
-            //=============================
-            //-----------------------------
-            //Set Location, Factory
-            //-----------------------------
-            
-            //Location and Factory will be populated whether invalid or valid
-            //
-            //
-            newdata.location1 = 'RICHMOND';
-            newdata.lv_date_code_rpt_factory1 = 'D_PILOT';
-            newdata.production_date1 = null; //Set to null to declare as an invalid tracecode
-            
-            /*if(first_char == 'M'){
-                newdata.location1 = 'RICHMOND';
-                newdata.lv_date_code_rpt_factory1 = 'D_PILOT';
-            }
-            else if(first_char == 'S'){
-                newdata.location1 = 'RICHMOND';
-                newdata.lv_date_code_rpt_factory1 = 'D_PILOT';
-            }else{
-                
-            }
-            
-        }*/
+        /* if(traceCode.length() == 1) 
+{
+first_char  =  traceCode.subString( 0, 1); 
+
+//=============================
+//-----------------------------
+//Set Location, Factory
+//-----------------------------
+
+//Location and Factory will be populated whether invalid or valid
+//
+//
+newdata.location1 = 'RICHMOND';
+newdata.lv_date_code_rpt_factory1 = 'D_PILOT';
+newdata.production_date1 = null; //Set to null to declare as an invalid tracecode
+
+/*if(first_char == 'M'){
+newdata.location1 = 'RICHMOND';
+newdata.lv_date_code_rpt_factory1 = 'D_PILOT';
+}
+else if(first_char == 'S'){
+newdata.location1 = 'RICHMOND';
+newdata.lv_date_code_rpt_factory1 = 'D_PILOT';
+}else{
+
+}
+
+}*/
         //End: RITM0846391 - SCR 20-11-17 Trace Codes
-     /*   if(traceCode.length() == 7)
-        { 
-            first_char  =  traceCode.subString( 0, 1); 
-            String shift  =  traceCode.subString( 2, 5);
-            //=============================
-            //-----------------------------
-            //Set Location, Factory, Shift
-            //-----------------------------
-            
-            //Location and Factory is constant, invalid or valid will have the same value
-            newdata.location1 = 'RICHMOND';
-            newdata.lv_date_code_rpt_factory1 = 'D_PILOT';
-            
-            //----------------
-            TraceCodeHelper tch = new TraceCodeHelper();
-            newdata.production_date1 = tch.ProductDateCalculator(tracecode,productLineCode);
-            
-            if(shift.isNumeric() && newdata.production_date1 != null)
-            {
-                newdata.lv_shift1 = shift; //Should be numeric                         
-            }
-            else
-            {
-                //reset since invalid
-                newdata.lv_shift1 = '';
-                production_date = null; 
-            }
-        }*/
+        /*   if(traceCode.length() == 7)
+{ 
+first_char  =  traceCode.subString( 0, 1); 
+String shift  =  traceCode.subString( 2, 5);
+//=============================
+//-----------------------------
+//Set Location, Factory, Shift
+//-----------------------------
+
+//Location and Factory is constant, invalid or valid will have the same value
+newdata.location1 = 'RICHMOND';
+newdata.lv_date_code_rpt_factory1 = 'D_PILOT';
+
+//----------------
+TraceCodeHelper tch = new TraceCodeHelper();
+newdata.production_date1 = tch.ProductDateCalculator(tracecode,productLineCode);
+
+if(shift.isNumeric() && newdata.production_date1 != null)
+{
+newdata.lv_shift1 = shift; //Should be numeric                         
+}
+else
+{
+//reset since invalid
+newdata.lv_shift1 = '';
+production_date = null; 
+}
+}*/
         if(traceCode.length() == 9)
         {
             first_char  =  traceCode.subString( 0, 1); 
@@ -165,15 +165,15 @@ public class DateCodeHelperExtension {
             
             //Location and Factory is constant, invalid or valid will have the same value
             if(productLineCode == 'SNP'){
-            newdata.location1 = 'RICHMOND';
-            newdata.lv_date_code_rpt_factory1 = 'D_PILOT';
+                newdata.location1 = 'RICHMOND';
+                newdata.lv_date_code_rpt_factory1 = 'D_PILOT';
             }
             
             else {
                 
                 newdata.location1 = 'RICHMOND';
-            	newdata.lv_date_code_rpt_factory1 = 'USSTP – DPP_Ion';
-
+                newdata.lv_date_code_rpt_factory1 = 'USSTP – DPP_Ion';
+                
             }
             TraceCodeHelper tch = new TraceCodeHelper();
             newdata.production_date1 = tch.ProductDateCalculator(tracecode,productLineCode);
@@ -182,7 +182,7 @@ public class DateCodeHelperExtension {
             {
                 if(shift.isNumeric())
                 {
-                    																
+                    
                     if(Integer.valueOf(shift.subString(0,2)) <= 23 && Integer.valueOf(shift.subString(2,4)) <= 59)
                     {
                         newdata.lv_military_time1 = shift; //assign military time
@@ -224,9 +224,9 @@ public class DateCodeHelperExtension {
             else 
             {
                 //reset values if production date fails
-               newdata.lv_shift1 = '';
-               newdata.lv_military_time1 = '';
-               newdata.lv_unit1 = '';            }
+                newdata.lv_shift1 = '';
+                newdata.lv_military_time1 = '';
+                newdata.lv_unit1 = '';            }
             //----------------
         }
         

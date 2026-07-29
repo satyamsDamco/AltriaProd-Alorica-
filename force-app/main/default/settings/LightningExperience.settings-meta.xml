@@ -21,7 +21,7 @@
     <enableLEXExtensionRequiredFields>false</enableLEXExtensionRequiredFields>
     <enableLEXExtensionTrailhead>false</enableLEXExtensionTrailhead>
     <enableLEXOnIpadEnabled>false</enableLEXOnIpadEnabled>
-    <enableLexEndUsersNoSwitching>false</enableLexEndUsersNoSwitching>
+    <enableLexEndUsersNoSwitching>true</enableLexEndUsersNoSwitching>
     <enableLightningPreviewPref>false</enableLightningPreviewPref>
     <enableNavPersonalizationOptOut>false</enableNavPersonalizationOptOut>
     <enableNoBackgroundNavigations>false</enableNoBackgroundNavigations>
@@ -35,7 +35,7 @@
     <enableStackedModalManagerEnabled>true</enableStackedModalManagerEnabled>
     <enableTryLightningOptOut>false</enableTryLightningOptOut>
     <enableUseS1AlohaDesktop>false</enableUseS1AlohaDesktop>
-    <enableUsersAreLightningOnly>false</enableUsersAreLightningOnly>
+    <enableUsersAreLightningOnly>true</enableUsersAreLightningOnly>
     <isLEXExtensionComponentCustomizationOff>false</isLEXExtensionComponentCustomizationOff>
     <isLEXExtensionDarkModeOff>false</isLEXExtensionDarkModeOff>
     <isLEXExtensionLinkGrabberOff>false</isLEXExtensionLinkGrabberOff>

@@ -12,6 +12,8 @@ public class ConsumerDetailController {
    	public String sortExp {get;set;}
     public string selectedCaseId {get;set;}
      public List<Contact> householdMembers { get; set; }
+    public Integer corrFulfilmentCount { get; set; }
+
     
     /* Initiate constructor for controller ConsumerDetailController. */
     public ConsumerDetailController (ApexPages.StandardController stdController){
@@ -35,6 +37,7 @@ public class ConsumerDetailController {
 
         getCurrCountry();
         gethouseholdMemberDetail();
+        corrFulfilmentCount = [SELECT count() FROM Correspondence_Fulfilment__c WHERE Contact__c = :conObj.Id];
 		toggleSort();
         lstIssue = [Select Id, CaseNumber__C, Brandcode__c, Product_Line__c, Classificationtxt__c, Reasontxt__c, Causetxt__c, CreatedDate, Reimbchk__c, Survey__c,
                     Survey_Cancel_Reason__c From Case Where ContactId =: conObj.id order by CreatedDate DESC];
@@ -89,21 +92,23 @@ public class ConsumerDetailController {
         return null;
     }
     
-    //Method to get the Associated Chat History
-    public List<LiveChatTranscript> getChatHistory(){
-        List<LiveChatTranscript> listChatHist = new List<LiveChatTranscript>();
-        listChatHist = [
-                Select Chat_ID__c, CreatedDate, CreatedBy.Name, CaseId, Issue_ID__c, WaitTime, StartTime, EndTime, 
-                    LastModifiedDate, LastModifiedBy.Name 
-                From LiveChatTranscript 
-                Where ContactId =:conObj.id 
-                order by Id desc
-            ];
-        if(listChatHist.isEmpty()){
-            return null;
-        }
-        return listChatHist;
+    //Method to get the Associated Messaging Session
+    public List<MessagingSession> getChatHistory(){
+    List<MessagingSession> listChatHist = new List<MessagingSession>();
+    listChatHist = [
+        Select Messaging_ID__c, Name, Status, CreatedDate, CreatedBy.Name, CaseId, Issue_ID__c, StartTime, EndTime, 
+            LastModifiedDate, LastModifiedBy.Name 
+        From MessagingSession 
+        Where MessagingEndUserId IN (
+            Select Id From MessagingEndUser Where ContactId =:conObj.Id
+        )
+        order by Id desc
+    ];
+    if(listChatHist.isEmpty()){
+        return null;
     }
+    return listChatHist;
+}
     
     public Boolean checkReimbHist(){
         Integer countCon, countRI,totalCount;
@@ -173,7 +178,7 @@ public class ConsumerDetailController {
          else{
              sortExp = sortExp;
          }
-       string sortFullExp = sortExpression  + ' ' + sortDirection;
+       string sortFullExp = sortExp + ' ' + sortDirection;
        system.debug('sortFullExp : '+sortFullExp);
        system.debug('conObj.id : '+conObj.id);
        //query the database based on the sort expression
@@ -186,9 +191,7 @@ public class ConsumerDetailController {
          system.debug('cases : '+cases);
        return null;
    }
-
-
-	 public void toggleSort() {
+    public void toggleSort() {
         // Logic for toggling the sort order
         // You can implement the sorting logic here
         // Example:

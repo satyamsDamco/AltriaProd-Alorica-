@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesIncludeBosses>false</doesIncludeBosses>
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Agents</name>
+    <queueMembers>
+        <roles>
+            <role>CRC_Agent</role>
+            <role>Senior_Agent</role>
+        </roles>
+        <users>
+            <user>frank.kietzke@alorica.com</user>
+            <user>james.wright@alorica.prod.com</user>
+            <user>paul.kerlicker@alorica.com</user>
+            <user>satyam.singh@altria.com</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>CRC</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>LiveChatTranscript</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>MessagingSession</sobjectType>
+    </queueSobject>
+</Queue>

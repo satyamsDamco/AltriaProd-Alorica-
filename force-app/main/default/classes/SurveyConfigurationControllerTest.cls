@@ -280,4 +280,112 @@ public class SurveyConfigurationControllerTest {
         
     }
 
+    // JD: Added 7/2/2026
+    // Covers: configData() else branch (no questionId param), "Please enter Question Section"
+    // validation branch (Survey.Section__c = true, questionSection blank), and the
+    // removeConfiguration() true branch (deactivating an existing active configuration).
+    private static testMethod void saveMethodTest4(){
+
+        Answer__c testans = TestDataSetup.createAnswer('answer','answerID');
+        testans.Active__c = true;
+        insert testans;
+        Question__c testqustFrom = TestDataSetup.createQuestion('question','questId','ty');
+        testqustFrom.Active__c = true;
+        insert testqustFrom;
+        Question__c testqustTo = TestDataSetup.createQuestion('question1','questId1','ty1');
+        testqustTo.Active__c = true;
+        insert testqustTo;
+
+        Survey__c testSurvey = TestDataSetup.createSurvey('Survey Name');
+        testSurvey.Section__c = true;
+        insert testSurvey;
+
+        Survey_Configuration__c surveyConfig = TestDataSetup.createSurveyConfig(testSurvey,testqustFrom,testans,testqustTo);
+        surveyConfig.Question_Sequence__c = 1;
+        surveyConfig.Answer_Sequence__c = 1;
+        surveyConfig.CommentRequired__c = true;
+        surveyConfig.Question_Required__c = true;
+        surveyConfig.Starting_Question__c = true;
+        surveyConfig.Section__c = '1';
+        surveyConfig.Active__c = true;
+        insert surveyConfig;
+
+        ApexPages.currentPage().getParameters().put('id',testSurvey.id);
+        //Intentionally not setting the 'questionId' param here so configData() hits its else branch
+
+        Test.startTest();
+        SurveyConfigurationController controller = new SurveyConfigurationController(new ApexPages.StandardController(surveyConfig));
+        controller.configData();
+
+        //Covers the "Please enter Question Section" validation message
+        controller.questionRequired = false;
+        controller.questionStartQ = false;
+        controller.questionSeq = 1;
+        controller.questionSection = null;
+        controller.newSurveyCong = new Survey_Configuration__c();
+        controller.saveConfiguration();
+
+        //Covers removeConfiguration() true branch - deactivating an existing active config
+        controller.SelectedQuestionRight = testqustFrom.id;
+        controller.removeConfiguration();
+        Test.stopTest();
+    }
+
+    // JD: Added 7/2/2026
+    // Covers the saveConfiguration() update-path loop that syncs sibling
+    // Survey_Configuration__c records sharing the same QuestionFrom__c
+    // (sequence / required / starting question / section change detection).
+    private static testMethod void saveMethodTest5(){
+
+        Answer__c testans = TestDataSetup.createAnswer('answer','answerID');
+        testans.Active__c = true;
+        insert testans;
+        Question__c testqustFrom = TestDataSetup.createQuestion('question','questId','ty');
+        testqustFrom.Active__c = true;
+        insert testqustFrom;
+        Question__c testqustTo = TestDataSetup.createQuestion('question1','questId1','ty1');
+        testqustTo.Active__c = true;
+        insert testqustTo;
+
+        Survey__c testSurvey = TestDataSetup.createSurvey('Survey Name');
+        testSurvey.Section__c = true;
+        insert testSurvey;
+
+        Survey_Configuration__c surveyConfig1 = TestDataSetup.createSurveyConfig(testSurvey,testqustFrom,testans,testqustTo);
+        surveyConfig1.Question_Sequence__c = 1;
+        surveyConfig1.Answer_Sequence__c = 1;
+        surveyConfig1.CommentRequired__c = true;
+        surveyConfig1.Question_Required__c = false;
+        surveyConfig1.Starting_Question__c = false;
+        surveyConfig1.Section__c = '1';
+        surveyConfig1.Active__c = true;
+        insert surveyConfig1;
+
+        Survey_Configuration__c surveyConfig2 = TestDataSetup.createSurveyConfig(testSurvey,testqustFrom,testans,testqustTo);
+        surveyConfig2.Question_Sequence__c = 2;
+        surveyConfig2.Answer_Sequence__c = 2;
+        surveyConfig2.CommentRequired__c = false;
+        surveyConfig2.Question_Required__c = false;
+        surveyConfig2.Starting_Question__c = false;
+        surveyConfig2.Section__c = '2';
+        surveyConfig2.Active__c = true;
+        insert surveyConfig2;
+
+        ApexPages.currentPage().getParameters().put('id',testSurvey.id);
+        ApexPages.CurrentPage().getParameters().put('questionId',testqustFrom.id);
+
+        Test.startTest();
+        SurveyConfigurationController controller = new SurveyConfigurationController(new ApexPages.StandardController(surveyConfig1));
+        //Values deliberately differ from surveyConfig2 so the sibling-sync loop in
+        //saveConfiguration() detects changes on every field it checks.
+        controller.questionRequired = true;
+        controller.questionStartQ = true;
+        controller.questionSeq = 5;
+        controller.questionSection = '3';
+        controller.congId = surveyConfig1.id;
+        controller.newSurveyCong = surveyConfig1;
+        controller.saveConfiguration();
+        Test.stopTest();
+    }
+
 }

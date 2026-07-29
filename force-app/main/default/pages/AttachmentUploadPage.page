@@ -1,47 +1,50 @@
-<apex:page standardController="Attachment" extensions="AttachmentUpload">
-    <apex:includeScript value="/support/console/37.0/integration.js"/>
+<apex:page standardController="Attachment" extensions="AttachmentUpload" lightningStyleSheets="true">
+<apex:slds />
+    <apex:includeScript value="/support/console/62.0/integration.js"/>
     <script>
-        function CloseTab() {
-           
-           var attachment = '{!attachment.id}'; 
-            if(attachment== null || attachment== '' || attachment== 'null'){
-                 sforce.console.getEnclosingTabId(closeSubtab);
-            }else{
-                CancelRedirect();            
-            }  
-        }
-        
-        
-        var closeSubtab = function closeSubtab(result) {
-            //Now that we have the tab ID, we can close it
-            var tabId = result.id;
-            sforce.console.closeTab(tabId);
-        };
-        
-        function updateAttachmentCall(){
-            updateAttachment();
-        } 
+    function CloseTab() {
+      var attachment = '{!attachment.id}';
+      if (attachment == null || attachment == '' || attachment == 'null') {
+        sforce.console.getFocusedSubtabId(closeSubtab);
+      } else {
+        CancelRedirect();
+      }
+      return false;
+    } 
+          
+    var closeSubtab = function closeSubtab(result) {
+      //Now that we have the tab ID, we can close it
+      var tabId = result.id;
+      sforce.console.closeTab(tabId);
+    };
 
+    function updateAttachmentCall() {
+      updateAttachment();
+    }
+         
     </script>
   
   <apex:form enctype="multipart/form-data" id="frm">
       <apex:sectionHeader title="Attachment Upload" rendered="{!attachment.id==NULL}"/>
+      
     <apex:sectionHeader title="Edit Attachment" rendered="{!attachment.id!=NULL}}"/>
         <apex:pageBlock >
 <apex:pageMessages />
 
-      <apex:pageBlockButtons >
-        <apex:actionFunction name="CancelRedirect" action="{!cancelButton}"/>
-         <apex:actionFunction name="updateAttachment" action="{!updateAttachment}" />
-        <apex:commandButton action="{!upload}" value="Upload" rendered="{!attachment.id==NULL}"/>
-<!--         <apex:commandButton value="Save" action="{!updateAttachment}" rendered="{!attachment.id!=NULL}"/> -->
-        <apex:commandButton value="Save" onclick="updateAttachmentCall();return false" rendered="{!attachment.id!=NULL}"/>
-          <apex:commandButton value="Cancel" onclick="CloseTab();return false;"/>
-<!--         <apex:commandButton value="Cancel"  action="{!cancelButton}" rendered="{!attachment.id!=NULL}"/> -->
-        
-      </apex:pageBlockButtons>
+    <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
     
-      <apex:pageBlockSection title="Attachment" collapsible="false" columns="1" id="block1">
+    <apex:actionFunction name="CancelRedirect" action="{!cancelButton}" />
+    <apex:actionFunction name="updateAttachment" action="{!updateAttachment}" />
+    
+    <apex:commandButton action="{!upload}" value="Upload" rendered="{!attachment.id==NULL}" />
+    
+    <apex:commandButton value="Save" onclick="updateAttachmentCall();return false" rendered="{!attachment.id!=NULL}" />
+    
+    <apex:commandButton value="Cancel" onclick="return CloseTab();" />
+    
+    </div>
+  
+    <apex:pageBlockSection title="Attachment" collapsible="false" columns="1" id="block1">
         <apex:pageBlockSectionItem rendered="{!attachment.id==null}">
           <apex:outputLabel value="File" for="file"/>
           <apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" id="file"/>
@@ -55,6 +58,18 @@
         </apex:pageBlockSectionItem>   Note: Max. length 500 characters.
     
       </apex:pageBlockSection>
+      <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+      <apex:pageBlockButtons location="bottom">
+        <apex:actionFunction name="CancelRedirect" action="{!cancelButton}" />
+        <apex:actionFunction name="updateAttachment" action="{!updateAttachment}" />
+      
+        <apex:commandButton action="{!upload}" value="Upload" rendered="{!attachment.id==NULL}" />
+      
+        <apex:commandButton value="Save" onclick="updateAttachmentCall();return false" rendered="{!attachment.id!=NULL}" />
+      
+        <apex:commandButton value="Cancel" onclick="return CloseTab();" />
+      </apex:pageBlockButtons>
+      </div>
 
     </apex:pageBlock>
   </apex:form>

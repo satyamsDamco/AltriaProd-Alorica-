@@ -11,6 +11,7 @@ public class TraceCodesDetailsHelper{
         public string DateCodeRptFactory;
         public string DateCodeMilitaryTime;
         public string SpUstDateCode;
+        public string SerialNumber;
     }
 
     public TraceCodesDetailsHelper.TraceCodeClass getAllTraceCodeValues(String ProductLineCode, String TraceCodeObj,String OpCompany, String TraceCodeLocation, 
@@ -38,6 +39,7 @@ public class TraceCodesDetailsHelper{
                         TraceCodeClassObj.DateCodeRptFactory = dateCodeResult.DateCodeRptFactory;
                         TraceCodeClassObj.DateCodeMilitaryTime = dateCodeResult.DateCodeMilitaryTime;
                         TraceCodeClassObj.SpUstDateCode = dateCodeResult.UstDateCode;
+                        TraceCodeClassObj.SerialNumber = dateCodeResult.SerialNumber;
                     }
                     else{ 
                         if (ProductLineCode == 'GP') {          
@@ -48,17 +50,25 @@ public class TraceCodesDetailsHelper{
                             TraceCodeClassObj.DateCodeRptFactory ='Limerick';
                         }
                         else if (ProductLineCode == 'AS'){
-                            TraceCodeClassObj.DateCodeLocation='Virginia'; 
+                            TraceCodeClassObj.DateCodeLocation='Virginia';
                             TraceCodeClassObj.DateCodeRptFactory='MC';
                             TraceCodeClassObj.DateCodeShift='';
                         }
-                    } 
+                        else if (ProductLineCode == 'PL'){
+                            TraceCodeClassObj.DateCodeLocation='INDONESIA';
+                            TraceCodeClassObj.DateCodeRptFactory='INDONESIA';
+                        }
+                    }
             }
             else{
                 if (ProductLineCode == 'AS'){
-                    TraceCodeClassObj.DateCodeLocation='Virginia'; 
+                    TraceCodeClassObj.DateCodeLocation='Virginia';
                     TraceCodeClassObj.DateCodeRptFactory='MC';
                     TraceCodeClassObj.DateCodeShift='';
+                }
+                else if (ProductLineCode == 'PL'){
+                    TraceCodeClassObj.DateCodeLocation='INDONESIA';
+                    TraceCodeClassObj.DateCodeRptFactory='INDONESIA';
                 }
             }
             

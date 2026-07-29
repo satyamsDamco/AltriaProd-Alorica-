@@ -1,10 +1,11 @@
-<apex:page standardController="Issue_Adjustment__c" extensions="IssueAdjustmentReviewController" id="page1" sidebar="false">
+<apex:page standardController="Issue_Adjustment__c" extensions="IssueAdjustmentReviewController" id="page1" sidebar="false" lightningStylesheets="true">
+     <apex:slds />
     <apex:form id="frm">       
        <apex:pageBlock title="Issue Adjustment Review">  
-           <apex:pageBlockButtons >
+           <div class="slds-grid slds-wrap slds-grid_align-center slds-m-vertical_medium">
                <apex:commandButton action="{!previous}"  value="Previous" rendered="{!hasPrevious}"/>
                <apex:commandButton action="{!next}" rendered="{!hasNext}" value="Next"/>
-           </apex:pageBlockButtons>
+           </div>
           
            <apex:pageBlockSection collapsible="false" columns="1" showHeader="false">
                 <apex:selectList id="product" value="{!selectedReviewType}"  style="width:175px;" size="1" label="Reviewed/Not Reviewed filter">
@@ -23,6 +24,7 @@
                        </apex:commandLink>
                    </apex:facet>
                    &nbsp;&nbsp;<apex:OutputLink value="apex/IssueAdjustmentReviewDetail?id={!ir.Issue__c}&issueAdjust={!ir.id}&ReviewType={!selectedReviewType}">{!ir.IssueNumber__c}</apex:outputLink>
+                   
                </apex:column>
                <apex:column headerValue="Adjustment Instructions"  width="35%">
                     <apex:OutputText value="{!ir.Adjustment_Instructions__c}"/>
@@ -32,6 +34,10 @@
                </apex:column>       
            </apex:pageBlockTable>
            <br/>
+           <div class="slds-grid slds-wrap slds-grid_align-center slds-m-vertical_medium">
+               <apex:commandButton action="{!previous}"  value="Previous" rendered="{!hasPrevious}"/>
+               <apex:commandButton action="{!next}" rendered="{!hasNext}" value="Next"/>
+           </div>
         </apex:pageBlock>
     </apex:form>
 </apex:page>

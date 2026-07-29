@@ -1,35 +1,14 @@
-<apex:page standardController="Reimbursement__c" extensions="ReimbursementEditController" title="Reimbursement" action="{!validationBeforeReimbursement}" id="pg" name="Reimbursement" label="Reimbursement" >
-   <apex:includeScript value="/support/console/37.0/integration.js" />
+<apex:page standardController="Reimbursement__c" extensions="ReimbursementEditController" title="RN- {!reimbursement.Name}" action="{!validationBeforeReimbursement}" id="pg" name="Reimbursement" label="Reimbursement" lightningStyleSheets="true" standardStylesheets="false">
+    <apex:slds />
+    <apex:includeScript value="/support/console/62.0/integration.js" />
     <apex:form id="formId">
-    <script>         
-        function SetTabTitleReimbursement() {
-            sforce.console.getEnclosingTabId(function(result) {
-               var reimbursementId = '{!reimbursement.id}';
-               if(reimbursementId != null && reimbursementId != '' && reimbursementId != 'null'){
-                   sforce.console.setTabTitle('RN-'+'{!reimbursement.Name}', result.id);
-               }
-               sforce.console.setTabLink();
-            });
-         }
-        
-        var pageLoad = window.onload;
-        
-        window.onload = function() {
-            if (pageLoad) {
-                    pageLoad();
-            }
-            SetTabTitleReimbursement();
-        } 
-        
+        <script>         
+       
         function CloseReimbursementTab() {
-            var reimbursementId = '{!reimbursement.id}';
-            
-            if(reimbursementId == null || reimbursementId == '' || reimbursementId == 'null'){
-                sforce.console.getEnclosingTabId(closeSubtabVar);
-            }else{
-                CancelRedirect();                           
-            } 
-        } 
+            sforce.console.getEnclosingTabId(function(result) {
+                sforce.console.closeTab(result.id);
+            });
+        }
         var closeSubtabVar = function closeSubtab(result) {
             //Now that we have the tab ID, we can close it
             var tabId = result.id;
@@ -52,18 +31,23 @@
             var isVirtualCard = document.getElementById("{!$Component.pg:formId:pgBlock:pgBlkSecId:reim:reim2}").value;
             if(isVirtualCard == 'Virtual Card'){
                 if('{!issue.Contact.Email}' == '' || '{!issue.Contact.Email_Verified__c}' == 'false'){
-               		alert('A Verified Email address is required to request Virtual Card');
+                    alert('A Verified Email address is required to request Virtual Card');
                     document.getElementById("{!$Component.pg:formId:pgBlock:pgBlkSecId:reim:reim2}").value = oldType;
                 }
             }
         }
-    </script>
+        </script>
         <apex:sectionHeader subtitle="{!reimbursement.Name}" title="Reimbursement"/> 
         <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
         <apex:actionFunction name="passValue" action="{!assignValue}" rerender="formId" />
         <apex:inputHidden id="varHolder" value="{!inConsole}" />
-  	    <apex:pageBlock id="pgBlock"> 
-            <apex:pageMessages id="messages"/>
+        <apex:pageBlock id="pgBlock"> 
+            <apex:pageMessages id="messages" />
+            <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+                <apex:commandButton value="Save" status="status1" id="saveBtn" action="{!submit}" reRender="saveBtn,messages" styleClass="slds-button slds-button_brand"
+                                    style="margin-right:8px;" />
+                <apex:commandButton value="Cancel" reRender="dummy" onclick="CloseReimbursementTab();return false" styleClass="slds-button slds-button_neutral"/>
+            </div>
             <apex:pageblockSection columns="2" id="pgBlkSecId">  
                 <apex:pageBlockSectionItem id="IssueName">               
                     <apex:outputLabel value="Issue Name"></apex:outputLabel>
@@ -83,7 +67,7 @@
                 <apex:pageBlockSectionItem id="IssueId1" rendered="false">
                     <apex:inputfield value="{!reimbursement.Issue__c}" id="Issue_Id1" />                    
                 </apex:pageBlockSectionItem>
-               <apex:pageBlockSectionItem id="Consumer"> 
+                <apex:pageBlockSectionItem id="Consumer"> 
                     <apex:outputLabel value="Consumer" id="Consumer1" ></apex:outputLabel>
                     <apex:outputtext value="{!consumername}" id="Consumer2" />                    
                 </apex:pageBlockSectionItem>
@@ -146,24 +130,25 @@
                     <apex:outputLabel value="Card Number"></apex:outputLabel>
                     <apex:inputfield value="{!reimbursement.Card_Number__c}"  />                    
                 </apex:pageBlockSectionItem>
-                               
+                
             </apex:pageblockSection>
-            <apex:pageBlockButtons >
-                <apex:commandButton value="Save" status="status1" id="saveBtn" action="{!submit}" reRender="saveBtn,messages" />
-                <apex:commandButton value="Cancel" reRender="dummy" onclick="CloseReimbursementTab();return false" />
+            <apex:pageBlockButtons location="bottom" style="text-align:center;">
+                <apex:commandButton value="Save" status="status1" id="saveBtnBottom" action="{!submit}" reRender="saveBtn,messages" styleClass="slds-button slds-button_brand"
+                                    style="margin-right:8px;" />
+                <apex:commandButton value="Cancel" reRender="dummy" onclick="CloseReimbursementTab();return false" styleClass="slds-button slds-button_neutral"/>
             </apex:pageBlockButtons>
-        </apex:pageBlock>  
+        </apex:pageBlock> 
         <apex:actionstatus id="status1">
             <apex:facet name="start">
                 <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;
-                       height: 100%;opacity:0.65;width:100%;"> 
+                                                                     height: 100%;opacity:0.65;width:100%;"> 
                     <div class="waitingHolder" style="top: 74.2px; width: 91px;">
                         <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
                         <span class="waitingDescription">Loading...</span>
                     </div>
                 </div>
             </apex:facet>
-         </apex:actionstatus>
+        </apex:actionstatus>
     </apex:form>   
     <script>checkConsole();</script>
-</apex:page>
+    </apex:page>

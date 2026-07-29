@@ -1,3 +1,5 @@
-<apex:page controller="ChatConsumerSearchController" sidebar="false" action="{!redirectCustomerSearch}">
-  
+<apex:page controller="ChatConsumerSearchController" sidebar="false" action="{!redirectCustomerSearch}"  lightningStyleSheets="true">
+
+  <apex:slds />
+
 </apex:page>

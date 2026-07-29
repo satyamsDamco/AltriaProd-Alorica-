@@ -1,4 +1,4 @@
-<aura:component implements="lightning:backgroundUtilityItem" access="global">
+<aura:component implements="lightning:backgroundUtilityItem,flexipage:availableForAllPageTypes" access="global">
     <lightning:workspaceAPI aura:id="workspace"/>
     <aura:handler event="lightning:omniChannelWorkAccepted" action="{!c.onWorkAccepted}"/>
 </aura:component>

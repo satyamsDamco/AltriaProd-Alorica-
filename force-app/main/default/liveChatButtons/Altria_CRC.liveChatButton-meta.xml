@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LiveChatButton xmlns="http://soap.sforce.com/2006/04/metadata">
+<LiveChatButton xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <autoGreeting>Hello {!LiveAgent_VisitorName}. Thank you for contacting the Altria Consumer Response Center. My name is {!User_FirstName}. I will be happy to assist you today. Please allow me a moment to review the information you have provided.</autoGreeting>
     <customAgentName>{!User_FirstName}</customAgentName>
     <deployments/>
@@ -16,11 +16,8 @@
     <optionsIsInviteAutoRemove>false</optionsIsInviteAutoRemove>
     <perAgentQueueLength>1</perAgentQueueLength>
     <preChatFormPage>CRC_Chat</preChatFormPage>
-    <routingType>Choice</routingType>
+    <routingType xsi:nil="true"/>
     <site>CRC</site>
-    <skills>
-        <skill>Altria_CRC</skill>
-    </skills>
     <type>Standard</type>
     <windowLanguage>en_US</windowLanguage>
 </LiveChatButton>

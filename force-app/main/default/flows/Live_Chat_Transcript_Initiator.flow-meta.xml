@@ -274,7 +274,7 @@ VALUE(MID({!myVariable_current.Date_of_Birth_in_String__c}, IF(MID({!myVariable_
         <object>LiveChatTranscript</object>
     </recordUpdates>
     <startElementReference>myDecision</startElementReference>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>myVariable_current</name>
         <dataType>SObject</dataType>

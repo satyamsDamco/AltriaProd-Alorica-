@@ -1,5 +1,6 @@
-<apex:page standardController="Attachment" extensions="AttachmentDetail">
-    <apex:includeScript value="/support/console/37.0/integration.js" /> 
+<apex:page standardController="Attachment" extensions="AttachmentDetail" lightningStyleSheets="true" standardStylesheets="false" >
+<apex:slds />
+    <apex:includeScript value="/support/console/62.0/integration.js" /> 
     <apex:sectionHeader title="{!Attachment.name}"/>
     <script>
     
@@ -11,22 +12,21 @@
         var tabId = result.id;
         sforce.console.closeTab(tabId);
     };
-      
     </script>
-
   <apex:form enctype="multipart/form-data">
     <apex:pageMessages />
     <apex:pageBlock title="Attachment Detail" mode="View">
-      <apex:pageBlockButtons >
-        <apex:commandButton value="Edit" action="{!editPage}" rendered="{!tranid != null}"/>
-      </apex:pageBlockButtons>
+    <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+      <apex:commandButton value="Edit" action="{!editPage}" rendered="{!tranid != null}" />
+    </div>
 
-        <apex:pageBlockSection showHeader="false" columns="1" id="block1">
+  <apex:pageBlockSection showHeader="false" columns="1" id="block1">
             <apex:outputField value="{!Attachment.name}">&nbsp; <a href="/servlet/servlet.FileDownload?file={!Attachment.id}" target="_blank">View file</a></apex:outputField>
             <apex:outputField value="{!Attachment.Description}" label="Comment"/>            
-            
-        </apex:pageBlockSection>
-        
+   </apex:pageBlockSection>
+      <apex:pageBlockButtons location="bottom" style="text-align:center;">
+        <apex:commandButton value="Edit" action="{!editPage}" rendered="{!tranid != null}" />
+      </apex:pageBlockButtons>
     </apex:pageBlock>
   </apex:form>
 </apex:page>

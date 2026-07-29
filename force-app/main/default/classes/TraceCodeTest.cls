@@ -1064,4 +1064,167 @@ public class TraceCodeTest
        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('D365U07151');
     	test.stopTest();
     }
+
+    // ================================================================
+    // Additional coverage added to reach ~90% for TraceCodeHelperSecondClass
+    // ================================================================
+
+    // ---------------- validateTraceCode: cover 'O' and 'B' first-character
+    // branches, future-date fail, and invalid hour/minute branches ----------------
+    @IsTest
+    static void test_validateTraceCode_additionalBranches() {
+        Test.startTest();
+        // 'O' branch - valid, past production date
+        TraceCodeHelperSecondClass.validateTraceCode('O123G0800');
+        // 'B' branch - valid, past production date
+        TraceCodeHelperSecondClass.validateTraceCode('B123G0800');
+        // default/else branch with a future production date -> fail
+        TraceCodeHelperSecondClass.validateTraceCode('X300G0800');
+        // default branch with invalid hour (24) -> fail
+        TraceCodeHelperSecondClass.validateTraceCode('X100G2400');
+        // default branch with invalid minute (60) -> fail
+        TraceCodeHelperSecondClass.validateTraceCode('X100G0060');
+        Test.stopTest();
+    }
+
+    // ---------------- JulianDateChecker: cover zero-day and non-leap-year branches ----------------
+    @IsTest
+    static void test_JulianDateChecker_additionalBranches() {
+        Test.startTest();
+        // Julian day '0' -> invalid
+        TraceCodeHelperSecondClass.JulianDateChecker('0', 2024);
+        // Non-leap year, 365 days -> valid
+        TraceCodeHelperSecondClass.JulianDateChecker('365', 2025);
+        // Non-leap year, 366 days -> invalid
+        TraceCodeHelperSecondClass.JulianDateChecker('366', 2025);
+        Test.stopTest();
+    }
+
+    // ---------------- sixCharacterProductDate: cover invalid second-digit branch ----------------
+    @IsTest
+    static void test_sixCharacterProductDate_invalidMonth() {
+        Test.startTest();
+        // 'A' -> valid year, 'Z' -> not present in secondDigit map -> validOrNot=false
+        TraceCodeHelperSecondClass.sixCharacterProductDate('AZ1234');
+        Test.stopTest();
+    }
+
+    // ---------------- validateTDNP10CharTraceCode: full branch coverage ----------------
+    @IsTest
+    static void test_validateTDNP10CharTraceCode_fullCoverage() {
+        Test.startTest();
+
+        // null input
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode(null);
+
+        // invalid length
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('123');
+
+        // valid case - past production date, valid shift/module/machine code
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('6100U10301');
+
+        // invalid year character (not in yearMapping)
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('X100U10301');
+
+        // invalid julian day - zero
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('6000U10301');
+
+        // invalid julian day - exceeds 365 for non-leap year
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('6400U10301');
+
+        // future production date
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('6300U10301');
+
+        // invalid shift - non-numeric
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('6100UABCD1');
+
+        // invalid shift - hour exceeds 23
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('6100U25001');
+
+        // invalid shift - minute exceeds 59
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('6100U10651');
+
+        // invalid module character
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('6100Z10301');
+
+        // invalid machine code character (10th character)
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('6100U10309');
+
+        // valid case with a different valid module character
+        TraceCodeHelperSecondClass.validateTDNP10CharTraceCode('6100A10301');
+
+        Test.stopTest();
+    }
+
+    // ---------------- validatePloomTraceCode: full branch coverage (previously untested) ----------------
+    @IsTest
+    static void test_validatePloomTraceCode_fullCoverage() {
+        Test.startTest();
+
+        // null input
+        TraceCodeHelperSecondClass.validatePloomTraceCode(null);
+
+        // invalid length (not 12 characters)
+        TraceCodeHelperSecondClass.validatePloomTraceCode('U1234');
+
+        // valid case - past production date (Jan 5, 2025)
+        String validResult = TraceCodeHelperSecondClass.validatePloomTraceCode('UE25000005A5');
+        System.assertNotEquals('fail', validResult, 'Expected a valid production date to be returned');
+
+        // valid case using lowercase 'd' for day 13 (case-sensitive day mapping)
+        TraceCodeHelperSecondClass.validatePloomTraceCode('UH26000005Cd');
+
+        // invalid - uppercase 'D' is not a valid day character (case sensitivity check)
+        TraceCodeHelperSecondClass.validatePloomTraceCode('UH26000005CD');
+
+        // invalid date rollover - Feb 30 rolls into March, so month/day no longer match
+        TraceCodeHelperSecondClass.validatePloomTraceCode('UF21000005BY');
+
+        // future production date
+        TraceCodeHelperSecondClass.validatePloomTraceCode('UG22000009A1');
+
+        // invalid character 1 (must be 'U')
+        TraceCodeHelperSecondClass.validatePloomTraceCode('XE25000005A5');
+
+        // invalid character 2 (module not in valid set)
+        TraceCodeHelperSecondClass.validatePloomTraceCode('UZ25000005A5');
+
+        // serial number non-numeric
+        TraceCodeHelperSecondClass.validatePloomTraceCode('UEABCDEFG5A5');
+
+        // serial number below valid range
+        TraceCodeHelperSecondClass.validatePloomTraceCode('UE19999995A5');
+
+        // serial number above valid range
+        TraceCodeHelperSecondClass.validatePloomTraceCode('UE32000015A5');
+
+        // invalid year character
+        TraceCodeHelperSecondClass.validatePloomTraceCode('UE2500000ZA5');
+
+        // invalid month character
+        TraceCodeHelperSecondClass.validatePloomTraceCode('UE25000005Z5');
+
+        // invalid day character
+        TraceCodeHelperSecondClass.validatePloomTraceCode('UE25000005AZ');
+
+        Test.stopTest();
+    }
+
+    // ---------------- extractPloomSerialNumber: full branch coverage (previously untested) ----------------
+    @IsTest
+    static void test_extractPloomSerialNumber_fullCoverage() {
+        Test.startTest();
+
+        // null input -> null
+        System.assertEquals(null, TraceCodeHelperSecondClass.extractPloomSerialNumber(null));
+
+        // invalid length -> null
+        System.assertEquals(null, TraceCodeHelperSecondClass.extractPloomSerialNumber('U1234'));
+
+        // valid 12-character code -> returns characters 3-9 (7-digit serial)
+        String serial = TraceCodeHelperSecondClass.extractPloomSerialNumber('UE25000005A5');
+        System.assertEquals('2500000', serial);
+
+        Test.stopTest();
+    }
 }

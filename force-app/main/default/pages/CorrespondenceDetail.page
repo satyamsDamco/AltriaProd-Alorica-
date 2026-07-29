@@ -1,24 +1,27 @@
-<apex:page standardController="Correspondence_Fulfilment__c">
- <apex:includeScript value="/support/console/37.0/integration.js" /> 
+<apex:page standardController="Correspondence_Fulfilment__c" lightningStyleSheets="true" title="CF - {!Correspondence_Fulfilment__c.Name}">
+<apex:slds />
+ <apex:includeScript value="/support/console/62.0/integration.js" /> 
     <apex:sectionHeader title="Correspondence/Fulfilment Detail" subtitle="{!Correspondence_Fulfilment__c.Name}" />
     <apex:form >
-         <script>        
-            function SetTabTitleCorrespondence() {
-                sforce.console.getEnclosingTabId(function(result) {
-                   sforce.console.setTabTitle('CF-'+'{!Correspondence_Fulfilment__c.Name}', result.id);
-                   sforce.console.setTabLink();
-                   
-                });
+          <script>
+
+            function setPageTitle() {
+
+                document.title = 'CF-' + '{!Correspondence_Fulfilment__c.Name}';
             }
-            
+
             var pageLoad = window.onload;
-            window.onload = function() {
+
+            window.onload = function () {
+
                 if (pageLoad) {
-                        pageLoad();
+                    pageLoad();
                 }
-                SetTabTitleCorrespondence();
-            }   
-        </script>   
+
+                setPageTitle();
+            };
+
+        </script>
         <apex:pageBlock mode="detail">
             <!--<apex:pageBlockButtons id="btn">
                 <apex:commandButton value="Edit" action="{!edit}"/>

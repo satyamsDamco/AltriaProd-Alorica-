@@ -363,5 +363,94 @@ public class TraceCodeHelperSecondClass {
         productionDate = String.valueOf(final_date.format());
         return productionDate;
     }
-    
+
+    public static String validatePloomTraceCode(String workTraceCode) {
+        // Guard: null check and exact 12-character length enforced before any substring access
+        if (workTraceCode == null || workTraceCode.length() != 12) {
+            return 'fail';
+        }
+			
+        system.debug('workTraceCode ---> '+ workTraceCode);
+
+        String upperCode = workTraceCode.toUpperCase();
+
+        // Character 1 (Production Location & Factory): must be 'U'
+        String char1 = upperCode.substring(0, 1);
+        if (char1 != 'U') { return 'fail'; }
+
+        // Character 2 (Production Unit/Module): must be one of E,F,G,H,J,K,L
+        Set<String> validModules = new Set<String>{'E', 'F', 'G', 'H', 'J', 'K', 'L'};
+        String char2 = upperCode.substring(1, 2);
+        if (!validModules.contains(char2)) { return 'fail'; }
+
+        // Characters 3-9 (Serial Number): numeric, 2000000 - 3200000 inclusive
+        String serialNum = upperCode.substring(2, 9);
+        if (!serialNum.isNumeric()) { return 'fail'; }
+        Integer serialNumInt = Integer.valueOf(serialNum);
+        if (serialNumInt < 2000000 || serialNumInt > 3200000) { return 'fail'; }
+
+        // Year (index 9) and Month (index 10) are always uppercase in the PLOOM encoding.
+        // Day (index 11) is NOT uppercased: lowercase 'd' encodes day 13 and is case-sensitive.
+        String yearChar  = upperCode.substring(9, 10);
+        String monthChar = upperCode.substring(10, 11);
+        String dayChar   = workTraceCode.substring(11, 12); // preserve original case
+
+        Map<String, Integer> yearMapping = new Map<String, Integer>{
+            '5' => 2025, '6' => 2026, '7' => 2027, '8' => 2028, '9' => 2029,
+            'A' => 2030, 'B' => 2031, 'C' => 2032
+        };
+        if (!yearMapping.containsKey(yearChar)) { return 'fail'; }
+        Integer prodYear = yearMapping.get(yearChar);
+
+        Map<String, Integer> monthMapping = new Map<String, Integer>{
+            'A' => 1,  'B' => 2,  'C' => 3,  'D' => 4,  'E' => 5,  'F' => 6,
+            'G' => 7,  'H' => 8,  'I' => 9,  'J' => 10, 'K' => 11, 'L' => 12
+        };
+        if (!monthMapping.containsKey(monthChar)) { return 'fail'; }
+        Integer prodMonth = monthMapping.get(monthChar);
+
+        // 'd' (lowercase) maps to 13; 'D' (uppercase) is not in this map and will correctly fail
+        Map<String, Integer> dayMapping = new Map<String, Integer>{
+            '1' => 1,  '2' => 2,  '3' => 3,  '4' => 4,  '5' => 5,
+            '6' => 6,  '7' => 7,  '8' => 8,  '9' => 9,
+            'A' => 10, 'B' => 11, 'C' => 12, 'd' => 13, 'E' => 14,
+            'F' => 15, 'G' => 16, 'H' => 17, 'J' => 18, 'K' => 19,
+            'L' => 20, 'M' => 21, 'N' => 22, 'P' => 23, 'R' => 24,
+            'T' => 25, 'U' => 26, 'V' => 27, 'W' => 28, 'X' => 29,
+            'Y' => 30, '0' => 31
+        };
+        if (!dayMapping.containsKey(dayChar)) { return 'fail'; }
+        Integer prodDay = dayMapping.get(dayChar);
+
+        try {
+            Date productionDate = Date.newInstance(prodYear, prodMonth, prodDay);
+
+            // Date.newInstance is lenient: an out-of-range day (e.g. Feb 31) rolls
+            // over into the next month (Feb 31, 2025 -> Mar 3, 2025) instead of
+            // throwing. Reject the trace code if the constructed date's month/day
+            // no longer match the values encoded in Char11/Char12 - this enforces
+            // the full leap-year-aware day-restraints matrix (Feb 29 valid only in
+            // leap years, 30-day months reject day 31, etc.) without a separate table.
+            if (productionDate.month() != prodMonth || productionDate.day() != prodDay) {
+                return 'fail';
+            }
+
+            if (productionDate >= System.today()) { return 'fail'; }
+            return productionDate.format();
+        } catch (Exception ex) {
+            return 'fail';
+        }
+    }
+
+    // Extracts the 7-digit serial number block (characters 3-9) from a 12-character
+    // PLOOM trace code for population on Case.Serial_Number__c.
+    public static String extractPloomSerialNumber(String workTraceCode) {
+        // Guard: null check and exact 12-character length enforced before any substring access
+        if (workTraceCode == null || workTraceCode.length() != 12) {
+            return null;
+        }
+
+        return workTraceCode.substring(2, 9);
+    }
+
 }

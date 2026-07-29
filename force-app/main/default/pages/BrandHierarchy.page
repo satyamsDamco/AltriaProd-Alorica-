@@ -1,4 +1,5 @@
-<apex:page standardController="case" extensions="BrandHierarchyController" id="pg" sidebar="false" showHeader="false">  
+<apex:page standardController="case" extensions="BrandHierarchyController" id="pg" sidebar="false" showHeader="false" lightningStylesheets="true" standardStylesheets="false">
+    <apex:slds />
     <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
     <apex:stylesheet value="{!$Resource.AutoCompleteCSSmin}"/><!--using static resource-->
     <apex:stylesheet value="{!$Resource.AutoCompleteThemeCssmin}"/><!--using static resource-->
@@ -10,6 +11,7 @@
     
     <apex:includeScript value="https://code.jquery.com/ui/1.11.4/jquery-ui.js" />   
     <script>
+         
         window.onload=function () {                       
             $('.labelFilter').hide(); 
             $('.labeltaste').hide();
@@ -22,8 +24,7 @@
             if('{!brandHierId}' != null && '{!brandHierId}' != '')
                 callData(3,'upc');
         }
-        
-        
+         
         function brandListData(){
             var prod =  document.getElementById('pg:fm1:pBlock:pageSection:productPblock:product').value;
             var upc = document.getElementById('pg:fm1:pBlock:pageSection:upcPblock:upc').value;
@@ -33,14 +34,13 @@
             Visualforce.remoting.Manager.invokeAction(
                     '{!$RemoteAction.BrandHierarchyController.productbrandList}',
                     prod,upc,
-                    function(result, event){                    
-                        if (event.status){            
+                    function(result, event){  
+                        if (event.status){   
                             $('#brand').find('option').remove();
-                            
                             $('#brand').append('<option value="0" selected="selected">--Select--</option>');
                             var brandData = [];
                             for (var a=0;a<result.length; a++){
-                                var valuebrand = result[a];
+                               var valuebrand = result[a];
                                 if(valuebrand != null && valuebrand.trim()  != ''){
                                     var isExist = !!$('#brand option').filter(function() {
                                         return $(this).attr('value').toLowerCase() === valuebrand.toLowerCase();
@@ -122,7 +122,6 @@
         }
         function callData(operation,tagId)
         {   
-            
             var upc = 0;
             var brand = 0;
             var filter = 0;
@@ -137,7 +136,7 @@
             brand = document.getElementById('brandText').value; // document.getElementById('pg:fm1:pBlock:pageSection:brandPblock:brand').value;
             
             if( operation == 1){
-                
+                 
                 filter =  document.getElementById('filterText').value;
                 taste = document.getElementById('tasteText').value;
                 length = document.getElementById('lengthText').value;
@@ -287,6 +286,7 @@
                         cut = '0';
                 }
             }else if( operation == 4){
+                 
                 var exists = false; 
                 resetBrand();
                 $('#brand  option').each(function(){
@@ -299,6 +299,7 @@
                 }
                 
                 if(brand.length <= 0){
+                    
                     document.getElementById("brand").selectedIndex = "0";
                     document.getElementById("pg:fm1:pBlock:pageSection:brandHierId").value = '';
                     $('.labelFilter').hide(); 
@@ -334,7 +335,7 @@
                 }
                 
             }else if( operation == 0){
-                              
+               
                 upc = 0;
                 brand = 0;
                 filter = 0;
@@ -359,6 +360,7 @@
                 $('#cutText').val('');  
                 brandListData();        
             }else if ( operation == 2){
+               
                 upc = document.getElementById('pg:fm1:pBlock:pageSection:upcPblock:upc').value;
                 filter =  0;
                 taste =  0;
@@ -370,6 +372,7 @@
                 brand = 0;
                 brandListData();
             }else if ( operation == 3){
+               
                 upc = 0;
                 filter =  0;
                 taste =  0;
@@ -831,6 +834,7 @@
             ele=winMain.document.getElementById('{!$CurrentPage.parameters.cut}');
             ele.value=  document.getElementById("cutText").value;      
             CloseWindow();
+            window.close();
         }
         /* Ends Here */
     
@@ -847,141 +851,514 @@
         function closePopup(){
             window.top.close();
         }
+
+        /* ── Lookup dropdown helper functions ── */
+
+        /* Show the dropdown list for a given field id */
+        function showDropdown(fieldId) {
+            var input = document.getElementById(fieldId + 'Text');
+            var dropdown = document.getElementById(fieldId);
+            if (!dropdown) return;
+            /* top/left are handled by CSS (position:absolute; top:100%; left:0)
+               inside .lookupWrapper (position:relative) — no inline overrides needed */
+            dropdown.style.top = '';
+            dropdown.style.left = '';
+            filterOptions(fieldId);
+            dropdown.style.display = 'block';
+        }
+
+        /* Hide the dropdown and sync hidden select value to text input value, then trigger callData */
+        function hideDropdown(fieldId, operation) {
+            var dropdown = document.getElementById(fieldId);
+            if (dropdown) dropdown.style.display = 'none';
+            var textInput = document.getElementById(fieldId + 'Text');
+            if (textInput && dropdown) {
+                var matchFound = false;
+                for (var i = 0; i < dropdown.options.length; i++) {
+                    if (dropdown.options[i].value.toLowerCase() === textInput.value.toLowerCase()) {
+                        dropdown.selectedIndex = i;
+                        matchFound = true;
+                        break;
+                    }
+                }
+                if (!matchFound) {
+                    dropdown.selectedIndex = 0;
+                }
+            }
+            callData(operation, textInput || { id: fieldId + 'Text' });
+        }
+
+        var lookupFieldIds = ['brand', 'filter', 'taste', 'length', 'packaging', 'flavor', 'paperType', 'cut'];
+
+        function closeLookupIfClickedOutside(fieldId, evt) {
+            var dropdown = document.getElementById(fieldId);
+            var textInput = document.getElementById(fieldId + 'Text');
+            if (!dropdown || !textInput || dropdown.style.display !== 'block') {
+                return;
+            }
+            var container = textInput.parentNode;
+            if (container && container.contains(evt.target)) {
+                return;
+            }
+            var operation = (fieldId === 'brand') ? 4 : 1;
+            hideDropdown(fieldId, operation);
+        }
+
+        function handleLookupOutsideClick(evt) {
+            for (var i = 0; i < lookupFieldIds.length; i++) {
+                closeLookupIfClickedOutside(lookupFieldIds[i], evt);
+            }
+        }
+
+        document.addEventListener('click', handleLookupOutsideClick);
+
+        /* Toggle dropdown visibility */
+        function toggleDropdown(fieldId) {
+            var dropdown = document.getElementById(fieldId);
+            if (!dropdown) return;
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            } else {
+                filterOptions(fieldId);
+                dropdown.style.display = 'block';
+            }
+        }
+
+        /* Filter visible options based on text input value */
+        function filterOptions(fieldId) {
+            var input = document.getElementById(fieldId + 'Text');
+            var dropdown = document.getElementById(fieldId);
+            if (!input || !dropdown) return;
+            var filter = input.value.toLowerCase();
+            dropdown.style.display = 'block';
+            for (var i = 0; i < dropdown.options.length; i++) {
+                var opt = dropdown.options[i];
+                if (opt.value === '0' || opt.text.toLowerCase().indexOf(filter) !== -1) {
+                    opt.style.display = '';
+                } else {
+                    opt.style.display = 'none';
+                }
+            }
+        }
+
+        /* Handle option click: copy value to text input and trigger callData */
+        function selectOption(fieldId, operation) {
+            var dropdown = document.getElementById(fieldId);
+            var textInput = document.getElementById(fieldId + 'Text');
+            if (!dropdown || !textInput) return;
+            var selected = dropdown.options[dropdown.selectedIndex];
+            if (selected && selected.value !== '0') {
+                textInput.value = selected.text;
+            } else {
+                textInput.value = '';
+            }
+            dropdown.style.display = 'none';
+            callData(operation, dropdown);
+        }
+        /* ── End lookup dropdown helper functions ── */
     
     </script>
+
+     <!-- Lightning compatibility: custom CSS only where SLDS does not meet styling requirements -->
+    <style>
+        
+       /* Reset body to clean single page */
+    html, body {
+        margin: 0;
+        padding: 0;
+        background: #ffffff;
+        font-family: 'Salesforce Sans', Arial, sans-serif;
+    }
+    
+    /* Remove card shadow/border — flatten to single page feel */
+    /*.slds-card {
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: #ffffff !important;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .slds-card__header {
+        padding: 16px 16px 8px 16px;
+        border-bottom: 1px solid #e0e5ee;
+        margin-bottom: 0;
+    }
+
+    .slds-card__body,
+    .slds-p-around_medium {
+        padding: 16px !important;
+    }*/
+
+
+    .pbSubsection {
+        width: 80%;
+        float: left;
+        margin: 0 auto !important;
+    }
+
+    .pbSubsection td.labelCol {
+        width: 150px !important;
+        text-align: right !important;
+        font-weight: normal !important;
+    }
+
+    .pbSubsection td.dataCol {
+        width: 250px !important;
+    }
+
+    .pbSubsection input[type="text"] {
+        width: 260px !important;
+    }
+
+    .pbSubsection select {
+        width: 260px !important;
+    } 
+
+    .lookupWrapper {
+        width: 260px !important;
+    }
+
+    .pbBody {
+        padding-top: 20px !important;
+    }
+
+    body input[type] ~ input[type], body input[type] ~ select, 
+    body input[type] ~ select[size="0"], body input[type] ~ select[size="1"], 
+    body select ~ input[type], body select[size="0"] ~ input[type], body select[size="1"] ~ input[type], 
+    .slds-vf-scope input[type] ~ input[type], .slds-vf-scope input[type] ~ select, .slds-vf-scope input[type] ~ select[size="0"], 
+    .slds-vf-scope input[type] ~ select[size="1"], .slds-vf-scope select ~ input[type], 
+    .slds-vf-scope select[size="0"] ~ input[type], .slds-vf-scope select[size="1"] ~ input[type] {
+    margin-left: .0rem !important;
+    vertical-align: inherit;
+    }
+
+    /* Fields — compact and proportional */
+    .slds-select,
+    .slds-input {
+        max-width: 100%;
+        height: 32px;
+        font-size: 13px;
+    }
+
+    /* Label sizing */
+    .slds-form-element__label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #444;
+        margin-bottom: 3px;
+        display: block;
+    }
+
+    /* Tighten row spacing */
+    .slds-m-bottom_small {
+        margin-bottom: 10px !important;
+    }
+
+    /* Lookup widget — sits inside apex:pageBlockSectionItem data cell */
+    .lookupWrapper {
+        position: relative;
+        display: inline-block;
+        width: 260px;        /* match Product Line / UPC field width */
+        overflow: visible;
+    }
+    .lookupInput {
+        width: calc(100% - 32px) !important;
+        height: 32px;
+        font-size: 13px;
+        padding-right: 0 !important;
+        border-radius: 4px 0 0 4px;
+        border: 1px solid #dddbda;
+        padding-left: 8px;
+        box-sizing: border-box;
+        vertical-align: top;
+    }
+    .lookupBtn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 32px;
+        width: 32px;
+        border: 1px solid #dddbda;
+        border-left: none;
+        background: #f3f3f3;
+        cursor: pointer;
+        border-radius: 0 4px 4px 0;
+        font-size: 11px;
+        line-height: 32px;
+        text-align: center;
+        padding: 0;
+    }
+    .lookupDropdown {
+        display: none;
+        position: absolute;          /* positioned relative to .lookupWrapper */
+        top: 100%;                   /* flush below the input + button row */
+        left: 0;                     /* left-aligned with the wrapper */
+        z-index: 99999;
+        border: 1px solid #dddbda;
+        background: white;
+        max-height: 135px;
+        overflow-y: auto;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        width: 100%;                 /* match full wrapper width */
+        margin-top: 2px;             /* small gap between input and dropdown */
+        box-sizing: border-box;
+    }
+
+    /* Prevent clipping of dropdowns — covers td, tr, and section wrappers */
+    .pbBody td,
+    .pbBody tr,
+    .pbSubsection td,
+    .pbSubsection tr,
+    .pbSubsection,
+    .pbBody {
+        overflow: visible;
+    }
+
+    .ui-autocomplete {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    .lookupDropdown {
+        z-index: 999999 !important;
+    }
+
+    /* Button row */
+    .slds-m-top_medium {
+        margin-top: 16px !important;
+        padding-bottom: 8px;
+    }
+
+    /* Heading style */
+    .slds-text-heading_medium {
+        font-size: 16px;
+        font-weight: 700;
+        color: #16325c;
+    }
+    /* Collapse the entire pageBlockSectionItem row when its field is hidden via JS,
+   so hidden Filter/Taste/Length/Packaging/Flavor/PaperType/Cut rows don't leave dead space */
+    .pbSubsection tr:has(.labelFilter[style*="display: none"]),
+    .pbSubsection tr:has(.labeltaste[style*="display: none"]),
+    .pbSubsection tr:has(.labellength[style*="display: none"]),
+    .pbSubsection tr:has(.labelpackaging[style*="display: none"]),
+    .pbSubsection tr:has(.labelflavor[style*="display: none"]),
+    .pbSubsection tr:has(.labelpaperType[style*="display: none"]),
+    .pbSubsection tr:has(.labelcut[style*="display: none"]) {
+    display: none !important;
+}
+    
+    
+   </style>
+    
     <!--  below is the code for search form for Brand Hierarchy -->
     <apex:form id="fm1">
-        <apex:sectionHeader subtitle="Brand Hierarchy"/>
+        <apex:sectionHeader title="Brand Hierarchy"/>
+        <!-- <apex:sectionHeader subtitle="Brand Hierarchy"/> -->
         <apex:pageBlock id="pBlock">
             <apex:pageMessages id="pageMessageTag"/>
-            <apex:pageBlockButtons >
-                <p id="refresh" class ="btn" onclick="resetData()">Reset</p>
-                <p id="submit" class ="btn" onclick="submitData();">Submit</p> 
-                <p id="close" class ="btn" onclick="closePopup();">Close</p> 
-            </apex:pageBlockButtons>
+            <div style="text-align:center;margin-bottom:20px;">
+             <!-- <div class="slds-m-top_medium slds-text-align_center"> -->
+                <button class="slds-button slds-button_neutral"     onclick="resetData();   return false;">Reset</button>
+                <button class="slds-button slds-button_brand"       onclick="submitData();  return false;">Submit</button>
+                <button class="slds-button  slds-button_neutral"    onclick="closePopup();  return false;">Close</button>
+            </div>
+           
             <apex:actionFunction name="resetData" action="{!reset}" reRender="outPanelBH" oncomplete="callData(0,this);"/>
             <apex:pageBlockSection columns="1" id="pageSection">
                 <apex:actionFunction name="fillBrandHier" action="{!fillBrandHierarchy}" reRender="outPanelBH,brand,brandPblock,pageMessageTag">
                     <apex:param name="selectedUPC" assignTo="{!selectedUPC}" value="{!selectedUPC}" />
                 </apex:actionFunction>
                 <apex:actionFunction name="reset"  action="{!reset}" reRender="product,brand,upc,pBlockBH,brandHierId" />
-                <apex:actionFunction name="resetBrand" reRender="pBlockTableBH,pBlockBH" action="{!brandHierData}"/>    
+                <apex:actionFunction name="resetBrand" reRender="pBlockTableBH,pBlockBH" action="{!brandHierData}"/>  
+                 
                     <apex:pageBlockSectionItem id="productPblock">
                     <apex:outputLabel value="Product Line"></apex:outputLabel>
-                    <apex:selectList id="product" value="{!selectedProductLine}"  style="width:175px;" size="1">
+                    <apex:selectList id="product" value="{!selectedProductLine}"  style="width:260px;" size="1">
                             <apex:selectOptions value="{!productLineList}"/>
                         <apex:actionSupport event="onchange" reRender="brand,upc,pBlockTableBH,pBlockBH,pageMessageTag" action="{!brandListData}"/>                             
                     </apex:selectList>
                     </apex:pageBlockSectionItem>
                 
-                <apex:pageBlockSectionItem id="upcPblock" dataStyleClass="labelUPC" labelStyleClass="labelUPC">               
-                    <apex:outputLabel value="UPC"></apex:outputLabel>
-                    <apex:inputText id="upc" value="{!upcData}" onblur="callAction(this.value)" onchange="disableOnUPC()" style="width:175px;" />                           
+                <apex:pageBlockSectionItem id="upcPblock">               
+                    <apex:outputLabel value="UPC" styleClass="labelUPC"></apex:outputLabel>
+                    <apex:inputText id="upc" value="{!upcData}" onblur="callAction(this.value)" onchange="disableOnUPC()" style="width:260px;" />                           
                 </apex:pageBlockSectionItem>
-                
-                <apex:pageBlockSectionItem id="brandPblock" dataStyleClass="labelBrand" labelStyleClass="labelBrand">
-                    <apex:outputLabel value="Brand"></apex:outputLabel>
-                    <div style="position:relative;width:200px;height:20px;border:0;padding:0;margin:0;">
-                        <select id="brand" style="position:absolute;top:0px;left:0px;width:175px; height:20px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('brandText').value=this.options[this.selectedIndex].text; document.getElementById('idValuebrand').value=this.options[this.selectedIndex].value;callData(4,this);" >
-                        </select>
-                        <input ng-model="q" name="brandText" placeholder="Find available brand..." id="brandText" style="position:absolute;top:0px;left:0px;width:155px;width:145px\9;#width:145px;height:17px; height:15px\9;#height:18px;border-left:1px solid #556;border-top:1px solid #556;border-bottom:1px solid #556;border-right:1px solid #ffffff;" onfocus="this.select()" type="text" onblur="callData(4,this);" />
-                        <input name="idValuebrand" id="idValuebrand" type="hidden"/>
-                    </div>
-                </apex:pageBlockSectionItem> 
-          
-                <apex:pageBlockSectionItem dataStyleClass="labelFilter" labelStyleClass="labelFilter"> 
-                    <apex:outputLabel value="Filter"></apex:outputLabel>
-                    <div style="position:relative;width:200px;height:20px;border:0;padding:0;margin:0;">
-                        <select id="filter" style="position:absolute;top:0px;left:0px;width:175px; height:20px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('filterText').value=this.options[this.selectedIndex].text; document.getElementById('idValuefilter').value=this.options[this.selectedIndex].value;callData(1,this);" >
-                        </select>
-                        <input ng-model="q" name="filterText" placeholder="Find available filter..." id="filterText" style="position:absolute;top:0px;left:0px;width:155px;width:145px\9;#width:145px;height:17px; height:15px\9;#height:18px;border-left:1px solid #556;border-top:1px solid #556;border-bottom:1px solid #556;border-right:1px solid #ffffff;" onfocus="this.select()" type="text" onblur="callData(1,this);" />
-                        <input name="idValuefilter" id="idValuefilter" type="hidden"/>
-                    </div>
-                </apex:pageBlockSectionItem>            
-           
-                <apex:pageBlockSectionItem dataStyleClass="labeltaste" labelStyleClass="labeltaste">
-                    <apex:outputLabel value="Taste"></apex:outputLabel>
-                    <div style="position:relative;width:200px;height:20px;border:0;padding:0;margin:0;">
-                        <select id="taste" style="position:absolute;top:0px;left:0px;width:175px; height:20px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('tasteText').value=this.options[this.selectedIndex].text; document.getElementById('idValuetaste').value=this.options[this.selectedIndex].value;callData(1,this);">
-                        </select>
-                        <input ng-model="q" name="tasteText" placeholder="Find available taste..." id="tasteText" style="position:absolute;top:0px;left:0px;width:155px;width:145px\9;#width:145px;height:17px; height:15px\9;#height:18px;border-left:1px solid #556;border-top:1px solid #556;border-bottom:1px solid #556;border-right:1px solid #ffffff;" onfocus="this.select()" type="text" onblur="callData(1,this);" />
-                        <input name="idValuetaste" id="idValuetaste" type="hidden"/>
-                    </div>
-                  
-                </apex:pageBlockSectionItem> 
-           
-                <apex:pageBlockSectionItem dataStyleClass="labellength" labelStyleClass="labellength">
-                    <apex:outputLabel value="Length"></apex:outputLabel>
-                     <div style="position:relative;width:200px;height:20px;border:0;padding:0;margin:0;">
-                        <select id="length" style="position:absolute;top:0px;left:0px;width:175px; height:20px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('lengthText').value=this.options[this.selectedIndex].text; document.getElementById('idValuelength').value=this.options[this.selectedIndex].value;callData(1,this);">
-                        </select>
-                        <input ng-model="q" name="lengthText" placeholder="Find available length..." id="lengthText" style="position:absolute;top:0px;left:0px;width:155px;width:145px\9;#width:145px;height:17px; height:15px\9;#height:18px;border-left:1px solid #556;border-top:1px solid #556;border-bottom:1px solid #556;border-right:1px solid #ffffff;" onfocus="this.select()" type="text" onblur="callData(1,this);" />
-                        <input name="idValuelength" id="idValuelength" type="hidden"/>
-                    </div>
-                </apex:pageBlockSectionItem>            
-           
-                <apex:pageBlockSectionItem dataStyleClass="labelpackaging" labelStyleClass="labelpackaging">
-                    <apex:outputLabel value="Packaging"></apex:outputLabel>
-                    <div style="position:relative;width:200px;height:20px;border:0;padding:0;margin:0;">
-                        <select id="packaging" style="position:absolute;top:0px;left:0px;width:175px; height:20px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('packagingText').value=this.options[this.selectedIndex].text; document.getElementById('idValuepackaging').value=this.options[this.selectedIndex].value;callData(1,this);">
-                        </select>
-                        <input ng-model="q" name="packagingText" placeholder="Find available packaging..." id="packagingText" style="position:absolute;top:0px;left:0px;width:155px;width:145px\9;#width:145px;height:17px; height:15px\9;#height:18px;border-left:1px solid #556;border-top:1px solid #556;border-bottom:1px solid #556;border-right:1px solid #ffffff;" onfocus="this.select()" type="text" onblur="callData(1,this);" />
-                        <input name="idValuepackaging" id="idValuepackaging" type="hidden"/>
-                    </div>
-                </apex:pageBlockSectionItem>       
-           
-                <apex:pageBlockSectionItem dataStyleClass="labelflavor" labelStyleClass="labelflavor">
-                    <apex:outputLabel value="Flavor"></apex:outputLabel>
-                    <div style="position:relative;width:200px;height:20px;border:0;padding:0;margin:0;">
-                        <select id="flavor" style="position:absolute;top:0px;left:0px;width:175px; height:20px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('flavorText').value=this.options[this.selectedIndex].text; document.getElementById('idValueflavor').value=this.options[this.selectedIndex].value;callData(1,this);">
-                        </select>
-                        <input ng-model="q" name="flavorText" placeholder="Find available flavor..." id="flavorText" style="position:absolute;top:0px;left:0px;width:155px;width:145px\9;#width:145px;height:17px; height:15px\9;#height:18px;border-left:1px solid #556;border-top:1px solid #556;border-bottom:1px solid #556;border-right:1px solid #ffffff;" onfocus="this.select()" type="text" onblur="callData(1,this);" />
-                        <input name="idValueflavor" id="idValueflavor" type="hidden"/>
-                    </div>
-                </apex:pageBlockSectionItem>            
-           
-                <apex:pageBlockSectionItem dataStyleClass="labelpaperType" labelStyleClass="labelpaperType">
-                    <apex:outputLabel value="Paper Type"></apex:outputLabel>
-                    <div style="position:relative;width:200px;height:20px;border:0;padding:0;margin:0;">
-                        <select id="paperType" style="position:absolute;top:0px;left:0px;width:175px; height:20px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('paperTypeText').value=this.options[this.selectedIndex].text; document.getElementById('idValuepaperType').value=this.options[this.selectedIndex].value;callData(1,this);">
-                        </select>
-                        <input ng-model="q" name="paperTypeText" placeholder="Find available paperType..." id="paperTypeText" style="position:absolute;top:0px;left:0px;width:155px;width:145px\9;#width:145px;height:17px; height:15px\9;#height:18px;border-left:1px solid #556;border-top:1px solid #556;border-bottom:1px solid #556;border-right:1px solid #ffffff;" onfocus="this.select()" type="text" onblur="callData(1,this);" />
-                        <input name="idValuepaperType" id="idValuepaperType" type="hidden"/>
+
+
+                <!-- Brand lookup row — aligned to match apex:pageBlockSectionItem label+field layout -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Brand"/>
+                    <div class="lookupWrapper">
+                        <input type="text" id="brandText" placeholder="Find available Brand..."
+                               onfocus="showDropdown('brand')"
+                               onkeyup="filterOptions('brand')"
+                               class="slds-input lookupInput"/>
+                        <button type="button" onclick="toggleDropdown('brand')" class="lookupBtn">&#9660;</button>
+                        <select id="brand" size="5" onclick="selectOption('brand',4)" class="lookupDropdown"></select>
+                        <input type="hidden" id="brandValue"/>
                     </div>
                 </apex:pageBlockSectionItem>
-            
-                <apex:pageBlockSectionItem dataStyleClass="labelcut" labelStyleClass="labelcut">
-                    <apex:outputLabel value="Cut"></apex:outputLabel>
-                    <div style="position:relative;width:200px;height:20px;border:0;padding:0;margin:0;">
-                        <select id="cut" style="position:absolute;top:0px;left:0px;width:175px; height:20px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('cutText').value=this.options[this.selectedIndex].text; document.getElementById('idValuecut').value=this.options[this.selectedIndex].value;callData(1,this);">
-                        </select>
-                        <input ng-model="q" name="cutText" placeholder="Find available cut..." id="cutText" style="position:absolute;top:0px;left:0px;width:155px;width:145px\9;#width:145px;height:17px; height:15px\9;#height:18px;border-left:1px solid #556;border-top:1px solid #556;border-bottom:1px solid #556;border-right:1px solid #ffffff;" onfocus="this.select()" type="text" onblur="callData(1,this);" />
-                        <input name="idValuecut" id="idValuecut" type="hidden"/>
+
+                <!-- Filter lookup row -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Filter" styleClass="labelFilter"/>
+                    <div class="lookupWrapper labelFilter">
+                        <input type="text" id="filterText" placeholder="Find available filter..."
+                               onfocus="showDropdown('filter')"
+                               onkeyup="filterOptions('filter')"
+                               class="slds-input lookupInput"/>
+                        <button type="button" onclick="toggleDropdown('filter')" class="lookupBtn">&#9660;</button>
+                        <select id="filter" size="5"
+                                onclick="selectOption('filter',1)"
+                                onchange="document.getElementById('filterText').value=this.options[this.selectedIndex].text;callData(1,this);"
+                                class="lookupDropdown"></select>
+                        <input type="hidden" id="filterValue"/>
                     </div>
                 </apex:pageBlockSectionItem>
-                <apex:inputHidden id="brandHierId" value="{!brandHierid}"/>             
-            </apex:pageBlockSection>    
+
+                <!-- Taste lookup row -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Taste" styleClass="labeltaste"/>
+                    <div class="lookupWrapper labeltaste">
+                        <input type="text" id="tasteText" placeholder="Find available taste..."
+                               onfocus="showDropdown('taste')"
+                               onkeyup="filterOptions('taste')"
+                               class="slds-input lookupInput"/>
+                        <button type="button" onclick="toggleDropdown('taste')" class="lookupBtn">&#9660;</button>
+                        <select id="taste" size="5"
+                                onclick="selectOption('taste',1)"
+                                onchange="document.getElementById('tasteText').value=this.options[this.selectedIndex].text;callData(1,this);"
+                                class="lookupDropdown"></select>
+                        <input type="hidden" id="tasteValue"/>
+                    </div>
+                </apex:pageBlockSectionItem>
+
+                <!-- Length lookup row -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Length" styleClass="labellength"/>
+                    <div class="lookupWrapper labellength">
+                        <input type="text" id="lengthText" placeholder="Find available length..."
+                               onfocus="showDropdown('length')"
+                               onkeyup="filterOptions('length')"
+                               class="slds-input lookupInput"/>
+                        <button type="button" onclick="toggleDropdown('length')" class="lookupBtn">&#9660;</button>
+                        <select id="length" size="5"
+                                onclick="selectOption('length',1)"
+                                onchange="document.getElementById('lengthText').value=this.options[this.selectedIndex].text;callData(1,this);"
+                                class="lookupDropdown"></select>
+                        <input type="hidden" id="lengthValue"/>
+                    </div>
+                </apex:pageBlockSectionItem>
+
+                <!-- Packaging lookup row -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Packaging" styleClass="labelpackaging"/>
+                    <div class="lookupWrapper labelpackaging">
+                        <input type="text" id="packagingText" placeholder="Find available packaging..."
+                               onfocus="showDropdown('packaging')"
+                               onkeyup="filterOptions('packaging')"
+                               class="slds-input lookupInput"/>
+                        <button type="button" onclick="toggleDropdown('packaging')" class="lookupBtn">&#9660;</button>
+                        <select id="packaging" size="5"
+                                onclick="selectOption('packaging',1)"
+                                onchange="document.getElementById('packagingText').value=this.options[this.selectedIndex].text;callData(1,this);"
+                                class="lookupDropdown"></select>
+                        <input type="hidden" id="packagingValue"/>
+                    </div>
+                </apex:pageBlockSectionItem>
+
+                <!-- Flavor lookup row -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Flavor" styleClass="labelflavor"/>
+                    <div class="lookupWrapper labelflavor">
+                        <input type="text" id="flavorText" placeholder="Find available flavor..."
+                               onfocus="showDropdown('flavor')"
+                               onkeyup="filterOptions('flavor')"
+                               class="slds-input lookupInput"/>
+                        <button type="button" onclick="toggleDropdown('flavor')" class="lookupBtn">&#9660;</button>
+                        <select id="flavor" size="5"
+                                onclick="selectOption('flavor',1)"
+                                onchange="document.getElementById('flavorText').value=this.options[this.selectedIndex].text;callData(1,this);"
+                                class="lookupDropdown"></select>
+                        <input type="hidden" id="flavorValue"/>
+                    </div>
+                </apex:pageBlockSectionItem>
+
+                <!-- Paper Type lookup row -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Paper Type" styleClass="labelpaperType"/>
+                    <div class="lookupWrapper labelpaperType">
+                        <input type="text" id="paperTypeText" placeholder="Find available paperType..."
+                               onfocus="showDropdown('paperType')"
+                               onkeyup="filterOptions('paperType')"
+                               class="slds-input lookupInput"/>
+                        <button type="button" onclick="toggleDropdown('paperType')" class="lookupBtn">&#9660;</button>
+                        <select id="paperType" size="5"
+                                onclick="selectOption('paperType',1)"
+                                onchange="document.getElementById('paperTypeText').value=this.options[this.selectedIndex].text;callData(1,this);"
+                                class="lookupDropdown"></select>
+                        <input type="hidden" id="paperTypeValue"/>
+                    </div>
+                </apex:pageBlockSectionItem>
+
+                <!-- Cut lookup row -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Cut" styleClass="labelcut"/>
+                    <div class="lookupWrapper labelcut">
+                        <input type="text" id="cutText" placeholder="Find available cut..."
+                               onfocus="showDropdown('cut')"
+                               onkeyup="filterOptions('cut')"
+                               class="slds-input lookupInput"/>
+                        <button type="button" onclick="toggleDropdown('cut')" class="lookupBtn">&#9660;</button>
+                        <select id="cut" size="5"
+                                onclick="selectOption('cut',1)"
+                                onchange="document.getElementById('cutText').value=this.options[this.selectedIndex].text;callData(1,this);"
+                                class="lookupDropdown"></select>
+                        <input type="hidden" id="cutValue"/>
+                    </div>
+                </apex:pageBlockSectionItem>
+                <apex:inputHidden id="brandHierId" value="{!brandHierid}"/>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1">
+                <apex:pageBlockSectionItem >
+                    <div class="slds-text-align_center" style="width: 74%;float: right;">
+                        <button class="slds-button slds-button_neutral" onclick="resetData(); return false;">Reset</button>
+                        <button class="slds-button slds-button_brand" onclick="submitData(); return false;">Submit</button>
+                        <button class="slds-button  slds-button_neutral" onclick="closePopup(); return false;">Close</button>
+                    </div>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <!-- Seach Form for brand Hierarchy Ends Here -->
+            <!-- The below code is used for displaying records returned from the search made on UPC or filters -->
+           <!-- <apex:outputPanel id="outPanelBH"> -->
+            <!-- added by Pratiksha -->
+             <apex:outputPanel id="outPanelBH" layout="block" style="clear:both;width:100%;">
+                <apex:pageBlock id="pBlockBH" mode="edit" rendered="{!If(brandHierarchyList.size >0,true,false)}">
+                    <apex:pageBlockTable id="pBlockTableBH" value="{!brandHierarchyList}" var="b" rendered="{!showTable}"  >
+                        <apex:column >
+                            <input type="radio" name="chosen" id="{!b.id}" VALUE="{!b.id}" onclick="getBrandHierId(this.id,'{!b.Brand_Code__r.Name}','{!b.Filter__c}','{!b.Taste__c}','{!b.Length__c}','{!b.Packaging__c}','{!b.Flavor__c}','{!b.PaperType__c}','{!b.Cut__c}' );"/>
+                        </apex:column>    
+                        <apex:column value="{!b.Brand_Code__r.Name}"/>
+                        <apex:column value="{!b.Filter__c}" />
+                        <apex:column value="{!b.Taste__c}" />
+                        <apex:column value="{!b.Length__c}" />
+                        <apex:column value="{!b.Packaging__c}" />
+                        <apex:column value="{!b.Flavor__c}" />
+                        <apex:column value="{!b.PaperType__c}" />
+                        <apex:column value="{!b.Cut__c}" />
+                    </apex:pageBlockTable>
+                </apex:pageBlock>
+            </apex:outputPanel>
         </apex:pageBlock>
-  
-        <!-- Seach Form for brand Hierarchy Ends Here -->
-        <!-- The below code is used for displaying records returned from the search made on UPC or filters -->
-        <apex:outputPanel id="outPanelBH"> 
-            <apex:pageBlock id="pBlockBH" mode="edit" rendered="{!If(brandHierarchyList.size >0,true,false)}">
-                <apex:pageBlockTable id="pBlockTableBH" value="{!brandHierarchyList}" var="b" rendered="{!showTable}"  >
-                    <apex:column >
-                        <input type="radio" name="chosen" id="{!b.id}" VALUE="{!b.id}" onclick="getBrandHierId(this.id,'{!b.Brand_Code__r.Name}','{!b.Filter__c}','{!b.Taste__c}','{!b.Length__c}','{!b.Packaging__c}','{!b.Flavor__c}','{!b.PaperType__c}','{!b.Cut__c}' );"/>
-                    </apex:column>    
-                    <apex:column value="{!b.Brand_Code__r.Name}"/>
-                    <apex:column value="{!b.Filter__c}" />
-                    <apex:column value="{!b.Taste__c}" />
-                    <apex:column value="{!b.Length__c}" />
-                    <apex:column value="{!b.Packaging__c}" />
-                    <apex:column value="{!b.Flavor__c}" />
-                    <apex:column value="{!b.PaperType__c}" />
-                    <apex:column value="{!b.Cut__c}" />
-                </apex:pageBlockTable>
-            </apex:pageBlock>
-        </apex:outputPanel> 
         <!-- Page Block Table Ends here -->
     </apex:form>
+
+   
 </apex:page>

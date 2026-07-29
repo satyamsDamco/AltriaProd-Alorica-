@@ -1,10 +1,8 @@
-<apex:page standardController="case"  extensions="IssueEntryController" sidebar="False" id="pg" showHeader="false">
- 
-<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"/>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"/>  
-   <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"/>
-   <apex:includeScript value="{!URLFOR($Resource.JNumeric, 'JNumeric/JNumeric.js')}"/>
-   <apex:includeScript value="/support/console/37.0/integration.js" /> 
+<apex:page standardController="case"  extensions="IssueEntryController" sidebar="False" id="pg" showHeader="false"  lightningStylesheets="true" title="{!IF(case.CaseNumber__c != null && case.CaseNumber__c != '', 'I - ' & case.CaseNumber__c, 'New Issue')}">
+    <apex:slds />
+    <apex:includeScript value="/support/console/62.0/integration.js" /> 
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"/>
+    <apex:includeScript value="{!URLFOR($Resource.JNumeric, 'JNumeric/JNumeric.js')}"/>
    
     <apex:form id="frm1">
          <style>
@@ -15,40 +13,47 @@
             }
         </style>
         <script>
-            var j$ = jQuery.noConflict();
+          var j$ = jQuery.noConflict();
             
-            $(document).ready(function(){
+            j$(document).ready(function(){
                 if('{!customerRecType}' != 'trade'){
                     issueCheck();
                 }
                 setFieldsValidation();
               var currentTime = new Date();
                 var year = currentTime.getFullYear();
-                $("#calYearPicker").html('');
+                j$("#calYearPicker").html('');
                 for(var i = 1956; i <= year;  i++){
-                    $("#calYearPicker").append("<option value='"+ i +"'>" + i + "</option>")
+                    j$("#calYearPicker").append("<option value='"+ i +"'>" + i + "</option>")
                 }  
                        
             });
-                    
-                        
-    //close current Tab from cancel button.
-       function testCloseTab() {
-           var issueid = '{!caseObj.id}'; 
-            
-            if(issueid == null || issueid == '' || issueid == 'null'){
-                 sforce.console.getEnclosingTabId(closeSubtab);
-            }else{
-                cancelRedirect();              
-            }                     
-        }
         
+        
+         function testCloseTab() {
+            
+            sforce.console.getEnclosingTabId(function(result) {
+                console.log('Tab Result:', JSON.stringify(result));
+                
+                if(result.success && result.id) {
+                    sforce.console.closeTab(result.id);
+                } else {
+                    console.error(result);
+                }
+            });
+            
+            
+            return false;
+        }  
+       
         var closeSubtab = function closeSubtab(result) {
             var tabId = result.id;
             sforce.console.closeTab(tabId);
         };
-    
-        function issueCheck(){
+
+       function issueCheck(){
+             console.log('issueCheck executed');
+
             if('{!conObj.id}' != null && '{!conObj.id}' != ''){
                 if('{!isRepeatCom}' == 'true'){
                     alert('{!$Label.RepeatComplainerMessage}');
@@ -57,20 +62,20 @@
         }
         function setFieldsValidation() {         
          
-            var control = $('[id$="purchaseQty"]');
+            var control = j$('[id$="purchaseQty"]');
             if (control != null) 
                 control.numeric({ decimal: false, negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });
                 
             
-            control = $('[id$="expectQty"]');
+            control = j$('[id$="expectQty"]');
             if (control != null)
                 control.numeric({ decimal: false, negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });
            
-           control = $('[id$="affectQty"]');
+           control = j$('[id$="affectQty"]');
             if (control != null)
                 control.numeric({ decimal: false, negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });
             
-            control = $('[id$="returnedQty"]');
+            control = j$('[id$="returnedQty"]');
             if (control != null)
                 control.numeric({ decimal: false, negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });
                 
@@ -79,13 +84,13 @@
          }
          
          function setFieldsPriceValidation() {
-            var control = $('[id$="purchasePrice"]');
+            var control = j$('[id$="purchasePrice"]');
             if (control != null)
                 control.numeric({ negative: false }, function() { alert("Positive Integers only"); this.value = ""; this.focus(); });            
          
-         }
+         }   
          
-         window.onload = function() {
+           window.onload = function() {
                 var input = document.getElementById('pg:frm1:IssEntryBlock:product:productPblock:product').focus();
                 hidingBrandFields();
                 disabledFields();
@@ -106,8 +111,8 @@
                     }                
                 }
                 
-                renderNMIFunction();
-                rerenderOP1();                       
+               // renderNMIFunction();
+               // rerenderOP1();                       
             }
             
             function resetHierarchyData(){
@@ -126,25 +131,25 @@
                 document.getElementById('pg:frm1:IssEntryBlock:BrandHier:brand1').value = '';   
                     
                 document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value = '';
-                $('.labeltaste').show();
+                j$('.labeltaste').show();
                 
                 document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionLength:length').value = '';
-                $('.labellength').show();
+                j$('.labellength').show();
                 
                 document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionPackaging:packaging').value = '';
-                $('.labelpackaging').show();
+                j$('.labelpackaging').show();
                 
                 document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFlavor:flavor').value = '';
-                $('.labelflavor').show();
+                j$('.labelflavor').show();
                 
                 document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFilter:filter').value = '';
-                $('.labelFilter').show();            
+                j$('.labelFilter').show();            
                     
                 document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionpaperType:paperType').value = '';  
-                $('.labelpaperType').show();                 
+                j$('.labelpaperType').show();                 
                     
                 document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionCut:cut').value = '';
-                $('.labelcut').show(); 
+                j$('.labelcut').show(); 
                 
                 hidingBrandFields();                
                 rerenderOP1();    
@@ -189,8 +194,11 @@
                    errMsg = errMsg + '<li style="padding-top:5px">Please select Brand Hierarchy.</li>';                    
                 }
                 
-                var susCount = document.getElementById('pg:frm1:IssEntryBlock:IssDetail:susCounter').checked;
-                var susTamp = document.getElementById('pg:frm1:IssEntryBlock:IssDetail:suspectedTam').checked;
+                var susCountObj = document.getElementById('pg:frm1:IssEntryBlock:IssDetail:susCounter');
+                var susCount = susCountObj ? susCountObj.checked : false;
+
+                var susTampObj = document.getElementById('pg:frm1:IssEntryBlock:IssDetail:suspectedTam');
+                var susTamp = susTampObj ? susTampObj.checked : false;
                 
                 if(susCount == true || susTamp == true){
                     if(!confirm('This Issue has been flagged with Suspected Counterfeit and/or Suspected Tampering. Please click on the “OK” button to save the issue as it is.')){
@@ -199,14 +207,17 @@
                 }
                 
                 //RITM2227718
-                var testIssue = document.getElementById('pg:frm1:IssEntryBlock:IssDetail:testIssue').checked;
+                var testIssueObj = document.getElementById('{!$Component.IssDetail.testIssue}');
+                var testIssue = testIssueObj ? testIssueObj.checked : false;
+
+                var confCounterfeitObj = document.getElementById('{!$Component.IssDetail.confCounterfeit}');
+                var confCounterfeit = confCounterfeitObj ? confCounterfeitObj.checked : false;
                  if(testIssue == true){
                     if(!confirm('This Issue has been flagged as a Test Issue. Please click on the “OK” button to save the issue as it is.')){
                         return;
                     }
                 }
                 
-                var confCounterfeit = document.getElementById('pg:frm1:IssEntryBlock:IssDetail:confCounterfeit').checked;
                  if(confCounterfeit == true){
                     if(!confirm('This Issue has been flagged as a Confirmed Counterfeit Trace Code. Please click on the “OK” button to save the issue as it is.')){
                         return;
@@ -476,50 +487,111 @@
             }
             
             
-            function hidingBrandFields(){
+           /* function hidingBrandFields(){
                  if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value == '0'){
-                        $('.labeltaste').hide();
+                        j$('.labeltaste').hide();
                     }else{
-                        $('.labeltaste').show();
+                        j$('.labeltaste').show();
                     }
                     
                     if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionLength:length').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionLength:length').value == '0'){
-                        $('.labellength').hide();
+                        j$('.labellength').hide();
                     }else{
-                        $('.labellength').show();
+                        j$('.labellength').show();
                     }
                     
                     if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionPackaging:packaging').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionPackaging:packaging').value == '0'){
-                        $('.labelpackaging').hide();
+                        j$('.labelpackaging').hide();
                     }else{
-                        $('.labelpackaging').show();
+                        j$('.labelpackaging').show();
                     }
                     
                     if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFlavor:flavor').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFlavor:flavor').value == '0'){
-                        $('.labelflavor').hide();
+                        j$('.labelflavor').hide();
                     }else{
-                       $('.labelflavor').show();
+                       j$('.labelflavor').show();
                     }
                     
                     if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFilter:filter').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFilter:filter').value == '0'){
-                        $('.labelFilter').hide();                    
+                        j$('.labelFilter').hide();
                     }else{
-                        $('.labelFilter').show();
+                        j$('.labelFilter').show();
                     }
                     
                     if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionpaperType:paperType').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionpaperType:paperType').value == '0'){
-                        $('.labelpaperType').hide();  
+                        j$('.labelpaperType').hide();  
                     }else{
-                        $('.labelpaperType').show();  
+                        j$('.labelpaperType').show();  
                     }
                     
                     if(document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionCut:cut').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionCut:cut').value == '0'){
-                        $('.labelcut').hide(); 
+                        j$('.labelcut').hide(); 
                     }else{
-                        $('.labelcut').show(); 
+                        j$('.labelcut').show(); 
                     }
                    
+            } */
+           //added by pratiksha
+           function hidingBrandFields() {
+                var selectedPL = document.getElementById('pg:frm1:IssEntryBlock:product:productPblock:product').value;
+                // Product lines where Filter/Length/PaperType/Cut never apply, regardless of underlying Brand Hierarchy data
+                var forceHideFields = ['TOBACCO DERIVED NICOTINE POUCH'];
+
+                if (forceHideFields.indexOf(selectedPL) > -1) {
+                    j$('.labeltaste').show();
+                    j$('.labelpackaging').show();
+                    j$('.labelflavor').show();
+                    j$('.labelFilter').hide();
+                    j$('.labellength').hide();
+                    j$('.labelpaperType').hide();
+                    j$('.labelcut').hide();
+                    return;
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionTaste:taste').value == '0') {
+                    j$('.labeltaste').hide();
+                } else {
+                    j$('.labeltaste').show();
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionLength:length').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionLength:length').value == '0') {
+                    j$('.labellength').hide();
+                } else {
+                    j$('.labellength').show();
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionPackaging:packaging').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionPackaging:packaging').value == '0') {
+                    j$('.labelpackaging').hide();
+                } else {
+                    j$('.labelpackaging').show();
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFlavor:flavor').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFlavor:flavor').value == '0') {
+                    j$('.labelflavor').hide();
+                } else {
+                    j$('.labelflavor').show();
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFilter:filter').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionFilter:filter').value == '0') {
+                    j$('.labelFilter').hide();
+                } else {
+                    j$('.labelFilter').show();
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionpaperType:paperType').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionpaperType:paperType').value == '0') {
+                    j$('.labelpaperType').hide();
+                } else {
+                    j$('.labelpaperType').show();
+                }
+
+                if (document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionCut:cut').value == '' || document.getElementById('pg:frm1:IssEntryBlock:BrandHier:sectionCut:cut').value == '0') {
+                    j$('.labelcut').hide();
+                } else {
+                    j$('.labelcut').show();
+                }
+
             }
+            //ends here 
             
             function showValidation(){
                 var ErrorMessage = document.getElementById('pg:frm1:IssEntryBlock:traceCodeErrorMessage').value;
@@ -534,14 +606,16 @@
                 }                
             }
             
-            function getPrimaryIdTraceDocument(productLineId) {
-                //First find the ID of the primary tab to put the new subtab in
-                sforce.console.getEnclosingPrimaryTabId(function (result) {
-                    //Now that we have the primary tab ID, we can open a new subtab in it
-                    var primaryTabId = result.id;
-                    sforce.console.openSubtab(primaryTabId , '/apex/traceCodeDocument?id='+productLineId, true, 'Trace Code'+productLineId, null, openSuccess, 'Trace Code'+productLineId);
-                });
+
+         function getPrimaryIdTraceDocument(productLineId) {
+            var url = '/apex/traceCodeDocument?id=' + productLineId;
+
+            if (typeof sforce !== 'undefined' && sforce.one) {
+                sforce.one.navigateToURL(url);
+            } else {
+                window.location.href = url;
             }
+        }
             
             function showDateCodeValidation(){
                 var ErrorMessage = document.getElementById('pg:frm1:IssEntryBlock:dateCodeError').value;
@@ -560,8 +634,14 @@
                 }
             }; 
             //2-19-2017: Part of IQOS Project
-            function disabledFields(){
-                var val = document.getElementById('pg:frm1:IssEntryBlock:IqosInfo:serialNumber').value;
+          function disabledFields(){
+               var serialObj = document.getElementById('pg:frm1:IssEntryBlock:IqosInfo:serialNumber');
+
+                if (!serialObj) {
+                    return;
+                }
+
+                var val = serialObj.value;
                 if(val != null && val != ''){
                     document.getElementById('pg:frm1:IssEntryBlock:IssDetail:tcSerialNum').disabled = true;
                     document.getElementById('pg:frm1:IssEntryBlock:IssDetail:tcSerialNum').value = '';
@@ -575,17 +655,48 @@
                 }
             }
       
-        </script>  
-         <style>
+        </script>
+        <style>
             .text-uppercase {
                 text-transform:uppercase;
+            }
+            .class1{
+                border-left:2px solid #FF0000;
+            }
+            .class2{
+            }
+            .text-uppercase {
+                text-transform:uppercase;
+            }
+            select[multiple] option {
+                padding: 0px !important;
+                line-height: 1.2 !important;
+                font-size: 12px !important;
+            }
+            select[multiple] {
+                font-size: 12px !important;
+                line-height: 1.2 !important;
+            }
+            button.slds-button_icon {
+                background-color: #e8e8e8 !important;
+                border: 1px solid #aeaeae !important;
+                color: #333 !important;
+            }
+            button.slds-button_icon svg {
+                fill: #333 !important;
+            }
+            .slds-dueling-list__option {
+                padding-top: 1px !important;
+                padding-bottom: 1px !important;
+                min-height: 20px !important;
+                line-height: 1.3 !important;
             }
         </style>
         <apex:pageBlock title="Issue Entry"  id="IssEntryBlock">
            <apex:actionFunction action="{!save}" id="sa" name="saveissue"/>   
-           <apex:actionFunction action="{!renderNMIFunction}" id="sa1" name="renderNMIFunction"/>     
+           <apex:actionFunction action="{!renderNMIFunction}" id="sa1" name="renderNMIFunction"/> 
            <apex:actionFunction name="cancelRedirect" action="{!cancelRedirect}"/>
-            <apex:actionFunction name="IQOSSerialNumber" action="{!IQOSSerialNumber}" reRender="productiondate,message,serialNumber,regDate,ccn,regStatus,purchaseDate,tpCustomer,ftBuyer,basePrice,purchasePrice,wStartDate,wExDate,wStatus,origSerialNum,csaProblem"/>
+           <apex:actionFunction name="IQOSSerialNumber" action="{!IQOSSerialNumber}" reRender="productiondate,message,serialNumber,regDate,ccn,regStatus,purchaseDate,tpCustomer,ftBuyer,basePrice,purchasePrice,wStartDate,wExDate,wStatus,origSerialNum,csaProblem"/>
            <apex:actionFunction name="TraceCodeValidation" action="{!TraceCodeValidation}" reRender="message,traceCode,susCounter,productiondate,traceCodeErrorMessage,traceCodeError,productLineId" oncomplete="showValidation()"/>
            <apex:actionFunction name="DateCodeValidation"  action="{!DateCodeValidation}" reRender="message,datecode,dateVal,datetype,dateCodeError" oncomplete="showDateCodeValidation()"/>
            <apex:actionFunction name="rerenderIH" rerender="IssHier"/>
@@ -596,9 +707,13 @@
            <apex:inputHidden id="traceCodeError" value="{!traceCodeError}"/>
            <apex:inputHidden id="productLineId" value="{!productLineId}"/>
            <apex:inputHidden id="dateCodeError" value="{!dateCodeError}"/>
-           <apex:pageBlockButtons id="btn">
-                <apex:commandButton id="savebtn" Value="Save" onclick="checkRequiredFields();" reRender="message,savebtn" />
-                <apex:commandButton Value="Cancel" onclick="testCloseTab();return false;"/>               
+           <apex:pageBlockButtons location="top" style=" padding-left:200px;">
+                <apex:commandButton styleClass="slds-button slds-button_brand" id="savebtn" Value="Save" onclick="checkRequiredFields();" reRender="message,savebtn" />
+                <apex:commandButton Value="Cancel" onclick="testCloseTab();return false;"/>       
+           </apex:pageBlockButtons>
+           <apex:pageBlockButtons location="Bottom" style="text-align:center; padding:10px;">
+                <apex:commandButton styleClass="slds-button slds-button_brand" id="savebtn" Value="Save" onclick="checkRequiredFields();" reRender="message,savebtn" />
+                <apex:commandButton Value="Cancel" onclick="testCloseTab();return false;"/>
            </apex:pageBlockButtons>
            <div role="alert" style="display:none;" id="errorMessages"></div>  
            <apex:pageMessages id="message"/>        
@@ -620,31 +735,44 @@
                      </apex:selectList>                    
                  </apex:pageBlockSectionItem>
                  <apex:inputField value="{!case.Channel_Contact__c}" id="cc"/>
-                <apex:actionFunction name="ProductLineChange" action="{!resetHierarchy}" reRender="IssEntryBlock,IqosInfo" oncomplete="resetHierarchyData();"/>
+                <apex:actionFunction name="ProductLineChange" action="{!resetHierarchy}"  reRender="IssEntryBlock,IqosInfo"  oncomplete="resetHierarchyData();"/>
                 <apex:inputHidden id="productLine" value="{!selectedProductLine}" />
             </apex:pageBlockSection>
             
             <apex:pageBlockSection title="Issue Hierarchy" id="IssHier">
-                <apex:commandButton value="Issue Hierarchy"  onclick="launchIssueHier('{!$Component.idfield}','{!$Component.issueHierCode}','{!$Component.issueType}','{!$Component.reason}','{!$Component.cause}','{!$Component.groupcode}','{!$Component.classification}'); return false;" oncomplete="rerenderPurchaseInfo();"/>
-                <apex:commandButton value="Natural Language"  onclick="launchNaturalLang('{!$Component.idfield}','{!$Component.issueHierCode}','{!$Component.issueType}','{!$Component.reason}','{!$Component.cause}','{!$Component.groupcode}','{!$Component.classification}'); return false;" oncomplete="rerenderPurchaseInfo();"/>
-                 <apex:outputLabel ></apex:outputLabel>
-                <apex:inputHidden value="{!case.Issue_Hierarchy_Code__c}" id="idfield"/> 
-                <apex:inputHidden value="{!case.Classificationtxt__c}" id="classification1"/>               
-                <apex:outputLabel ></apex:outputLabel>
+                <!-- Row 1: Button (left) | Classification (right) -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value=""></apex:outputLabel>
+                    <apex:commandButton value="Issue Hierarchy" onclick="launchIssueHier('{!$Component.idfield}','{!$Component.issueHierCode}','{!$Component.issueType}','{!$Component.reason}','{!$Component.cause}','{!$Component.groupcode}','{!$Component.classification}'); return false;" oncomplete="rerenderPurchaseInfo();"/>
+                </apex:pageBlockSectionItem>
+                <apex:outputText value=" " label=" "/>
                 <apex:inputText value="{!case.Classificationtxt__c}" id="classification" label="Classification" disabled="true"/>
-                <apex:inputText value="{!case.Reasontxt__c}" id="reason" label="Reason"  disabled="true"/>
-                <apex:inputText value="{!case.Issue_Type__c}" id="issueType" label="Issue Type" disabled="true"/>                 
-                <apex:inputText value="{!case.Causetxt__c}" id="cause" label="Cause"  disabled="true"/>
+                <!-- Row 2: Reason (left) | Issue Type (right) -->
+                <apex:inputText value="{!case.Reasontxt__c}" id="reason" label="Reason" disabled="true"/>
+                <apex:inputText value="{!case.Issue_Type__c}" id="issueType" label="Issue Type" disabled="true"/>
+                <!-- Row 3: Cause (left) | Group Code (right) -->
+                <apex:inputText value="{!case.Causetxt__c}" id="cause" label="Cause" disabled="true"/>
                 <apex:inputText value="{!case.Group_Code__c}" id="groupcode" label="Group Code" disabled="true"/>
+                <!-- Hidden fields -->
+                <apex:inputHidden value="{!case.Issue_Hierarchy_Code__c}" id="idfield"/>
+                <apex:inputHidden value="{!case.Classificationtxt__c}" id="classification1"/>
                 <apex:inputHidden value="{!case.Issue_Hierarchy_Code__r.Name}" id="issueHierCode"/>
-                
             </apex:pageBlockSection>            
             <apex:pageBlockSection title="Brand Hierarchy" id="BrandHier">
-                <apex:commandButton value="Brand Hierarchy"  onclick="launchBrandHier('{!$Component.targetId}','{!$Component.upc}','{!$Component.brand}'); return false;" />
-                
-                <apex:inputHidden value="{!case.Crc_Brand_Hierarchy_Code__c}" id="targetId"/>
-                <apex:inputText value="{!case.UPC_code__c}" id="upc" label="UPC"   disabled="true"/>
-                <apex:inputText value="{!case.Brandcode__c}" id="brand" label="Brand" disabled="true" onchange="brandFun();"/>                
+                <!-- Row 1: Button (left) | Brand (right) -->
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value=""></apex:outputLabel>
+                    <apex:commandButton value="Brand Hierarchy" onclick="launchBrandHier('{!$Component.targetId}','{!$Component.upc}','{!$Component.brand}'); return false;"/>
+                </apex:pageBlockSectionItem>
+                <apex:outputText value=" " label=" "/>
+               <!-- <apex:inputText value="{!case.Brandcode__c}" id="brand" label="Brand" disabled="true" onchange="brandFun();"/> -->
+                <!-- Row 2: UPC (left) | empty (right) -->
+              <!--  <apex:inputText value="{!case.UPC_code__c}" id="upc" label="UPC" disabled="true"/>  -->
+                <!-- added by pratiksha -->
+                 <!-- Row 2: UPC (left) | empty (right) -->
+             <apex:inputText value="{!case.UPC_code__c}" id="upc" label="UPC" disabled="true"/>
+             <apex:inputText value="{!case.Brandcode__c}" id="brand" label="Brand" disabled="true" onchange="brandFun();"/>
+             <!--ends here -->
                 <apex:pageBlockSectionItem dataStyleClass="labeltaste" labelStyleClass="labeltaste" id="sectionTaste">
                     <apex:outputLabel value="Taste"></apex:outputLabel>
                     <apex:inputText value="{!case.Taste__c}" label="Taste" id="taste" disabled="true"/>
@@ -673,7 +801,10 @@
                     <apex:outputLabel value="Cut"></apex:outputLabel>
                     <apex:inputText value="{!case.Cut__c}" label="Cut" id="cut" disabled="true"/>
                 </apex:pageBlockSectionItem>
-                <apex:inputhidden value="{!case.Brandcode__c}" id="brand1"/> 
+                <apex:inputhidden value="{!case.Brandcode__c}" id="brand1"/>
+                <apex:outputText value=" " label=" "/>
+                <!-- Hidden field -->
+                <apex:inputHidden value="{!case.Crc_Brand_Hierarchy_Code__c}" id="targetId"/>
              </apex:pageBlockSection>
             <!-- ================ IQOS Section ====================== -->
             <!-- <apex:pageBlockSection title="IQOS Information" id="IqosInfo" rendered="{!If(selectedProductLine =='HEAT NOT BURN',true,false)}"> -->
@@ -707,7 +838,8 @@
             </apex:pageBlockSection>
             <!-- ================ IQOS END ========================== -->
             <apex:pageBlockSection title="Purchase Information" id="PurchaseInfo">
-                <apex:inputField value="{!case.Purchase_Price__c}" id="purchasePrice" label="Purchase Price"  styleClass="{!IF(case.Classificationtxt__c != null && case.Classificationtxt__c != 'Not a Complaint','class1','class2')}" />
+                <!-- <apex:inputField value="{!case.Purchase_Price__c}" id="purchasePrice" label="Purchase Price"  styleClass="{!IF(case.Classificationtxt__c != null && case.Classificationtxt__c != 'Not a Complaint','class1','class2')}" /> -->
+                <apex:inputField value="{!case.Purchase_Price__c}" id="purchasePrice" label="Purchase Price" style="{!IF(case.Classificationtxt__c != null && case.Classificationtxt__c != 'Not a Complaint', 'border-left:2px solid #FF0000;', '')}" />
                 <apex:inputField value="{!case.Affected_Type__c}" label="Affected Type" id="affectType"/>
                 <apex:inputField value="{!case.Purchase_Date__c}" label="Purchase Date" id="purchaseDate"/>
                 <apex:inputField value="{!case.AffectedQty__c}" label="Affected Quantity"  id="affectQty"/> 
@@ -726,7 +858,7 @@
                     <apex:selectOptions value="{!TraceCodeLocation}"/>
                 </apex:selectList>                
                 <apex:inputField value="{!case.Suspected_Counterfiet__c}" label="Suspected Counterfeit" id="susCounter" rendered="{!selectedProductLine != '0'}"/>
-                <apex:inputField value="{!case.Mfg_Trace_code__c}" label="Mfg/Trace code" styleClass="text-uppercase"  onblur="TraceCodeValidation()" id="traceCode"  rendered="{!selectedProductLine != '0'}"/>
+                <apex:inputField value="{!case.Mfg_Trace_code__c}" label="Mfg/Trace code" styleClass="{!IF(selectedProductLine == 'PLOOM HEATED TOBACCO', '', 'text-uppercase')}"  onblur="TraceCodeValidation()" id="traceCode"  rendered="{!selectedProductLine != '0'}"/>
                 <apex:outputtext rendered="{!iqosTrue}" />
                 
                 <apex:inputtext value="{!case.TC_Serial_Number__c}" label="TC Serial Number" styleClass="text-uppercase" id="tcSerialNum"  rendered="{!iqosTrue}"/>
@@ -804,7 +936,7 @@
                 <apex:inputField value="{!case.Comment__c}"  id="commentObj" style="width:100%;border-left:2px solid #FF0000"/>
             </apex:pageBlockSection>
     
-         </apex:pageBlock>
+        </apex:pageBlock>
     
     	<!-- RITM2147263 -->
     	 <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;

@@ -171,6 +171,10 @@
         <excludedStandardButtons>MassChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>PrintableListView</excludedStandardButtons>
         <excludedStandardButtons>MassAssignRecordLabel</excludedStandardButtons>
+        <searchResultsAdditionalFields>DocType__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>DocumentOpCompany__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LetterDesc__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>LetterDate__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>

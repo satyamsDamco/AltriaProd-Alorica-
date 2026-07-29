@@ -20,7 +20,7 @@ public class IssueDetailController {
     public string country{get;set;}
     public string customertype{get;set;}
     public string customerRecType{get;set;}
-    public List<Attachment> attachList{get;set;} 
+    public List<AttachmentWrapper> attachList{get;set;}
     public Integer PageSize  {get;set;}
     public id currentTran {get;set;}
     public List<Survey_Issue__c> IssueSurvyeList{get;set;} 
@@ -43,15 +43,13 @@ public class IssueDetailController {
     public  string customer_brand {get; set;}
     public string customer_casenumber{get;set;}
     public string  conID{get;set;}
-
-
     //public static String apiresult='';
-    
+    public String issueIds {get; set;}
     
     
     // Constructor
     public IssueDetailController(ApexPages.StandardController controller) {
-        
+        issueIds = ApexPages.currentPage().getParameters().get('id');
         this.standardController = controller;
         this.caseObj = (Case)controller.getRecord();           
         parameters =  '';
@@ -83,7 +81,7 @@ public class IssueDetailController {
         
         if(this.caseObj.id != null){
             cValue =  [Select id,CaseNumber, Status, Transaction__c, Survey__c, Transaction__r.Name,ContactId, Contact.Name,contact.Zip_Code__c,contact.State__c,contact.Country__c,
-                       contact.Birthdate, CreatedDate , CreatedDate__c,  LastModifiedDate__c, Contact.CustomerID__c,Contact.AVF_GIID_Received__c, Contact.CustomerType__c,Contact.RecordType.Name, Operating_Company__c,MasterId__c,Original_Serial_Number__c 
+                       contact.Birthdate, CreatedDate , CreatedDate__c,  LastModifiedDate__c, Contact.CustomerID__c,Contact.AVF_GIID_Received__c, Contact.CustomerType__c,Contact.RecordType.Name, Operating_Company__c,MasterId__c,Original_Serial_Number__c
                        ,Contact.FirstName,Contact.LastName,Contact.City__c,Contact.Email,Contact.Street_Address__c,Brandcode__c
                        from Case where id =: caseObj.id];
             //System.debug('Test value'+cValue.CaseNumber);
@@ -311,11 +309,12 @@ public class IssueDetailController {
         
         return pgRef;
     }
-    
+
     public Pagereference attachmentList(){           
-        
-        attachList=[select id,name,CreatedDate,LastModifiedDate,description from Attachment where ParentId=:caseObj.id];
-        
+        attachList = new List<AttachmentWrapper>();
+        for(Attachment a : [select id,name,CreatedDate,LastModifiedDate,description from Attachment where ParentId=:caseObj.id]){
+            attachList.add(new AttachmentWrapper(a));
+        }
         return null;
     }
     
@@ -398,6 +397,7 @@ public class IssueDetailController {
                        UstDateCode__c,UstDate__c,ValidTraceCodeFeed__c,ValidTraceCode__c,ValidUstDateCodeFeed__c,ValidUstdateCode__c,
                        YearMonthModule__c,Transaction__r.Name,Contact.Name,Contact.Country__c,Contact.CustomerID__c,Contact.Email,Contact.FirstName,
                        Contact.CustomerType__c,Contact.LastName FROM Case Where id =: caseObj.id];
+            System.debug('cvalue Query'+cValue);           
             if(cValue.Transaction__c != null ){
                 tranId = cValue.Transaction__c;
                 tranName = cValue.Transaction__r.Name;  
@@ -455,22 +455,25 @@ public class IssueDetailController {
         if(issueSurveyListToUpdate.size() > 0){
             update issueSurveyListToUpdate;
         }
+        System.debug('issueSurveyListToUpdate size' +issueSurveyListToUpdate.size());
+
     }
     
     //Method to get the Associated Chat History
-    public List<LiveChatTranscript> getChatHistory(){
-        List<LiveChatTranscript> listChatHist = new List<LiveChatTranscript>();
-        listChatHist = [
-            Select Chat_ID__c, CreatedDate, CreatedBy.Name, WaitTime, StartTime, EndTime, LastModifiedDate, LastModifiedBy.Name 
-            From LiveChatTranscript 
-            Where CaseId =:caseObj.id 
-            order by Id desc
-        ];
-        if(listChatHist.isEmpty()){
-            return null;
-        }
-        return listChatHist;
+    public List<MessagingSession> getChatHistory(){
+    List<MessagingSession> listChatHist = new List<MessagingSession>();
+    listChatHist = [
+        Select Messaging_ID__c, Name, Status, CreatedDate, CreatedBy.Name, CaseId, Issue_ID__c, StartTime, EndTime, 
+            LastModifiedDate, LastModifiedBy.Name 
+        From MessagingSession 
+        Where CaseId =:caseObj.id
+        order by Id desc
+    ];
+    if(listChatHist.isEmpty()){
+        return null;
     }
+    return listChatHist;
+}
     
     public void submitVF()
     {
@@ -661,7 +664,27 @@ public class IssueDetailController {
         public String Value;	
     }
     
-    
-    
-    
+    public class AttachmentWrapper {
+        public Id id {get;set;}
+        public String Name {get;set;}
+        public String description {get;set;}
+        private Datetime createdDateRaw;
+        private Datetime lastModifiedDateRaw;
+        public AttachmentWrapper(Attachment a){
+            this.id = a.Id;
+            this.Name = a.Name;
+            this.description = a.Description;
+            this.createdDateRaw = a.CreatedDate;
+            this.lastModifiedDateRaw = a.LastModifiedDate;
+        }
+        public String getCreatedDateEST(){
+            if(createdDateRaw == null) return '';
+            return createdDateRaw.format('MM/dd/yyyy hh:mm:ss a', 'America/New_York') + ' EST';
+        }
+        public String getLastModifiedDateEST(){
+            if(lastModifiedDateRaw == null) return '';
+            return lastModifiedDateRaw.format('MM/dd/yyyy hh:mm:ss a', 'America/New_York') + ' EST';
+        }
+    }
+
 }
