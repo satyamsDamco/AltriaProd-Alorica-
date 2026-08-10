@@ -624,6 +624,23 @@ public class ConsumerSearchController {
                 }
 
             }
+
+            //Sort: if searching by Customer ID, move the exact match to the top of the result list
+    if(conObj.CustomerID__c != null && conObj.CustomerID__c != '' && !conlst.isEmpty()){
+    String searchedCustId = conObj.CustomerID__c.trim();
+    List<Contact> topMatch = new List<Contact>();
+    List<Contact> remaining = new List<Contact>();
+    for(Contact c : conlst){
+        if(c.CustomerID__c != null && c.CustomerID__c == searchedCustId){
+            topMatch.add(c);
+        }else{
+            remaining.add(c);
+        }
+    }
+    conlst.clear();
+    conlst.addAll(topMatch);
+    conlst.addAll(remaining);
+}
             
             if(conlst.isEmpty() || conlst.Size() == 0){
                 // Check if searching by primary-only fields (no extended search allowed)

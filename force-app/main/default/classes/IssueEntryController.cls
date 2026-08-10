@@ -337,6 +337,12 @@
         List<Survey_Issue__c> oldSurveyIssue = new List<Survey_Issue__c>();
         Transaction_Management__c tranObj = new Transaction_Management__c();
         try {
+            // SCR 2026-05-01: re-apply the product line casing rule in case the onblur
+            // TraceCodeValidation round-trip never ran for the value being saved.
+            caseObj.Mfg_Trace_code__c = normalizeTraceCodeCase(caseObj.Mfg_Trace_code__c, selectedProductLine);
+            // Date Code must always persist in upper case, including pasted values that never
+            // went through the onblur DateCodeValidation round-trip.
+            caseObj.Date_Code__c = normalizeDateCodeCase(caseObj.Date_Code__c);
             if(tranId != null ){
                 tranObj = [Select Id, Contact__c From Transaction_Management__c Where id =: tranId limit 1];
            }
@@ -711,6 +717,12 @@
     public PageReference customSave()
     {
     try{
+        // SCR 2026-05-01: re-apply the product line casing rule in case the onblur
+        // TraceCodeValidation round-trip never ran for the value being cloned/saved.
+        caseObj.Mfg_Trace_code__c = normalizeTraceCodeCase(caseObj.Mfg_Trace_code__c, selectedProductLine);
+        // Date Code must always persist in upper case, including pasted values that never
+        // went through the onblur DateCodeValidation round-trip.
+        caseObj.Date_Code__c = normalizeDateCodeCase(caseObj.Date_Code__c);
         cloneIssueId = ApexPages.currentPage().getParameters().get('parentIssue');
         if(productLineMap.ContainsKey(selectedProductLine)){
            Product_Line__c ProductLineCode = productLineMap.get(selectedProductLine);
@@ -1072,9 +1084,46 @@
         }
         return null;
     }
+    // Date Code is always stored in UPPER CASE.
+    // DateCodeValidation() already upper-cases it, but only when the selected product line is
+    // date-code enabled AND a brand hierarchy has been chosen - and that onblur round-trip can
+    // be bypassed altogether (pasting a value and going straight to Save). This method is
+    // therefore re-applied on both save paths so a lowercase value can never reach the
+    // database. Whitespace-only input is left untouched to preserve existing behaviour.
+    @TestVisible
+    private static String normalizeDateCodeCase(String dateCode)
+    {
+        if(String.isBlank(dateCode))
+        {
+            return dateCode;
+        }
+        return dateCode.trim().toUpperCase();
+    }
+    // SCR 2026-05-01: Trace Codes - PLOOM Devices
+    // Applies the trace code casing rule for a given product line.
+    //   PLOOM HEATED TOBACCO : characters 1-11 are upper-cased, character 12 (the day
+    //                          character) is left exactly as typed - lowercase 'd' encodes
+    //                          day 13 and uppercase 'D' is not a valid day. A PLOOM entry
+    //                          that is not 12 characters long is invalid anyway, so it falls
+    //                          through to the full upper-case path.
+    //   every other line     : upper-cased in full, restoring the pre-SCR behaviour.
+    // Note: Apex String == is case-insensitive, so this also matches 'Ploom Heated Tobacco'.
+    @TestVisible
+    private static String normalizeTraceCodeCase(String traceCode, String productLineName)
+    {
+        if(String.isBlank(traceCode))
+        {
+            return traceCode;
+        }
+        if(productLineName == 'PLOOM HEATED TOBACCO' && traceCode.length() == 12)
+        {
+            return traceCode.substring(0, 11).toUpperCase() + traceCode.substring(11, 12);
+        }
+        return traceCode.toUpperCase();
+    }
     //Method to perform the trace code validation
     public PageReference TraceCodeValidation()
-    {    
+    {
         caseObj.Production_date__c  = null;        
         traceCodeErrorMessage = '';
         productLineId = '';
@@ -1088,8 +1137,13 @@
             productionDate = '';
             return null;
         }  
+        // SCR 2026-05-01 (Trace Codes - PLOOM Devices):
+        // PLOOM HEATED TOBACCO is the ONLY product line whose trace code is case sensitive.
+        // Every other product line keeps the long-standing behaviour of being forced to upper
+        // case before it is counterfeit-checked, validated or stored, so a lowercase entry can
+        // never survive on a non-PLOOM issue.
+        caseObj.Mfg_Trace_code__c = normalizeTraceCodeCase(caseObj.Mfg_Trace_code__c, selectedProductLine);
         String originalTraceCode = caseObj.Mfg_Trace_code__c;
-        caseObj.Mfg_Trace_code__c = caseObj.Mfg_Trace_code__c;
         caseObj.Trace_Code_Location__c =  selectedTraceCodeLocation;
         if((caseObj.Mfg_Trace_code__c != null && caseObj.Mfg_Trace_code__c !=  '') && caseObj.Trace_Code_Location__c == null || caseObj.Trace_Code_Location__c == '')
         {

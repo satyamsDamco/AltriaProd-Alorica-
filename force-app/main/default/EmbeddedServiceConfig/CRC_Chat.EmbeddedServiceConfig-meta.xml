@@ -81,6 +81,7 @@
         <isActive>true</isActive>
     </embeddedServiceForms>
     <embeddedServiceMessagingChannel>
+        <businessHours>Default</businessHours>
         <isChatInvitationCustomizable>false</isChatInvitationCustomizable>
         <isEnabled>true</isEnabled>
         <isInvitationEnabled>false</isInvitationEnabled>

@@ -314,6 +314,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.LENGTH__c</fieldItem>
                 <identifier>RecordLENGTH_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Reporting_Brand_Family__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>COPENHAGEN</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -334,6 +341,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Paper_Type__c</fieldItem>
                 <identifier>RecordPaper_Type_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Reporting_Brand_Family__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>COPENHAGEN</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1088,6 +1102,13 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection7</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Contact.RecordType.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Consumer</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>

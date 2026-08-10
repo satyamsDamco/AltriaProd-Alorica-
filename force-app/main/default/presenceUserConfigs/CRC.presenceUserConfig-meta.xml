@@ -17,8 +17,8 @@
     <enableAutoAccept>false</enableAutoAccept>
     <enableDecline>false</enableDecline>
     <enableDeclineReason>false</enableDeclineReason>
-    <enableDisconnectSound>false</enableDisconnectSound>
-    <enableRequestSound>false</enableRequestSound>
+    <enableDisconnectSound>true</enableDisconnectSound>
+    <enableRequestSound>true</enableRequestSound>
     <hasAfterConvoWorkTimer>false</hasAfterConvoWorkTimer>
     <label>Chat- CRC</label>
 </PresenceUserConfig>

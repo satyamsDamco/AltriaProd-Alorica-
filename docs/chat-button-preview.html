@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CRC CHAT AGENT button - preview</title>
+<style>
+    /* page chrome only - not part of the deliverable */
+    body { margin: 0; padding: 60px 24px; background: #fff; }
+</style>
+</head>
+<body>
+
+<!-- ======================================================================== -->
+<!-- ▼▼▼ PRODUCTION SNIPPET - style + markup, verbatim from                   -->
+<!--     docs/philipmorrisusa-chat-snippet.html                               -->
+<!-- ======================================================================== -->
+
+<style>
+#crc-chat-online {
+    display: none;
+    background-color: #0a9ee9;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    text-align: center;
+    text-decoration: none;
+    padding: 12px 32px;
+    border: 0;
+}
+#crc-chat-online:hover,
+#crc-chat-online:focus {
+    background-color: #087bc4;
+    color: #ffffff;
+    text-decoration: none;
+}
+#crc-chat-offline {
+    display: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    color: #6b6a69;
+}
+</style>
+
+<a id="crc-chat-online"
+   href="https://altria-prod.my.salesforce-sites.com/altria/CRC_Chat"
+   target="_blank"
+   rel="noopener">CHAT AGENT</a>
+
+<span id="crc-chat-offline">
+  Chat is currently offline. Chat is available Monday&ndash;Friday,
+  9 a.m. &ndash; 7 p.m. (ET). Please call (800) 852-5847 or use the
+  Online Product Quality Complaint Form.
+</span>
+
+<!-- ======================================================================== -->
+<!-- ▲▲▲ END PRODUCTION SNIPPET                                               -->
+<!-- ======================================================================== -->
+
+
+<script>
+/* ===== PREVIEW ONLY - the real snippet's business-hours script is omitted
+   here on purpose, so the button is always visible regardless of the clock.
+   Use docs/chat-snippet-test.html to exercise the online/offline logic.
+   The click behaviour below is identical to production.
+   ====================================================================== */
+(function () {
+    var CHAT_URL = "https://altria-prod.my.salesforce-sites.com/altria/CRC_Chat";
+    var POPUP_FEATURES = "width=480,height=760,resizable=yes,scrollbars=yes";
+
+    var online = document.getElementById("crc-chat-online");
+    online.style.display = "inline-block";
+
+    online.addEventListener("click", function (event) {
+        var win = window.open(CHAT_URL, "CRCChat", POPUP_FEATURES);
+        if (win) {
+            event.preventDefault();
+            win.focus();
+        }
+    });
+})();
+</script>
+
+</body>
+</html>

@@ -794,11 +794,13 @@
         </apex:outputPanel>
         <apex:pageBlockTable value="{!attachList}" var="attList" rendered="{!attachList.size>0}">
             <apex:column headerValue="Action">
-                <a href="/servlet/servlet.FileDownload?file={!attList.id}" target="_blank">View File</a>
+                <a href="{!attList.downloadUrl}" target="_blank">View File</a>
             </apex:column>
             <apex:column headerValue="File Name">
-                <apex:outputLink onClick="attchmentDetail('{!attList.id}','{!attList.Name}');return false;" style="cursor:pointer; color:#0070d2; text-decoration:underline;" rendered="{!currentTran != null}">{!attList.Name}</apex:outputLink>
-                <apex:OutputText value="{!attList.Name}" rendered="{!currentTran == null}"/>
+                <apex:OutputText value="{!attList.Name}"/>
+            </apex:column>
+            <apex:column headerValue="Type">
+                <apex:OutputText value="{!IF(attList.isFile,'Salesforce File','Attachment')}" />
             </apex:column>
             <apex:column headerValue="Comment">
                 <apex:OutputText value="{!attList.description}" />
@@ -808,6 +810,9 @@
             </apex:column> 
             <apex:column headerValue="Last Modified Date">
                 <apex:OutputText value="{!attList.LastModifiedDateEST}" />
+            </apex:column>
+            <apex:column headerValue="Created By">
+                <apex:OutputText value="{!attList.createdByName}" />
             </apex:column>
         </apex:pageBlockTable>
     </apex:pageBlock>

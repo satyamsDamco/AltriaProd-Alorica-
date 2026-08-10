@@ -169,13 +169,13 @@
         <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>MassChangeOwner</excludedStandardButtons>
         <excludedStandardButtons>PrintableListView</excludedStandardButtons>
+        <searchResultsAdditionalFields>Issue__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Name__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Reimbursement_Type__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Reimbursement_Date__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Cheque_Amount__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>File_Name__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Ship_Date__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Card_Number__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Issue__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

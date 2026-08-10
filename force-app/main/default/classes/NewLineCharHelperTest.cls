@@ -1382,4 +1382,91 @@ private class NewLineCharHelperTest {
         System.assert(threwException || caseList[0].Line__c == '20',
             'Expected either a parse exception (due to a null production date) or Line__c to be set to 20');
     }
+
+    // Case.Date_Code__c must always land in the database in UPPER CASE, no matter which route
+    // wrote it. These go through real DML so the NewLineCharCase before insert/update trigger
+    // is exercised end to end, not just the helper method.
+    private static Id newOperatingCompanyId() {
+        Operating_Company__c oc = new Operating_Company__c(
+            OperatingCompany__c = 'PMIP',
+            OpCo_Description__c = 'Test OpCo',
+            Active__c = true
+        );
+        insert oc;
+        return oc.Id;
+    }
+
+    @isTest
+    static void testDateCodeIsUpperCasedOnInsert() {
+        Case c = new Case(
+            Subject = 'Date Code casing - insert',
+            Op_Company__c = newOperatingCompanyId(),
+            Date_Code__c = 'jan012025'
+        );
+        insert c;
+
+        Case inserted = [SELECT Id, Date_Code__c FROM Case WHERE Id = :c.Id];
+        System.assertEquals('JAN012025', inserted.Date_Code__c,
+            'A lowercase Date Code must be stored in upper case on insert');
+    }
+
+    @isTest
+    static void testDateCodeIsUpperCasedOnUpdate() {
+        Case c = new Case(
+            Subject = 'Date Code casing - update',
+            Op_Company__c = newOperatingCompanyId()
+        );
+        insert c;
+
+        c.Date_Code__c = 'jAn012025';
+        update c;
+
+        Case updated = [SELECT Id, Date_Code__c FROM Case WHERE Id = :c.Id];
+        System.assertEquals('JAN012025', updated.Date_Code__c,
+            'A mixed case Date Code must be stored in upper case on update');
+    }
+
+    // The helper is public and could be handed a SOQL result that did not select Date_Code__c.
+    // That must be skipped silently rather than throwing SObjectException.
+    @isTest
+    static void testDateCodeCasingSkipsUnqueriedField() {
+        Case c = new Case(
+            Subject = 'Date Code casing - unqueried',
+            Op_Company__c = newOperatingCompanyId(),
+            Date_Code__c = 'jan012025'
+        );
+        insert c;
+
+        // Deliberately does NOT select Date_Code__c.
+        List<Case> partial = [SELECT Id, Subject FROM Case WHERE Id = :c.Id];
+
+        NewLineCharHelper helper = new NewLineCharHelper();
+        helper.upperCaseDateCode(partial); // must not throw
+    }
+
+    @isTest
+    static void testDateCodeCasingHelperEdgeCases() {
+        NewLineCharHelper helper = new NewLineCharHelper();
+
+        // A value with no alphabetic characters is left intact.
+        Case noAlpha = new Case(Subject = 'No alpha', Date_Code__c = '01/02/2017');
+        // Blank and null Date Codes must be left exactly as they are.
+        Case blank = new Case(Subject = 'Blank', Date_Code__c = '');
+        Case nullCode = new Case(Subject = 'Null');
+        // Whitespace is deliberately preserved - only the casing changes.
+        Case padded = new Case(Subject = 'Padded', Date_Code__c = '  ww/yy  ');
+
+        List<Case> cases = new List<Case>{ noAlpha, blank, nullCode, padded };
+        helper.upperCaseDateCode(cases);
+
+        System.assertEquals('01/02/2017', noAlpha.Date_Code__c,
+            'A value with no alphabetic characters must be left intact');
+        System.assertEquals('', blank.Date_Code__c, 'A blank Date Code must be left as-is');
+        System.assertEquals(null, nullCode.Date_Code__c, 'A null Date Code must be left as-is');
+        System.assertEquals('  WW/YY  ', padded.Date_Code__c,
+            'Casing is normalised but surrounding whitespace is preserved');
+
+        // A null list must not throw.
+        helper.upperCaseDateCode(null);
+    }
 }

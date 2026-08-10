@@ -315,6 +315,15 @@ public class IssueDetailController {
         for(Attachment a : [select id,name,CreatedDate,LastModifiedDate,description from Attachment where ParentId=:caseObj.id]){
             attachList.add(new AttachmentWrapper(a));
         }
+        for(ContentDocumentLink cdl : [SELECT ContentDocumentId,
+                                               LinkedEntityId,
+                                               ContentDocument.Title,
+                                               ContentDocument.CreatedDate,
+                                               ContentDocument.CreatedBy.Name
+                                        FROM ContentDocumentLink
+                                        WHERE LinkedEntityId =: caseObj.id]){
+            attachList.add(new AttachmentWrapper(cdl));
+        }
         return null;
     }
     
@@ -668,14 +677,44 @@ public class IssueDetailController {
         public Id id {get;set;}
         public String Name {get;set;}
         public String description {get;set;}
+        public String createdByName {get;set;}
+        public Boolean isFile {get;set;}
+        public String type {get;set;}
         private Datetime createdDateRaw;
         private Datetime lastModifiedDateRaw;
+
+        // Existing Attachment records
         public AttachmentWrapper(Attachment a){
             this.id = a.Id;
-            this.Name = a.Name;
+            this.Name = stripExtension(a.Name);
             this.description = a.Description;
             this.createdDateRaw = a.CreatedDate;
             this.lastModifiedDateRaw = a.LastModifiedDate;
+            this.createdByName = '';
+            this.isFile = false;
+            this.type = 'Attachment';
+        }
+
+        // Salesforce Files (ContentDocument) linked via ContentDocumentLink
+        public AttachmentWrapper(ContentDocumentLink cdl){
+            this.id = cdl.ContentDocumentId;
+            this.Name = cdl.ContentDocument.Title;
+            this.description = '';
+            this.createdDateRaw = cdl.ContentDocument.CreatedDate;
+            this.lastModifiedDateRaw = null;
+            this.createdByName = cdl.ContentDocument.CreatedBy.Name;
+            this.isFile = true;
+            this.type = 'Attachment';
+        }
+
+        // Removes the trailing file extension (e.g. "Testing image 8.png" -> "Testing image 8")
+        private String stripExtension(String fileName){
+            if(fileName == null) return fileName;
+            Integer dotIndex = fileName.lastIndexOf('.');
+            if(dotIndex > 0){
+                return fileName.substring(0, dotIndex);
+            }
+            return fileName;
         }
         public String getCreatedDateEST(){
             if(createdDateRaw == null) return '';
@@ -684,6 +723,13 @@ public class IssueDetailController {
         public String getLastModifiedDateEST(){
             if(lastModifiedDateRaw == null) return '';
             return lastModifiedDateRaw.format('MM/dd/yyyy hh:mm:ss a', 'America/New_York') + ' EST';
+        }
+        // Files and Attachments use different download endpoints
+        public String getDownloadUrl(){
+            if(isFile){
+                return '/sfc/servlet.shepherd/document/download/' + id;
+            }
+            return '/servlet/servlet.FileDownload?file=' + id;
         }
     }
 

@@ -271,6 +271,11 @@
             <field>Zip_Code__c</field>
             <table>Reimbursement__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Name__c</field>
+            <table>Reimbursement__c</table>
+        </columns>
         <masterLabel>Reimbursements</masterLabel>
     </sections>
 </ReportType>

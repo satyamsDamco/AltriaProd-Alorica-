@@ -1,0 +1,174 @@
+<!--
+  ============================================================================
+  Altria / Philip Morris USA - Consumer Response Center Chat
+  Replacement snippet for philipmorrisusa.com/contact-us
+
+  Replaces the legacy Live Agent block (liveagent.init / liveagent.startChat /
+  liveagent.showWhenOnline). That API was retired for this org when Salesforce
+  was migrated to Messaging for In-App and Web (MIAW), which is why the button
+  is permanently stuck on "Chat Offline".
+
+  DELETE from the page:
+    - <a id="liveagent_button_online_5731Q0000004d1o"> ... </a>
+    - <img id="liveagent_button_offline_5731Q0000004d1o" ... />
+    - the window._laq / liveagent.showWhenOnline|showWhenOffline script
+    - <script src=".../46.0/deployment.js"></script>
+    - the liveagent.init(...) script
+
+  Owner: Altria Salesforce team
+  ============================================================================
+-->
+
+<!-- 1) STYLE ---------------------------------------------------------------
+     Self-contained so the button looks right even if none of the site's own
+     CSS applies. Every rule is pinned to the two IDs below, so nothing here
+     can leak into the rest of the page. Restyle freely to match the site -
+     just keep the `display` handling, which the script drives.
+
+     Both elements start hidden: if scripting is unavailable the page shows
+     neither a dead button nor a misleading offline notice.
+-->
+<style>
+#crc-chat-online {
+    display: none;
+    background-color: #0a9ee9;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    text-align: center;
+    text-decoration: none;
+    padding: 12px 32px;
+    border: 0;
+}
+#crc-chat-online:hover,
+#crc-chat-online:focus {
+    background-color: #087bc4;
+    color: #ffffff;
+    text-decoration: none;
+}
+#crc-chat-offline {
+    display: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    color: #6b6a69;
+}
+</style>
+
+
+<!-- 2) MARKUP --------------------------------------------------------------
+     The anchor carries a real href + target so the chat still opens if the
+     browser blocks scripted popups.
+-->
+<a id="crc-chat-online"
+   href="https://altria-prod.my.salesforce-sites.com/altria/CRC_Chat"
+   target="_blank"
+   rel="noopener">CHAT AGENT</a>
+
+<span id="crc-chat-offline">
+  Chat is currently offline. Chat is available Monday&ndash;Friday,
+  9 a.m. &ndash; 7 p.m. (ET). Please call (800) 852-5847 or use the
+  Online Product Quality Complaint Form.
+</span>
+
+
+<!-- 3) BEHAVIOUR ----------------------------------------------------------- -->
+<script type="text/javascript">
+(function () {
+    "use strict";
+
+    // Public Salesforce Site that hosts the CRC pre-chat form. That page owns
+    // the consumer intake fields, the 21+ date-of-birth gate, and the MIAW
+    // bootstrap. Chat MUST be launched through it - never bootstrapped
+    // directly on this page - or conversations reach agents with no consumer
+    // data and no age verification.
+    var CHAT_URL = "https://altria-prod.my.salesforce-sites.com/altria/CRC_Chat";
+
+    // Consumer Response Center hours, Eastern Time. 24h clock, end exclusive.
+    var OPEN_DAYS   = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+    var OPEN_MINUTE = 9 * 60;    // 9:00 a.m. ET
+    var CLOSE_MINUTE = 19 * 60;  // 7:00 p.m. ET
+
+    var POPUP_FEATURES = "width=480,height=760,resizable=yes,scrollbars=yes";
+
+    // Reading the clock through America/New_York lets the browser apply the
+    // EST/EDT transition for us, so the hours stay correct across DST.
+    function easternNow() {
+        var parts = new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/New_York",
+            weekday: "short",
+            hour: "numeric",
+            minute: "numeric",
+            hour12: false
+        }).formatToParts(new Date());
+
+        var out = {};
+        for (var i = 0; i < parts.length; i++) {
+            out[parts[i].type] = parts[i].value;
+        }
+        return out;
+    }
+
+    function isWithinBusinessHours() {
+        var t = easternNow();
+
+        if (OPEN_DAYS.indexOf(t.weekday) === -1) {
+            return false;
+        }
+
+        // Some engines report midnight as hour "24"; normalise before comparing.
+        var minutes = (parseInt(t.hour, 10) % 24) * 60 + parseInt(t.minute, 10);
+        return minutes >= OPEN_MINUTE && minutes < CLOSE_MINUTE;
+    }
+
+    function render() {
+        var online = document.getElementById("crc-chat-online");
+        var offline = document.getElementById("crc-chat-offline");
+        if (!online || !offline) {
+            return;
+        }
+
+        // Set an explicit value rather than "" - clearing the inline style
+        // would fall back to the `display:none` in the stylesheet above and
+        // the element would stay hidden.
+        var open = isWithinBusinessHours();
+        online.style.display = open ? "inline-block" : "none";
+        offline.style.display = open ? "none" : "inline-block";
+    }
+
+    function openChat(event) {
+        var win = window.open(CHAT_URL, "CRCChat", POPUP_FEATURES);
+
+        // Popup blocked -> fall through to the anchor's href/target so the
+        // visitor still gets to the form in a new tab.
+        if (win) {
+            event.preventDefault();
+            win.focus();
+        }
+    }
+
+    function init() {
+        var online = document.getElementById("crc-chat-online");
+        if (online) {
+            online.addEventListener("click", openChat);
+        }
+
+        render();
+
+        // Keeps a long-lived tab honest across the 9 a.m. / 7 p.m. boundaries.
+        window.setInterval(render, 60000);
+    }
+
+    // Exposed so the page can re-evaluate the button after client-side
+    // navigation or a late DOM render, instead of waiting for the next tick.
+    window.CRCChat = { refresh: render, isOpen: isWithinBusinessHours };
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
+})();
+</script>

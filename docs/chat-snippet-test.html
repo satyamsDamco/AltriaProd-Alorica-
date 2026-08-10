@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CRC Chat Snippet - Local Test Harness</title>
+<style>
+    body { font-family: Arial, Helvetica, sans-serif; color: #4c4b4a; margin: 0; background: #fff; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 60px; }
+    .brandbar { border-bottom: 1px solid #e5e2e0; padding: 18px 20px; }
+    .brandbar strong { color: #0a56a5; font-size: 20px; letter-spacing: -.3px; }
+    h2 { font-size: 22px; color: #0a9ee9; font-weight: bold; margin: 32px 0 10px; }
+    h3 { font-size: 15px; margin: 0 0 8px; }
+    p  { font-size: 14px; line-height: 1.5; }
+    hr { border: 0; border-top: 1px solid #e5e2e0; margin: 28px 0; }
+
+    /* NOTE: the chat button/offline styling deliberately lives inside the
+       production snippet below, not here - so this page proves the snippet
+       is self-contained on a page that gives it no styling of its own. */
+
+    /* --- test harness chrome (not shipped) --- */
+    .harness { background: #fbfaf8; border: 1px solid #e5e2e0; border-left: 4px solid #c13145; padding: 18px 20px; margin-top: 36px; }
+    .harness h2 { color: #c13145; margin-top: 0; font-size: 18px; }
+    .readout { font-family: Consolas, "Courier New", monospace; font-size: 13px; background: #fff;
+               border: 1px solid #e5e2e0; padding: 12px 14px; margin: 12px 0; line-height: 1.7; }
+    .btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+    button { font-family: inherit; font-size: 13px; padding: 8px 14px; border: 1px solid #c8c5c2;
+             background: #fff; cursor: pointer; border-radius: 3px; }
+    button:hover { background: #f0eeec; }
+    button.primary { background: #0a9ee9; color: #fff; border-color: #0a9ee9; font-weight: 700; }
+    button.primary:hover { background: #087bc4; }
+    table.res { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 12px; }
+    table.res th, table.res td { border: 1px solid #e5e2e0; padding: 7px 9px; text-align: left; }
+    table.res th { background: #f4f2f0; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+    table.res td.mono { font-family: Consolas, "Courier New", monospace; }
+    .pass { color: #1a7f37; font-weight: 700; }
+    .fail { color: #c13145; font-weight: 700; }
+    .pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+    .pill.on  { background: #dcf5e3; color: #1a7f37; }
+    .pill.off { background: #fbe3e7; color: #c13145; }
+    .note { font-size: 13px; background: #fff8e6; border: 1px solid #f0dfae; padding: 10px 12px; margin: 12px 0; }
+</style>
+</head>
+<body>
+
+<div class="brandbar"><strong>PhilipMorrisUSA</strong> &nbsp;<span style="font-size:12px;color:#888;">local snippet test &mdash; not a real page</span></div>
+
+<div class="wrap">
+
+    <h2>Chat with an Agent about a Product Quality Complaint</h2>
+    <p>Chat is for U.S. Customers Only.</p>
+    <p>Chat is available Monday - Friday from 9 a.m. - 7 p.m. (ET)</p>
+
+    <!-- ==================================================================== -->
+    <!-- ▼▼▼ PRODUCTION SNIPPET - EVERYTHING BETWEEN THESE MARKERS IS WHAT   -->
+    <!--     THE VENDOR RECEIVES. Identical to                                -->
+    <!--     docs/philipmorrisusa-chat-snippet.html                           -->
+    <!-- ==================================================================== -->
+
+    <style>
+    #crc-chat-online {
+        display: none;
+        background-color: #0a9ee9;
+        color: #ffffff;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: .02em;
+        text-align: center;
+        text-decoration: none;
+        padding: 12px 32px;
+        border: 0;
+    }
+    #crc-chat-online:hover,
+    #crc-chat-online:focus {
+        background-color: #087bc4;
+        color: #ffffff;
+        text-decoration: none;
+    }
+    #crc-chat-offline {
+        display: none;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-style: italic;
+        color: #6b6a69;
+    }
+    </style>
+
+    <a id="crc-chat-online"
+       href="https://altria-prod.my.salesforce-sites.com/altria/CRC_Chat"
+       target="_blank"
+       rel="noopener">CHAT AGENT</a>
+
+    <span id="crc-chat-offline">
+      Chat is currently offline. Chat is available Monday&ndash;Friday,
+      9 a.m. &ndash; 7 p.m. (ET). Please call (800) 852-5847 or use the
+      Online Product Quality Complaint Form.
+    </span>
+
+    <script type="text/javascript">
+    (function () {
+        "use strict";
+
+        // Public Salesforce Site that hosts the CRC pre-chat form. That page owns
+        // the consumer intake fields, the 21+ date-of-birth gate, and the MIAW
+        // bootstrap. Chat MUST be launched through it - never bootstrapped
+        // directly on this page - or conversations reach agents with no consumer
+        // data and no age verification.
+        var CHAT_URL = "https://altria-prod.my.salesforce-sites.com/altria/CRC_Chat";
+
+        // Consumer Response Center hours, Eastern Time. 24h clock, end exclusive.
+        var OPEN_DAYS   = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+        var OPEN_MINUTE = 9 * 60;    // 9:00 a.m. ET
+        var CLOSE_MINUTE = 19 * 60;  // 7:00 p.m. ET
+
+        var POPUP_FEATURES = "width=480,height=760,resizable=yes,scrollbars=yes";
+
+        // Reading the clock through America/New_York lets the browser apply the
+        // EST/EDT transition for us, so the hours stay correct across DST.
+        function easternNow() {
+            var parts = new Intl.DateTimeFormat("en-US", {
+                timeZone: "America/New_York",
+                weekday: "short",
+                hour: "numeric",
+                minute: "numeric",
+                hour12: false
+            }).formatToParts(new Date());
+
+            var out = {};
+            for (var i = 0; i < parts.length; i++) {
+                out[parts[i].type] = parts[i].value;
+            }
+            return out;
+        }
+
+        function isWithinBusinessHours() {
+            var t = easternNow();
+
+            if (OPEN_DAYS.indexOf(t.weekday) === -1) {
+                return false;
+            }
+
+            // Some engines report midnight as hour "24"; normalise before comparing.
+            var minutes = (parseInt(t.hour, 10) % 24) * 60 + parseInt(t.minute, 10);
+            return minutes >= OPEN_MINUTE && minutes < CLOSE_MINUTE;
+        }
+
+        function render() {
+            var online = document.getElementById("crc-chat-online");
+            var offline = document.getElementById("crc-chat-offline");
+            if (!online || !offline) {
+                return;
+            }
+
+            // Set an explicit value rather than "" - clearing the inline style
+            // would fall back to the `display:none` in the stylesheet above and
+            // the element would stay hidden.
+            var open = isWithinBusinessHours();
+            online.style.display = open ? "inline-block" : "none";
+            offline.style.display = open ? "none" : "inline-block";
+        }
+
+        function openChat(event) {
+            var win = window.open(CHAT_URL, "CRCChat", POPUP_FEATURES);
+
+            // Popup blocked -> fall through to the anchor's href/target so the
+            // visitor still gets to the form in a new tab.
+            if (win) {
+                event.preventDefault();
+                win.focus();
+            }
+        }
+
+        function init() {
+            var online = document.getElementById("crc-chat-online");
+            if (online) {
+                online.addEventListener("click", openChat);
+            }
+
+            render();
+
+            // Keeps a long-lived tab honest across the 9 a.m. / 7 p.m. boundaries.
+            window.setInterval(render, 60000);
+        }
+
+        // Exposed so the page can re-evaluate the button after client-side
+        // navigation or a late DOM render, instead of waiting for the next tick.
+        window.CRCChat = { refresh: render, isOpen: isWithinBusinessHours };
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", init);
+        } else {
+            init();
+        }
+    })();
+    </script>
+
+    <!-- ==================================================================== -->
+    <!-- ▲▲▲ END PRODUCTION SNIPPET                                           -->
+    <!-- ==================================================================== -->
+
+
+    <!-- ####################################################################
+         TEST HARNESS BELOW - DELETE THIS ENTIRE BLOCK BEFORE HANDOFF.
+         It freezes the browser clock and calls the production render(),
+         so what you see above is the real code reacting, not a mock.
+         #################################################################### -->
+    <div class="harness">
+        <h2>Test harness &mdash; remove before sending to vendor</h2>
+
+        <div class="readout" id="readout">initialising&hellip;</div>
+
+        <div class="btns">
+            <button class="primary" id="btn-runall">Run all checks</button>
+            <button id="btn-real">Use real current time</button>
+        </div>
+
+        <h3 style="margin-top:18px;">Simulate a specific moment (Eastern)</h3>
+        <div class="btns" id="scenario-btns"></div>
+
+        <table class="res" id="results" style="display:none;">
+            <thead>
+                <tr><th>Scenario</th><th>Eastern time</th><th>Expected</th><th>Rendered</th><th>Result</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div class="note">
+            <strong>Also check by hand:</strong> click <em>CHAT AGENT</em> while it is visible.
+            A ~480&times;760 popup must open on
+            <code>altria-prod.my.salesforce-sites.com/altria/CRC_Chat</code> showing the CRC
+            pre-chat form (Prefix / First Name / &hellip; / CHAT NOW). If your browser blocks the
+            popup, it must still open in a new tab &mdash; that fallback is intentional.
+        </div>
+    </div>
+</div>
+
+<script>
+/* ===== TEST HARNESS SCRIPT - NOT PART OF THE DELIVERABLE ===================
+   Scenario instants are expressed in UTC with the offset applied by hand
+   (EDT = UTC-4 in August, EST = UTC-5 in January). If the snippet ever stops
+   honouring America/New_York, the January rows are the ones that break.
+   ========================================================================= */
+(function () {
+    var RealDate = window.Date;
+    var frozen = null;
+
+    var SCENARIOS = [
+        { name: "Wed 2:00 PM (EDT)",        utc: "2026-08-05T18:00:00Z", expect: true  },
+        { name: "Wed 8:30 PM (EDT)",        utc: "2026-08-06T00:30:00Z", expect: false },
+        { name: "Mon 8:59 AM - just shut",  utc: "2026-08-03T12:59:00Z", expect: false },
+        { name: "Mon 9:00 AM - opens",      utc: "2026-08-03T13:00:00Z", expect: true  },
+        { name: "Fri 6:59 PM - last min",   utc: "2026-08-07T22:59:00Z", expect: true  },
+        { name: "Fri 7:00 PM - closes",     utc: "2026-08-07T23:00:00Z", expect: false },
+        { name: "Sat 11:00 AM (weekend)",   utc: "2026-08-08T15:00:00Z", expect: false },
+        { name: "Wed 2:00 PM (EST/winter)", utc: "2027-01-13T19:00:00Z", expect: true  },
+        { name: "Wed 8:00 AM (EST/winter)", utc: "2027-01-13T13:00:00Z", expect: false }
+    ];
+
+    function freeze(iso) {
+        frozen = new RealDate(iso);
+        window.Date = class extends RealDate {
+            constructor() {
+                if (arguments.length === 0) { super(frozen.getTime()); }
+                else { super(...arguments); }
+            }
+            static now() { return frozen.getTime(); }
+        };
+    }
+
+    function unfreeze() {
+        window.Date = RealDate;
+        frozen = null;
+    }
+
+    // The only honest assertion: what the DOM actually shows after the
+    // production render() has run.
+    function renderedState() {
+        window.CRCChat.refresh();
+        var online = document.getElementById("crc-chat-online");
+        return window.getComputedStyle(online).display !== "none";
+    }
+
+    function easternLabel() {
+        return new Intl.DateTimeFormat("en-US", {
+            timeZone: "America/New_York", weekday: "short", year: "numeric",
+            month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
+            timeZoneName: "short"
+        }).format(new Date());
+    }
+
+    function paintReadout() {
+        var open = renderedState();
+        document.getElementById("readout").innerHTML =
+            "clock&nbsp;&nbsp;&nbsp;: <strong>" + (frozen ? "FROZEN (simulated)" : "real time") + "</strong><br>" +
+            "eastern : " + easternLabel() + "<br>" +
+            "button&nbsp;&nbsp;: " + (open
+                ? '<span class="pill on">CHAT AGENT shown</span>'
+                : '<span class="pill off">offline message shown</span>');
+    }
+
+    function simulate(iso) {
+        freeze(iso);
+        paintReadout();
+    }
+
+    function runAll() {
+        var tbody = document.querySelector("#results tbody");
+        tbody.innerHTML = "";
+        var passed = 0;
+
+        SCENARIOS.forEach(function (s) {
+            freeze(s.utc);
+            var actual = renderedState();
+            var ok = actual === s.expect;
+            if (ok) { passed++; }
+
+            var tr = document.createElement("tr");
+            tr.innerHTML =
+                "<td>" + s.name + "</td>" +
+                '<td class="mono">' + easternLabel() + "</td>" +
+                "<td>" + (s.expect ? "online" : "offline") + "</td>" +
+                "<td>" + (actual ? "online" : "offline") + "</td>" +
+                '<td class="' + (ok ? "pass" : "fail") + '">' + (ok ? "PASS" : "FAIL") + "</td>";
+            tbody.appendChild(tr);
+        });
+
+        document.getElementById("results").style.display = "";
+        unfreeze();
+        paintReadout();
+
+        var summary = passed + " / " + SCENARIOS.length + " checks passed";
+        document.getElementById("readout").innerHTML =
+            '<strong class="' + (passed === SCENARIOS.length ? "pass" : "fail") + '">' + summary +
+            "</strong><br>" + document.getElementById("readout").innerHTML;
+    }
+
+    // Build the scenario buttons from the same list the checks use.
+    var host = document.getElementById("scenario-btns");
+    SCENARIOS.forEach(function (s) {
+        var b = document.createElement("button");
+        b.textContent = s.name;
+        b.addEventListener("click", function () { simulate(s.utc); });
+        host.appendChild(b);
+    });
+
+    document.getElementById("btn-runall").addEventListener("click", runAll);
+    document.getElementById("btn-real").addEventListener("click", function () {
+        unfreeze();
+        paintReadout();
+    });
+
+    paintReadout();
+})();
+</script>
+
+</body>
+</html>

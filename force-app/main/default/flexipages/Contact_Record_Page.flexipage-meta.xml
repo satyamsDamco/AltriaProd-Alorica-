@@ -239,6 +239,16 @@
                 <identifier>RecordCountry_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Verify_Address__c</fieldItem>
+                <identifier>RecordVerify_Address_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-0a6d8e49-881d-4525-bd81-bb90a288e470</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -642,6 +652,12 @@
                 </componentInstanceProperties>
                 <componentName>force:relatedListContainer</componentName>
                 <identifier>force_relatedListContainer</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>householdInformation</componentName>
+                <identifier>c_householdInformation</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

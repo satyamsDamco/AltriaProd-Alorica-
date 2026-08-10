@@ -850,6 +850,14 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>householdInformationController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>householdInformationControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>iqosHttpCalloutMock</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -4347,6 +4355,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Reimbursement__c.Name__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Reimbursement__c.OpCo__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -5467,6 +5480,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Answer__c-Answer Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ApprovalSubmissionDetail-Approval Submission Detail Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Asset-Asset Layout</layout>

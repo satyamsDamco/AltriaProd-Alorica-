@@ -13,7 +13,7 @@ public void newlineCase(List<Case> caseUpdate) {
 }
     //method to update the text fields for feeds.
     public void newlineCase(List<Case> caseUpdate, Boolean isInsert, Boolean isUpdate, Map<Id, Case> oldMap) {
-        
+
         for(case caseObj: caseUpdate){
             Integer i = 1;
             system.debug('control in 1st char');
@@ -57,6 +57,34 @@ public void newlineCase(List<Case> caseUpdate) {
                 caseObj.UpdateReasonFeed__c= '';
             }
             
+        }
+    }
+    // Forces Case.Date_Code__c to UPPER CASE. Called from NewLineCharCase on before insert /
+    // before update.
+    // The Issue Entry / Issue Edit / Issue Clone controllers already normalise it before their
+    // own DML, but this trigger path is the only hook that also covers records written outside
+    // those pages - data loads, the API, Flow and other Apex - so a lowercase value can never
+    // reach the database by any route.
+    // Only the casing is touched: whitespace is deliberately left alone, because this runs
+    // org-wide and the existing date-code format checks are length sensitive.
+    // Records whose Date_Code__c was not queried are skipped rather than throwing, so this is
+    // safe if it is ever handed a partially-selected SOQL result instead of Trigger.new.
+    // Note: Mfg_Trace_code__c is intentionally NOT normalised here. Its casing rule depends on
+    // the product line (PLOOM HEATED TOBACCO keeps a lowercase day character at position 12),
+    // and Product_Line__c is not guaranteed to be populated on an API or data-load insert -
+    // upper-casing blindly would corrupt a valid PLOOM code. That rule stays in the controller,
+    // where the selected product line is always known.
+    public void upperCaseDateCode(List<Case> caseUpdate){
+        if(caseUpdate == null){
+            return;
+        }
+        for(Case caseObj : caseUpdate){
+            if(!caseObj.getPopulatedFieldsAsMap().containsKey('Date_Code__c')){
+                continue;
+            }
+            if(String.isNotBlank(caseObj.Date_Code__c)){
+                caseObj.Date_Code__c = caseObj.Date_Code__c.toUpperCase();
+            }
         }
     }
     //method to update the text fields for feeds.

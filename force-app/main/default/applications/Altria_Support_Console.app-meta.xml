@@ -523,12 +523,13 @@
     <tabs>DNIS_Search</tabs>
     <tabs>Correspondence_Fulfilment__c</tabs>
     <tabs>Survey_Issue__c</tabs>
+    <tabs>standard-MessagingSession</tabs>
     <tabs>Knowledge__kav</tabs>
     <tabs>Attachment_Detail__c</tabs>
-    <tabs>IQOS_Static_Data__c</tabs>
     <tabs>Variable_Data__c</tabs>
     <tabs>Survey_Configuration__c</tabs>
     <tabs>standard-OmniSupervisorLightning</tabs>
+    <tabs>Issue_Review</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Altria_Support_UtilityBar1</utilityBar>
     <workspaceConfig>
@@ -542,7 +543,7 @@
             <tab>DNIS_Search</tab>
         </mappings>
         <mappings>
-            <tab>IQOS_Static_Data__c</tab>
+            <tab>Issue_Review</tab>
         </mappings>
         <mappings>
             <tab>Knowledge__kav</tab>
@@ -555,6 +556,9 @@
         </mappings>
         <mappings>
             <tab>Variable_Data__c</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-MessagingSession</tab>
         </mappings>
         <mappings>
             <tab>standard-OmniSupervisorLightning</tab>

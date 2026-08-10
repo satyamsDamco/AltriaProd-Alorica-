@@ -5,13 +5,17 @@
     <apex:form id="frm">
 
         <!-- AJAX callback used to refresh the table data without a full page reload -->
-        <apex:actionFunction name="refreshOnFocus" action="{!ViewData}" reRender="theaddrs, pbButtons" />
+        <apex:actionFunction name="refreshOnFocus" action="{!ViewData}" reRender="theaddrs, pbButtons" oncomplete="refreshInFlight = false;" />  <!--oncomplete="refreshInFlight = false;"added by pratiksha-->
 
         <script type="text/javascript">
-            var CURRENT_TAB_ID = null;
-            var tabFocusedChannel = "{!$MessageChannel.lightning__tabFocused}";
-            var subscription;
-
+        var CURRENT_TAB_ID = null;
+        var tabFocusedChannel = "{!$MessageChannel.lightning__tabFocused}";
+        var subscription;
+        var refreshInFlight = false; //added by Pratiksha
+        var pageIsClosing = false; // FIX: true once this tab starts to unload, so we never
+                                    // kick off a new refresh AJAX call that could race with
+                                    // the Console trying to close/dispose of this tab.
+        
             window.onload = function () {
                 getPrimaryTabId();
 
@@ -33,7 +37,7 @@
                 }
             }
 
-            function handleTabClick(message) {
+        /*  function handleTabClick(message) {
                 if (message) {
                     var currentTabId = message.currentTabId;
                     // Only refresh when THIS tab is the one that became focused
@@ -42,14 +46,52 @@
                         refreshOnFocus();
                     }
                 }
+            }*/
+        //added by pratiksha
+        function handleTabClick(message) {
+            console.log("handleTabClick FIRED", message); //added by pratiksha
+            // FIX: never start a new refresh once this tab has begun closing -
+            // this is what previously caused an in-flight AJAX call to collide
+            // with the Console's attempt to dispose of the tab, which made the
+            // tab refuse to close and reopen itself instead.
+            if (pageIsClosing) {
+                console.log("Ignoring tab focus event - this tab is closing.");
+                return;
             }
+            if (message) {
+                var currentTabId = message.currentTabId;
+                // Only refresh when THIS tab is the one that became focused
+                // and only if a refresh isn't already running.
+                if (CURRENT_TAB_ID == currentTabId && !refreshInFlight) {
+                    console.log("Issue Review tab focused - refreshing data.");
+                    refreshInFlight = true;
+                    refreshOnFocus();
+                }
+            }
+        }
 
-            // Clean up the subscription when the page unloads
-            window.onunload = function () {
+            // FIX: unsubscribe on 'beforeunload' - this fires BEFORE the browser/Console
+            // starts tearing the tab down, unlike 'onunload' which fires too late to stop
+            // a refresh that's already been triggered. Setting pageIsClosing here also
+            // blocks handleTabClick from starting any new refresh in that same window.
+            window.onbeforeunload = function () {
+                pageIsClosing = true;
                 if (subscription) {
                     sforce.one.unsubscribe(subscription);
+                    subscription = null;
                 }
             };
+
+            //Clean up the subscription when the page unloads (kept as a fallback)
+            window.onunload = function () {
+                console.log("onunload FIRED"); // added by pratiksha
+                pageIsClosing = true;
+                if (subscription) {
+                    sforce.one.unsubscribe(subscription);
+                    subscription = null; // added by Pratiksha
+                }
+            }; 
+            
         </script>
 
        <apex:pageBlock title="Issue Review">           

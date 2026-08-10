@@ -18,9 +18,9 @@
     <columns>Product_Line__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>CauseId__c</field>
+        <field>NAME</field>
         <operation>equals</operation>
-        <value>261001</value>
+        <value>IH622</value>
     </filters>
     <label>Issue Hierarchy JW</label>
 </ListView>

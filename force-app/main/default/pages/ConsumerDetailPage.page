@@ -20,7 +20,7 @@
         <script type="text/javascript">
         
         // lifetime of the page (i.e., until this specific tab is reloaded)
-        /* var CURRENT_TAB_ID = null;
+        var CURRENT_TAB_ID = null;
         var pageLoad = window.onload;
         
         // Reference the standard Lightning Console Tab Focused message channel
@@ -74,7 +74,7 @@
                 var currentTabId = message.currentTabId;
                 var previousTabId = message.previousTabId;
                 if (CURRENT_TAB_ID == currentTabId) {
-                    window.location.reload(true);
+                    caseListRefresh();   // AJAX refresh only - no full reload
                 }
                 
                 console.log("Tab Clicked! Current Tab ID: " + currentTabId);
@@ -92,7 +92,7 @@
             if (subscription) {
                 sforce.one.unsubscribe(subscription);
             }
-        };*/
+        };
         
         function OpenSubtabCorres() {   // changed open in self tab so directly call CorrespondencePage
             
@@ -354,8 +354,8 @@
         
         <apex:pageBlock id="pb11" rendered="{!Customershow}">
             <apex:pageMessages id="pMess"></apex:pageMessages>
-            <apex:actionFunction name="caseListRefresh" action="{!refreshpage}" oncomplete="hidingCloseLink()"/>
-            
+            <!--<apex:actionFunction name="caseListRefresh" action="{!refreshpage}" oncomplete="hidingCloseLink()"/>-->
+            <apex:actionFunction name="caseListRefresh" action="{!refreshpage}" rerender="caseListId1,correspondenceBlock,historyListId" oncomplete="hidingCloseLink()"/>
             <div class="slds-grid slds-wrap slds-grid_align-center slds-m-vertical_medium">
                 <apex:commandButton action="{!editConsumer}" value="Edit"  rendered="{!currentTran != null}" id="edit"/>
                 <!-- <apex:commandButton value="Edit" onclick="editConsumer(); return false;" rendered="{!currentTran != null}" id="edit"/> -->
@@ -428,7 +428,8 @@
         <apex:pageBlock rendered="{!!Customershow}" id="pbs2">
             
             <!--apex:actionFunction name="caseListRefresh" reRender="caseListId,historyListId,Correspondence"/-->
-            <apex:actionFunction name="caseListRefresh" action="{!refreshpage}" oncomplete="hidingCloseLink()"/>
+            <!--<apex:actionFunction name="caseListRefresh" action="{!refreshpage}" oncomplete="hidingCloseLink()"/>-->
+            <apex:actionFunction name="caseListRefresh" action="{!refreshpage}" rerender="caseListId1,correspondenceBlock,historyListId" oncomplete="hidingCloseLink()"/>
             <apex:pageMessages id="pMess"></apex:pageMessages>
             
             <apex:pageBlockButtons id="btn1">

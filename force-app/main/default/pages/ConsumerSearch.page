@@ -399,6 +399,18 @@
                 getCityState();
             }
         } 
+        //added by Pratiksha
+        document.addEventListener('DOMContentLoaded', function(){
+            var pbs = document.getElementById("{!$Component.fm1:pb:pbs}");
+            if(pbs){
+                pbs.addEventListener('keypress', function(e){
+                    if(e.key === 'Enter'){
+                        e.preventDefault();
+                        search();
+                    }
+                });
+            }
+        });
         </script>
         
         
@@ -436,7 +448,8 @@
             </h1>
             <apex:pageMessages id="messagePb"></apex:pageMessages>
             <div role="alert" style="display:none;" id="errorMessages"></div>
-            <apex:actionFunction name="search" action="{!search}" rerender="dummy"/>
+          <!--  <apex:actionFunction name="search" action="{!search}" rerender="dummy"/> -->
+            <apex:actionFunction name="search" action="{!search}" rerender="btn,resultPanel,messagePb"/> <!-- added by pratiksha-->
             <apex:actionFunction name="getCityState" action="{!getCityState}" oncomplete="ageVerification()" reRender="messagePb,f7,f8"/>
             <apex:actionFunction name="ageVerifyzipmap"  action="{!ageVerifyZipMap}" reRender="messagePb,btn2,btn3" />
             <apex:actionFunction name="RefreshContact" action="{!RefreshContact}"/>

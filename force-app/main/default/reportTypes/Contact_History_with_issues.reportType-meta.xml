@@ -1310,6 +1310,11 @@
             <field>Correspondence_Fulfilment__c</field>
             <table>Case.Transaction_Management_Histories__r.Reimbursements__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Name__c</field>
+            <table>Case.Transaction_Management_Histories__r.Reimbursements__r</table>
+        </columns>
         <masterLabel>Reimbursements</masterLabel>
     </sections>
 </ReportType>

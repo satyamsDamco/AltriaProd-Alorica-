@@ -28,7 +28,7 @@
     <applicationVisibilities>
         <application>standard__Approvals</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__Community</application>
@@ -38,7 +38,7 @@
     <applicationVisibilities>
         <application>standard__DataGovernanceConsole</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__DigitalWallet</application>
@@ -48,22 +48,22 @@
     <applicationVisibilities>
         <application>standard__FlowsApp</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__LightningInstrumentation</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__LightningSales</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__LightningSalesConsole</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__LightningService</application>
@@ -73,7 +73,7 @@
     <applicationVisibilities>
         <application>standard__MSJApp</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__Marketing</application>
@@ -83,7 +83,7 @@
     <applicationVisibilities>
         <application>standard__OnlineSales</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__Platform</application>
@@ -98,12 +98,12 @@
     <applicationVisibilities>
         <application>standard__Sales</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__SalesCloudMobile</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>standard__SalesforceCMS</application>
@@ -123,7 +123,7 @@
     <applicationVisibilities>
         <application>standard__Shield</application>
         <default>false</default>
-        <visible>true</visible>
+        <visible>false</visible>
     </applicationVisibilities>
     <classAccesses>
         <apexClass>APIDataCalloutServices</apexClass>
@@ -847,6 +847,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>esignMockDcoument</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>householdInformationController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>householdInformationControllerTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -4347,6 +4355,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Reimbursement__c.Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Reimbursement__c.OpCo__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5469,6 +5482,9 @@
         <layout>Answer__c-Answer Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>ApprovalSubmissionDetail-Approval Submission Detail Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Asset-Asset Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -6548,11 +6564,11 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <servicePresenceStatusAccesses>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
         <servicePresenceStatus>Busy</servicePresenceStatus>
     </servicePresenceStatusAccesses>
     <servicePresenceStatusAccesses>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
         <servicePresenceStatus>Online_Chat</servicePresenceStatus>
     </servicePresenceStatusAccesses>
     <tabVisibilities>

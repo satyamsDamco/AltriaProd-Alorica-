@@ -1,0 +1,51 @@
+<template>
+    <div class="related-list-container">
+
+        <!-- Header -->
+        <div class="related-list-header slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+
+            <div class="slds-media slds-media_center">
+                <div class="slds-media__figure">
+                    <lightning-icon
+                        icon-name="standard:household"
+                        size="small">
+                    </lightning-icon>
+                </div>
+
+                <div class="slds-media__body">
+                    <h2 class="title">
+                        Household Information ({contacts.length})
+                    </h2>
+                </div>
+            </div>
+
+          
+
+        </div>
+
+        <!-- Datatable -->
+        <div class="related-list-body">
+
+            <template if:true={hasContacts}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={contacts}
+                    columns={columns}
+                    hide-checkbox-column
+                    show-row-number-column
+                    column-widths-mode="auto">
+                </lightning-datatable>
+            </template>
+
+            <template if:true={showEmptyState}>
+                <div class="slds-p-around_medium">
+                    No Household Members Found
+                </div>
+            </template>
+
+        </div>
+
+    
+
+    </div>
+</template>

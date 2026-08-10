@@ -2325,4 +2325,150 @@ static testMethod void testTraceCodeValidationInvalidHourFormat() {
     System.assertEquals(true, ctrl.traceCodeErrorMessage.contains('Invalid hour format'));
 }
 
+// SCR 2026-05-01: Trace Codes - PLOOM Devices
+// PLOOM HEATED TOBACCO is the only product line allowed to keep a lowercase character
+// in Mfg/Trace code (the day character at position 12, where 'd' = day 13). Every other
+// product line must be forced to upper case, as it was before the SCR.
+static testMethod void validateTraceCodeCaseNormalization() {
+    // PLOOM: only position 12 keeps its case; positions 1-11 are still upper-cased.
+    System.assertEquals('UE25000005Ad',
+        IssueEntryController.normalizeTraceCodeCase('ue25000005ad', 'PLOOM HEATED TOBACCO'),
+        'PLOOM must preserve the lowercase day character at position 12');
+    System.assertEquals('UE25000005AD',
+        IssueEntryController.normalizeTraceCodeCase('UE25000005AD', 'PLOOM HEATED TOBACCO'),
+        'PLOOM must not alter an uppercase day character');
+
+    // Product line name matching is case-insensitive (Apex String ==).
+    System.assertEquals('UE25000005Ad',
+        IssueEntryController.normalizeTraceCodeCase('ue25000005ad', 'Ploom Heated Tobacco'),
+        'PLOOM rule must match the product line name regardless of its casing');
+
+    // Non-PLOOM product lines: no lowercase character may survive.
+    System.assertEquals('UE25000005AD',
+        IssueEntryController.normalizeTraceCodeCase('ue25000005ad', 'Pipe Tobacco'),
+        'Non-PLOOM product lines must be upper-cased in full');
+    System.assertEquals('ABC12345',
+        IssueEntryController.normalizeTraceCodeCase('abc12345', 'Cigars'),
+        'Non-PLOOM product lines must be upper-cased in full');
+
+    // A PLOOM code of the wrong length is invalid anyway - upper-case it in full.
+    System.assertEquals('UE25000005A',
+        IssueEntryController.normalizeTraceCodeCase('ue25000005a', 'PLOOM HEATED TOBACCO'),
+        'A PLOOM code that is not 12 characters must be upper-cased in full');
+
+    // Blank / null input is returned untouched.
+    System.assertEquals(null, IssueEntryController.normalizeTraceCodeCase(null, 'Pipe Tobacco'));
+    System.assertEquals('', IssueEntryController.normalizeTraceCodeCase('', 'PLOOM HEATED TOBACCO'));
+}
+
+// IssueEntryClone.page runs on this same controller, but binds the field to
+// {!caseObj.Mfg_Trace_code__c} and routes its Save button to customSave() rather than save().
+// These assert the PLOOM casing rule is genuinely enforced on that clone path too, and on the
+// TraceCodeValidation() onblur round-trip the clone page shares with Issue Entry.
+static testMethod void validateTraceCodeCasingOnClonePath() {
+    Account testAcc = TestDataSetup.createAccount('Test Account');
+    insert testAcc;
+    Customer_Type__c testCustType = TestDataSetup.createCustType('C', 'CONSUMERS', True, 'test');
+    insert testCustType;
+    Date bdate = Date.newInstance(1989, 06, 14);
+    Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'20001',bdate,'Test Street', true, true);
+    insert testCont;
+    Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','  PMUSA',true);
+    insert testOpCo;
+    TFN__c testTFN = TestDataSetup.createTFN(true, '1800', 45, testOpCo);
+    insert testTFN;
+    Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo, testTFN);
+    insert testTM;
+    Case testCase = TestDataSetup.createTestCase(testAcc, 1200, testCont.Id, testTM.Id, testOpCo.id);
+    insert testCase;
+
+    // customSave() reads tranId from this cookie, as validateCustomSave does.
+    Cookie tranIdCookie = new Cookie('tranId', testTM.Id, null, -1, false);
+    ApexPages.currentPage().setCookies(new Cookie[]{tranIdCookie});
+
+    // 'parentIssue' drives the controller down its clone branch, exactly as IssueEntryClone does.
+    ApexPages.currentPage().getParameters().put('issueId', testCase.Id);
+    ApexPages.currentPage().getParameters().put('parentIssue', testCase.Id);
+
+    Test.startTest();
+
+    // PLOOM on the clone screen: the lowercase day character at position 12 must survive.
+    IssueEntryController ploomCtrl = new IssueEntryController(new ApexPages.StandardController(testCase));
+    ploomCtrl.selectedProductLine = 'PLOOM HEATED TOBACCO';
+    ploomCtrl.caseObj.Mfg_Trace_code__c = 'ue25000005ad';
+    ploomCtrl.customSave();
+    System.assertEquals('UE25000005Ad', ploomCtrl.caseObj.Mfg_Trace_code__c,
+        'Clone screen must keep the lowercase PLOOM day character while upper-casing the rest');
+
+    // Any other product line on the clone screen: no lowercase character may survive.
+    IssueEntryController otherCtrl = new IssueEntryController(new ApexPages.StandardController(testCase));
+    otherCtrl.selectedProductLine = 'Pipe Tobacco';
+    otherCtrl.caseObj.Mfg_Trace_code__c = 'ue25000005ad';
+    otherCtrl.customSave();
+    System.assertEquals('UE25000005AD', otherCtrl.caseObj.Mfg_Trace_code__c,
+        'Clone screen must upper-case the trace code in full for non-PLOOM product lines');
+
+    Test.stopTest();
+}
+
+// The onblur TraceCodeValidation() round-trip is shared by Issue Entry, Issue Edit and Issue
+// Clone (all three declare extensions="IssueEntryController"), so proving it here covers all
+// three screens. Needs a real Product_Line__c, otherwise the method takes its "Please choose
+// Product Line" branch and blanks the field before any casing is observable.
+static testMethod void validateTraceCodeCasingOnValidationRoundTrip() {
+    Operating_Company__c oc = new Operating_Company__c(
+        OperatingCompany__c = 'PMIP',
+        OpCo_Description__c = 'Test OpCo',
+        Active__c = true
+    );
+    insert oc;
+
+    Product_Line__c pl = new Product_Line__c();
+    pl.Name = 'PIPE TOBACCO';
+    pl.Code__c = 'PT';
+    pl.Op_Company__c = oc.Id;
+    pl.isActive__c = true;
+    insert pl;
+
+    Case c = new Case(Op_Company__c = oc.Id);
+    insert c;
+
+    Test.startTest();
+    IssueEntryController ctrl = new IssueEntryController(new ApexPages.StandardController(c));
+    ctrl.selectedProductLine = 'PIPE TOBACCO';
+    ctrl.selectedTraceCodeLocation = 'TESTLOC';
+    ctrl.caseObj.Mfg_Trace_code__c = 'abc12345';
+    ctrl.TraceCodeValidation();
+    Test.stopTest();
+
+    System.assertEquals('ABC12345', ctrl.caseObj.Mfg_Trace_code__c,
+        'TraceCodeValidation must upper-case the trace code for a non-PLOOM product line');
+}
+
+// Date Code must always be persisted in upper case, however it was entered - typed, pasted
+// or set by an update that never went through the onblur DateCodeValidation round-trip.
+static testMethod void validateDateCodeCaseNormalization() {
+    System.assertEquals('JAN012025',
+        IssueEntryController.normalizeDateCodeCase('jan012025'),
+        'A pasted lowercase Date Code must be upper-cased');
+    System.assertEquals('JAN012025',
+        IssueEntryController.normalizeDateCodeCase('JaN012025'),
+        'A mixed case Date Code must be upper-cased');
+    System.assertEquals('JAN012025',
+        IssueEntryController.normalizeDateCodeCase('  jan012025  '),
+        'Surrounding whitespace is trimmed, matching DateCodeValidation()');
+    System.assertEquals('01/02/2017',
+        IssueEntryController.normalizeDateCodeCase('01/02/2017'),
+        'A value with no alphabetic characters must be left intact');
+    System.assertEquals('WW/YY',
+        IssueEntryController.normalizeDateCodeCase('ww/yy'),
+        'Slashes and length must be preserved while upper-casing');
+
+    // Blank / null input is returned untouched so existing empty-value handling is unchanged.
+    System.assertEquals(null, IssueEntryController.normalizeDateCodeCase(null));
+    System.assertEquals('', IssueEntryController.normalizeDateCodeCase(''));
+    System.assertEquals('   ', IssueEntryController.normalizeDateCodeCase('   '),
+        'Whitespace-only input is left untouched');
+}
+
  }

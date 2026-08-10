@@ -93,10 +93,10 @@
         });
 
         // Fallback for bundles that only report a visitor-ended chat through the
-        // widget iframe's postMessage channel. Scoped to the chat host's origin so
-        // unrelated page messages can never trigger the ended-chat overlay.
+        // widget iframe's postMessage channel. Scoped to the production chat host's
+        // origin so unrelated page messages can never trigger the ended-chat overlay.
         window.addEventListener("message", function (event) {
-            if (!event.origin || event.origin.indexOf(".my.site.com") === -1) {
+            if (!event.origin || event.origin.indexOf("altria-prod.my.site.com") === -1) {
                 return;
             }
             var raw = typeof event.data === "string" ? event.data : JSON.stringify(event.data || "");
@@ -339,12 +339,13 @@
                 // start a chat is the CHAT NOW button, which runs form validation.
                 embeddedservice_bootstrap.settings.hideChatButtonOnLoad = true;
 
+                // ---- PRODUCTION Embedded Messaging deployment ----
                 embeddedservice_bootstrap.init(
-                    "00DU8000008EI2D",
-                    "CRC_Chat_1",
-                    "https://altria-prod--uat.sandbox.my.site.com/ESWCRCChat1778059012732",
+                    "00D36000001EhVB",
+                    "CRC_Chat",
+                    "https://altria-prod.my.site.com/ESWCRCChat1784959947287",
                     {
-                        scrt2URL: "https://altria-prod--uat.sandbox.my.salesforce-scrt.com"
+                        scrt2URL: "https://altria-prod.my.salesforce-scrt.com"
                     }
                 );
             } catch (err) {
@@ -363,7 +364,7 @@
         </div>
     </div>
 
-    <form id="prechatForm" onsubmit="return false;" style="heigth: 100;width: 100;">
+    <form id="prechatForm" onsubmit="return false;" style="height: 100%;width: 100%;">
         <table>
             <tr class="blank_row">
                 <td colspan="3"></td>
@@ -437,7 +438,7 @@
                 <td>
                     <label for="DateOfBirth" class="cb-required">Date of Birth:</label>
                     <div class="control-input">
-                        <input type="date" placeholder="mm/dd/yyyy" id="DateOfBirth"
+                        <input type="date" placeholder="mm/dd/yyyy" id="DateOfBirth" required="true"
                                style="border: 1px solid rgb(204, 204, 204); border-image: none; padding-top: 5px;
                                       padding-bottom: 5px; font-size: 14px; background-color: rgb(250, 249, 247);"/>
                     </div>
@@ -498,8 +499,9 @@
         </table>
     </form>
 
+    <!-- PRODUCTION bootstrap -->
     <script type="text/javascript"
-            src="https://altria-prod--uat.sandbox.my.site.com/ESWCRCChat1778059012732/assets/js/bootstrap.min.js"
+            src="https://altria-prod.my.site.com/ESWCRCChat1784959947287/assets/js/bootstrap.min.js"
             onload="initEmbeddedMessaging()">
     </script>
 </body>
