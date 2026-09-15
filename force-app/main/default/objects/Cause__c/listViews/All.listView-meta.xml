@@ -7,10 +7,5 @@
     <columns>UPDATEDBY_USER</columns>
     <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>Description__c</field>
-        <operation>contains</operation>
-        <value>Pouch On Plus</value>
-    </filters>
     <label>All</label>
 </ListView>

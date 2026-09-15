@@ -7,6 +7,10 @@
         <translation><!-- JMC --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>JTH</masterLabel>
+        <translation><!-- JTH --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>NAT_SHERMAN</masterLabel>
         <translation><!-- NAT_SHERMAN --></translation>
     </picklistValues>
@@ -33,6 +37,10 @@
     <picklistValues>
         <masterLabel>PMUSA</masterLabel>
         <translation><!-- PMUSA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PMUSAH</masterLabel>
+        <translation><!-- PMUSAH --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>USST</masterLabel>

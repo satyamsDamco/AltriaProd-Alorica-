@@ -1,2 +1,4 @@
 **/jsconfig.json
 **/.eslintrc.json
+# ExtlClntAppOauthSecuritySettings is not in the sf CLI metadata registry (2.100.4)
+**/*.ecaOauthSecurity-meta.xml

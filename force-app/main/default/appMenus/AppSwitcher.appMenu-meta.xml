@@ -180,4 +180,20 @@
         <name>Altria_Support_Console</name>
         <type>CustomApplication</type>
     </appMenuItems>
+    <appMenuItems>
+        <name>OAC_API</name>
+        <type>ExternalClientApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>standard__IndustriesEpc</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>standard__ExpressionSetConsole</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
+    <appMenuItems>
+        <name>standard__IndustriesEcm</name>
+        <type>CustomApplication</type>
+    </appMenuItems>
 </AppMenu>

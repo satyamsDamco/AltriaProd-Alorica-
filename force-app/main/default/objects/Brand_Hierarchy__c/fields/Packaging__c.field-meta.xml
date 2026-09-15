@@ -2011,6 +2011,31 @@
                 <label>PACK- $0.50 OFF</label>
             </value>
             <value>
+                <fullName>CASE OF 25 COUNT $1.09</fullName>
+                <default>false</default>
+                <label>CASE OF 25 COUNT $1.09</label>
+            </value>
+            <value>
+                <fullName>CARTON 25 COUNT $1.09</fullName>
+                <default>false</default>
+                <label>CARTON 25 COUNT $1.09</label>
+            </value>
+            <value>
+                <fullName>SINGLE-25 COUNT $1.09</fullName>
+                <default>false</default>
+                <label>SINGLE-25 COUNT $1.09</label>
+            </value>
+            <value>
+                <fullName>Single</fullName>
+                <default>false</default>
+                <label>Single</label>
+            </value>
+            <value>
+                <fullName>12 Pack</fullName>
+                <default>false</default>
+                <label>12 Pack</label>
+            </value>
+            <value>
                 <fullName>10 Ct Tray-5-Pack</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

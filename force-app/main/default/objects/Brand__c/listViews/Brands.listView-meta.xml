@@ -12,5 +12,10 @@
     <columns>Operating_Company__c</columns>
     <columns>Op_Company__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterOrEqual</operation>
+        <value>9/11/2026 12:00 AM</value>
+    </filters>
     <label>Brands - JW</label>
 </ListView>

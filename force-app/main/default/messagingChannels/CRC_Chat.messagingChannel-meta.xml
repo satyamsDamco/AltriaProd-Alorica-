@@ -13,7 +13,7 @@
     <automatedResponses>
         <autoResponseContentType>MessageDefinition</autoResponseContentType>
         <messageDefinitionName>Warning_Message_after_7_Mins_Of_Inactivity</messageDefinitionName>
-        <responseTimeoutInMins>7</responseTimeoutInMins>
+        <responseTimeoutInMins>4</responseTimeoutInMins>
         <type>EndUserIdleResponse</type>
     </automatedResponses>
     <automatedResponses>
@@ -94,7 +94,7 @@
         </actionParameterMappings>
         <externalParameterName>StreetAddress</externalParameterName>
         <masterLabel>StreetAddress</masterLabel>
-        <maxLength>20</maxLength>
+        <maxLength>100</maxLength>
         <name>StreetAddress</name>
         <parameterDataType>String</parameterDataType>
     </customParameters>

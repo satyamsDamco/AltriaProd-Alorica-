@@ -175,6 +175,10 @@
         <translation><!-- CLASSIC 3.5 --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>CLASSIC BLEND</masterLabel>
+        <translation><!-- CLASSIC BLEND --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>CLASSIC TOBACCO</masterLabel>
         <translation><!-- CLASSIC TOBACCO --></translation>
     </picklistValues>
@@ -193,6 +197,10 @@
     <picklistValues>
         <masterLabel>COPPER STILL 2.5</masterLabel>
         <translation><!-- COPPER STILL 2.5 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CRISP MENTHOL</masterLabel>
+        <translation><!-- CRISP MENTHOL --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>CVR 2.4</masterLabel>
@@ -217,6 +225,10 @@
     <picklistValues>
         <masterLabel>Citrus</masterLabel>
         <translation><!-- Citrus --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Citrus Lime</masterLabel>
+        <translation><!-- Citrus Lime --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Classic</masterLabel>
@@ -317,6 +329,10 @@
     <picklistValues>
         <masterLabel>GLACIER MINT</masterLabel>
         <translation><!-- GLACIER MINT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>GOLDEN BLEND</masterLabel>
+        <translation><!-- GOLDEN BLEND --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>GREEN MENTHOL</masterLabel>
@@ -433,6 +449,10 @@
     <picklistValues>
         <masterLabel>Mint</masterLabel>
         <translation><!-- Mint --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mixed</masterLabel>
+        <translation><!-- Mixed --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Mocha Mist</masterLabel>
@@ -729,6 +749,10 @@
     <picklistValues>
         <masterLabel>Strawberry</masterLabel>
         <translation><!-- Strawberry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Strawberry Lemonade</masterLabel>
+        <translation><!-- Strawberry Lemonade --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Strong</masterLabel>

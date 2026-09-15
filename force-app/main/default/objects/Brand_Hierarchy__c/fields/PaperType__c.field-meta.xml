@@ -531,6 +531,61 @@
                 <label>Designer - Black Nashville</label>
             </value>
             <value>
+                <fullName>MANGO SORBET</fullName>
+                <default>false</default>
+                <label>MANGO SORBET</label>
+            </value>
+            <value>
+                <fullName>LAVA RED</fullName>
+                <default>false</default>
+                <label>LAVA RED</label>
+            </value>
+            <value>
+                <fullName>OCEAN BLUE</fullName>
+                <default>false</default>
+                <label>OCEAN BLUE</label>
+            </value>
+            <value>
+                <fullName>EMERALD GREEN</fullName>
+                <default>false</default>
+                <label>EMERALD GREEN</label>
+            </value>
+            <value>
+                <fullName>DARK ORCHID</fullName>
+                <default>false</default>
+                <label>DARK ORCHID</label>
+            </value>
+            <value>
+                <fullName>ROSE DIAMOND</fullName>
+                <default>false</default>
+                <label>ROSE DIAMOND</label>
+            </value>
+            <value>
+                <fullName>SILVER</fullName>
+                <default>false</default>
+                <label>SILVER</label>
+            </value>
+            <value>
+                <fullName>GREEN</fullName>
+                <default>false</default>
+                <label>GREEN</label>
+            </value>
+            <value>
+                <fullName>BLACK</fullName>
+                <default>false</default>
+                <label>BLACK</label>
+            </value>
+            <value>
+                <fullName>TAN</fullName>
+                <default>false</default>
+                <label>TAN</label>
+            </value>
+            <value>
+                <fullName>CHAMPAGNE GOLD</fullName>
+                <default>false</default>
+                <label>CHAMPAGNE GOLD</label>
+            </value>
+            <value>
                 <fullName>Designer - Absolute Tobacco  Cooperstown</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

@@ -1076,6 +1076,36 @@
                 <label>Blueberry Mint</label>
             </value>
             <value>
+                <fullName>Citrus Lime</fullName>
+                <default>false</default>
+                <label>Citrus Lime</label>
+            </value>
+            <value>
+                <fullName>Strawberry Lemonade</fullName>
+                <default>false</default>
+                <label>Strawberry Lemonade</label>
+            </value>
+            <value>
+                <fullName>Mixed</fullName>
+                <default>false</default>
+                <label>Mixed</label>
+            </value>
+            <value>
+                <fullName>CLASSIC BLEND</fullName>
+                <default>false</default>
+                <label>CLASSIC BLEND</label>
+            </value>
+            <value>
+                <fullName>GOLDEN BLEND</fullName>
+                <default>false</default>
+                <label>GOLDEN BLEND</label>
+            </value>
+            <value>
+                <fullName>CRISP MENTHOL</fullName>
+                <default>false</default>
+                <label>CRISP MENTHOL</label>
+            </value>
+            <value>
                 <fullName>2A</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

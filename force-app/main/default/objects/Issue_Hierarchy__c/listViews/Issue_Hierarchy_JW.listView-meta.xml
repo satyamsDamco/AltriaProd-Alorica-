@@ -20,7 +20,7 @@
     <filters>
         <field>NAME</field>
         <operation>equals</operation>
-        <value>IH622</value>
+        <value>IH14690</value>
     </filters>
     <label>Issue Hierarchy JW</label>
 </ListView>

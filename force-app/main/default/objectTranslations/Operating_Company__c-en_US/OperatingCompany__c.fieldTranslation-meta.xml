@@ -15,6 +15,10 @@
         <translation><!-- HELIX --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>HORIZON</masterLabel>
+        <translation><!-- HORIZON --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>JMC</masterLabel>
         <translation><!-- JMC --></translation>
     </picklistValues>

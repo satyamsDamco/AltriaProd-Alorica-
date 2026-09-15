@@ -80,6 +80,16 @@
                 <default>false</default>
                 <label>USSTV</label>
             </value>
+            <value>
+                <fullName>PMUSAH</fullName>
+                <default>false</default>
+                <label>PMUSAH</label>
+            </value>
+            <value>
+                <fullName>JTH</fullName>
+                <default>false</default>
+                <label>JTH</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

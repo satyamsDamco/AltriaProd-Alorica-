@@ -47,6 +47,10 @@
         <translation><!-- 12 Oz Can --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>12 Pack</masterLabel>
+        <translation><!-- 12 Pack --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>14 Oz Can</masterLabel>
         <translation><!-- 14 Oz Can --></translation>
     </picklistValues>
@@ -391,6 +395,10 @@
         <translation><!-- CARTON  50 CENT OFF --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>CARTON 25 COUNT $1.09</masterLabel>
+        <translation><!-- CARTON 25 COUNT $1.09 --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>CARTON 2X5</masterLabel>
         <translation><!-- CARTON 2X5 --></translation>
     </picklistValues>
@@ -409,6 +417,10 @@
     <picklistValues>
         <masterLabel>CASE  50 CENT OFF</masterLabel>
         <translation><!-- CASE  50 CENT OFF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CASE OF 25 COUNT $1.09</masterLabel>
+        <translation><!-- CASE OF 25 COUNT $1.09 --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>CASE OF 5 - PACK $4.45</masterLabel>
@@ -1387,6 +1399,10 @@
         <translation><!-- Rounded Corner Box --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>SINGLE-25 COUNT $1.09</masterLabel>
+        <translation><!-- SINGLE-25 COUNT $1.09 --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>SINGLES $0.49</masterLabel>
         <translation><!-- SINGLES $0.49 --></translation>
     </picklistValues>
@@ -1485,6 +1501,10 @@
     <picklistValues>
         <masterLabel>SLEEVE</masterLabel>
         <translation><!-- SLEEVE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Single</masterLabel>
+        <translation><!-- Single --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Single - 25 Count Upright $0.89</masterLabel>

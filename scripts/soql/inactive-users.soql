@@ -1,0 +1,10 @@
+SELECT Id, Name, Email, Username, Profile.Name, IsActive, CreatedDate, LastLoginDate
+FROM User
+WHERE IsActive = TRUE
+  AND UserType = 'Standard'
+  AND (
+        LastLoginDate < LAST_N_DAYS:30
+        OR (LastLoginDate = NULL AND CreatedDate < LAST_N_DAYS:30)
+      )
+ORDER BY LastLoginDate ASC NULLS FIRST, CreatedDate ASC
+LIMIT 5000

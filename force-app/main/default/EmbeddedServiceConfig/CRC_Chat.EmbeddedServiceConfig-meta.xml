@@ -24,14 +24,6 @@
         </embeddedServiceFormFields>
         <embeddedServiceFormFields>
             <displayOrder>-1</displayOrder>
-            <formField>StreetAddress</formField>
-            <formFieldType>Text</formFieldType>
-            <isHidden>true</isHidden>
-            <isRequired>false</isRequired>
-            <messagingChannelParameterType>Custom</messagingChannelParameterType>
-        </embeddedServiceFormFields>
-        <embeddedServiceFormFields>
-            <displayOrder>-1</displayOrder>
             <formField>ReasonOrQuestion</formField>
             <formFieldType>Text</formFieldType>
             <isHidden>true</isHidden>
@@ -73,6 +65,14 @@
         <embeddedServiceFormFields>
             <displayOrder>-1</displayOrder>
             <formField>AptSuiteOther</formField>
+            <formFieldType>Text</formFieldType>
+            <isHidden>true</isHidden>
+            <isRequired>false</isRequired>
+            <messagingChannelParameterType>Custom</messagingChannelParameterType>
+        </embeddedServiceFormFields>
+        <embeddedServiceFormFields>
+            <displayOrder>-1</displayOrder>
+            <formField>StreetAddress</formField>
             <formFieldType>Text</formFieldType>
             <isHidden>true</isHidden>
             <isRequired>false</isRequired>

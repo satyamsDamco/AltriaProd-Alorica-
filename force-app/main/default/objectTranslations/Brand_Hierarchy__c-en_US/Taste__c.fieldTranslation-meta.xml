@@ -135,6 +135,10 @@
         <translation><!-- BOLD ICE --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>Berry</masterLabel>
+        <translation><!-- Berry --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>Black Special Blend</masterLabel>
         <translation><!-- Black Special Blend --></translation>
     </picklistValues>
@@ -199,6 +203,10 @@
         <translation><!-- Calming Stress --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>Cherry</masterLabel>
+        <translation><!-- Cherry --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>Chewable Dissolvables</masterLabel>
         <translation><!-- Chewable Dissolvables --></translation>
     </picklistValues>
@@ -209,6 +217,10 @@
     <picklistValues>
         <masterLabel>Chillax</masterLabel>
         <translation><!-- Chillax --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Citrus Lime</masterLabel>
+        <translation><!-- Citrus Lime --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Constant Power</masterLabel>
@@ -347,6 +359,10 @@
         <translation><!-- MENTHOL --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>Mango</masterLabel>
+        <translation><!-- Mango --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>Medium</masterLabel>
         <translation><!-- Medium --></translation>
     </picklistValues>
@@ -361,6 +377,10 @@
     <picklistValues>
         <masterLabel>Milds</masterLabel>
         <translation><!-- Milds --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mixed</masterLabel>
+        <translation><!-- Mixed --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Multifilter</masterLabel>
@@ -563,6 +583,10 @@
         <translation><!-- Standard --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>Strawberry Lemonade</masterLabel>
+        <translation><!-- Strawberry Lemonade --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>Stress Relief</masterLabel>
         <translation><!-- Stress Relief --></translation>
     </picklistValues>
@@ -609,6 +633,10 @@
     <picklistValues>
         <masterLabel>Unknown MG</masterLabel>
         <translation><!-- Unknown MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VERSION 3.1</masterLabel>
+        <translation><!-- VERSION 3.1 --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>Va Blend</masterLabel>

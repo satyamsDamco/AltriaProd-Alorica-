@@ -23,8 +23,8 @@
     <masterLabel>CRC</masterLabel>
     <redirectToCustomDomain>false</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
-    <siteAdmin>brian.dunn@alorica.prod.com</siteAdmin>
-    <siteGuestRecordDefaultOwner>brian.dunn@alorica.prod.com</siteGuestRecordDefaultOwner>
+    <siteAdmin>james.wright@alorica.prod.com</siteAdmin>
+    <siteGuestRecordDefaultOwner>james.wright@alorica.prod.com</siteGuestRecordDefaultOwner>
     <siteTemplate>SiteTemplate</siteTemplate>
     <siteType>Visualforce</siteType>
     <subdomain>altria</subdomain>

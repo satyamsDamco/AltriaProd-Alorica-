@@ -16,6 +16,7 @@
         p{margin:0 0 8px 0;padding:0;font-size:12px;line-height:1.4}
         input[type="text"]{font-size:14px;border-radius:0;background-color:#faf9f7;border-color:#e5e2e0;padding-top:5px;padding-bottom:5px;box-shadow:none;border:1px solid #ccc;width:99%}
         .cb-red-color{color:#c13145}
+        .cb-field-error{clear:both;color:#c13145;font-size:11px;line-height:1.3;padding-top:3px}
         .cb-required:after{content:"*";position:absolute;color:#c13145;font-size:1em;margin-left:3px}
         label{width:max-content;float:left;margin-bottom:0;line-height:30px}
         label[for="Category"]{width:100%}
@@ -243,6 +244,80 @@
                 prefix.selectedIndex = 0;
                 prefix.setCustomValidity("");
             }
+
+            // Drop any inline length messages so the next visitor starts clean.
+            clearFieldLengthErrors();
+        }
+
+        // Embedded Messaging silently discards a hidden prechat value that exceeds
+        // the matching custom parameter's maxLength on the CRC_Chat messaging
+        // channel, which is what left Street_Address__c / Reason_or_Question__c
+        // blank on the MessagingSession record. These caps mirror the maxLength
+        // values in CRC_Chat.messagingChannel-meta.xml and must stay in sync with it.
+        var FIELD_LENGTH_LIMITS = [
+            { id: "StreetAddress", errorId: "StreetAddressError", max: 100 },
+            { id: "Subject", errorId: "SubjectError", max: 255 }
+        ];
+
+        function findLengthLimit(fieldId) {
+            var match = null;
+            FIELD_LENGTH_LIMITS.forEach(function (rule) {
+                if (rule.id === fieldId) {
+                    match = rule;
+                }
+            });
+            return match;
+        }
+
+        // Also wired to oninput so the message disappears as soon as the visitor
+        // trims the entry, instead of only on the next CHAT NOW click.
+        function checkFieldLength(fieldId) {
+            var rule = findLengthLimit(fieldId);
+            if (!rule) {
+                return true;
+            }
+
+            var field = document.getElementById(rule.id);
+            var errorEl = document.getElementById(rule.errorId);
+            if (!field || !errorEl) {
+                return true;
+            }
+
+            // The maxlength attribute blocks typing past the cap, but pasted,
+            // autofilled and browser-restored values can still exceed it.
+            var length = field.value.trim().length;
+            if (length > rule.max) {
+                errorEl.innerHTML = "Character limit exceeded. Maximum allowed characters: " +
+                    rule.max + ". You have entered " + length + ".";
+                errorEl.style.display = "block";
+                return false;
+            }
+
+            errorEl.innerHTML = "";
+            errorEl.style.display = "none";
+            return true;
+        }
+
+        // Renders an inline message under every over-length field and returns the
+        // first offending element (or null), so the caller can focus it.
+        function validateFieldLengths() {
+            var firstInvalid = null;
+            FIELD_LENGTH_LIMITS.forEach(function (rule) {
+                if (!checkFieldLength(rule.id) && !firstInvalid) {
+                    firstInvalid = document.getElementById(rule.id);
+                }
+            });
+            return firstInvalid;
+        }
+
+        function clearFieldLengthErrors() {
+            FIELD_LENGTH_LIMITS.forEach(function (rule) {
+                var errorEl = document.getElementById(rule.errorId);
+                if (errorEl) {
+                    errorEl.innerHTML = "";
+                    errorEl.style.display = "none";
+                }
+            });
         }
 
         function validatePrechatForm() {
@@ -293,9 +368,20 @@
         function openEnhancedChat() {
             validatePrechatForm();
 
+            // Run first so the inline length messages are already on screen even
+            // when a required-field check below returns early.
+            var firstOverLengthField = validateFieldLengths();
+
             var form = document.getElementById("prechatForm");
             if (!form.checkValidity()) {
                 form.reportValidity();
+                return false;
+            }
+
+            // Block the launch: an over-length value would be dropped by the
+            // widget and saved as a blank field on the MessagingSession record.
+            if (firstOverLengthField) {
+                firstOverLengthField.focus();
                 return false;
             }
 
@@ -413,7 +499,10 @@
                 <td>
                     <label for="StreetAddress" class="cb-required">Street Address:</label>
                     <div class="control-input">
-                        <input type="text" id="StreetAddress" required="true" title="Please enter your Street Address."/>
+                        <input type="text" id="StreetAddress" required="true" maxlength="100"
+                               title="Please enter your Street Address."
+                               oninput="checkFieldLength('StreetAddress');"/>
+                        <div class="cb-field-error" id="StreetAddressError" style="display:none;"></div>
                     </div>
                 </td>
             </tr>
@@ -465,7 +554,9 @@
             </tr>
             <tr>
                 <td>
-                    <textarea id="Subject" required="true" cols="80%" rows="3" maxlength="500"></textarea>
+                    <textarea id="Subject" required="true" cols="80%" rows="3" maxlength="255"
+                              oninput="checkFieldLength('Subject');"></textarea>
+                    <div class="cb-field-error" id="SubjectError" style="display:none;"></div>
                 </td>
             </tr>
             <tr class="blank_row">

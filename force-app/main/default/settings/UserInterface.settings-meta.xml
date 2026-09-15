@@ -3,7 +3,7 @@
     <alternateAlohaListView>true</alternateAlohaListView>
     <dynamicMruActionsOff>false</dynamicMruActionsOff>
     <enableAsyncRelatedLists>false</enableAsyncRelatedLists>
-    <enableClickjackUserPageHeaderless>false</enableClickjackUserPageHeaderless>
+    <enableClickjackUserPageHeaderless>true</enableClickjackUserPageHeaderless>
     <enableCollapsibleSections>true</enableCollapsibleSections>
     <enableCollapsibleSideBar>false</enableCollapsibleSideBar>
     <enableCustomObjectTruncate>false</enableCustomObjectTruncate>

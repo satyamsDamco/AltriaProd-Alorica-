@@ -6,7 +6,7 @@
         <callbackUrl>https://altria-prod.my.salesforce.com/</callbackUrl>
         <consumerKey>3MVG9uudbyLbNPZOxtYy2KF7POIGW0_77_hWkdGbGlruQZ0En30DoQ68RGaCGUnEGW0ZyVwTT6Z3uutMVVu.y</consumerKey>
         <isAdminApproved>false</isAdminApproved>
-        <isClientCredentialEnabled>false</isClientCredentialEnabled>
+        <isClientCredentialEnabled>true</isClientCredentialEnabled>
         <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
         <isCodeCredentialPostOnly>false</isCodeCredentialPostOnly>
         <isConsumerSecretOptional>false</isConsumerSecretOptional>

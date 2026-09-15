@@ -786,6 +786,41 @@
                 <label>COWBOY CUT MENTHOL</label>
             </value>
             <value>
+                <fullName>Citrus Lime</fullName>
+                <default>false</default>
+                <label>Citrus Lime</label>
+            </value>
+            <value>
+                <fullName>Strawberry Lemonade</fullName>
+                <default>false</default>
+                <label>Strawberry Lemonade</label>
+            </value>
+            <value>
+                <fullName>Berry</fullName>
+                <default>false</default>
+                <label>Berry</label>
+            </value>
+            <value>
+                <fullName>Mango</fullName>
+                <default>false</default>
+                <label>Mango</label>
+            </value>
+            <value>
+                <fullName>Cherry</fullName>
+                <default>false</default>
+                <label>Cherry</label>
+            </value>
+            <value>
+                <fullName>Mixed</fullName>
+                <default>false</default>
+                <label>Mixed</label>
+            </value>
+            <value>
+                <fullName>VERSION 3.1</fullName>
+                <default>false</default>
+                <label>VERSION 3.1</label>
+            </value>
+            <value>
                 <fullName>CRISP BLEND</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

@@ -7,6 +7,10 @@
         <translation><!-- ALPINE BLUE --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>BLACK</masterLabel>
+        <translation><!-- BLACK --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>BLOSSOM PINK</masterLabel>
         <translation><!-- BLOSSOM PINK --></translation>
     </picklistValues>
@@ -31,6 +35,10 @@
         <translation><!-- Banded Paper Ny --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>CHAMPAGNE GOLD</masterLabel>
+        <translation><!-- CHAMPAGNE GOLD --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>CLOUD</masterLabel>
         <translation><!-- CLOUD --></translation>
     </picklistValues>
@@ -45,6 +53,10 @@
     <picklistValues>
         <masterLabel>DARK BRONZE</masterLabel>
         <translation><!-- DARK BRONZE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DARK ORCHID</masterLabel>
+        <translation><!-- DARK ORCHID --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>DARK PEWTER</masterLabel>
@@ -151,6 +163,10 @@
         <translation><!-- ELECTRIC TEAL --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>EMERALD GREEN</masterLabel>
+        <translation><!-- EMERALD GREEN --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>FL</masterLabel>
         <translation><!-- FL --></translation>
     </picklistValues>
@@ -175,6 +191,10 @@
         <translation><!-- GRAY --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>GREEN</masterLabel>
+        <translation><!-- GREEN --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>HOT PINK</masterLabel>
         <translation><!-- HOT PINK --></translation>
     </picklistValues>
@@ -195,6 +215,10 @@
         <translation><!-- LAKE BLUE --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>LAVA RED</masterLabel>
+        <translation><!-- LAVA RED --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>LAVENDER</masterLabel>
         <translation><!-- LAVENDER --></translation>
     </picklistValues>
@@ -205,6 +229,10 @@
     <picklistValues>
         <masterLabel>Leather</masterLabel>
         <translation><!-- Leather --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MANGO SORBET</masterLabel>
+        <translation><!-- MANGO SORBET --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>MARINE</masterLabel>
@@ -251,6 +279,10 @@
         <translation><!-- Non Banded Paper --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>OCEAN BLUE</masterLabel>
+        <translation><!-- OCEAN BLUE --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>ORANGE</masterLabel>
         <translation><!-- ORANGE --></translation>
     </picklistValues>
@@ -295,6 +327,10 @@
         <translation><!-- ROSE --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>ROSE DIAMOND</masterLabel>
+        <translation><!-- ROSE DIAMOND --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>ROSSO CORSA</masterLabel>
         <translation><!-- ROSSO CORSA --></translation>
     </picklistValues>
@@ -317,6 +353,10 @@
     <picklistValues>
         <masterLabel>SCARLET</masterLabel>
         <translation><!-- SCARLET --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SILVER</masterLabel>
+        <translation><!-- SILVER --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>SLATE</masterLabel>
@@ -353,6 +393,10 @@
     <picklistValues>
         <masterLabel>Standard</masterLabel>
         <translation><!-- Standard --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TAN</masterLabel>
+        <translation><!-- TAN --></translation>
     </picklistValues>
     <picklistValues>
         <masterLabel>TEAL GREEN</masterLabel>
