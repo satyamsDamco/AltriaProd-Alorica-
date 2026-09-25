@@ -216,11 +216,16 @@ public class StoreEditController {
         }
     }
     
-    //Method Edit Store page Redirect to Store Detail Page when we click on Cancel Button 
+    //Method Edit Store page Redirect to Store Detail Page when we click on Cancel Button
     public PageReference CancelRedirect(){
+        // A store that was never saved has no Store Detail page to return to. The page
+        // closes its own tab in that case and never calls this method.
+        if(store.Id == null){
+            return null;
+        }
         PageReference pageRef = new PageReference('/apex/StoreDetail?id='+store.Id);
         pageRef.setRedirect(true);
-        return pageRef;   
-    } 
+        return pageRef;
+    }
     
 }

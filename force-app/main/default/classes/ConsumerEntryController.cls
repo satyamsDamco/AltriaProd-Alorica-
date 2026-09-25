@@ -40,12 +40,16 @@ public class ConsumerEntryController {
         ccnNumber = '';
         CustomerId = '';
         this.conObj = (Contact)stdController.getRecord();
-        Cookie counter = ApexPages.currentPage().getCookies().get('tranid');// Get Current transaction ID from Cookies. 
+        Cookie counter = ApexPages.currentPage().getCookies().get('tranid');// Get Current transaction ID from Cookies.
         if(counter != null) {
             tranid = counter.getValue();
+        }else{
+            tranid = ApexPages.currentPage().getParameters().get('tranid');// Fallback to URL param if the cookie was cleared (e.g. by visiting DNIS Search in another tab)
+        }
+        if(tranid != null){
              if(conObj.id == null){
                String RecordTypeidObj = customerRecordTypeHelper.getCustomerRecordType(tranid);//Assign Record Type when creating new customer.
-               
+
                if(RecordTypeidObj != ''){
                    conObj.RecordTypeId = RecordTypeidObj;
                }
@@ -413,8 +417,12 @@ public class ConsumerEntryController {
             Cookie counter = ApexPages.currentPage().getCookies().get('tranid');
             if(counter != null) {
                 tranid = counter.getValue();
+            }else if(tranid == null){
+                tranid = ApexPages.currentPage().getParameters().get('tranid');// Fallback to URL param if the cookie was cleared (e.g. by visiting DNIS Search in another tab)
+            }
+            if(tranid != null) {
                 tranObj = [Select Id,Contact__c,Comments__c From Transaction_Management__c Where Id=: tranid];
-                
+
                 if(fromPage != null &&  fromPage == 'search'){
                     tranObj.Contact__c =  conObj.id;
                     update tranObj;
@@ -498,6 +506,10 @@ public class ConsumerEntryController {
             Cookie counter = ApexPages.currentPage().getCookies().get('tranid');
             if(counter != null) {
                 tranid = counter.getValue();
+            }else if(tranid == null){
+                tranid = ApexPages.currentPage().getParameters().get('tranid');// Fallback to URL param if the cookie was cleared (e.g. by visiting DNIS Search in another tab)
+            }
+            if(tranid != null) {
                 tranObj = [Select Id,Contact__c,Comments__c From Transaction_Management__c Where Id=: tranid];
             }
             //start here
@@ -787,11 +799,24 @@ public class ConsumerEntryController {
     } 
     
     /* Cancel Button method, which redirect to Consumer Detail Page. */
-    public PageReference cancelRedirect(){   
-        PageReference pageRef = new PageReference('/apex/ConsumerDetailPage?id='+conObj.Id);
+    public PageReference cancelRedirect(){
+        PageReference pageRef;
+        if(fromPage != null && fromPage == 'search'){
+            // The from=search screen is the read only preview reached by picking a row on
+            // Consumer Search. Cancel there means "do not assign this consumer", so the
+            // consumer is not attached to the transaction yet and the Detail page is not
+            // the right destination - go back to the search instead.
+            pageRef = new PageReference('/apex/ConsumerSearch?tranid='+tranid);
+        }else if(conObj.Id != null){
+            pageRef = new PageReference('/apex/ConsumerDetailPage?id='+conObj.Id);
+        }else{
+            // A consumer that was never saved has no Detail page to return to. The page
+            // closes its own tab in that case and never calls this method.
+            return null;
+        }
         pageRef.setRedirect(true);
-        return pageRef;             
-    } 
+        return pageRef;
+    }
     
     public Boolean checkHotZip(){
         Boolean isHot;

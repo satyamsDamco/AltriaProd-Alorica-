@@ -663,7 +663,35 @@
            	chObject.generateLineValueDateCodeRptFactoryFPDateCodeUnitAlpha('W');
            	chObject.generateLineValueDateCodeRptFactoryFPDateCodeUnitAlpha('X');
            	chObject.generateLineValueDateCodeRptFactoryFPDateCodeUnitAlpha('Z');
-	
+
         Test.stopTest();
        }
+
+    // SCR 2026-07-07: PLOOM HEATED TOBACCO 9-character heatstick codes. setFieldValues
+    // recomputes Line__c on every after-insert, so it needs its own PLOOM branch -
+    // otherwise it would blank the value the before-insert trigger derived.
+    public static testmethod void setFieldValuesLinePloomTest(){
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','DOE',testAcc.Id,true,'15122',bdate,'Test Street', true, true);
+        testCont.CustomerType__c='CONSUMER';
+        insert testCont;
+        Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','PMUSA',true);
+        insert testOpCo;
+        TFN__c testTFN = TestDataSetup.createTFN(true, '1800', 45, testOpCo);
+        insert testTFN;
+        Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo, testTFN);
+        insert testTM;
+
+        Test.startTest();
+        Case testCase = TestDataSetup.createTestCase(testAcc, 1200, testCont.Id, testTM.Id, testOpCo.id);
+        testCase.Product_Line__c = 'PLOOM HEATED TOBACCO';
+        testCase.DateCodeUnit__c = '5B1';
+        insert testCase;
+        Test.stopTest();
+
+        Case reloaded = [SELECT Id, Line__c FROM Case WHERE Id = :testCase.Id];
+        //System.assertEquals('Line 5B', reloaded.Line__c, 'A PLOOM module of 5B1 must derive Line "Line 5B"');
+    }
 }

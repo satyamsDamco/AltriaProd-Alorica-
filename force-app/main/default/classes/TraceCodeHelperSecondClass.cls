@@ -442,6 +442,19 @@ public class TraceCodeHelperSecondClass {
         }
     }
 
+    // SCR 2026-07-07: PLOOM HEATED TOBACCO 9-character code (Packs & Cartons).
+    // Returns the production date, or 'fail' when the code is invalid.
+    public static String validatePloom9CharTraceCode(String workTraceCode) {
+        return PLProductLineHelper.calculate9CharProductionDate(workTraceCode);
+    }
+
+    // SCR 2026-07-07: PLOOM HEATED TOBACCO 1-character code.
+    // Returns 'NODATE' for the valid characters H and D (they carry no production
+    // date), or 'fail' for anything else.
+    public static String validatePloom1CharTraceCode(String workTraceCode) {
+        return PLProductLineHelper.calculate1CharProductionDate(workTraceCode);
+    }
+
     // Extracts the 7-digit serial number block (characters 3-9) from a 12-character
     // PLOOM trace code for population on Case.Serial_Number__c.
     public static String extractPloomSerialNumber(String workTraceCode) {

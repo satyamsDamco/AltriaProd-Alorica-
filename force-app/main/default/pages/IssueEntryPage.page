@@ -52,20 +52,31 @@
         
         
          function testCloseTab() {
-            
+
+            // Issue Detail navigates into this page without leaving the Lightning workspace
+            // tab, so closing the tab on Cancel takes the Detail view down with it and drops
+            // the agent back on the search page. For a saved issue, let the controller
+            // redirect this same tab back to Issue Detail. A new issue has no Detail page to
+            // return to and was opened in its own tab, so it still closes as before.
+            var issueId = '{!caseObj.id}';
+            if(issueId != null && issueId != '' && issueId != 'null') {
+                cancelRedirect();
+                return false;
+            }
+
             sforce.console.getEnclosingTabId(function(result) {
                 console.log('Tab Result:', JSON.stringify(result));
-                
+
                 if(result.success && result.id) {
                     sforce.console.closeTab(result.id);
                 } else {
                     console.error(result);
                 }
             });
-            
-            
+
+
             return false;
-        }  
+        }
        
         var closeSubtab = function closeSubtab(result) {
             var tabId = result.id;
@@ -716,7 +727,7 @@
         <apex:pageBlock title="Issue Entry"  id="IssEntryBlock">
            <apex:actionFunction action="{!save}" id="sa" name="saveissue"/>   
            <apex:actionFunction action="{!renderNMIFunction}" id="sa1" name="renderNMIFunction"/> 
-           <apex:actionFunction name="cancelRedirect" action="{!cancelRedirect}"/>
+           <apex:actionFunction name="cancelRedirect" action="{!cancelRedirect}" immediate="true"/>
            <apex:actionFunction name="IQOSSerialNumber" action="{!IQOSSerialNumber}" reRender="productiondate,message,serialNumber,regDate,ccn,regStatus,purchaseDate,tpCustomer,ftBuyer,basePrice,purchasePrice,wStartDate,wExDate,wStatus,origSerialNum,csaProblem"/>
            <apex:actionFunction name="TraceCodeValidation" action="{!TraceCodeValidation}" reRender="message,traceCode,susCounter,productiondate,traceCodeErrorMessage,traceCodeError,productLineId" oncomplete="showValidation()"/>
            <apex:actionFunction name="DateCodeValidation"  action="{!DateCodeValidation}" reRender="message,datecode,dateVal,datetype,dateCodeError" oncomplete="showDateCodeValidation()"/>

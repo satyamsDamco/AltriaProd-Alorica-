@@ -8,9 +8,9 @@
     <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Description__c</field>
-        <operation>contains</operation>
-        <value>Product Quality - Pouch</value>
+        <field>NAME</field>
+        <operation>equals</operation>
+        <value>GR2077</value>
     </filters>
     <label>All</label>
 </ListView>

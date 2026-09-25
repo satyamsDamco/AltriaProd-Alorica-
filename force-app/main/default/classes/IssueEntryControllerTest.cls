@@ -623,8 +623,21 @@ private class IssueEntryControllerTest{
         Test.startTest();
         IssueEntryController controller = new IssueEntryController(new ApexPages.StandardController(testCase));
         PageReference pgref5 = controller.cancelRedirect();
+
+        // An issue that was never saved has no Issue Detail page, so the page closes its
+        // own tab instead and the controller returns nothing.
+        controller.caseObj = new Case();
+        PageReference unsavedRef = controller.cancelRedirect();
         Test.stopTest();
         system.assertEquals(controller.caseObj.Issue_Hierarchy_Code__c,controller.caseObj.Crc_Brand_Hierarchy_Code__c);
+
+        // Cancel on Issue Edit must return the agent to Issue Detail rather than close the
+        // console tab that Detail and Edit share.
+        system.assertNotEquals(null, pgref5, 'Cancel on a saved issue must redirect.');
+        system.assert(pgref5.getUrl().startsWith('/apex/Issue_Detail?id=' + testCase.Id),
+                      'Cancel must land back on Issue Detail, got: ' + pgref5.getUrl());
+        system.assertEquals(true, pgref5.getRedirect(), 'Cancel must be a redirect, not a forward.');
+        system.assertEquals(null, unsavedRef, 'Cancel on an unsaved issue must not redirect.');
     }
     
     static testMethod void validateGetTraceCodeLocation() {
@@ -2469,6 +2482,96 @@ static testMethod void validateDateCodeCaseNormalization() {
     System.assertEquals('', IssueEntryController.normalizeDateCodeCase(''));
     System.assertEquals('   ', IssueEntryController.normalizeDateCodeCase('   '),
         'Whitespace-only input is left untouched');
+}
+
+// SCR 2026-07-07: Trace Codes - PLOOM Heatsticks.
+// TraceCodeValidation() routes a PLOOM trace code by its length: 12 (Devices),
+// 9 (Heatstick Packs & Cartons) and 1 (Factory/Location only). The Product_Line__c
+// must exist before the controller is constructed - productLineMap is built there.
+private static IssueEntryController buildPloomController(String traceCode) {
+    Operating_Company__c oc = new Operating_Company__c(
+        OperatingCompany__c = 'PMIP',
+        OpCo_Description__c = 'Test OpCo',
+        Active__c = true
+    );
+    insert oc;
+
+    Product_Line__c pl = new Product_Line__c();
+    pl.Name = 'PLOOM HEATED TOBACCO';
+    pl.Code__c = 'PL';
+    pl.Op_Company__c = oc.Id;
+    pl.isActive__c = true;
+    insert pl;
+
+    Case c = new Case(Op_Company__c = oc.Id);
+    insert c;
+
+    IssueEntryController ctrl = new IssueEntryController(new ApexPages.StandardController(c));
+    ctrl.selectedProductLine = 'PLOOM HEATED TOBACCO';
+    ctrl.selectedTraceCodeLocation = 'Pack';
+    ctrl.caseObj.Mfg_Trace_code__c = traceCode;
+    return ctrl;
+}
+
+static testMethod void validatePloom9CharTraceCodeOnEntryPage() {
+    IssueEntryController ctrl = buildPloomController('R036V65B1');
+
+    Test.startTest();
+    ctrl.TraceCodeValidation();
+    Test.stopTest();
+
+    System.assertEquals('R036V65B1', ctrl.caseObj.Mfg_Trace_code__c,
+        'A 9-character PLOOM code is upper-cased in full');
+    System.assertEquals(true, ctrl.caseObj.ValidTraceCode__c);
+    System.assertEquals(Date.newInstance(2026, 2, 5), ctrl.caseObj.Production_date__c);
+}
+
+static testMethod void validatePloom9CharInvalidTraceCodeOnEntryPage() {
+    // Char7-9 '5D1' is not a valid module
+    IssueEntryController ctrl = buildPloomController('R036V65D1');
+
+    Test.startTest();
+    ctrl.TraceCodeValidation();
+    Test.stopTest();
+
+    System.assertEquals(false, ctrl.caseObj.ValidTraceCode__c);
+    System.assertEquals(null, ctrl.caseObj.Production_date__c);
+    System.assertEquals(true, ctrl.traceCodeError);
+}
+
+static testMethod void validatePloom1CharTraceCodeOnEntryPage() {
+    IssueEntryController ctrl = buildPloomController('H');
+
+    Test.startTest();
+    ctrl.TraceCodeValidation();
+    Test.stopTest();
+
+    // 'H' is valid but carries no production date, so Production_date__c stays null
+    System.assertEquals(true, ctrl.caseObj.ValidTraceCode__c);
+    System.assertEquals(null, ctrl.caseObj.Production_date__c);
+}
+
+static testMethod void validatePloom1CharInvalidTraceCodeOnEntryPage() {
+    IssueEntryController ctrl = buildPloomController('Z');
+
+    Test.startTest();
+    ctrl.TraceCodeValidation();
+    Test.stopTest();
+
+    System.assertEquals(false, ctrl.caseObj.ValidTraceCode__c);
+    System.assertEquals(true, ctrl.traceCodeError);
+}
+
+static testMethod void validatePloomUnsupportedLengthOnEntryPage() {
+    // PLOOM only supports 12, 9 and 1 character codes
+    IssueEntryController ctrl = buildPloomController('R036V65B');
+
+    Test.startTest();
+    ctrl.TraceCodeValidation();
+    Test.stopTest();
+
+    System.assertEquals(false, ctrl.caseObj.ValidTraceCode__c);
+    System.assertEquals(true, ctrl.traceCodeError);
 }
 
  }

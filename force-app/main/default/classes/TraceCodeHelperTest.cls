@@ -602,6 +602,39 @@ private class TraceCodeHelperTest {
         Test.stopTest();
     }
 
+    // SCR 2026-07-07: Trace Codes - PLOOM Heatsticks. The PL length gate now admits
+    // 9- and 1-character codes as well as the original 12, and the PL block routes
+    // them to their own logic instead of the 12-character device parsing.
+    @IsTest
+    static void testTraceCodeValidationPLHeatsticks() {
+        TraceCodeHelper h = new TraceCodeHelper();
+
+        Test.startTest();
+        // 9-char valid: R + Julian 036 + hourly V + year '6'(2026) + module 5B1
+        System.assertEquals(Date.newInstance(2026, 2, 5).format(),
+            h.traceCodeValidation('PL', 'R036V65B1', 'ZZ', 'NONCAS', null));
+        // 9-char valid: V (not cold stored) + module 5C1
+        System.assertEquals(Date.newInstance(2026, 2, 5).format(),
+            h.traceCodeValidation('PL', 'V036A65C1', 'ZZ', 'NONCAS', null));
+        // 9-char invalid: bad position 1
+        System.assertEquals('fail', h.traceCodeValidation('PL', 'X036V65B1', 'ZZ', 'NONCAS', null));
+        // 9-char invalid: bad module
+        System.assertEquals('fail', h.traceCodeValidation('PL', 'R036V65D1', 'ZZ', 'NONCAS', null));
+        // 9-char invalid: Julian day out of range
+        System.assertEquals('fail', h.traceCodeValidation('PL', 'R367V65B1', 'ZZ', 'NONCAS', null));
+        // 9-char invalid: year digit '5' resolves before the 01/01/2026 floor
+        System.assertEquals('fail', h.traceCodeValidation('PL', 'R036V55B1', 'ZZ', 'NONCAS', null));
+
+        // 1-char: H and D are the only valid values, and carry no production date
+        System.assertEquals('NODATE', h.traceCodeValidation('PL', 'H', 'ZZ', 'NONCAS', null));
+        System.assertEquals('NODATE', h.traceCodeValidation('PL', 'D', 'ZZ', 'NONCAS', null));
+        System.assertEquals('fail',   h.traceCodeValidation('PL', 'Z', 'ZZ', 'NONCAS', null));
+
+        // Lengths other than 12, 9 and 1 are still rejected by the length gate
+        System.assertEquals('fail', h.traceCodeValidation('PL', 'R036V65B', 'ZZ', 'NONCAS', null));
+        Test.stopTest();
+    }
+
     // Covers productLineCode == DS / PC / UU / MD / GFU / SB / CD, which are only
     // reachable when oprCompany == 'USST'. Previous tests passed oprCompany = 'ZZ' for
     // these codes (except SP, which is force-overridden to USST), so this whole branch

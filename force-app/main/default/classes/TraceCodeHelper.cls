@@ -505,7 +505,9 @@ public class TraceCodeHelper{
                 {
                     return 'fail';
                 }
-                else if (productLineCode == 'PL' && traceCode.length() != 12)
+                //SCR 2026-05-01 (12 char - Devices), SCR 2026-07-07 (9 char - Heatstick
+                //Packs & Cartons, 1 char - Factory/Location only)
+                else if (productLineCode == 'PL' && traceCode.length() != 12 && traceCode.length() != 9 && traceCode.length() != 1)
                 {
                     return 'fail';
                 }
@@ -1628,6 +1630,19 @@ return null; //Invalid Module
                 else if(productLineCode == 'PL')
                 {
 					System.debug('here in ploom-->');
+
+                    //SCR 2026-07-07: Trace Codes - PLOOM Heatsticks. The 9- and 1-character
+                    //codes have their own rules; the 12-character device logic below indexes
+                    //up to position 12 and must not see a shorter code.
+                    if (traceCode.length() == 9)
+                    {
+                        return PLProductLineHelper.calculate9CharProductionDate(traceCode);
+                    }
+                    if (traceCode.length() == 1)
+                    {
+                        return PLProductLineHelper.calculate1CharProductionDate(traceCode);
+                    }
+
                     // Char 1: only 'U' valid â†’ Production Location & Factory: INDONESIA
                     String char1 = traceCode.substring(0, 1);
                     // Char 2: Production Unit/Module - E, F, G, H, J, K, L

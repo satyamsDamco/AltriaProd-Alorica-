@@ -790,20 +790,33 @@ public void newlineCase(List<Case> caseUpdate) {
         
     }
     
-    // SCR 2026-05-01: Trace Codes - PLOOM Devices
-    // Populates Production Location/Factory/Date/Unit/Serial Number for the 12-character
-    // PLOOM HEATED TOBACCO trace code. Location & Factory are always set (per SCR, always
-    // INDONESIA); the remaining detail fields are only set when the trace code is valid,
-    // and are cleared if a previously valid code is edited into an invalid one.
+    // SCR 2026-05-01: Trace Codes - PLOOM Devices    (12-character)
+    // SCR 2026-07-07: Trace Codes - PLOOM Heatsticks (9- and 1-character)
+    // Populates the manufacturing fields for a PLOOM HEATED TOBACCO trace code.
+    // Location & Factory are always set for the 12- and 9-character codes (per SCR,
+    // whether the code is valid or not); the remaining detail fields are only set
+    // when the code is valid, and are cleared if a previously valid code is edited
+    // into an invalid one.
     public void ploomTraceCode(List<Case> caseValue) {
         for (Case caseObj : caseValue) {
-            if (caseObj.Mfg_Trace_code__c != null && caseObj.Mfg_Trace_code__c != ''
-                    && caseObj.Product_Line__c == 'PLOOM HEATED TOBACCO'
-                    && caseObj.Mfg_Trace_code__c.length() == 12) {
+            if (caseObj.Product_Line__c != 'PLOOM HEATED TOBACCO') {
+                continue;
+            }
 
-                String traceCodeOrig  = caseObj.Mfg_Trace_code__c;
-                String traceCodeUpper = traceCodeOrig.toUpperCase();
+            // SCR 2026-07-07: with no trace code there is nothing to identify the
+            // factory, so PLOOM falls back to the heatstick Location/Factory rather
+            // than the 12-character device values.
+            if (String.isBlank(caseObj.Mfg_Trace_code__c)) {
+                caseObj.DateCodeLocation__c   = 'Virginia';
+                caseObj.DateCodeRptFactory__c = 'MC_HORIZON';
+                caseObj.ValidTraceCode__c     = false;
+                continue;
+            }
 
+            String traceCodeOrig  = caseObj.Mfg_Trace_code__c;
+            String traceCodeUpper = traceCodeOrig.toUpperCase();
+
+            if (traceCodeOrig.length() == 12) {
                 PLProductLineHelper.PLResult result = PLProductLineHelper.calculateDateCode(traceCodeUpper, traceCodeOrig);
 
                 caseObj.DateCodeLocation__c   = result.location;
@@ -819,6 +832,50 @@ public void newlineCase(List<Case> caseUpdate) {
                     caseObj.DateCodeUnit__c     = '';
                     caseObj.Serial_Number__c    = '';
                     caseObj.ValidTraceCode__c   = false;
+                }
+            }
+            else if (traceCodeOrig.length() == 9) {
+                PLProductLineHelper.PLResult result = PLProductLineHelper.calculate9CharDateCode(traceCodeUpper);
+
+                caseObj.DateCodeLocation__c   = result.location;
+                caseObj.DateCodeRptFactory__c = result.factory;
+
+                if (result.productionDate != 'FAIL') {
+                    caseObj.Production_date__c      = Date.parse(result.productionDate);
+                    caseObj.DateCodeUnit__c         = result.unit;
+                    caseObj.Line__c                 = result.line;
+                    caseObj.DateCodeRptBay__c       = result.bay;
+                    caseObj.DateCodeColdStorage__c  = result.coldStorage;
+                    caseObj.DateCodeShift__c        = result.shift;
+                    caseObj.DateCodeMilitaryTime__c = result.militaryTime;
+                    caseObj.ValidTraceCode__c       = true;
+                } else {
+                    caseObj.Production_date__c      = null;
+                    caseObj.DateCodeUnit__c         = '';
+                    caseObj.Line__c                 = '';
+                    caseObj.DateCodeRptBay__c       = '';
+                    caseObj.DateCodeColdStorage__c  = '';
+                    caseObj.DateCodeShift__c        = '';
+                    caseObj.DateCodeMilitaryTime__c = '';
+                    caseObj.ValidTraceCode__c       = false;
+                }
+            }
+            else if (traceCodeOrig.length() == 1) {
+                // A 1-character code resolves Location and Factory only - both are
+                // derived from the character itself, so there is nothing to default
+                // to when it is not one of the valid values.
+                PLProductLineHelper.PLResult result = PLProductLineHelper.calculate1CharDateCode(traceCodeUpper);
+
+                caseObj.Production_date__c = null;
+
+                if (result.productionDate != 'FAIL') {
+                    caseObj.DateCodeLocation__c   = result.location;
+                    caseObj.DateCodeRptFactory__c = result.factory;
+                    caseObj.ValidTraceCode__c     = true;
+                } else {
+                    caseObj.DateCodeLocation__c   = '';
+                    caseObj.DateCodeRptFactory__c = '';
+                    caseObj.ValidTraceCode__c     = false;
                 }
             }
         }

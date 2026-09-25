@@ -1,6 +1,7 @@
 /**
  * PLProductLineHelper
- * SCR 2026-05-01: Trace Codes - PLOOM Devices
+ * SCR 2026-05-01: Trace Codes - PLOOM Devices          (12-character codes)
+ * SCR 2026-07-07: Trace Codes - PLOOM Heatsticks       (9- and 1-character codes)
  *
  * Extracted from DateCodeHelper and TraceCodeHelper to avoid
  * "Class compilation requires too much metadata" error on UAT org.
@@ -10,6 +11,8 @@ public class PLProductLineHelper {
 
     // ----------------------------------------------------------------
     // Return type used by DateCodeHelper.DateCodeFields()
+    // shift/militaryTime/coldStorage/bay/line are only populated by the
+    // 9-character heatstick code; the 12-character device code leaves them null.
     // ----------------------------------------------------------------
     public class PLResult {
         public String productionDate;
@@ -17,6 +20,11 @@ public class PLProductLineHelper {
         public String factory;
         public String serialNumber;
         public String unit;
+        public String shift;
+        public String militaryTime;
+        public String coldStorage;
+        public String bay;
+        public String line;
     }
 
     // ----------------------------------------------------------------
@@ -52,6 +60,31 @@ public class PLProductLineHelper {
 
     private static Set<String> buildValidModules() {
         return new Set<String>{ 'E', 'F', 'G', 'H', 'J', 'K', 'L' };
+    }
+
+    // SCR 2026-07-07: 9-character heatstick code - Char1 identifies Factory,
+    // Location and Cold Storage. Char7-9 identify Module, Line and Bay.
+    private static Set<String> buildValid9CharPosition1() {
+        return new Set<String>{ 'R', 'V' };
+    }
+
+    private static Set<String> buildValid9CharModules() {
+        return new Set<String>{ '5B1', '5C1' };
+    }
+
+    // SCR 2026-07-07: heatstick codes produced before this date are invalid.
+    private static Date buildEarliestProductionDate() {
+        return Date.newInstance(2026, 1, 1);
+    }
+
+    // Honours the Override_date custom label the same way the 12-character
+    // logic does, so QA can validate future-dated trace codes.
+    private static Date buildDateToProcess() {
+        Date dateToProcess = System.today();
+        if (Label.Override_date != 'yyyy-mm-dd') {
+            dateToProcess = Date.valueOf(Label.Override_date);
+        }
+        return dateToProcess;
     }
 
     // ----------------------------------------------------------------
@@ -145,6 +178,147 @@ public class PLProductLineHelper {
         // Re-use the validation method; normalise casing of result
         String prodDate = calculateProductionDate(traceCodeUpper, traceCodeOrig);
         res.productionDate = (prodDate == 'fail') ? 'FAIL' : prodDate;
+
+        return res;
+    }
+
+    // ================================================================
+    // SCR 2026-07-07: PLOOM HEATED TOBACCO - 9 character (Packs & Cartons)
+    //
+    //   Char 1     Factory / Location / Cold Storage  - R or V
+    //   Char 2-4   Julian day                         - 001 to 366
+    //   Char 5     Hourly code (PMUSA mapping)        - not a validity gate
+    //   Char 6     Production year digit
+    //   Char 7-9   Module / Line / Bay                - 5B1 or 5C1
+    //
+    // The positional layout is identical to the PMUSA cigarette (AS) 9-character
+    // code, so the Julian/year date maths and the hourly code mapping are reused
+    // rather than reimplemented.
+    // ================================================================
+
+    // ----------------------------------------------------------------
+    // calculate9CharProductionDate
+    //   Returns the formatted production date, or 'fail' when any position
+    //   or date rule is violated.
+    // ----------------------------------------------------------------
+    public static String calculate9CharProductionDate(String traceCode) {
+        if (traceCode == null || traceCode.length() != 9) { return 'fail'; }
+
+        String code = traceCode.toUpperCase();
+
+        // Char 1 - Factory, Location and Cold Storage
+        if (!buildValid9CharPosition1().contains(code.substring(0, 1))) { return 'fail'; }
+
+        // Char 7-9 - Module, Line and Bay
+        if (!buildValid9CharModules().contains(code.substring(6, 9))) { return 'fail'; }
+
+        // Char 2-4 (Julian day) and Char 6 (year digit) must be numeric before the
+        // shared calculator is called - it runs Integer.valueOf() on both and would
+        // throw a TypeException on anything else.
+        String julianDay = code.substring(1, 4);
+        String yearChar  = code.substring(5, 6);
+        if (!julianDay.isNumeric() || !yearChar.isNumeric()) { return 'fail'; }
+        Integer julianDayInt = Integer.valueOf(julianDay);
+        if (julianDayInt < 1 || julianDayInt > 366) { return 'fail'; }
+
+        try {
+            // Shared Julian + year-digit calculator: resolves the year digit against
+            // the rolling ten-year window, rejects day 366 in a non-leap year and
+            // rejects a production date that is not before today.
+            String prodDate = TraceCodeHelperCore.ProductDateCalculator(code, 'PL');
+            if (prodDate == null || prodDate.toUpperCase() == 'FAIL') { return 'fail'; }
+
+            Date productionDate = Date.parse(prodDate);
+
+            // SCR: dates prior to 01/01/2026 are invalid
+            if (productionDate < buildEarliestProductionDate()) { return 'fail'; }
+
+            // SCR: production date must be less than the system date. Repeated here
+            // because ProductDateCalculator only ever compares against System.today()
+            // and cannot see the Override_date label.
+            if (productionDate >= buildDateToProcess()) { return 'fail'; }
+
+            return productionDate.format();
+        } catch (Exception ex) {
+            return 'fail';
+        }
+    }
+
+    // ----------------------------------------------------------------
+    // calculate9CharDateCode
+    //   Populates every manufacturing field for a 9-character heatstick code.
+    //   Production Location and Factory are set for valid AND invalid codes.
+    // ----------------------------------------------------------------
+    public static PLResult calculate9CharDateCode(String traceCode) {
+        PLResult res = new PLResult();
+        // Location & Factory are always populated per SCR, regardless of validity
+        res.location = 'Virginia';
+        res.factory  = 'MC_HORIZON';
+
+        String prodDate = calculate9CharProductionDate(traceCode);
+        if (prodDate == 'fail') {
+            res.productionDate = 'FAIL';
+            return res;
+        }
+
+        String code = traceCode.toUpperCase();
+        res.productionDate = prodDate;
+
+        // Char 1 - Cold Storage. R = cold stored, V = not cold stored.
+        res.coldStorage = (code.substring(0, 1) == 'R') ? 'Y' : 'N';
+
+        // Char 7-9 - Module/Unit, Line and Bay. '5B1' -> unit 5B1, line "Line 5B", bay 5
+        res.unit = code.substring(6, 9);
+        res.line = code.substring(6, 8);
+        res.bay  = code.substring(6, 7);
+
+        // Char 5 - Shift and Military Time, reusing the PMUSA hourly code mapping.
+        // An unmapped character returns nothing, which leaves both fields blank
+        // without invalidating the trace code.
+        Map<String, String> hourly = DateCodeHelperMethods.CigTransDateCalculator(code, prodDate);
+        String shift = hourly.get('lv_shift');
+        // 'Post' is the PMUSA marker for "no shift for this character" - blanked the
+        // same way the cigarette path blanks it.
+        res.shift        = (shift == 'Post') ? '' : shift;
+        res.militaryTime = hourly.get('lv_military_time');
+
+        return res;
+    }
+
+    // ================================================================
+    // SCR 2026-07-07: PLOOM HEATED TOBACCO - 1 character
+    //   H -> Virginia  / MC_HORIZON
+    //   D -> INDONESIA / INDONESIA
+    // A 1-character code carries no production date, so a valid one returns
+    // 'NODATE' - the established contract for "valid, but no date to store".
+    // ================================================================
+
+    public static String calculate1CharProductionDate(String traceCode) {
+        if (traceCode == null || traceCode.length() != 1) { return 'fail'; }
+
+        String char1 = traceCode.toUpperCase();
+        return (char1 == 'H' || char1 == 'D') ? 'NODATE' : 'fail';
+    }
+
+    public static PLResult calculate1CharDateCode(String traceCode) {
+        PLResult res = new PLResult();
+
+        String prodDate = calculate1CharProductionDate(traceCode);
+        if (prodDate == 'fail') {
+            // Unlike the 9-character code there is no default Location/Factory to
+            // fall back on - both are derived from the character itself.
+            res.productionDate = 'FAIL';
+            return res;
+        }
+
+        res.productionDate = prodDate;
+        if (traceCode.toUpperCase() == 'H') {
+            res.location = 'Virginia';
+            res.factory  = 'MC_HORIZON';
+        } else {
+            res.location = 'INDONESIA';
+            res.factory  = 'INDONESIA';
+        }
 
         return res;
     }

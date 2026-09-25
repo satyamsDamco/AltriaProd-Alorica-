@@ -228,9 +228,22 @@ static testMethod void validateStoreEditController2() {
    ApexPages.currentPage().getParameters().put('IssueId',testCase.Id); 
    Test.startTest();
    StoreEditController obj=  new StoreEditController(new ApexPages.StandardController(storeTest));
-   obj.CancelRedirect();
+   // storeTest was never inserted, so there is no Store Detail page to return to - the
+   // page closes its own tab instead and the controller returns nothing.
+   PageReference unsavedRef = obj.CancelRedirect();
+
+   // Cancel on Store Edit must return the agent to Store Detail rather than close the
+   // console tab that Detail and Edit share.
+   insert storeTest;
+   obj.store = storeTest;
+   PageReference savedRef = obj.CancelRedirect();
    Test.stopTest();
       system.assertEquals(obj.selectedStoreType,null);
+      system.assertEquals(null, unsavedRef, 'Cancel on an unsaved store must not redirect.');
+      system.assertNotEquals(null, savedRef, 'Cancel on a saved store must redirect.');
+      system.assertEquals('/apex/StoreDetail?id=' + storeTest.Id, savedRef.getUrl(),
+                          'Cancel must land back on the Store Detail page.');
+      system.assertEquals(true, savedRef.getRedirect(), 'Cancel must be a redirect, not a forward.');
 
 }
     

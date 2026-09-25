@@ -2000,6 +2000,90 @@ public class DateCodeHelperTest {
         System.debug('PL Future-date scenario production date result: ' + r.ProductionDate);
     }
 
+    // SCR 2026-07-07: PL 9-character heatstick code (Packs & Cartons). Unlike the
+    // 12-character device code these are made in Virginia at MC_HORIZON, and they
+    // carry Cold Storage, Module/Line/Bay, Shift and Military Time.
+    private static testMethod void dateCodeFieldPL9Char_Valid() {
+        Test.startTest();
+        DateCodeHelper h = new DateCodeHelper();
+        // R(cold stored) + 036(Julian, 05 Feb) + V(hourly) + 6(2026) + 5B1(module)
+        DateCodeHelper.DateCode r = h.DateCodeFields('PL', 'R036V65B1', 'PMUSA', 'CAR', '', '', null);
+        Test.stopTest();
+
+        System.assertEquals('Virginia',   r.DateCodeLocation);
+        System.assertEquals('MC_HORIZON', r.DateCodeRptFactory);
+        System.assertEquals(Date.newInstance(2026, 2, 5).format(), r.ProductionDate);
+        System.assertEquals('5B1',  r.DateCodeUnit);
+        System.assertEquals('5',    r.DateCodeRptBay);
+        System.assertEquals('Y',    r.DateCodeColdStorage);
+        System.assertEquals('Y',    r.DateCodeShift);
+        System.assertEquals('2200', r.DateCodeMilitaryTime);
+    }
+
+    private static testMethod void dateCodeFieldPL9Char_NotColdStored() {
+        Test.startTest();
+        DateCodeHelper h = new DateCodeHelper();
+        DateCodeHelper.DateCode r = h.DateCodeFields('PL', 'V036A65C1', 'PMUSA', 'CAR', '', '', null);
+        Test.stopTest();
+
+        System.assertEquals('N',    r.DateCodeColdStorage, 'Position 1 V means not cold stored');
+        System.assertEquals('5C1',  r.DateCodeUnit);
+        System.assertEquals('Z',    r.DateCodeShift);
+        System.assertEquals('0100', r.DateCodeMilitaryTime);
+    }
+
+    // Invalid 9-character code: Location and Factory still populate, everything else does not.
+    private static testMethod void dateCodeFieldPL9Char_Invalid() {
+        Test.startTest();
+        DateCodeHelper h = new DateCodeHelper();
+        DateCodeHelper.DateCode r = h.DateCodeFields('PL', 'R036V65D1', 'PMUSA', 'CAR', '', '', null);
+        Test.stopTest();
+
+        System.assertEquals('FAIL',       r.ProductionDate);
+        System.assertEquals('Virginia',   r.DateCodeLocation, 'Location populates for invalid codes too');
+        System.assertEquals('MC_HORIZON', r.DateCodeRptFactory, 'Factory populates for invalid codes too');
+        System.assertEquals(null, r.DateCodeUnit);
+        System.assertEquals(null, r.DateCodeRptBay);
+    }
+
+    // SCR 2026-07-07: PL 1-character code resolves Location and Factory only.
+    private static testMethod void dateCodeFieldPL1Char() {
+        Test.startTest();
+        // A DateCodeHelper reuses one DateCode instance across calls, so each scenario
+        // needs its own helper for the results to stay independent.
+        DateCodeHelper.DateCode rH = new DateCodeHelper().DateCodeFields('PL', 'H', 'PMUSA', 'CAR', '', '', null);
+        DateCodeHelper.DateCode rD = new DateCodeHelper().DateCodeFields('PL', 'D', 'PMUSA', 'CAR', '', '', null);
+        DateCodeHelper.DateCode rX = new DateCodeHelper().DateCodeFields('PL', 'Z', 'PMUSA', 'CAR', '', '', null);
+        Test.stopTest();
+
+        System.assertEquals('Virginia',   rH.DateCodeLocation);
+        System.assertEquals('MC_HORIZON', rH.DateCodeRptFactory);
+        System.assertEquals('NODATE',     rH.ProductionDate);
+
+        System.assertEquals('INDONESIA', rD.DateCodeLocation);
+        System.assertEquals('INDONESIA', rD.DateCodeRptFactory);
+        System.assertEquals('NODATE',    rD.ProductionDate);
+
+        System.assertEquals('FAIL', rX.ProductionDate);
+    }
+
+    // Note: there is deliberately no blank-trace-code test here. DateCodeFields cannot
+    // return normally for a blank code on any product line - traceCode.substring(0,1)
+    // near the end of the method sits outside its try/catch and throws. The blank case
+    // is covered by TraceCodesDetailsHelperTest.getAllTraceCodeValuesTestPLNoTrace.
+
+    // An unsupported length is not a PLOOM code shape at all - it keeps the
+    // long-standing INDONESIA default and FAILs.
+    private static testMethod void dateCodeFieldPL_UnsupportedLength() {
+        Test.startTest();
+        DateCodeHelper.DateCode r = new DateCodeHelper().DateCodeFields('PL', 'UE250', 'PMUSA', 'CAR', '', '', null);
+        Test.stopTest();
+
+        System.assertEquals('INDONESIA', r.DateCodeLocation);
+        System.assertEquals('INDONESIA', r.DateCodeRptFactory);
+        System.assertEquals('FAIL', r.ProductionDate);
+    }
+
     // USST-2017 Nashville-group first characters not previously tested: A, E, B, K
     private static testMethod void dateCodeUSST2017_NashvilleExtraChars() {
         Test.startTest();

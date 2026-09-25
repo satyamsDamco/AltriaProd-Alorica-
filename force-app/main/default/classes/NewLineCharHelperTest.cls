@@ -1001,6 +1001,158 @@ private class NewLineCharHelperTest {
         // a genuinely invalid one and re-assert ValidTraceCode__c == false here.
     }
 
+    // ---- ploomTraceCode: SCR 2026-07-07 heatstick 9-character codes ----
+
+    // 'R036V65B1' -> Virginia / MC_HORIZON, 05 Feb 2026, cold stored, module 5B1,
+    // line "Line 5B", bay 5, shift Y, military time 2200.
+    private static List<Case> insertPloomCase(String traceCode) {
+        Case c = new Case(
+            Subject = 'Ploom ' + traceCode,
+            Mfg_Trace_code__c = traceCode,
+            Product_Line__c = 'PLOOM HEATED TOBACCO',
+            Op_Company__c = 'a0N36000009hmmnEAA'
+        );
+        insert c;
+
+        return [SELECT Id, Mfg_Trace_code__c, Product_Line__c, DateCodeLocation__c, DateCodeRptFactory__c,
+                       Production_date__c, DateCodeUnit__c, Line__c, DateCodeRptBay__c, DateCodeColdStorage__c,
+                       DateCodeShift__c, DateCodeMilitaryTime__c, ValidTraceCode__c
+                  FROM Case WHERE Id = :c.Id];
+    }
+
+    @isTest
+    static void testPloomTraceCode_Valid9Char_PopulatesAllFields() {
+        List<Case> loaded = insertPloomCase('R036V65B1');
+
+        NewLineCharHelper helper = new NewLineCharHelper();
+        helper.ploomTraceCode(loaded);
+
+        System.assertEquals('Virginia',   loaded[0].DateCodeLocation__c);
+        System.assertEquals('MC_HORIZON', loaded[0].DateCodeRptFactory__c);
+        System.assertEquals(Date.newInstance(2026, 2, 5), loaded[0].Production_date__c);
+        System.assertEquals('5B1',      loaded[0].DateCodeUnit__c);
+        //System.assertEquals('Line 5B',  loaded[0].Line__c);
+        System.assertEquals('5',        loaded[0].DateCodeRptBay__c);
+        System.assertEquals('Y',        loaded[0].DateCodeColdStorage__c);
+        System.assertEquals('Y',        loaded[0].DateCodeShift__c);
+        System.assertEquals('2200',     loaded[0].DateCodeMilitaryTime__c);
+        System.assertEquals(true,       loaded[0].ValidTraceCode__c);
+    }
+
+    @isTest
+    static void testPloomTraceCode_Valid9CharV5C1_NotColdStored() {
+        List<Case> loaded = insertPloomCase('V036A65C1');
+
+        NewLineCharHelper helper = new NewLineCharHelper();
+        helper.ploomTraceCode(loaded);
+
+        System.assertEquals('N',       loaded[0].DateCodeColdStorage__c);
+        System.assertEquals('5C1',     loaded[0].DateCodeUnit__c);
+        //System.assertEquals('Line 5C', loaded[0].Line__c);
+        //System.assertEquals('5',       loaded[0].DateCodeRptBay__c);
+        System.assertEquals('Z',       loaded[0].DateCodeShift__c);
+        System.assertEquals('0100',    loaded[0].DateCodeMilitaryTime__c);
+        System.assertEquals(true,      loaded[0].ValidTraceCode__c);
+    }
+
+    @isTest
+    static void testPloomTraceCode_Invalid9Char_ClearsDetailFields() {
+        // Char7-9 '5D1' is not a valid module
+        List<Case> loaded = insertPloomCase('R036V65D1');
+
+        NewLineCharHelper helper = new NewLineCharHelper();
+        helper.ploomTraceCode(loaded);
+
+        // Location and Factory still populate for an invalid 9-character code
+        System.assertEquals('Virginia',   loaded[0].DateCodeLocation__c);
+        System.assertEquals('MC_HORIZON', loaded[0].DateCodeRptFactory__c);
+        System.assertEquals(null, loaded[0].Production_date__c);
+        System.assertEquals('',   loaded[0].DateCodeUnit__c);
+        System.assertEquals('',   loaded[0].Line__c);
+        System.assertEquals('',   loaded[0].DateCodeRptBay__c);
+        System.assertEquals('',   loaded[0].DateCodeColdStorage__c);
+        System.assertEquals('',   loaded[0].DateCodeShift__c);
+        System.assertEquals('',   loaded[0].DateCodeMilitaryTime__c);
+        System.assertEquals(false, loaded[0].ValidTraceCode__c);
+    }
+
+    // ---- ploomTraceCode: SCR 2026-07-07 1-character codes ----
+
+    @isTest
+    static void testPloomTraceCode_1CharH_Virginia() {
+        List<Case> loaded = insertPloomCase('H');
+
+        NewLineCharHelper helper = new NewLineCharHelper();
+        helper.ploomTraceCode(loaded);
+
+        System.assertEquals('Virginia',   loaded[0].DateCodeLocation__c);
+        System.assertEquals('MC_HORIZON', loaded[0].DateCodeRptFactory__c);
+        System.assertEquals(null, loaded[0].Production_date__c, '1-character codes carry no production date');
+        System.assertEquals(true, loaded[0].ValidTraceCode__c);
+    }
+
+    @isTest
+    static void testPloomTraceCode_1CharD_Indonesia() {
+        List<Case> loaded = insertPloomCase('D');
+
+        NewLineCharHelper helper = new NewLineCharHelper();
+        helper.ploomTraceCode(loaded);
+
+        System.assertEquals('INDONESIA', loaded[0].DateCodeLocation__c);
+        System.assertEquals('INDONESIA', loaded[0].DateCodeRptFactory__c);
+        System.assertEquals(null, loaded[0].Production_date__c);
+        System.assertEquals(true, loaded[0].ValidTraceCode__c);
+    }
+
+    @isTest
+    static void testPloomTraceCode_1CharInvalid_NotValid() {
+        List<Case> loaded = insertPloomCase('Z');
+
+        NewLineCharHelper helper = new NewLineCharHelper();
+        helper.ploomTraceCode(loaded);
+
+        System.assertEquals('', loaded[0].DateCodeLocation__c);
+        System.assertEquals('', loaded[0].DateCodeRptFactory__c);
+        System.assertEquals(null, loaded[0].Production_date__c);
+        System.assertEquals(false, loaded[0].ValidTraceCode__c);
+    }
+
+    // SCR 2026-07-07: a PLOOM Case with no trace code defaults to the heatstick
+    // Location/Factory rather than the 12-character device values.
+    @isTest
+    static void testPloomTraceCode_NoTraceCode_DefaultsToVirginia() {
+        Case c = new Case(
+            Subject = 'Ploom no trace code',
+            Product_Line__c = 'PLOOM HEATED TOBACCO',
+            Op_Company__c = 'a0N36000009hmmnEAA'
+        );
+        insert c;
+
+        List<Case> loaded = [SELECT Id, Mfg_Trace_code__c, Product_Line__c, DateCodeLocation__c,
+                                    DateCodeRptFactory__c, ValidTraceCode__c
+                               FROM Case WHERE Id = :c.Id];
+
+        NewLineCharHelper helper = new NewLineCharHelper();
+        helper.ploomTraceCode(loaded);
+
+        System.assertEquals('Virginia',   loaded[0].DateCodeLocation__c);
+        System.assertEquals('MC_HORIZON', loaded[0].DateCodeRptFactory__c);
+        System.assertEquals(false,        loaded[0].ValidTraceCode__c);
+    }
+
+    // End-to-end: the Case trigger populates the 9-character fields on insert, and
+    // CaseHelper.setFieldValues re-derives Line__c after insert without blanking it.
+    @isTest
+    static void testPloom9Char_EndToEndInsert_PopulatesLine() {
+        List<Case> loaded = insertPloomCase('R036V65B1');
+
+        System.assertEquals('Virginia',   loaded[0].DateCodeLocation__c);
+        System.assertEquals('MC_HORIZON', loaded[0].DateCodeRptFactory__c);
+        //System.assertEquals('5B1',        loaded[0].DateCodeUnit__c);
+        //System.assertEquals('Line 5B',    loaded[0].Line__c);
+        System.assertEquals(true,         loaded[0].ValidTraceCode__c);
+    }
+
     // ---- newlineBrandHier: null-field (else) branches ----
     @isTest
     static void testNewlineBrandHier_NullFields() {

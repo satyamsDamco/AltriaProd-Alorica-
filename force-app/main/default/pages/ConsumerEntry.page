@@ -32,18 +32,31 @@
         
         
         function CloseTabCustomer() {
+            // Consumer Detail navigates into this page in place (server side PageReference),
+            // so Detail and Edit share one Lightning workspace tab. Closing that tab would
+            // take the Detail view down with it and drop the agent back on the search page.
+            // For a saved consumer, hand off to the controller instead - it redirects this
+            // same tab back to the Detail view (or to Consumer Search for the from=search
+            // preview). A consumer with no id yet was opened in a tab of its own, so that
+            // case keeps closing the tab exactly as before.
+            var conId = '{!conObj.id}';
+            if(conId != null && conId != '' && conId != 'null') {
+                CancelRedirect();
+                return false;
+            }
+
             sforce.console.getEnclosingTabId(function(result) {
                 console.log('Tab Result:', result);
-                
+
                 if(result.success && result.id) {
                     sforce.console.closeTab(result.id);
                 } else {
                     console.error(result);
                 }
             });
-            
+
             return false;
-        }   
+        }
         
         
         
@@ -404,7 +417,7 @@
             <apex:actionFunction name="getCityData" action="{!getcitystate}" rerender="state,city,mg"/>
             <apex:actionFunction name="getCurrCountry" action="{!getCurrCountry}"/>
             <apex:actionFunction name="countryChanged" action="{!getCurrCountry}" oncomplete="blankCityState()"/>
-            <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
+            <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect" immediate="true"/>
             <apex:actionFunction name="streetChanged" action="{!streetChanged}" rerender="pbs1"/>
             <apex:actionfunction name="callSave" action="{!save}"/>
             
@@ -507,7 +520,7 @@
             <apex:actionFunction name="getCityDataTrade" action="{!getcitystate}" rerender="state1,city1,mg1"/>
             <apex:actionFunction name="getCurrCountry" action="{!getCurrCountry}"/>
             <apex:actionFunction name="countryChanged" action="{!getCurrCountry}" oncomplete="blankCityState1()"/>
-            <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
+            <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect" immediate="true"/>
             <apex:pageMessages id="mg1"></apex:pageMessages>
             
             <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
@@ -596,7 +609,7 @@
         
         <!-- Consumer Show Start here -->
         <apex:pageBlock rendered="{!Customershow && fromPage != null && fromPage == 'search'}" mode="Edit" id="pbSearch">
-            <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
+            <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect" immediate="true"/>
             <apex:pageMessages id="mg"></apex:pageMessages>
             
             <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
@@ -657,7 +670,7 @@
         
         <!-- Trade Show Screen Start here-->
         <apex:pageBlock rendered="{!!Customershow && fromPage != null && fromPage == 'search'}" id="pbs2Search" mode="Edit">
-            <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
+            <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect" immediate="true"/>
             <apex:pageMessages id="mg1"></apex:pageMessages>
             
             <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">

@@ -1172,11 +1172,24 @@
                 TraceCodeHelper traceHelper = new TraceCodeHelper();  
                 String productionDate1;
                 if (ProductLineCode.Name == 'PLOOM HEATED TOBACCO') {
-                    // 12-char PLOOM trace code: originalTraceCode preserves lowercase 'd' for day index 11
-                    productionDate1 = TraceCodeHelperSecondClass.validatePloomTraceCode(originalTraceCode);
-                    // On a valid PLOOM trace code, populate Serial_Number__c from chars 3-9 (the 7-digit serial block)
-                    if (productionDate1 != 'fail') {
-                        caseObj.Serial_Number__c = TraceCodeHelperSecondClass.extractPloomSerialNumber(originalTraceCode);
+                    // PLOOM supports three trace code lengths, each with its own rules:
+                    //   12 - Devices   (SCR 2026-05-01)
+                    //    9 - Heatstick Packs & Cartons (SCR 2026-07-07)
+                    //    1 - Factory / Location only   (SCR 2026-07-07)
+                    Integer ploomLength = originalTraceCode.length();
+                    if (ploomLength == 12) {
+                        // originalTraceCode preserves lowercase 'd' for day index 11
+                        productionDate1 = TraceCodeHelperSecondClass.validatePloomTraceCode(originalTraceCode);
+                        // On a valid PLOOM trace code, populate Serial_Number__c from chars 3-9 (the 7-digit serial block)
+                        if (productionDate1 != 'fail') {
+                            caseObj.Serial_Number__c = TraceCodeHelperSecondClass.extractPloomSerialNumber(originalTraceCode);
+                        }
+                    } else if (ploomLength == 9) {
+                        productionDate1 = TraceCodeHelperSecondClass.validatePloom9CharTraceCode(originalTraceCode);
+                    } else if (ploomLength == 1) {
+                        productionDate1 = TraceCodeHelperSecondClass.validatePloom1CharTraceCode(originalTraceCode);
+                    } else {
+                        productionDate1 = 'fail';
                     }
                 } else {
                     productionDate1 = traceHelper.traceCodeValidation(ProductLineCode.Code__c, caseObj.Mfg_Trace_code__c, ProductLineCode.Operating_Company__c, caseObj.Trace_Code_Location__c, caseObj);
@@ -1362,10 +1375,17 @@
         return null;
     }
     //Method to redirect if the cancel button is clicked.
-    public PageReference cancelRedirect(){   
-        PageReference pageRef = new PageReference('/apex/Issue_Detail?id='+caseObj.Id);
+    public PageReference cancelRedirect(){
+        // An issue that was never saved has no Issue Detail page to return to. The page
+        // closes its own tab in that case and never calls this method.
+        if(caseObj.Id == null){
+            return null;
+        }
+        // Same destination shape as save(), so Cancel and Save land on an identically
+        // built Issue Detail URL.
+        PageReference pageRef = new PageReference('/apex/Issue_Detail?id='+caseObj.Id+parameters);
         pageRef.setRedirect(true);
-        return pageRef;             
+        return pageRef;
     }
     //Method to get the creatable fields of a object and create a dynamic soql query.
     public static string getCreatableFieldsSOQL(String objectName, String whereClause){

@@ -61,6 +61,17 @@
     }
              
     function closeCancelTab() {
+        // Store Detail navigates into this page in place (editStore returns a PageReference),
+        // so Detail and Edit share one Lightning workspace tab. Closing that tab on Cancel
+        // would take the Detail view down with it. For a saved store, let the controller
+        // redirect this same tab back to Store Detail. A new store has no Detail page to
+        // return to and was opened in its own tab, so it still closes as before.
+        var storeId = '{!store.Id}';
+        if (storeId != null && storeId != '' && storeId != 'null') {
+            CancelRedirect();
+            return false;
+        }
+
         sforce.console.getEnclosingTabId(function (result) {
             console.log('Tab Result:', result);
 
@@ -72,7 +83,7 @@
         });
 
         return false;
-    }   
+    }
         
         var closeSubtab = function closeSubtab(result) {
             //Now that we have the tab ID, we can close it
@@ -100,7 +111,7 @@
     </script>        
         <apex:pageBlock mode="edit" id="block1">              
             <apex:pageMessages id="message"/>
-             <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect"/>
+             <apex:actionFunction action="{!CancelRedirect}" name="CancelRedirect" immediate="true"/>
             <!-- different action function call on click of save button -->
              <apex:actionFunction id="reRenderFunction" action="{!submitStore}" name="reRenderFunction" reRender="block1" />
             <apex:actionFunction id="nonRerenderFunction" action="{!submitStore}" name="nonRerenderFunction" />

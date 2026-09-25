@@ -210,7 +210,9 @@ public class DateCodeHelper
                 {
                     production_date = 'FAIL';
                 }
-                else if(ProductLineCode == 'PL' && traceCode.length() != 12)
+                //SCR 2026-05-01 (12 char - Devices), SCR 2026-07-07 (9 char - Heatstick
+                //Packs & Cartons, 1 char - Factory/Location only)
+                else if(ProductLineCode == 'PL' && traceCode.length() != 12 && traceCode.length() != 9 && traceCode.length() != 1)
                 {
                     production_date = 'FAIL';
                 }
@@ -1291,12 +1293,38 @@ charset.add('D');*/
                 //SCR 2026-05-01: Trace Codes - PLOOM Devices
                 else if(productLineCode == 'PL')
                 {
-                    // Location & Factory always INDONESIA regardless of validity (per SCR)
-                    lv_location = 'INDONESIA';
-                    lv_date_code_rpt_factory = 'INDONESIA';
-
-                    if(traceCode.length() == 12)
+                    //SCR 2026-07-07: Trace Codes - PLOOM Heatsticks.
+                    //A blank trace code is not handled here: this method cannot return
+                    //normally for one (the codep = traceCode.substring(0,1) below sits
+                    //outside the try/catch), which is why TraceCodesDetailsHelper only
+                    //calls it when TraceCode.length() > 0 and defaults Location/Factory
+                    //to Virginia / MC_HORIZON itself.
+                    if(traceCode.length() == 9)
                     {
+                        PLProductLineHelper.PLResult pl9 = PLProductLineHelper.calculate9CharDateCode(traceCode);
+                        // Location & Factory are populated whether the code is valid or not
+                        lv_location                 = pl9.location;
+                        lv_date_code_rpt_factory    = pl9.factory;
+                        production_date             = pl9.productionDate;
+                        lv_unit                     = pl9.unit;
+                        lv_date_code_rpt_bay        = pl9.bay;
+                        lv_date_code_cold_storage   = pl9.coldStorage;
+                        lv_shift                    = pl9.shift;
+                        lv_military_time            = pl9.militaryTime;
+                    }
+                    else if(traceCode.length() == 1)
+                    {
+                        PLProductLineHelper.PLResult pl1 = PLProductLineHelper.calculate1CharDateCode(traceCode);
+                        lv_location              = pl1.location;
+                        lv_date_code_rpt_factory = pl1.factory;
+                        production_date          = pl1.productionDate;
+                    }
+                    else if(traceCode.length() == 12)
+                    {
+                        // Location & Factory always INDONESIA regardless of validity (per SCR)
+                        lv_location = 'INDONESIA';
+                        lv_date_code_rpt_factory = 'INDONESIA';
+
                         String char2     = traceCode.substring(1, 2);
                         String serialNum = traceCode.substring(2, 9);
                         String yearChar  = traceCode.substring(9, 10);
@@ -1365,6 +1393,14 @@ charset.add('D');*/
                         } else {
                             production_date = 'FAIL';
                         }
+                    }
+                    else
+                    {
+                        // Any other length is not a PLOOM trace code shape at all and has
+                        // already been marked FAIL by the length gate above. Keep the
+                        // long-standing INDONESIA default for it.
+                        lv_location = 'INDONESIA';
+                        lv_date_code_rpt_factory = 'INDONESIA';
                     }
                 }
                 //end Product Code PL

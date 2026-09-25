@@ -207,9 +207,72 @@ test class of Consumer Entry
          Test.stopTest();
         // System.assertEquals('Fname', controller.conObj.FirstName );
      }
-      
+
+     // Cancel on Consumer Edit must return the agent to the Consumer Detail page rather
+     // than close the console tab that Detail and Edit share.
+     static testMethod void validateCancelRedirectToConsumerDetail()
+     {
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'20001',bdate,'Test Street', true, true);
+        insert testCont;
+        Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','PMUSA',true);
+        insert testOpCo;
+        TFN__c testTFN = TestDataSetup.createTFN(true, '1800', 45, testOpCo);
+        insert testTFN;
+        Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo, testTFN);
+        insert testTM;
+        ApexPages.currentPage().getParameters().put('tranid', testTM.Id);
+
+        Test.startTest();
+        ConsumerEntryController controller = new ConsumerEntryController(new ApexPages.StandardController(testCont));
+        PageReference savedRef = controller.cancelRedirect();
+
+        // A consumer that was never saved has no Detail page, so the page closes its own
+        // tab instead and the controller returns nothing.
+        controller.conObj = new Contact();
+        PageReference unsavedRef = controller.cancelRedirect();
+        Test.stopTest();
+
+        System.assertNotEquals(null, savedRef, 'Cancel on a saved consumer must redirect.');
+        System.assertEquals('/apex/ConsumerDetailPage?id=' + testCont.Id, savedRef.getUrl(),
+                            'Cancel must land back on the Consumer Detail page.');
+        System.assertEquals(true, savedRef.getRedirect(), 'Cancel must be a redirect, not a forward.');
+        System.assertEquals(null, unsavedRef, 'Cancel on an unsaved consumer must not redirect.');
+     }
+
+     // The from=search preview is reached by picking a row on Consumer Search and offers
+     // Assign Consumer / Cancel. Cancel there goes back to the search, not to Detail.
+     static testMethod void validateCancelRedirectFromSearch()
+     {
+        Account testAcc = TestDataSetup.createAccount('Test Account');
+        insert testAcc;
+        Date bdate = Date.newInstance(1989, 06, 14);
+        Contact testCont = TestDataSetup.createContact('Test Fname','Test Lname',testAcc.Id,true,'20001',bdate,'Test Street', true, true);
+        insert testCont;
+        Operating_Company__c testOpCo = TestDataSetup.createOpCo('Telephone', 'Phone USST','Inbound','PMUSA',true);
+        insert testOpCo;
+        TFN__c testTFN = TestDataSetup.createTFN(true, '1800', 45, testOpCo);
+        insert testTFN;
+        Transaction_Management__c testTM = TestDataSetup.createTM(testOpCo, testTFN);
+        insert testTM;
+        ApexPages.currentPage().getParameters().put('tranid', testTM.Id);
+        ApexPages.currentPage().getParameters().put('from', 'search');
+
+        Test.startTest();
+        ConsumerEntryController controller = new ConsumerEntryController(new ApexPages.StandardController(testCont));
+        PageReference searchRef = controller.cancelRedirect();
+        Test.stopTest();
+
+        System.assertEquals('search', controller.fromPage, 'The from parameter must drive fromPage.');
+        System.assertNotEquals(null, searchRef, 'Cancel on the search preview must redirect.');
+        System.assertEquals('/apex/ConsumerSearch?tranid=' + testTM.Id, searchRef.getUrl(),
+                            'Cancel on the search preview must land back on Consumer Search.');
+     }
+
      // validate Getcitystate method
-     static testMethod void validateGetcitystate() 
+     static testMethod void validateGetcitystate()
      {
         Account testAcc = TestDataSetup.createAccount('Test Account');
         insert testAcc ;

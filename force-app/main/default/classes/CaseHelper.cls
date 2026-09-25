@@ -176,6 +176,11 @@ public class CaseHelper{
                             lineValue = '';
                         }
                     }
+                } else if(caseRec.DateCodeUnit__c != null && caseRec.Product_Line__c == 'PLOOM HEATED TOBACCO' && dcuValue.length() == 3) {
+                    // SCR 2026-07-07: 9-character heatstick code. Unit '5B1' -> 'Line 5B'.
+                    // Recomputed here because this method rewrites Line__c on every
+                    // after-insert and would otherwise blank the value the before-trigger set.
+                    lineValue = dcuValue.substring(0,2);
                 } else if(caseRec.DateCodeUnit__c != null && caseRec.Product_Line__c == 'Cigarettes' && dcuMidValue != '0') {
                     lineValue = dcuValue.substring(0,2);
                 } else if(caseRec.DateCodeUnit__c != null && caseRec.Product_Line__c == 'Cigarettes' && dcuMidValue == '0') {
