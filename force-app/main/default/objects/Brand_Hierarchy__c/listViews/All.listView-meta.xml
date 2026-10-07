@@ -18,9 +18,9 @@
     <columns>CREATEDBY_USER</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>NAME</field>
-        <operation>equals</operation>
-        <value>BH8747</value>
+        <field>Vantive_Id__c</field>
+        <operation>contains</operation>
+        <value>1287078</value>
     </filters>
     <label>All</label>
 </ListView>

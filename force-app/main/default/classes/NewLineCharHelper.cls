@@ -487,50 +487,12 @@ public void newlineCase(List<Case> caseUpdate) {
                                                    //Machine Code = 5th character + 10th character (e.g., E4)
                                                    caseObj.Machine_Code__c = module + machineCodeChar;
                                                    
-                                                   //Set Line and DateCodeUnit based on 5th character (module)
-                                                   if(module == 'U'){
-                                                       caseObj.Line__c = 'Bay 9 – Line#1';
-                                                       caseObj.DateCodeUnit__c = 'U';
-                                                   }
-                                                   if(module == 'J'){
-                                                       caseObj.Line__c = 'Bay 9 – Line#2';
-                                                       caseObj.DateCodeUnit__c = 'J';
-                                                   }
-                                                   if(module == 'N'){
-                                                       caseObj.Line__c = 'Bay 9 – Line#3';
-                                                       caseObj.DateCodeUnit__c = 'N';
-                                                   }
-                                                   if(module == 'P'){
-                                                       caseObj.Line__c = 'Bay 9 – Line#4';
-                                                       caseObj.DateCodeUnit__c = 'P';
-                                                   }
-                                                   if(module == 'H'){
-                                                       caseObj.Line__c = 'USSTC Ric - Line H';
-                                                       caseObj.DateCodeUnit__c = 'H';
-                                                   }
-                                                   if(module == 'E'){
-                                                       caseObj.Line__c = 'USSTC Ric - Line E';
-                                                       caseObj.DateCodeUnit__c = 'E';
-                                                   }
-                                                   if(module == 'A'){
-                                                       caseObj.Line__c = 'USSTC Ric - Line A';
-                                                       caseObj.DateCodeUnit__c = 'A';
-                                                   }
-                                                   if(module == 'B'){
-                                                       caseObj.Line__c = 'USSTC Ric - Line B';
-                                                       caseObj.DateCodeUnit__c = 'B';
-                                                   }
-                                                   if(module == 'C'){
-                                                       caseObj.Line__c = 'USSTC Ric - Line C';
-                                                       caseObj.DateCodeUnit__c = 'C';
-                                                   }
-                                                   if(module == 'D'){
-                                                       caseObj.Line__c = 'USSTC Ric - Line D';
-                                                       caseObj.DateCodeUnit__c = 'D';
-                                                   }
-                                                   if(module == 'F'){
-                                                       caseObj.Line__c = 'USSTC Ric - Line F';
-                                                       caseObj.DateCodeUnit__c = 'F';
+                                                   //Set Line and DateCodeUnit based on 5th character (module).
+                                                   //Uses the same newLineMap as the 9-character branch so the approved
+                                                   //'USSTC Ric – Line X' naming (en-dash) is defined in one place only.
+                                                   if(newLineMap.containsKey(module)){
+                                                       caseObj.Line__c = newLineMap.get(module);
+                                                       caseObj.DateCodeUnit__c = module;
                                                    }
                                                }
                                                else{

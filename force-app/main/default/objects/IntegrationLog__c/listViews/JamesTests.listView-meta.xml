@@ -14,12 +14,7 @@
     <filters>
         <field>CREATED_DATE</field>
         <operation>greaterOrEqual</operation>
-        <value>8/10/2026 12:00 AM</value>
-    </filters>
-    <filters>
-        <field>Type__c</field>
-        <operation>equals</operation>
-        <value>Acxiom</value>
+        <value>10/2/2026 12:00 AM</value>
     </filters>
     <label>James Tests</label>
 </ListView>

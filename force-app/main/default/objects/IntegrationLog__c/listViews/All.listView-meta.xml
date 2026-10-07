@@ -11,5 +11,10 @@
     <columns>UPDATEDBY_USER</columns>
     <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>greaterThan</operation>
+        <value>9/1/2026 12:00 AM</value>
+    </filters>
     <label>All</label>
 </ListView>

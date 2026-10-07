@@ -670,7 +670,7 @@ private class NewLineCharHelperTest {
         System.assertEquals(true, loaded[0].ValidTraceCode__c);
         System.assertEquals('0630', loaded[0].DateCodeMilitaryTime__c);
         System.assertEquals('1', loaded[0].DateCodeShift__c);
-        System.assertEquals('USSTC Ric - Line A', loaded[0].Line__c);
+        System.assertEquals('USSTC Ric – Line A', loaded[0].Line__c);
         System.assertEquals('A', loaded[0].DateCodeUnit__c);
         System.assertEquals('A1', loaded[0].Machine_Code__c);
 
@@ -684,7 +684,7 @@ private class NewLineCharHelperTest {
         System.assertEquals(true, loaded[2].ValidTraceCode__c);
         System.assertEquals('2230', loaded[2].DateCodeMilitaryTime__c);
         System.assertEquals('3', loaded[2].DateCodeShift__c);
-        System.assertEquals('USSTC Ric - Line H', loaded[2].Line__c);
+        System.assertEquals('USSTC Ric – Line H', loaded[2].Line__c);
         System.assertEquals('H', loaded[2].DateCodeUnit__c);
         System.assertEquals('H3', loaded[2].Machine_Code__c);
     }
@@ -1396,8 +1396,8 @@ private class NewLineCharHelperTest {
     }
 
     // ---- Helix9CharcterCode (10-char branch): the remaining module letters.
-    // The existing tests only ever hit modules A, U, and H. Each "if (module == 'X')" is a
-    // separate statement (not else-if), so each one needs its own execution to be covered.
+    // The existing tests only ever hit modules A, U, and H; this checks every other module
+    // resolves to the approved newLineMap value (en-dash) for 10-character codes.
     @isTest
     static void testHelix10CharacterCode_RemainingModules() {
         List<Case> cases = new List<Case>{
@@ -1424,11 +1424,11 @@ private class NewLineCharHelperTest {
         helper.Helix9CharcterCode(loaded, true, false, null);
 
         Map<String, String> expectedLine = new Map<String, String>{
-            'H10B' => 'USSTC Ric - Line B',
-            'H10C' => 'USSTC Ric - Line C',
-            'H10D' => 'USSTC Ric - Line D',
-            'H10E' => 'USSTC Ric - Line E',
-            'H10F' => 'USSTC Ric - Line F',
+            'H10B' => 'USSTC Ric – Line B',
+            'H10C' => 'USSTC Ric – Line C',
+            'H10D' => 'USSTC Ric – Line D',
+            'H10E' => 'USSTC Ric – Line E',
+            'H10F' => 'USSTC Ric – Line F',
             'H10J' => 'Bay 9 – Line#2',
             'H10N' => 'Bay 9 – Line#3',
             'H10P' => 'Bay 9 – Line#4'
