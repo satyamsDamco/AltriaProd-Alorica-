@@ -87,7 +87,7 @@ public without sharing class LexisNexisCallout{
         requestXMLBody += '<wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">'+settings.Password__c+'</wsse:Password>';
         requestXMLBody += '</wsse:UsernameToken></wsse:Security></soap:Header>';
         requestXMLBody += '<soap:Body>';
-        requestXMLBody += '<invokeIdentityService xmlns:wsn="http://ns.lexisnexis.com/identity-proofing/1.0">';
+        requestXMLBody += '<invokeIdentityService xmlns:wsn="http://ns.lexisnexisrisk.com/identity-proofing/1.0">';
         requestXMLBody += '<wsn:identityProofingRequest wsn:transactionID="'+transactionID+'" wsn:locale="en_US" wsn:customerReference="180690628">';
         requestXMLBody += '<wsn:workFlow>'+settings.Workflow_Name__c+'</wsn:workFlow>';
         requestXMLBody += '<wsn:inputSubject>';
@@ -170,8 +170,8 @@ public without sharing class LexisNexisCallout{
              }else if(requestXMLBody.contains('9876')){          
                 responseXMLTest += '<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">';
                 responseXMLTest += '<soap:Body>';
-                responseXMLTest += '<ns1:invokeIdentityServiceResponse xmlns:ns1="http://ws.identityproofing.idm.risk.lexisnexis.com/">';
-                responseXMLTest += '<identityProofingResponse xmlns="http://ns.lexisnexis.com/identity-proofing/1.0" xmlns:ns="http://ns.lexisnexis.com/identity-proofing/1.0" ns:transactionID="00f615da-cd0b-26f3-df39-c2dd86f809f2" ns:responseUniqueId="60090736">';
+                responseXMLTest += '<ns1:invokeIdentityServiceResponse xmlns:ns1="http://ws.identityproofing.idm.risk.lexisnexisrisk.com/">';
+                responseXMLTest += '<identityProofingResponse xmlns="http://ns.lexisnexisrisk.com/identity-proofing/1.0" xmlns:ns="http://ns.lexisnexisrisk.com/identity-proofing/1.0" ns:transactionID="00f615da-cd0b-26f3-df39-c2dd86f809f2" ns:responseUniqueId="60090736">';
                 responseXMLTest += '<workFlow>CRC_NEW</workFlow>';
                 responseXMLTest += '<status>FAIL</status>';
                 responseXMLTest += '<statusDescription>Failed to retrieve a unique identity</statusDescription>';
@@ -179,8 +179,8 @@ public without sharing class LexisNexisCallout{
              }else{          
                 responseXMLTest += '<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">';
                 responseXMLTest += '<soap:Body>';
-                responseXMLTest += '<ns1:invokeIdentityServiceResponse xmlns:ns1="http://ws.identityproofing.idm.risk.lexisnexis.com/">';
-                responseXMLTest += '<identityProofingResponse xmlns="http://ns.lexisnexis.com/identity-proofing/1.0" xmlns:ns="http://ns.lexisnexis.com/identity-proofing/1.0" ns:transactionID="00f615da-cd0b-26f3-df39-c2dd86f809f2" ns:responseUniqueId="60090736">';
+                responseXMLTest += '<ns1:invokeIdentityServiceResponse xmlns:ns1="http://ws.identityproofing.idm.risk.lexisnexisrisk.com/">';
+                responseXMLTest += '<identityProofingResponse xmlns="http://ns.lexisnexisrisk.com/identity-proofing/1.0" xmlns:ns="http://ns.lexisnexisrisk.com/identity-proofing/1.0" ns:transactionID="00f615da-cd0b-26f3-df39-c2dd86f809f2" ns:responseUniqueId="60090736">';
                 responseXMLTest += '<workFlow>CRC_NEW</workFlow>';
                 responseXMLTest += '<status>Pass</status>';
                 responseXMLTest += '<statusDescription>Failed to retrieve a unique identity</statusDescription>';

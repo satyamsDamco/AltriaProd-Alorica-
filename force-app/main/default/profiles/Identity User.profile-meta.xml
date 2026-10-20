@@ -21,6 +21,11 @@
         <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
+        <application>standard__AlmDevops</application>
+        <default>false</default>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
         <application>standard__AppLauncher</application>
         <default>true</default>
         <visible>true</visible>
@@ -554,6 +559,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>LexisNexisCallout</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LexisNexisCalloutTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>

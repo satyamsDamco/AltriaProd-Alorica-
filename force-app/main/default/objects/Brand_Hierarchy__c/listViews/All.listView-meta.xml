@@ -18,9 +18,9 @@
     <columns>CREATEDBY_USER</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Vantive_Id__c</field>
-        <operation>contains</operation>
-        <value>1287078</value>
+        <field>CREATED_DATE</field>
+        <operation>greaterOrEqual</operation>
+        <value>10/16/2026 12:00 AM</value>
     </filters>
     <label>All</label>
 </ListView>

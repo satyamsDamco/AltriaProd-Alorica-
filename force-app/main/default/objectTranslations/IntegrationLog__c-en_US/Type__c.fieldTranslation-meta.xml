@@ -3,6 +3,10 @@
     <label><!-- Type --></label>
     <name>Type__c</name>
     <picklistValues>
+        <masterLabel>API Outbound</masterLabel>
+        <translation><!-- API Outbound --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>Acxiom</masterLabel>
         <translation><!-- Acxiom --></translation>
     </picklistValues>

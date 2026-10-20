@@ -16,5 +16,10 @@
         <operation>greaterThan</operation>
         <value>9/1/2026 12:00 AM</value>
     </filters>
+    <filters>
+        <field>Type__c</field>
+        <operation>equals</operation>
+        <value>API Outbound</value>
+    </filters>
     <label>All</label>
 </ListView>

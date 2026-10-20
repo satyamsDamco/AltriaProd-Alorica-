@@ -28,6 +28,11 @@
                 <default>false</default>
                 <label>Alorica</label>
             </value>
+            <value>
+                <fullName>API Outbound</fullName>
+                <default>false</default>
+                <label>API Outbound</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

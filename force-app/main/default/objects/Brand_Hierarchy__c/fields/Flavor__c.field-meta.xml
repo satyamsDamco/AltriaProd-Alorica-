@@ -1106,6 +1106,11 @@
                 <label>CRISP MENTHOL</label>
             </value>
             <value>
+                <fullName>Watermelon Mint</fullName>
+                <default>false</default>
+                <label>Watermelon Mint</label>
+            </value>
+            <value>
                 <fullName>2A</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

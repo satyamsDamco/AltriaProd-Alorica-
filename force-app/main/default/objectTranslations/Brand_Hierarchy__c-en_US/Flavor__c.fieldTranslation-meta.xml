@@ -835,6 +835,10 @@
         <translation><!-- Watermelon Lime --></translation>
     </picklistValues>
     <picklistValues>
+        <masterLabel>Watermelon Mint</masterLabel>
+        <translation><!-- Watermelon Mint --></translation>
+    </picklistValues>
+    <picklistValues>
         <masterLabel>WeymanS Best</masterLabel>
         <translation><!-- WeymanS Best --></translation>
     </picklistValues>
